@@ -1,0 +1,1018 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="软件构造第一章总结, Demerzel Sun&#39;s blog">
+    <meta name="description" content="雨过枫山送远青">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>软件构造第一章总结 | Demerzel Sun&#39;s blog</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Demerzel Sun's blog" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Demerzel Sun&#39;s blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Demerzel Sun&#39;s blog</div>
+        <div class="logo-desc">
+            
+            雨过枫山送远青
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">软件构造第一章总结</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0%E7%AC%94%E8%AE%B0/">
+                                <span class="chip bg-color">软件构造笔记</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0/" class="post-category">
+                                软件构造
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-03-08
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    1.9k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    7 分
+                </div>
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="软件构造第一章总结"><a href="#软件构造第一章总结" class="headerlink" title=" 软件构造第一章总结"></a> 软件构造第一章总结</h1><!-- toc -->
+
+<h2 id="一、软件构造多维度视图"><a href="#一、软件构造多维度视图" class="headerlink" title="一、软件构造多维度视图"></a>一、软件构造多维度视图</h2><h3 id="1-1-从三个维度看软件系统的构成"><a href="#1-1-从三个维度看软件系统的构成" class="headerlink" title="1.1 从三个维度看软件系统的构成"></a>1.1 从三个维度看软件系统的构成</h3><ol>
+<li><p>按阶段划分：build-time（构造阶段）和run-time（运行阶段）</p>
+</li>
+<li><p>按动态划分：moment（时刻）和period（时期）</p>
+</li>
+<li><p>按层次划分：code（代码层面）和component（组件，文件层面）</p>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200313184621493.jpg" width="70%" height="25%">
+</center>
+<center>
+图1-1 软件构造多维度视图
+</center>
+
+<a id="more"></a>
+
+
+</li>
+</ol>
+<h2 id="二、软件构造的阶段划分、各阶段的构造活动"><a href="#二、软件构造的阶段划分、各阶段的构造活动" class="headerlink" title="二、软件构造的阶段划分、各阶段的构造活动"></a>二、软件构造的阶段划分、各阶段的构造活动</h2><h3 id="2-1-Build-time"><a href="#2-1-Build-time" class="headerlink" title="2.1. Build-time"></a>2.1. Build-time</h3><p>&emsp;&emsp;想法⇒\Rightarrow⇒需求⇒\Rightarrow⇒设计⇒\Rightarrow⇒代码⇒\Rightarrow⇒可安装并执行的包<br>&emsp;&emsp;Code-level view：代码的逻辑组织（函数、类、方法、接口······）<br>&emsp;&emsp;Component-level view：代码的物理组织（文件、目录、包、程序库······）<br>&emsp;&emsp;Moment view：特定时刻的软件形态<br>&emsp;&emsp;Period view：软件形态随时间的变化</p>
+<p><strong>1. build-time; moment; code-level</strong><br>三种相互关联的形式</p>
+<p>面向词法：半结构化源代码<br>面向词法：（AST抽象语法树）半结构化的源代码变成语法树（编译器能够处理）<br>面向词法：UML视图（通常是图形化或形式化的）</p>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200313193130236.png" width="70%" height="25%">
+</center>
+<center>
+图2-1 UML图
+</center>
+
+
+<p><strong>2. build-time; period; code-level</strong><br>Code churn（代码变化）</p>
+<p><strong>3. build-time; moment; component-level</strong><br>源代码如何组织成文件——通过类库<br>文件被压缩进package，逻辑上进入components（组件）and sub-systems（子系统）</p>
+<p><strong>链接技术（动态 / 静态）</strong><br>Library</p>
+<ol>
+<li>操作系统提供的库</li>
+<li>编程语言提供的库</li>
+<li>第三方公司提供的库</li>
+<li>自己编写的库</li>
+</ol>
+<p>链接：编程时和build时，需告诉IDE和JVM在哪里寻找某些库。</p>
+<p>静态链接</p>
+<p>库被拷贝进入代码形成整体，执行的时候无需提供库文件。<br>静态链接发生在构造阶段。</p>
+<p><strong>4. build-time; period; component-level</strong><br>SCI 配置项的更改<br>VCS 版本控制系统<br>各项软件实体随时间如何变化<br>软件随时间变化的版本<br>版本控制（通过Git，SVN等等）</p>
+<h3 id="2-2-Run-time"><a href="#2-2-Run-time" class="headerlink" title="2.2 Run-time"></a>2.2 Run-time</h3><p>程序被载入目标机器，开始执行。</p>
+<p>Code-level view：逻辑实体在内存中的呈现方式<br>Component-level view：物理实体在物理硬件环境中的呈现方式</p>
+<p>Moment view：在内存/硬件环境中特定时刻的形态<br>Period view：硬件环境中的形态随时间的变化</p>
+<p>动态链接</p>
+<p>库文件不会在build阶段被加入可执行软件，仅仅做出标记。<br>程序运行时，根据标记装载库至内存。<br>发布软件时，记得将程序所依赖的所有动态库都复制给用户。<br>分布式程序</p>
+<p>需要多个运行程序，分别部署于多个计算机物理环境。<br>需要多端口或者多线程。</p>
+<p><strong>5. run-time; moment; code-level</strong><br>Code SnapShot（代码快照）<br>描述程序运行时内存里变量层面的状态，即某一时间点内存中对象及对象的值。</p>
+<p>Memory dump（内存信息转储）<br>常发生在异常退出时，把内存中信息写到文件中（常用来调试）。</p>
+<p><strong>6. run-time, period and code-level view</strong><br>UML运行时图，描述程序运行时间各个种类间的依赖关系。<br>Execution tracing（执行跟踪）<br>用日志方式记录程序执行的调用次序。</p>
+<p><strong>7. run-time; moment; component-level</strong><br>UML部署图</p>
+<p>执行跟踪：根据跟踪日志里的信息进行调试或诊断软件问题。</p>
+<p><strong>8. run-time; period; component-level</strong><br>事件日志（系统层面）</p>
+<table>
+<thead>
+<tr>
+<th>Event logging</th>
+<th>Software tracing</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Consumed primarily by system administrators</td>
+<td>Consumed primarily by developers</td>
+</tr>
+<tr>
+<td>Logs “high level” information (e.g. failed installation of a program)</td>
+<td>Logs “low level” information (e.g. a thrown exception)</td>
+</tr>
+<tr>
+<td>Must not be too “noisy” (contain many duplicate events or information not helpful to its intended audience)</td>
+<td>Can be noisy</td>
+</tr>
+<tr>
+<td>A standards-based output format is often desirable, sometimes even required</td>
+<td>Few limitations on output format</td>
+</tr>
+<tr>
+<td>Event log messages are often localized</td>
+<td>Localization is rarely a concern</td>
+</tr>
+<tr>
+<td>Addition of new types of events, as well as new event messages, need not be agile</td>
+<td>Addition of new tracing messages must be agile</td>
+</tr>
+</tbody></table>
+<p><strong>9. 相互联系</strong></p>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200313195306526.png
+" width="70%" height="25%">
+</center>
+<center>
+图2-2 各视图之间联系
+</center>
+
+<h2 id="三、内部-外部的质量指标"><a href="#三、内部-外部的质量指标" class="headerlink" title="三、内部/外部的质量指标"></a>三、内部/外部的质量指标</h2><p>外部质量因素影响用户<br>内部质量因素影响软件本身和它的开发者<br>外部质量取决于内部质量</p>
+<h3 id="3-1-External-quality-factors（外部质量因素）"><a href="#3-1-External-quality-factors（外部质量因素）" class="headerlink" title="3.1 External quality factors（外部质量因素）"></a>3.1 External quality factors（外部质量因素）</h3><p><strong>1. Correctness（正确性）</strong><br>按照预先定义的“规约”执行<br>正确性是至高无上的质量指标<br>每一层保证自己的正确性，同时假设其下层是正确的<br>测试和调试：发现不正确、消除不正确<br>防御式编程：在写程序的时候就确保正确性<br>形式化方法：通过形式化验证发现问题</p>
+<p><strong>2.Robustness（健壮性）</strong><br>针对异常情况的处理<br>– 健壮性是对正确性的补充<br>– 正确性：软件的行为要严格的符合规约中定义的行为<br>– 出现规约定义之外的情形的时候，软件要做出恰当的反应<br>出现异常时不要“崩溃”<br>健壮性是主观而非客观<br>– 未被specification覆盖的情况即为“异常情况”<br>– 所谓的“异常”，取决于spec的范畴</p>
+<p><strong>3. Extendibility（可扩展性）</strong><br>定义：对软件的规约进行修改，是否足够容易的程度。<br>规模越大，扩展起来越不容易。<br>目的是为了变化。<br>两个准则（为了可扩展性）：简约主义设计，分离主义设计</p>
+<p><strong>4. Reusability（可复用性）</strong><br>一次开发，多次使用<br>找到不同问题之间的共性</p>
+<p><strong>5. Compatibility（兼容性）</strong><br>不同的软件系统之间相互可容易的集成<br>兼容性很重要因为开发设计不在真空中，所以需要相互联系<br>方法：保持设计的同构性并标准化</p>
+<p><strong>6. Efficiency（性能）</strong><br>性能包括很多内容，最常见的就是时间复杂度和空间复杂度。<br>性能毫无意义，除非有足够的正确性。<br>– 对性能的关注要与其他质量属性进行折中<br>– 过度的优化导致软件不再适应变化和复用<br>过早优化是万恶之源</p>
+<p><strong>7. Portability（可移植性）</strong><br>软件可方便的在不同的技术环境之间移植<br>硬件、操作系统中的移植</p>
+<p><strong>8. Ease of use（易用性）</strong><br>容易学、安装、操作、监控<br>给用户提供详细的指南</p>
+<p><strong>9. Functionality（功能性）</strong><br>每增加一小点功能，都确保其他质量属性不受到损失。<br>程序设计中一种不适宜的趋势，即软件开发者增加越来越多的功能，企图跟上竞争，其结果是程序极为复杂、不灵活、占用过多的磁盘空间。</p>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200313200344559.png
+" width="70%" height="25%">
+</center>
+<center>
+图3-1 功能性与其他属性的关系
+</center>
+
+<p><strong>10. Timeliness（及时性）</strong><br>当用户需要的时候，要能及时地设计出来。</p>
+<p><strong>11. Other qualities</strong><br>Verifiability（可验证性）<br>Integrity（完整性）<br>Repair ability（可修复性）<br>Economy（经济性）</p>
+<h3 id="3-2-Internal-quality-factors（内部质量因素）"><a href="#3-2-Internal-quality-factors（内部质量因素）" class="headerlink" title="3.2 Internal quality factors（内部质量因素）"></a>3.2 Internal quality factors（内部质量因素）</h3><p>Source code related factors such as Lines of Code (LOC), Cyclomatic Complexity（圈复杂度）, etc<br>Architecture-related factors such as coupling（耦合度）, cohesion（内聚度）, etc<br>Read ability（可读性）<br>Understand ability（可理解性）<br>Clearness（清晰性）<br>Size（大小）</p>
+<h3 id="3-3-Trade-off-between-quality-properties（质量折中）"><a href="#3-3-Trade-off-between-quality-properties（质量折中）" class="headerlink" title="3.3 Trade-off between quality properties（质量折中）"></a>3.3 Trade-off between quality properties（质量折中）</h3><p>正确的软件开发过程中，开发者应该将不同质量因素之间如何做出折中的设计决策和标准明确的写下来。<br>虽然需要折中，但“正确性”绝不能与其他质量因素折中。<br>最重要的几个质量因素</p>
+<p>Correctness and robustness: reliability（可靠性）<br>Extendibility and reusability: modularity（可延展性和可复用性）<br>OOP（面向对象编程）提高质量的方法<br>Correctness: encapsulation（封装）, decentralization（分权）<br>Robustness: encapsulation, error handling（异常处理）<br>Extendibility: encapsulation, information hiding<br>Reusability: modularity, component, models, patterns<br>Compatibility: standardized module and interface<br>Portability: information hiding, abstraction<br>Ease of use: GUI components, framework<br>Efficiency: reusable components<br>Timeliness: modeling, reuse<br>Economy: reuse<br>Functionality: extendibility</p>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Demerzel Sun</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://demerzelsun12.github.io/2020/03/08/ruan-jian-gou-zao-di-yi-zhang-zong-jie/">https://demerzelsun12.github.io/2020/03/08/ruan-jian-gou-zao-di-yi-zhang-zong-jie/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Demerzel Sun</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0%E7%AC%94%E8%AE%B0/">
+                                    <span class="chip bg-color">软件构造笔记</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2020/03/13/ruan-jian-gou-zao-di-liu-zhang-di-wu-jie-ruan-jian-ce-shi-yu-ce-shi-you-xian-bian-cheng/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="软件构造-第六章-第五节-软件测试与测试优先编程">
+                        
+                        <span class="card-title">软件构造-第六章-第五节-软件测试与测试优先编程</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            软件构造第六章 第五节 软件测试与测试优先编程
+
+ 
+
+一、测试和测试优先编程1.1 什么是测试&emsp;&emsp;测试提高软件质量的重要手段（但不是最重要的手段），执行程序或应用程序的过程，目的是发现错误（或其他缺陷），并验证软件产品
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-03-13
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0/" class="post-category">
+                                    软件构造
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0%E7%AC%94%E8%AE%B0/">
+                        <span class="chip bg-color">软件构造笔记</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/03/04/suan-fa-she-ji-yu-fen-xi-di-er-ci-zuo-ye/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="算法设计与分析第二次作业">
+                        
+                        <span class="card-title">算法设计与分析第二次作业</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            算法设计与分析第二次作业1. 证明或否证： $ f\left( n \right) +o\left(f\left( n \right) \right)=\varTheta\left(f\left( n \right) \right) $证明
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-04
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%88%86%E6%9E%90/" class="post-category">
+                                    算法设计与分析
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%88%86%E6%9E%90%E4%BD%9C%E4%B8%9A/">
+                        <span class="chip bg-color">算法设计与分析作业</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [
+                ['$', '$'],
+                ['\(', '\)']
+            ]
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        font-size: 15px;
+        color: #1E90FF;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="5143048440"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#1E90FF'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2019</span>
+            <a href="/about" target="_blank">Demerzel Sun</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">46.8k</span>&nbsp;字
+            
+            
+            
+            <!-- 
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+             -->
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link ">
+    <a href="https://github.com/DemerzelSun12" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:DemerzelSun@outlook.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+    <a href="https://twitter.com/Demerzel10" class="tooltipped" target="_blank" data-tooltip="关注我的Twitter: https://twitter.com/Demerzel10" data-position="top" data-delay="50">
+        <i class="fab fa-twitter"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1739779019" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1739779019" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

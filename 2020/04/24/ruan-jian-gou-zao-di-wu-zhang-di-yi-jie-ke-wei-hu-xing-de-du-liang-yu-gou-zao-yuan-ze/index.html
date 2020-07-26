@@ -1,0 +1,1140 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="软件构造-第五章-第一节-可维护性的度量与构造原则, Demerzel Sun&#39;s blog">
+    <meta name="description" content="雨过枫山送远青">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>软件构造-第五章-第一节-可维护性的度量与构造原则 | Demerzel Sun&#39;s blog</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Demerzel Sun's blog" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Demerzel Sun&#39;s blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Demerzel Sun&#39;s blog</div>
+        <div class="logo-desc">
+            
+            雨过枫山送远青
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">软件构造-第五章-第一节-可维护性的度量与构造原则</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0%E7%AC%94%E8%AE%B0/">
+                                <span class="chip bg-color">软件构造笔记</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0/" class="post-category">
+                                软件构造
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-04-24
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    2.8k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    9 分
+                </div>
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="软件构造第五章-第一节-可维护性的度量与构造原则"><a href="#软件构造第五章-第一节-可维护性的度量与构造原则" class="headerlink" title="软件构造第五章 第一节 可维护性的度量与构造原则"></a>软件构造第五章 第一节 可维护性的度量与构造原则</h1><!-- toc -->
+
+ <a id="more"></a>
+
+<h1 id="一、软件的维护和演化"><a href="#一、软件的维护和演化" class="headerlink" title="一、软件的维护和演化"></a>一、软件的维护和演化</h1><ol>
+<li>定义：<ul>
+<li>软件可维护性是指软件产品被修改的能力，修改包括纠正、改进或软件对环境、需求和功能规格说明变化的适应。简而言之，软件维护：修复错误、改善性能。</li>
+</ul>
+</li>
+<li>类型：<ul>
+<li>纠错性（25%）</li>
+<li>适应性（25%）</li>
+<li>完善性（50%）</li>
+<li>预防性（4%）</li>
+</ul>
+</li>
+<li>演化：<ul>
+<li>软件演化是一个程序不断调节以满足新的软件需求过程。</li>
+</ul>
+</li>
+<li>演化的规律：<ul>
+<li>软件质量下降，延续软件生命</li>
+</ul>
+</li>
+<li>软件维护和演化的目标：<ul>
+<li>提高软件的适应性</li>
+<li>延续软件生命</li>
+</ul>
+</li>
+<li>意义：<ul>
+<li>软件维护不仅仅是运维工程师的工作，而是从设计和开发阶段就开始了</li>
+<li>在设计与开发阶段就要考虑将来的可维护性 ，设计方案需要“easy to change”</li>
+</ul>
+</li>
+<li>基于可维护性建设的例子：<ul>
+<li>模块化</li>
+<li>OO设计原则</li>
+<li>OO设计模式</li>
+<li>基于状态的构造技术</li>
+<li>表驱动的构造技术</li>
+<li>基于语法的构造技术</li>
+</ul>
+</li>
+</ol>
+<h1 id="二、可维护性的常见度量指标"><a href="#二、可维护性的常见度量指标" class="headerlink" title="二、可维护性的常见度量指标"></a>二、可维护性的常见度量指标</h1><ol>
+<li>可维护性：<ul>
+<li>可轻松修改软件系统或组件，以纠正故障，提高性能或其他属性，或适应变化的环境。</li>
+<li>除此之外，可维护性还有其他许多别名：可扩展性（Extensibility）、灵活性（Flexibility）、可适应性（Adaptability）、可管理性（Manageability）、支持性（Supportability）。总之，有好的可维护性就意味着容易改变，容易扩展。</li>
+</ul>
+</li>
+<li>软件可维护性的五个子特性：<ul>
+<li>易分析性。软件产品诊断软件中的缺陷或失效原因或识别待修改部分的能力。</li>
+<li>易改变性。软件产品使指定的修改可以被实现的能力，实现包括编码、设计和文档的更改。如果软件由最终用户修改，那么易改变性可能会影响易操作性。</li>
+<li>稳定性。软件产品避免由于软件修改而造成意外结果的能力。</li>
+<li>易测试性。软件产品使已修改软件能被确认的能力。</li>
+<li>维护性的依从性。软件产品遵循与维护性相关的标准或约定的能力。</li>
+</ul>
+</li>
+<li>一些常用的可维护性度量标准：<ul>
+<li>圈复杂度（CyclomaticComplexity）：度量代码的结构复杂度。</li>
+<li>代码行数（Lines of Code）：指示代码中的大致行数。</li>
+<li>Halstead Volume：基于源代码中（不同）运算符和操作数的数量的合成度量。</li>
+<li>可维护性指数（MI）：计算介于0和100之间的索引值，表示维护代码的相对容易性。 高价值意味着更好的可维护性。</li>
+<li>继承的层次数：表示扩展到类层次结构的根的类定义的数量。 等级越深，就越难理解特定方法和字段在何处被定义或重新定义。</li>
+<li>类之间的耦合度：通过参数，局部变量，返回类型，方法调用，泛型或模板实例化，基类，接口实现，在外部类型上定义的字段和属性修饰来测量耦合到唯一类。</li>
+<li>单元测试覆盖率：指示代码库的哪些部分被自动化单元测试覆盖。</li>
+</ul>
+</li>
+</ol>
+<h1 id="三、模块化设计规范：聚合度与耦合度"><a href="#三、模块化设计规范：聚合度与耦合度" class="headerlink" title="三、模块化设计规范：聚合度与耦合度"></a>三、模块化设计规范：聚合度与耦合度</h1><h2 id="3-1-模块化编程"><a href="#3-1-模块化编程" class="headerlink" title="3.1 模块化编程"></a>3.1 模块化编程</h2><ol>
+<li>模块化编程的含义：<ul>
+<li>模块化编程是一种设计技术，它强调将程序的功能分解为独立的可互换模块，以便每个模块都包含执行所需功能的一个方面。</li>
+</ul>
+</li>
+<li>设计规范：<ul>
+<li>高内聚低耦合</li>
+</ul>
+</li>
+<li>评估模块化的五个标准：<ul>
+<li>可分解性：将问题分解为各个可独立解决的子问题</li>
+<li>可组合性：可容易的将模块组合起来形成新的系统</li>
+<li>可理解性：每个子模块都可被系统设计者容易的理解</li>
+<li>可持续性：小的变化将只影响一小部分模块，而不会影响整个体系结构</li>
+</ul>
+</li>
+<li>出现异常之后的保护：运行时的不正常将局限于小范围模块内</li>
+<li>模块化设计的五条原则：<ul>
+<li>直接映射：模块的结构与现实世界中问题领域的结构保持一致</li>
+<li>尽可能少的接口：模块应尽可能少的与其他模块通讯</li>
+<li>尽可能小的接口：如果两个模块通讯，那么它们应交换尽可能少的信息</li>
+<li>显式接口：当A与B通讯时，应明显的发生在A与B的接口之间</li>
+<li>信息隐藏：经常可能发生变化的设计决策应尽可能隐藏在抽象接口后面</li>
+</ul>
+</li>
+</ol>
+<h2 id="3-2-内聚与耦合"><a href="#3-2-内聚与耦合" class="headerlink" title="3.2 内聚与耦合"></a>3.2 内聚与耦合</h2><ol>
+<li>内聚性：<ul>
+<li>又称块内联系。指模块的功能强度的度量，即一个模块内部各个元素彼此结合的紧密程度的度量。若一个模块内各元素（语名之间、程序段之间）联系的越紧密，则它的内聚性就越高。</li>
+<li>所谓高内聚是指一个软件模块是由相关性很强的代码组成，只负责一项任务，也就是常说的单一责任原则。</li>
+</ul>
+</li>
+<li>耦合性：<ul>
+<li>也称块间联系。指软件系统结构中各模块间相互联系紧密程度的一种度量。模块之间联系越紧密，其耦合性就越强，模块的独立性则越差。模块间耦合高低取决于模块间接口的复杂性、调用的方式及传递的信息。</li>
+<li>对于低耦合，粗浅的理解是：一个完整的系统，模块与模块之间，尽可能的使其独立存在。也就是说，让每个模块，尽可能的独立完成某个特定的子功能。模块与模块之间的接口，尽量的少而简单。如果某两个模块间的关系比较复杂的话，最好首先考虑进一步的模块划分。这样有利于修改和组合。</li>
+</ul>
+</li>
+</ol>
+<h1 id="四、SOLID原则"><a href="#四、SOLID原则" class="headerlink" title="四、SOLID原则"></a>四、SOLID原则</h1><p>&emsp;&emsp;单一职责原则告诉我们实现类要职责单一；<br>&emsp;&emsp;里氏替换原则告诉我们不要破坏继承体系；<br>&emsp;&emsp;依赖倒置原则告诉我们要面向接口编程；<br>&emsp;&emsp;接口隔离原则告诉我们在设计接口的时候要精简单一；<br>&emsp;&emsp;迪米特法则告诉我们要降低耦合;<br>&emsp;&emsp;开闭原则是总纲（实现效果），它告诉我们要对扩展开放，对修改关闭。</p>
+<h2 id="4-1-SRP-单一责任原则-The-Single-Responsibility-Principle"><a href="#4-1-SRP-单一责任原则-The-Single-Responsibility-Principle" class="headerlink" title="4.1 SRP 单一责任原则(The Single Responsibility Principle)"></a>4.1 SRP 单一责任原则(The Single Responsibility Principle)</h2><ol>
+<li>含义：<ul>
+<li>需要修改某个类的时候原因有且只有一个。换句话说就是让一个类只做一种类型责任，当这个类需要承当其他类型的责任的时候，就需要分解这个类。</li>
+<li>如果一个类包含了多个责任，那么将引起不良后果：引入额外的包，占据资源；导致频繁的重新配置、部署等。</li>
+</ul>
+</li>
+<li>SRP是最简单的原则，却是最难做好的原则。</li>
+<li>SRP的一个反例：</li>
+</ol>
+<center>
+<img src="https://img-blog.csdnimg.cn/2020050619015157.png" width="80%" height="35%">
+</center>
+<center>
+图4-1 SRP原则反例
+</center>
+
+<h2 id="4-2-OCP-开放封闭原则-The-Open-Closed-Principle"><a href="#4-2-OCP-开放封闭原则-The-Open-Closed-Principle" class="headerlink" title="4.2 OCP 开放封闭原则(The Open Closed Principle)"></a>4.2 OCP 开放封闭原则(The Open Closed Principle)</h2><ol>
+<li>软件实体应该是可扩展，而不可修改的。也就是说，对扩展是开放的，而对修改是封闭的。这个原则是诸多面向对象编程原则中最抽象、最难理解的一个。<ul>
+<li>模块的行为应是可扩展的，从而该模块可表现出新的行为以满足需求的变化。</li>
+<li>模块自身的代码是不应被修改的</li>
+<li>扩展模块行为的一般途径是修改模块的内部实现</li>
+<li>如果一个模块不能被修改，那么它通常被认为是具有固定的行为。</li>
+</ul>
+</li>
+<li>关键解决方案：抽象技术。 使用继承和组合来改变类的行为。</li>
+<li>OCP的一个反例：</li>
+</ol>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200506190707124.png" width="80%" height="35%">
+</center>
+<center>
+图4-2 OCP原则反例一
+</center>
+
+<center>
+<img src="https://img-blog.csdnimg.cn/20200506190836666.png" width="80%" height="35%">
+</center>
+<center>
+图4-3 OCP原则反例二
+</center>
+
+<p>上面代码存在的问题：</p>
+<ul>
+<li>不可能在不修改GraphEditor的情况下添加新的Shape</li>
+<li>GraphEditor和Shape之间的紧密耦合</li>
+<li>不调用GraphEditor就很难测试特定的Shape</li>
+</ul>
+<p>改正后代码如下：</p>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200506191323111.png" width="80%" height="35%">
+</center>
+<center>
+图4-4 OCP原则反例二改正
+</center>
+
+<h2 id="4-3-LSP-里氏替换原则-The-Liskov-Substitution-Principle"><a href="#4-3-LSP-里氏替换原则-The-Liskov-Substitution-Principle" class="headerlink" title="4.3 LSP 里氏替换原则(The Liskov Substitution Principle)"></a>4.3 LSP 里氏替换原则(The Liskov Substitution Principle)</h2><p>&emsp;&emsp;Liskov’s 替换原则意思是：”子类型必须能够替换它们的基类型。”或者换个说法：”使用基类引用的地方必须能使用继承类的对象而不必知道它。” 这个原则正是保证继承能够被正确使用的前提。通常我们都说，“优先使用组合（委托）而不是继承”或者说“只有在确定是 is-a 的关系时才能使用继承”，因为继承经常导致”紧耦合“的设计。<br>&emsp;&emsp;详细见<a href="https://demerzelsun12.github.io/DemerzelSun/2020/04/16/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0-%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E7%AC%AC%E4%BA%8C%E8%8A%82-%E9%9D%A2%E5%90%91%E5%A4%8D%E7%94%A8%E7%9A%84%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0%E6%8A%80%E6%9C%AF/">第四章第二节</a>。</p>
+<h2 id="4-4-ISP-接口分离原则-The-Interface-Segregation-Principle"><a href="#4-4-ISP-接口分离原则-The-Interface-Segregation-Principle" class="headerlink" title="4.4 ISP 接口分离原则(The Interface Segregation Principle)"></a>4.4 ISP 接口分离原则(The Interface Segregation Principle)</h2><ol>
+<li>含义:<ul>
+<li>客户端不应依赖于它们不需要的方法。换句话说，使用多个专门的接口比使用单一的总接口总要好。</li>
+</ul>
+</li>
+<li>客户模块不应该依赖大的接口，应该裁减为小的接口给客户模块使用，以减少依赖性。如Java中一个类实现多个接口，不同的接口给不用的客户模块使用，而不是提供给客户模块一个大的接口。</li>
+<li>缺点：<ul>
+<li>胖接口可分解为多个小的接口；</li>
+<li>不同的接口向不同的客户端提供服务；</li>
+<li>客户端只访问自己所需要的端口。</li>
+</ul>
+</li>
+<li>模型展示：</li>
+</ol>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200506192445551.png" width="80%" height="35%">
+</center>
+<center>
+图4-5 ISP原则模型
+</center>
+
+<ol>
+<li>ISP原则反例：<center>
+<img src="https://img-blog.csdnimg.cn/20200506192602676.png" width="80%" height="35%">
+</center>
+<center>
+图4-6 ISP原则反例，右侧为更改方法
+</center>
+
+</li>
+</ol>
+<h2 id="4-5-DIP-依赖转置原则-The-Dependency-Inversion-Principle"><a href="#4-5-DIP-依赖转置原则-The-Dependency-Inversion-Principle" class="headerlink" title="4.5 DIP 依赖转置原则(The Dependency Inversion Principle)"></a>4.5 DIP 依赖转置原则(The Dependency Inversion Principle)</h2><ol>
+<li><p>DIP原则定义：</p>
+<ul>
+<li>高层模块不应该依赖于低层模块，二者都应该依赖于抽象 </li>
+<li>抽象不应该依赖于细节，细节应该依赖于抽象</li>
+</ul>
+</li>
+<li><p>这个设计原则的亮点在于任何被DIP框架注入的类很容易用mock对象进行测试和维护，因为对象创建代码集中在框架中，客户端代码也不混乱。有很多方式可以实现依赖倒置，比如像AspectJ等的AOP（Aspect Oriented programming）框架使用的字节码技术，或Spring框架使用的代理等。</p>
+</li>
+<li><p>特点：</p>
+<ul>
+<li>高层模块不要依赖低层模块</li>
+<li>高层和低层模块都要依赖于抽象</li>
+<li>抽象不要依赖于具体实现</li>
+<li>具体实现要依赖于抽象</li>
+<li>抽象和接口使模块之间的依赖分离</li>
+</ul>
+</li>
+<li><p>DIP原则反例及改正方法</p>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200506193109539.jpg" width="80%" height="35%">
+</center>
+<center>
+图4-7 DIP原则反例
+</center>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200506193113361.jpg" width="80%" height="35%">
+</center>
+<center>
+图4-8 更改方法
+</center>
+
+</li>
+</ol>
+<h2 id="4-5-SOLID原则总结"><a href="#4-5-SOLID原则总结" class="headerlink" title="4.5 SOLID原则总结"></a>4.5 SOLID原则总结</h2><ol>
+<li>一个对象只承担一种责任，所有服务接口只通过它来执行这种任务。</li>
+<li>程序实体，比如类和对象，向扩展行为开放，向修改行为关闭。</li>
+<li>子类应该可以用来替代它所继承的类。</li>
+<li>一个类对另一个类的依赖应该限制在最小化的接口上。</li>
+<li>依赖抽象层(接口)，而不是具体类。</li>
+</ol>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Demerzel Sun</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://demerzelsun12.github.io/2020/04/24/ruan-jian-gou-zao-di-wu-zhang-di-yi-jie-ke-wei-hu-xing-de-du-liang-yu-gou-zao-yuan-ze/">https://demerzelsun12.github.io/2020/04/24/ruan-jian-gou-zao-di-wu-zhang-di-yi-jie-ke-wei-hu-xing-de-du-liang-yu-gou-zao-yuan-ze/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Demerzel Sun</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0%E7%AC%94%E8%AE%B0/">
+                                    <span class="chip bg-color">软件构造笔记</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2020/04/28/bu-neng-shi-yong-fan-xing-de-ji-chong-qing-kuang/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="不能使用泛型的几种情况">
+                        
+                        <span class="card-title">不能使用泛型的几种情况</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            软件构造笔记-Java 中不能使用泛型的几种情况
+
+ 
+
+一、前言Java 1.5 引入了泛型来保证类型安全，防止在运行时发生类型转换异常，让类型参数化，提高了代码的可读性和重用率。但是有些情况下泛型也是不允许使用的，总结一下编码中不能使用
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-28
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0/" class="post-category">
+                                    软件构造
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0%E7%AC%94%E8%AE%B0/">
+                        <span class="chip bg-color">软件构造笔记</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/04/20/ruan-jian-gou-zao-di-si-zhang-di-san-jie-mian-xiang-fu-yong-de-she-ji-mo-shi/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="软件构造-第四章-第三节-面向复用的设计模式">
+                        
+                        <span class="card-title">软件构造-第四章-第三节-面向复用的设计模式</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            软件构造第四章 第三节 面向复用的设计模式
+
+ 
+
+一、结构型模式：Structural patterns1.1 适配器模式(Adapter)
+目的：将某个类/接口转换为用户期望的其他形式。
+含义：适配器模式是作为两个互不相容的接口的桥梁，
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-20
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0/" class="post-category">
+                                    软件构造
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0%E7%AC%94%E8%AE%B0/">
+                        <span class="chip bg-color">软件构造笔记</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [
+                ['$', '$'],
+                ['\(', '\)']
+            ]
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        font-size: 15px;
+        color: #1E90FF;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="5143048440"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#1E90FF'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2019</span>
+            <a href="/about" target="_blank">Demerzel Sun</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">46.8k</span>&nbsp;字
+            
+            
+            
+            <!-- 
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+             -->
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link ">
+    <a href="https://github.com/DemerzelSun12" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:DemerzelSun@outlook.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+    <a href="https://twitter.com/Demerzel10" class="tooltipped" target="_blank" data-tooltip="关注我的Twitter: https://twitter.com/Demerzel10" data-position="top" data-delay="50">
+        <i class="fab fa-twitter"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1739779019" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1739779019" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

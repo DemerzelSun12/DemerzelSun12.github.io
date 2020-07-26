@@ -199,55 +199,9 @@
 </header>
 
     
-<style>
-    .carousel-control {
-        width: 45px;
-        height: 45px;
-        line-height: 55px;
-        border-radius: 45px;
-        background: transparent;
-        cursor: pointer;
-        z-index: 100;
-    }
-
-    #prev-cover {
-        position: absolute;
-        top: 48%;
-        left: 8px;
-    }
-
-    #next-cover {
-        position: absolute;
-        top: 48%;
-        right: 8px;;
-    }
-
-    #prev-cover i {
-        margin-right: 3px;
-    }
-
-    #next-cover i {
-        margin-left: 3px;
-    }
-
-    .carousel-control:hover {
-        background-color: rgba(0, 0, 0, .4);
-    }
-
-    .carousel-control i {
-        color: #fff;
-        font-size: 2.4rem;
-    }
-</style>
-
-
-
-<div class="carousel carousel-slider center index-cover" data-indicators="true" style="margin-top: -64px;">
-    
-
-    <div class="carousel-item red white-text bg-cover about-cover">
-        <div class="container">
-            <div class="row">
+    <div class="bg-cover pd-header about-cover">
+    <div class="container">
+    <div class="row">
     <div class="col s10 offset-s1 m8 offset-m2 l8 offset-l2">
         <div class="brand">
             <div class="title center-align">
@@ -284,134 +238,12 @@
 </script>
 
 
-
-            <div class="cover-btns">
-                <a href="#indexCard" class="waves-effect waves-light btn">
-                    <i class="fa fa-angle-double-down"></i>开始阅读
-                </a>
-
-                
-            </div>
-            <div class="cover-social-link">
-    <a href="https://github.com/DemerzelSun12" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
-        <i class="fab fa-github"></i>
-    </a>
-
-
-
-    <a href="mailto:DemerzelSun@outlook.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
-        <i class="fas fa-envelope-open"></i>
-    </a>
-
-
-
-
-
-    <a href="https://twitter.com/Demerzel10" class="tooltipped" target="_blank" data-tooltip="关注我的Twitter: https://twitter.com/Demerzel10" data-position="top" data-delay="50">
-        <i class="fab fa-twitter"></i>
-    </a>
-
-
-
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1739779019" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1739779019" data-position="top" data-delay="50">
-        <i class="fab fa-qq"></i>
-    </a>
-
-
-
-
-
-
-
-</div>
-        </div>
     </div>
-
-    
 </div>
-
-<script>
-    $(function () {
-        let coverSlider = $('.carousel');
-
-        //用户触摸轮播自动 restartPlay 是否生效
-        let initUserPressedOrDraggedActive = false
-
-        //用户触摸轮播自动 restartPlay
-        function initUserPressedOrDragged(instance) {
-            setInterval(() => {
-                if (instance.pressed || instance.dragged) {
-                    // console.log('initUserPressedOrDragged: ',instance.pressed,instance.dragged)
-                    restartPlay()
-                }
-            }, 1000)
-        }
-
-        coverSlider.carousel({
-            duration: Number('120'),
-            fullWidth: true,
-            indicators: 'true' === 'true',
-            onCycleTo() {
-                if (!initUserPressedOrDraggedActive) {
-                    // console.log('initUserPressedOrDraggedActive')
-                    initUserPressedOrDragged(this)
-                    initUserPressedOrDraggedActive = true
-                }
-            },
-        })
-
-        let carouselIntervalId;
-        
-        // Loop to call the next cover article picture.
-        let autoCarousel = function () {
-            carouselIntervalId = setInterval(function () {
-                coverSlider.carousel('next');
-            }, 5000);
-        };
-        autoCarousel();
-        
-
-        function restartPlay() {
-            
-            clearInterval(carouselIntervalId);
-            autoCarousel();
-            
-        };
-
-        
-        // prev and next cover post.
-        $('#prev-cover').click(function () {
-            coverSlider.carousel('prev');
-            restartPlay();
-        });
-        $('#next-cover').click(function () {
-            coverSlider.carousel('next');
-            restartPlay();
-        });
-        
-    });
-</script>
-
 
 
 <main class="content">
 
-    
-    <div id="indexCard" class="index-card">
-        <div class="container ">
-            <div class="card">
-                <div class="card-content">
-                    
-
-                    
-
-                    
-
-                    
-                </div>
-            </div>
-        </div>
-    </div>
     
 
     
@@ -422,30 +254,34 @@
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2020/06/13/volatile-guan-jian-zi-dao-di-shi-sha/">
+                    <a href="/2020/04/07/java-zhong-de-comparator-he-comparable/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="volatile关键字到底是啥">
+                            <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="Java 中的 Comparator 和 Comparable">
                             
-                            <span class="card-title">volatile关键字到底是啥</span>
+                            <span class="card-title">Java 中的 Comparator 和 Comparable</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                软件构造笔记-volatile关键字到底是啥
+                                软件构造笔记-Java 中的 Comparator 和 Comparable
 
  
 
-在老师讲课时，讲到synchronized关键字时，有些地方听的不是太清楚，在网上找资料的时候，还看到了另一个关键字volatile，看了好多篇博客，做了如下的总结。
-一、volatil
+一、 前言最近看到了集合排序（基于 Java 8），学到了一种基于Stream的排序，排序可以这么写：
+
+
+
+
+这里排序用到了一个关键接口 java.ut
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-06-13
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-07
                             </span>
                             <span class="publish-author">
                                 
@@ -474,32 +310,32 @@
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2020/05/16/ruan-jian-gou-zao-di-liu-zhang-di-er-jie-cuo-wu-yu-yi-chang-chu-li/">
+                    <a href="/2020/04/03/ruan-jian-gou-zao-di-san-zhang-di-si-jie-mian-xiang-dui-xiang-bian-cheng/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="软件构造-第六章-第二节-错误与异常处理">
+                            <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="软件构造-第三章-第四节-面向对象编程">
                             
-                            <span class="card-title">软件构造-第六章-第二节-错误与异常处理</span>
+                            <span class="card-title">软件构造-第三章-第四节-面向对象编程</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                软件构造第六章 第二节 错误与异常处理
+                                软件构造第三章 第四节 面向对象编程
 
  
 
-一、JAVA中的错误和异常1.1 Throwable
-Throwable 类是 Java 语言中所有错误或异常的超类。
-继承的类：extends Object。
-实现的接口：implement
+一、面向对象编程基本概念1.1 对象
+对象是类的一个实例，有状态和行为。
+例如，一条狗是一个对象，它的状态有：颜色、名字、品种；行为有：摇尾巴、叫、吃等。
+概念：一个对象是一堆状态和行为的集合。
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-16
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-03
                             </span>
                             <span class="publish-author">
                                 
@@ -528,33 +364,30 @@ Throwable 类是 Java 语言中所有错误或异常的超类。
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2020/05/12/ruan-jian-gou-zao-di-liu-zhang-di-yi-jie-jian-zhuang-xing-yu-zheng-que-xing/">
+                    <a href="/2020/03/31/ruan-jian-gou-zao-di-san-zhang-di-san-jie-chou-xiang-shu-ju-xing/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="软件构造-第六章-第一节-健壮性与正确性">
+                            <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="软件构造-第三章-第三节-抽象数据型">
                             
-                            <span class="card-title">软件构造-第六章-第一节-健壮性与正确性</span>
+                            <span class="card-title">软件构造-第三章-第三节-抽象数据型</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                软件构造第六章 第一节 健壮性与正确性
+                                软件构造第三章 第三节 抽象数据型
 
  
 
-一、健壮性与正确性1.1 健壮性
-定义：系统在不 正常输入或不正常外部环境下仍能够表现正常的程度
-面向健壮性编程：
-处理未期望的行为和错误终止
-即使终止执行，也要准确/无歧义的向用户展示全面的
+一、ADT及其四种类型1.1 ADT的基本概念
+抽象数据类型（Abstract Data Type，ADT）是是指一个数学模型以及定义在该模型上的一组操作；即包括数据数据元素，数据关系以及相关的操
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-12
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-31
                             </span>
                             <span class="publish-author">
                                 
@@ -583,36 +416,39 @@ Throwable 类是 Java 语言中所有错误或异常的超类。
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2020/05/10/ruan-jian-gou-zao-di-wu-zhang-di-san-jie-mian-xiang-ke-wei-hu-xing-de-gou-zao-ji-zhu/">
+                    <a href="/2020/03/28/ruan-jian-gou-zao-di-san-zhang-di-er-jie-ruan-jian-gui-yue/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="软件构造-第五章-第三节-面向可维护性的构造技术">
+                            <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="软件构造-第三章-第二节-软件规约">
                             
-                            <span class="card-title">软件构造-第五章-第三节-面向可维护性的构造技术</span>
+                            <span class="card-title">软件构造-第三章-第二节-软件规约</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                软件构造第五章 第三节 面向可维护性的构造技术
+                                软件构造第三章 第二节 软件规约
 
  
 
-一、基于状态的构造技术
-基于状态编程
-使用有限状态机来定义程序的行为、使用状态来控制程序的执行
-根据当前状态，决定下一步要执行什么操作、执行操作之后要转移到什么新的状态
+一、方法1.1 参数及返回值
+参数&emsp;参数类型是否匹配，在静态类型检查阶段完成
+
+返回值&emsp;返回值类型是否匹配，也在静态类型检查阶段完成
+
+
+1.2 一个完整的方法
 
 
 
-1.1 
+图1-1 
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-10
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-28
                             </span>
                             <span class="publish-author">
                                 
@@ -641,30 +477,32 @@ Throwable 类是 Java 语言中所有错误或异常的超类。
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2020/05/07/he-wei-xian-cheng-chi/">
+                    <a href="/2020/03/24/ruan-jian-gou-zao-di-san-zhang-di-yi-jie-shu-ju-lei-xing-yu-lei-xing-jian-cha/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="何为线程池">
+                            <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="软件构造-第三章-第一节-数据类型与类型检查">
                             
-                            <span class="card-title">何为线程池</span>
+                            <span class="card-title">软件构造-第三章-第一节-数据类型与类型检查</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                软件构造笔记-何为线程池
+                                软件构造第三章 第一节 数据类型与类型检查
 
  
 
-一、什么是线程池线程池，顾名思义就是装线程的池子。其用途是为了帮我们重复管理线程，避免创建大量的线程增加开销，提高响应速度。
-二、为什么要使用线程池规格严格的哈工大学生，不会希望别人看到我们的代码就开始吐槽
+一、数据类型1.1 类型和变量
+数据类型：
+基本数据类型&emsp;int double long boolean double char
+面向对象的数据类型&emsp;String Bi
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-07
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-24
                             </span>
                             <span class="publish-author">
                                 
@@ -693,30 +531,41 @@ Throwable 类是 Java 语言中所有错误或异常的超类。
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2020/05/06/ruan-jian-gou-zao-di-wu-zhang-di-er-jie-mian-xiang-ke-wei-hu-xing-de-she-ji-mo-shi/">
+                    <a href="/2020/03/21/ruan-jian-gou-zao-di-er-zhang-di-er-jie-ruan-jian-gou-zao-de-guo-cheng-xi-tong-he-gong-ju/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="软件构造-第五章-第二节-面向可维护性的设计模式">
+                            <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="软件构造-第二章-第二节-软件构造的过程、系统和工具">
                             
-                            <span class="card-title">软件构造-第五章-第二节-面向可维护性的设计模式</span>
+                            <span class="card-title">软件构造-第二章-第二节-软件构造的过程、系统和工具</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                软件构造第五章 第二节 面向可维护性的设计模式
+                                软件构造第二章 第二节 软件构造的过程、系统和工具
 
  
 
-一、创造性模式1.1 工厂模式(Factory Pattern)
-定义：工厂方法模式也被称为虚拟构造器。当client不知道要创建哪个具体类的实例，或者不想在client代码中指明要具
+一、广义的软件构造过程1.1 编程(Programming)
+
+
+
+图1-1 常见软件构造过程
+
+
+
+
+Construction languages
+
+用途上划分语言
+Progra
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-06
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-21
                             </span>
                             <span class="publish-author">
                                 
@@ -745,29 +594,29 @@ Throwable 类是 Java 语言中所有错误或异常的超类。
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2020/04/28/bu-neng-shi-yong-fan-xing-de-ji-chong-qing-kuang/">
+                    <a href="/2020/03/21/java-ji-chu-pian-string-he-stringbuffer-stringbuilder-de-qu-bie/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="不能使用泛型的几种情况">
+                            <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="Java基础—String 和 StringBuffer、StringBuilder 的区别">
                             
-                            <span class="card-title">不能使用泛型的几种情况</span>
+                            <span class="card-title">Java基础—String 和 StringBuffer、StringBuilder 的区别</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                软件构造笔记-Java 中不能使用泛型的几种情况
+                                软件构造笔记-Java基础—String 和 StringBuffer、StringBuilder 的区别
 
  
 
-一、前言Java 1.5 引入了泛型来保证类型安全，防止在运行时发生类型转换异常，让类型参数化，提高了代码的可读性和重用率。但是有些情况下泛型也是不允许使用的，总结一下编码中不能使用
+一、三者简介1.1 StringString 表示的就是 Java 中的字符串，日常用到的使用 “” 双引号包围的数都是字符
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-28
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-21
                             </span>
                             <span class="publish-author">
                                 
@@ -796,34 +645,33 @@ Throwable 类是 Java 语言中所有错误或异常的超类。
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2020/04/24/ruan-jian-gou-zao-di-wu-zhang-di-yi-jie-ke-wei-hu-xing-de-du-liang-yu-gou-zao-yuan-ze/">
+                    <a href="/2020/03/17/ruan-jian-gou-zao-di-er-zhang-di-yi-jie-ruan-jian-sheng-ming-zhou-qi-he-ban-ben-kong-zhi/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="软件构造-第五章-第一节-可维护性的度量与构造原则">
+                            <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="软件构造-第二章-第一节-软件生命周期和版本控制">
                             
-                            <span class="card-title">软件构造-第五章-第一节-可维护性的度量与构造原则</span>
+                            <span class="card-title">软件构造-第二章-第一节-软件生命周期和版本控制</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                软件构造第五章 第一节 可维护性的度量与构造原则
+                                软件构造-第二章-第一节-软件生命周期和版本控制
 
  
 
-一、软件的维护和演化
-定义：
-软件可维护性是指软件产品被修改的能力，修改包括纠正、改进或软件对环境、需求和功能规格说明变化的适应。简而言之，软件维护：修复错误、改善性能。
-
-
-类型：
+一、软件开发基本过程1.1 软件生命周期
+软件开发生命周期——从0到1
+策划阶段：获取需求、制定计划
+架构师：系统分析（业务领域，what）、软件设计（语言、架构，how）
+编码实现
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-24
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-17
                             </span>
                             <span class="publish-author">
                                 
@@ -852,31 +700,29 @@ Throwable 类是 Java 语言中所有错误或异常的超类。
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2020/04/20/ruan-jian-gou-zao-di-si-zhang-di-san-jie-mian-xiang-fu-yong-de-she-ji-mo-shi/">
+                    <a href="/2020/03/13/ruan-jian-gou-zao-di-liu-zhang-di-wu-jie-ruan-jian-ce-shi-yu-ce-shi-you-xian-bian-cheng/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="软件构造-第四章-第三节-面向复用的设计模式">
+                            <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="软件构造-第六章-第五节-软件测试与测试优先编程">
                             
-                            <span class="card-title">软件构造-第四章-第三节-面向复用的设计模式</span>
+                            <span class="card-title">软件构造-第六章-第五节-软件测试与测试优先编程</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                软件构造第四章 第三节 面向复用的设计模式
+                                软件构造第六章 第五节 软件测试与测试优先编程
 
  
 
-一、结构型模式：Structural patterns1.1 适配器模式(Adapter)
-目的：将某个类/接口转换为用户期望的其他形式。
-含义：适配器模式是作为两个互不相容的接口的桥梁，
+一、测试和测试优先编程1.1 什么是测试&emsp;&emsp;测试提高软件质量的重要手段（但不是最重要的手段），执行程序或应用程序的过程，目的是发现错误（或其他缺陷），并验证软件产品
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-20
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-13
                             </span>
                             <span class="publish-author">
                                 
@@ -905,39 +751,32 @@ Throwable 类是 Java 语言中所有错误或异常的超类。
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2020/04/16/ruan-jian-gou-zao-di-si-zhang-di-er-jie-mian-xiang-fu-yong-de-ruan-jian-gou-zao-ji-zhu/">
+                    <a href="/2020/03/08/ruan-jian-gou-zao-di-yi-zhang-zong-jie/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="软件构造-第四章-第二节-面向复用的软件构造技术">
+                            <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="软件构造第一章总结">
                             
-                            <span class="card-title">软件构造-第四章-第二节-面向复用的软件构造技术</span>
+                            <span class="card-title">软件构造第一章总结</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                软件构造第四章 第二节 面向复用的软件构造技术
+                                 软件构造第一章总结
 
- 
+一、软件构造多维度视图1.1 从三个维度看软件系统的构成
+按阶段划分：build-time（构造阶段）和run-time（运行阶段）
 
-一、设计可复用的类1.1 行为子类型和LSP原则
-行为子类型
+按动态划分：moment（时刻）和period（时期）
 
-
-子类型多态（ Subtype polymorphism）：客户端可用统一的方式处理不同类型的对象 。
-举例：
-
-
-
-
-
+按层次划分：code（
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-16
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-08
                             </span>
                             <span class="publish-author">
                                 
@@ -966,41 +805,32 @@ Throwable 类是 Java 语言中所有错误或异常的超类。
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2020/04/14/ruan-jian-gou-zao-di-si-zhang-di-yi-jie-ke-fu-yong-xing-de-du-liang-xing-tai-yu-wai-bu-biao-xian/">
+                    <a href="/2020/03/04/suan-fa-she-ji-yu-fen-xi-di-er-ci-zuo-ye/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="软件构造-第四章-第一节-可复用性的度量、形态与外部表现">
+                            <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="算法设计与分析第二次作业">
                             
-                            <span class="card-title">软件构造-第四章-第一节-可复用性的度量、形态与外部表现</span>
+                            <span class="card-title">算法设计与分析第二次作业</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                软件构造第四章 第一节 可复用性的度量、形态与外部表现
-
- 
-
-一、什么是软件复用1.1 软件复用
-软件复用是使用现有软件组件实施或更新软件系统的过程。
-
-软件复用的两个观点：
-
-面向复用编程(programming for reuse)：
+                                算法设计与分析第二次作业1. 证明或否证： $ f\left( n \right) +o\left(f\left( n \right) \right)=\varTheta\left(f\left( n \right) \right) $证明
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-14
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-04
                             </span>
                             <span class="publish-author">
                                 
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0/" class="post-category">
-                                    软件构造
+                                <a href="/categories/%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%88%86%E6%9E%90/" class="post-category">
+                                    算法设计与分析
                                 </a>
                                 
                                 
@@ -1011,8 +841,8 @@ Throwable 类是 Java 语言中所有错误或异常的超类。
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0%E7%AC%94%E8%AE%B0/">
-                            <span class="chip bg-color">软件构造笔记</span>
+                        <a href="/tags/%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%88%86%E6%9E%90%E4%BD%9C%E4%B8%9A/">
+                            <span class="chip bg-color">算法设计与分析作业</span>
                         </a>
                         
                     </div>
@@ -1022,33 +852,26 @@ Throwable 类是 Java 语言中所有错误或异常的超类。
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2020/04/08/ruan-jian-gou-zao-di-san-zhang-di-wu-jie-adt-he-oop-zhong-de-deng-jie-xing/">
+                    <a href="/2020/03/03/java-ji-chu-cong-yuan-ma-kan-yi-kan-arraylist-de-ji-ge-chang-jian-fang-fa/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="软件构造-第三章-第五节-ADT和OOP中的“等价性”">
+                            <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="Java基础 | 从源码看一看ArrayList的几个常见方法">
                             
-                            <span class="card-title">软件构造-第三章-第五节-ADT和OOP中的“等价性”</span>
+                            <span class="card-title">Java基础 | 从源码看一看ArrayList的几个常见方法</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                软件构造第三章 第五节 ADT和OOP中的“等价性”
-
- 
-
-一、等价性equals() 和 ==1.1 等价关系
-等价关系是指对于关系E ⊆ T x T ，满足：
-
-自反性: x.equals(x)必须返回true
-对称性: x.equa
+                                从源码看一看ArrayList的几个常见方法第一节 ArrayList简介
+ArrayList是一个数组队列，相当于动态数组。与Java中的数组相比，它的容量能动态增长。它继承于AbstractList，实现了List，RandomAcce
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-08
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-03
                             </span>
                             <span class="publish-author">
                                 
@@ -1085,18 +908,18 @@ Throwable 类是 Java 语言中所有错误或异常的超类。
     <div class="row">
         <div class="col s6 m4 l4">
             
-            <a class="left btn-floating btn-large disabled">
+            <a href="/"
+               class="left btn-floating btn-large waves-effect waves-light bg-color">
                 <i class="fas fa-angle-left"></i>
             </a>
             
         </div>
         <div class="page-info col m4 l4 hide-on-small-only">
-            <div class="center-align b-text-gray">1 / 2</div>
+            <div class="center-align b-text-gray">2 / 2</div>
         </div>
         <div class="col s6 m4 l4">
             
-            <a href="/page/2/"
-               class="right btn-floating btn-large waves-effect waves-light bg-color">
+            <a class="right btn-floating btn-large disabled">
                 <i class="fas fa-angle-right"></i>
             </a>
             

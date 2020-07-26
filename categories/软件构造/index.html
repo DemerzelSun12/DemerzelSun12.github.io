@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Demerzel Sun&#39;s blog">
+    <meta name="keywords" content="分类: 软件构造, Demerzel Sun&#39;s blog">
     <meta name="description" content="雨过枫山送远青">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Demerzel Sun&#39;s blog</title>
+    <title>分类: 软件构造 | Demerzel Sun&#39;s blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -198,56 +198,9 @@
 
 </header>
 
-    
-<style>
-    .carousel-control {
-        width: 45px;
-        height: 45px;
-        line-height: 55px;
-        border-radius: 45px;
-        background: transparent;
-        cursor: pointer;
-        z-index: 100;
-    }
-
-    #prev-cover {
-        position: absolute;
-        top: 48%;
-        left: 8px;
-    }
-
-    #next-cover {
-        position: absolute;
-        top: 48%;
-        right: 8px;;
-    }
-
-    #prev-cover i {
-        margin-right: 3px;
-    }
-
-    #next-cover i {
-        margin-left: 3px;
-    }
-
-    .carousel-control:hover {
-        background-color: rgba(0, 0, 0, .4);
-    }
-
-    .carousel-control i {
-        color: #fff;
-        font-size: 2.4rem;
-    }
-</style>
-
-
-
-<div class="carousel carousel-slider center index-cover" data-indicators="true" style="margin-top: -64px;">
-    
-
-    <div class="carousel-item red white-text bg-cover about-cover">
-        <div class="container">
-            <div class="row">
+    <div class="bg-cover pd-header about-cover">
+    <div class="container">
+    <div class="row">
     <div class="col s10 offset-s1 m8 offset-m2 l8 offset-l2">
         <div class="brand">
             <div class="title center-align">
@@ -284,146 +237,56 @@
 </script>
 
 
-
-            <div class="cover-btns">
-                <a href="#indexCard" class="waves-effect waves-light btn">
-                    <i class="fa fa-angle-double-down"></i>开始阅读
-                </a>
-
-                
-            </div>
-            <div class="cover-social-link">
-    <a href="https://github.com/DemerzelSun12" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
-        <i class="fab fa-github"></i>
-    </a>
-
-
-
-    <a href="mailto:DemerzelSun@outlook.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
-        <i class="fas fa-envelope-open"></i>
-    </a>
-
-
-
-
-
-    <a href="https://twitter.com/Demerzel10" class="tooltipped" target="_blank" data-tooltip="关注我的Twitter: https://twitter.com/Demerzel10" data-position="top" data-delay="50">
-        <i class="fab fa-twitter"></i>
-    </a>
-
-
-
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1739779019" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1739779019" data-position="top" data-delay="50">
-        <i class="fab fa-qq"></i>
-    </a>
-
-
-
-
-
-
-
-</div>
-        </div>
     </div>
-
-    
 </div>
-
-<script>
-    $(function () {
-        let coverSlider = $('.carousel');
-
-        //用户触摸轮播自动 restartPlay 是否生效
-        let initUserPressedOrDraggedActive = false
-
-        //用户触摸轮播自动 restartPlay
-        function initUserPressedOrDragged(instance) {
-            setInterval(() => {
-                if (instance.pressed || instance.dragged) {
-                    // console.log('initUserPressedOrDragged: ',instance.pressed,instance.dragged)
-                    restartPlay()
-                }
-            }, 1000)
-        }
-
-        coverSlider.carousel({
-            duration: Number('120'),
-            fullWidth: true,
-            indicators: 'true' === 'true',
-            onCycleTo() {
-                if (!initUserPressedOrDraggedActive) {
-                    // console.log('initUserPressedOrDraggedActive')
-                    initUserPressedOrDragged(this)
-                    initUserPressedOrDraggedActive = true
-                }
-            },
-        })
-
-        let carouselIntervalId;
-        
-        // Loop to call the next cover article picture.
-        let autoCarousel = function () {
-            carouselIntervalId = setInterval(function () {
-                coverSlider.carousel('next');
-            }, 5000);
-        };
-        autoCarousel();
-        
-
-        function restartPlay() {
-            
-            clearInterval(carouselIntervalId);
-            autoCarousel();
-            
-        };
-
-        
-        // prev and next cover post.
-        $('#prev-cover').click(function () {
-            coverSlider.carousel('prev');
-            restartPlay();
-        });
-        $('#next-cover').click(function () {
-            coverSlider.carousel('next');
-            restartPlay();
-        });
-        
-    });
-</script>
-
-
 
 <main class="content">
 
     
-    <div id="indexCard" class="index-card">
-        <div class="container ">
-            <div class="card">
-                <div class="card-content">
-                    
 
-                    
-
-                    
-
-                    
-                </div>
+<div id="category-cloud" class="container chip-container">
+    <div class="card">
+        <div class="card-content">
+            <div class="tag-title center-align">
+                <i class="fas fa-bookmark"></i>&nbsp;&nbsp;文章分类
+            </div>
+            <div class="tag-chips">
+                
+                
+                
+                <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0/" title="软件构造: 23">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-active "
+                            style="background-color: #F9EBEA;">软件构造
+                        <span class="tag-length">23</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/categories/%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%88%86%E6%9E%90/" title="算法设计与分析: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            style="background-color: #F5EEF8;">算法设计与分析
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
             </div>
         </div>
     </div>
-    
+</div>
+
 
     
 
-    <!-- 所有文章卡片 -->
     <article id="articles" class="container articles">
-        <div class="row article-row">
+        <div class="row tags-posts">
             
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
                     <a href="/2020/06/13/volatile-guan-jian-zi-dao-di-shi-sha/">
-                        <div class="card-image">
+                        <div class="card-image tag-image">
                             
                             
                             <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="volatile关键字到底是啥">
@@ -431,7 +294,6 @@
                             <span class="card-title">volatile关键字到底是啥</span>
                         </div>
                     </a>
-
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
@@ -472,10 +334,10 @@
                 </div>
             </div>
             
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
                     <a href="/2020/05/16/ruan-jian-gou-zao-di-liu-zhang-di-er-jie-cuo-wu-yu-yi-chang-chu-li/">
-                        <div class="card-image">
+                        <div class="card-image tag-image">
                             
                             
                             <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="软件构造-第六章-第二节-错误与异常处理">
@@ -483,7 +345,6 @@
                             <span class="card-title">软件构造-第六章-第二节-错误与异常处理</span>
                         </div>
                     </a>
-
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
@@ -526,10 +387,10 @@ Throwable 类是 Java 语言中所有错误或异常的超类。
                 </div>
             </div>
             
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
                     <a href="/2020/05/12/ruan-jian-gou-zao-di-liu-zhang-di-yi-jie-jian-zhuang-xing-yu-zheng-que-xing/">
-                        <div class="card-image">
+                        <div class="card-image tag-image">
                             
                             
                             <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="软件构造-第六章-第一节-健壮性与正确性">
@@ -537,7 +398,6 @@ Throwable 类是 Java 语言中所有错误或异常的超类。
                             <span class="card-title">软件构造-第六章-第一节-健壮性与正确性</span>
                         </div>
                     </a>
-
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
@@ -581,10 +441,10 @@ Throwable 类是 Java 语言中所有错误或异常的超类。
                 </div>
             </div>
             
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
                     <a href="/2020/05/10/ruan-jian-gou-zao-di-wu-zhang-di-san-jie-mian-xiang-ke-wei-hu-xing-de-gou-zao-ji-zhu/">
-                        <div class="card-image">
+                        <div class="card-image tag-image">
                             
                             
                             <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="软件构造-第五章-第三节-面向可维护性的构造技术">
@@ -592,7 +452,6 @@ Throwable 类是 Java 语言中所有错误或异常的超类。
                             <span class="card-title">软件构造-第五章-第三节-面向可维护性的构造技术</span>
                         </div>
                     </a>
-
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
@@ -639,10 +498,10 @@ Throwable 类是 Java 语言中所有错误或异常的超类。
                 </div>
             </div>
             
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
                     <a href="/2020/05/07/he-wei-xian-cheng-chi/">
-                        <div class="card-image">
+                        <div class="card-image tag-image">
                             
                             
                             <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="何为线程池">
@@ -650,7 +509,6 @@ Throwable 类是 Java 语言中所有错误或异常的超类。
                             <span class="card-title">何为线程池</span>
                         </div>
                     </a>
-
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
@@ -691,10 +549,10 @@ Throwable 类是 Java 语言中所有错误或异常的超类。
                 </div>
             </div>
             
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
                     <a href="/2020/05/06/ruan-jian-gou-zao-di-wu-zhang-di-er-jie-mian-xiang-ke-wei-hu-xing-de-she-ji-mo-shi/">
-                        <div class="card-image">
+                        <div class="card-image tag-image">
                             
                             
                             <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="软件构造-第五章-第二节-面向可维护性的设计模式">
@@ -702,7 +560,6 @@ Throwable 类是 Java 语言中所有错误或异常的超类。
                             <span class="card-title">软件构造-第五章-第二节-面向可维护性的设计模式</span>
                         </div>
                     </a>
-
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
@@ -743,10 +600,10 @@ Throwable 类是 Java 语言中所有错误或异常的超类。
                 </div>
             </div>
             
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
                     <a href="/2020/04/28/bu-neng-shi-yong-fan-xing-de-ji-chong-qing-kuang/">
-                        <div class="card-image">
+                        <div class="card-image tag-image">
                             
                             
                             <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="不能使用泛型的几种情况">
@@ -754,7 +611,6 @@ Throwable 类是 Java 语言中所有错误或异常的超类。
                             <span class="card-title">不能使用泛型的几种情况</span>
                         </div>
                     </a>
-
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
@@ -794,10 +650,10 @@ Throwable 类是 Java 语言中所有错误或异常的超类。
                 </div>
             </div>
             
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
                     <a href="/2020/04/24/ruan-jian-gou-zao-di-wu-zhang-di-yi-jie-ke-wei-hu-xing-de-du-liang-yu-gou-zao-yuan-ze/">
-                        <div class="card-image">
+                        <div class="card-image tag-image">
                             
                             
                             <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="软件构造-第五章-第一节-可维护性的度量与构造原则">
@@ -805,7 +661,6 @@ Throwable 类是 Java 语言中所有错误或异常的超类。
                             <span class="card-title">软件构造-第五章-第一节-可维护性的度量与构造原则</span>
                         </div>
                     </a>
-
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
@@ -850,10 +705,10 @@ Throwable 类是 Java 语言中所有错误或异常的超类。
                 </div>
             </div>
             
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
                     <a href="/2020/04/20/ruan-jian-gou-zao-di-si-zhang-di-san-jie-mian-xiang-fu-yong-de-she-ji-mo-shi/">
-                        <div class="card-image">
+                        <div class="card-image tag-image">
                             
                             
                             <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="软件构造-第四章-第三节-面向复用的设计模式">
@@ -861,7 +716,6 @@ Throwable 类是 Java 语言中所有错误或异常的超类。
                             <span class="card-title">软件构造-第四章-第三节-面向复用的设计模式</span>
                         </div>
                     </a>
-
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
@@ -903,10 +757,10 @@ Throwable 类是 Java 语言中所有错误或异常的超类。
                 </div>
             </div>
             
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
                     <a href="/2020/04/16/ruan-jian-gou-zao-di-si-zhang-di-er-jie-mian-xiang-fu-yong-de-ruan-jian-gou-zao-ji-zhu/">
-                        <div class="card-image">
+                        <div class="card-image tag-image">
                             
                             
                             <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="软件构造-第四章-第二节-面向复用的软件构造技术">
@@ -914,7 +768,6 @@ Throwable 类是 Java 语言中所有错误或异常的超类。
                             <span class="card-title">软件构造-第四章-第二节-面向复用的软件构造技术</span>
                         </div>
                     </a>
-
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
@@ -964,10 +817,10 @@ Throwable 类是 Java 语言中所有错误或异常的超类。
                 </div>
             </div>
             
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
                     <a href="/2020/04/14/ruan-jian-gou-zao-di-si-zhang-di-yi-jie-ke-fu-yong-xing-de-du-liang-xing-tai-yu-wai-bu-biao-xian/">
-                        <div class="card-image">
+                        <div class="card-image tag-image">
                             
                             
                             <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="软件构造-第四章-第一节-可复用性的度量、形态与外部表现">
@@ -975,7 +828,6 @@ Throwable 类是 Java 语言中所有错误或异常的超类。
                             <span class="card-title">软件构造-第四章-第一节-可复用性的度量、形态与外部表现</span>
                         </div>
                     </a>
-
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
@@ -1020,10 +872,10 @@ Throwable 类是 Java 语言中所有错误或异常的超类。
                 </div>
             </div>
             
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
                     <a href="/2020/04/08/ruan-jian-gou-zao-di-san-zhang-di-wu-jie-adt-he-oop-zhong-de-deng-jie-xing/">
-                        <div class="card-image">
+                        <div class="card-image tag-image">
                             
                             
                             <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="软件构造-第三章-第五节-ADT和OOP中的“等价性”">
@@ -1031,7 +883,6 @@ Throwable 类是 Java 语言中所有错误或异常的超类。
                             <span class="card-title">软件构造-第三章-第五节-ADT和OOP中的“等价性”</span>
                         </div>
                     </a>
-
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
@@ -1077,7 +928,6 @@ Throwable 类是 Java 语言中所有错误或异常的超类。
             
         </div>
     </article>
-
 </main>
 
 
@@ -1095,7 +945,7 @@ Throwable 类是 Java 语言中所有错误或异常的超类。
         </div>
         <div class="col s6 m4 l4">
             
-            <a href="/page/2/"
+            <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0/page/2/"
                class="right btn-floating btn-large waves-effect waves-light bg-color">
                 <i class="fas fa-angle-right"></i>
             </a>
