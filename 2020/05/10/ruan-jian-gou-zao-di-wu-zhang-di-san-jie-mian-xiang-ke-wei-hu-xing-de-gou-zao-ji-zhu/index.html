@@ -526,7 +526,7 @@
 <h2 id="2-2-语法中的操作符"><a href="#2-2-语法中的操作符" class="headerlink" title="2.2 语法中的操作符"></a>2.2 语法中的操作符</h2><ol>
 <li>三个基本语法的操作符<ul>
 <li>连接，不是通过一个符号，而是一个空间：<br>x ::= y z //x等价于y后跟一个z</li>
-<li>重复，以*表示：<br>x ::= y* // x等价于0个或更多个y</li>
+<li>重复，以\<em>表示：<br>x ::= y\</em> // x等价于0个或更多个y</li>
 <li>联合，也称为交替，用|表示 ：<br>x ::= y | z //x等价于一个y或者一个z</li>
 </ul>
 </li>
@@ -546,7 +546,7 @@
 <li>如果将叶子串联在一起，则返回原始字符串。</li>
 </ul>
 </li>
-<li>解析URL示例：<br>url ::= protocol ‘: //‘ hostname (‘:’port)? ‘/‘<br>protocol ::= (‘f’ | ‘ht’) ‘tp’ ‘s’?<br>hostname ::= word ‘.’ hostname |<br>word ‘.’ word<br>port ::= [0-9]+<br>word ::= [a-z]+</li>
+<li>解析URL示例：<br>url ::= protocol ‘\: //‘ hostname (‘:’port)? ‘/‘<br>protocol ::= (‘f’ | ‘ht’) ‘tp’ ‘s’?<br>hostname ::= word ‘.’ hostname |<br>word ‘.’ word<br>port ::= [0-9]+<br>word ::= [a-z]+</li>
 </ol>
 <h2 id="2-4-正则语法"><a href="#2-4-正则语法" class="headerlink" title="2.4 正则语法"></a>2.4 正则语法</h2><ol>
 <li>正则语法：<br>简化之后可以表达为一个产生式而不包含任何非终止节点。</li>
@@ -1009,7 +1009,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">47.8k</span>&nbsp;字
+                class="white-color">47.7k</span>&nbsp;字
             
             
             
