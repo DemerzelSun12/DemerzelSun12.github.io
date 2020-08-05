@@ -543,9 +543,9 @@
 <h2 id="2-2-泛型中的LSP"><a href="#2-2-泛型中的LSP" class="headerlink" title="2.2 泛型中的LSP"></a>2.2 泛型中的LSP</h2><ol>
 <li>Java中泛型是不变的,但可以通过通配符”?”实现协变和逆变：<ul>
 <li>&lt;? extends&gt;实现了泛型的协变：</li>
-<li>List&lt;? extends Number&gt; list = new ArrayList\<Integer>();</li>
+<li>List&lt;? extends Number&gt; list = new ArrayList\<Integer>();</Integer></li>
 <li>&lt;? super&gt;实现了泛型的逆变：</li>
-<li>List&lt;? super Number&gt; list = new ArrayList\<Object>();</li>
+<li>List&lt;? super Number&gt; list = new ArrayList\<Object>();</Object></li>
 </ul>
 </li>
 <li>由于泛型的协变只能规定类的上界，逆变只能规定下界，使用时需要遵循PECS（producer–extends, consumer-super）：<ul>
@@ -555,13 +555,13 @@
 </ul>
 </li>
 <li>泛型是类型不变的（泛型不是协变的）。举例来说:<ul>
-<li>ArrayList\<String> 是List\<String>的子类型;</li>
-<li>List\<String>不是List\<Object>的子类型.</li>
+<li>ArrayList\<String> 是List\<String>的子类型;</String></String></li>
+<li>List\<String>不是List\<Object>的子类型.</Object></String></li>
 </ul>
 </li>
 <li>在代码的编译完成之后，泛型的类型信息就会被编译器擦除。因此，这些类型信息并不能在运行阶段时被获得。这一过程称之为类型擦除（type erasure）。</li>
 <li>类型擦除的详细定义：如果类型参数没有限制，则用它们的边界或Object来替换泛型类型中的所有类型参数。因此，产生的字节码只包含普通的类、接口和方法。</li>
-<li>类型擦除的结果：\<T>被擦除的T变成了Object</li>
+<li>类型擦除的结果：\<T>被擦除的T变成了Object</T></li>
 </ol>
 <center>
 <img src="https://img-blog.csdnimg.cn/20200428210654226.png" width="100%" height="35%">
@@ -571,7 +571,7 @@
 </center>
 
 <ol start="7">
-<li>Integer是number的子类型，但Box\<Integer>也不是Box\<Number>的子类型，即，Box\<Integer>和Box\<Number>都为Object的子类型。</li>
+<li>Integer是number的子类型，但Box\<Integer>也不是Box\<Number>的子类型，即，Box\<Integer>和Box\<Number>都为Object的子类型。</Number></Integer></Number></Integer></li>
 </ol>
 <center>
 <img src="https://img-blog.csdnimg.cn/20200428211418153.png" width="100%" height="35%">
@@ -584,7 +584,7 @@
 <li>无界通配符类型使用通配符（?）指定，例如List\&lt;?&gt;，这被称为未知类型的列表。</li>
 <li>在两种情况下，无界通配符是一种有用的方法：<ul>
 <li>如果正在编写可使用Object类中提供的功能实现的方法。</li>
-<li>当代码使用泛型类中不依赖于类型参数的方法时。 例如，List.size或List.clear。 事实上，Class &lt;?&gt;经常被使用，因为Class\<T>中的大多数方法不依赖于T。</li>
+<li>当代码使用泛型类中不依赖于类型参数的方法时。 例如，List.size或List.clear。 事实上，Class &lt;?&gt;经常被使用，因为Class\<T>中的大多数方法不依赖于T。</T></li>
 </ul>
 </li>
 <li>举例：</li>
@@ -597,12 +597,12 @@
 </center>
 
 <ul>
-<li><p>printList的目标是打印任何类型的列表，但它无法实现该目标 ，它仅打印Object实例列表; 它不能打印List\<Integer>，List\<String>，List\<Double>等，因为它们不是List \<Object>的子类型。 </p>
+<li><p>printList的目标是打印任何类型的列表，但它无法实现该目标 ，它仅打印Object实例列表; 它不能打印List\<Integer>，List\<String>，List\<Double>等，因为它们不是List \<Object>的子类型。 </Object></Double></String></Integer></p>
 </li>
 <li><p>要编写通用的printList方法，请使用List&lt;?&gt;</p>
 <ul>
-<li>低边界通配符&lt;? super A&gt;&emsp;&emsp; e.g. List&lt;? super Integer&gt;的子类型有List\<Number></li>
-<li>上边界通配符&lt;? extends A&gt;&emsp;&emsp;e.g. List&lt;? extends Number&gt;的子类型有List\<Integer></li>
+<li>低边界通配符&lt;? super A&gt;&emsp;&emsp; e.g. List&lt;? super Integer&gt;的子类型有List\<Number></Number></li>
+<li>上边界通配符&lt;? extends A&gt;&emsp;&emsp;e.g. List&lt;? extends Number&gt;的子类型有List\<Integer></Integer></li>
 </ul>
 </li>
 </ul>
@@ -1246,7 +1246,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">48.2k</span>&nbsp;字
+                class="white-color">49.2k</span>&nbsp;字
             
             
             
