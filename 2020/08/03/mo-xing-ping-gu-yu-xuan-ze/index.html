@@ -362,14 +362,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1k
+                    1.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    3 分
+                    4 分
                 </div>
                 
 
@@ -404,6 +404,7 @@
 <li>不同的划分会导致不同的训练/测试集，相应的模型评估也有差别。因此，单次使用的留出法得到的结果往往不稳定可靠。所以在使用留出法时，一般采取若干次随机划分、重复实验评估取平均值作为留出法的评估结果。</li>
 <li>如果训练集<em>S</em>包含绝大多数样本，则训练出的模型可能更接近于用<em>D</em>训练出的模型，但是由于<em>T</em>较小，评估结果可能不够稳定准确；若令测试集T包含过多的样本，则<em>S</em>与<em>D</em>的差别更大了，被评价的模型与用<em>D</em>训练出的模型可能有较大差别。因此常见做法是：测试集至少包含30个测试用例，且数据集的大约$\left. 2 / 3 \right. \sim \left. 4 / 5 \right.$的样本用于训练，剩余样本用于测试。</li>
 </ol>
+<h3 id="2-2-交叉验证法"><a href="#2-2-交叉验证法" class="headerlink" title="2.2 交叉验证法"></a>2.2 交叉验证法</h3><p>&emsp;&emsp;“交叉验证法”(<em>cross&ensp;validation</em>)先将数据集<em>D</em>划分成<em>k</em>个大小相似的互斥子集，即$D=D_1\cup D_2\cup \cdots \cup D_k$，$D_i\cap D_j=\varnothing \left(i\ne j\right)$。每个子集$D_i$都尽可能保持数据分布的一致性。<br>&emsp;&emsp;每次使用$k-1$个子集的并集作为训练集，余下的子集作为测试集；这样可以得到<em>k</em>组训练/测试集，进行<em>k</em>次训练和测试，最终返回<em>k</em>次测试结果的均值。</p>
 
             </div>
             <hr/>
@@ -818,7 +819,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">49.2k</span>&nbsp;字
+                class="white-color">49.3k</span>&nbsp;字
             
             
             
