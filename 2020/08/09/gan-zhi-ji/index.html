@@ -392,7 +392,7 @@
 
 <h2 id="二、感知机的学习策略"><a href="#二、感知机的学习策略" class="headerlink" title="二、感知机的学习策略"></a>二、感知机的学习策略</h2><p>&emsp;&emsp;感知机学习的目标是求得一个能够将训练集正实例点和负实例点完全正确区分的分离超平面。即确定模型参数 $w,b$ 。</p>
 <h3 id="2-1-损失函数"><a href="#2-1-损失函数" class="headerlink" title="2.1 损失函数"></a>2.1 损失函数</h3><p>&emsp;&emsp;感知机的损失函数选择：误分类点到超平面S的总距离。对于输入空间 $\mathbf{R}^{\text{n}}$ 中的任意一点 $x_0$ 到超平面S的距离: $$\frac{1}{\lVert w \rVert}\left| w\cdot x_0+b \right|  $$ ，其中 $\lVert w\rVert$ 是 $w$ 的 $L_2$ 范数。<br>&emsp;&emsp;补：$L_2$ 范数: $\lVert w \rVert _2=\left( w_1^2+w_2^2+\cdots +w_n^2 \right) ^{\frac{1}{2}}$ .<br>&emsp;&emsp;其次，对于<strong>误分类数据</strong>  $\left(x_i,y_i\right)$ ，当  $w\cdot x_i+b&gt;0$ 时，  $y_i=-1$ ；而当  $w\cdot x_i+b&lt;0$ 时，  $y_i=+1$ 。因此对于任意的误分类点，有$$-y_i\left(w\cdot x_i+b\right)&gt;0$$ 因此，误分类点 $x_i$ 到超平面<em>S</em>的距离是$$-\cfrac{1}{\lVert w \rVert}y_i\left(w\cdot x_i+b\right)$$这样假设超平面<em>S</em>误分类的点的集合为<em>M</em>，那么所有误分类点到超平面<em>S</em>的总距离为$$-\cfrac{1}{\lVert w \rVert}\sum_{x_i\in M}{y_i\left(w\cdot x_i+b\right)} $$不考虑 $\cfrac{1}{\lVert w \rVert}$ ，即得到感知机学习的损失函数。</p>
-<p>&emsp;&emsp;对于给定的数据集$$T=\left\{\left(x_1,y_1\right) , \left(x_2,y_2\right),\cdots,\left(x_N,y_N\right)\right\}$$ 其中，$x_i\in \mathcal{X}=\mathbf{R}^{\text{n}}$，$y_i\in \mathcal{Y}=\left\{+1,-1\right\}$ , $i=1,2,\cdots, N$。感知机$\text{sign}\left(w\cdot x+b\right)$ 学习的损失函数为$$L\left(w,b\right)=-\sum_{x_i\in M}{y_i\left(\right)}$$ 其中<em>M</em>为误分类点的集合，损失函数即为感知机学习的经验风险函数。</p>
+<p>&emsp;&emsp;对于给定的数据集$$T=\left\{\left(x_1,y_1\right) , \left(x_2,y_2\right),\cdots,\left(x_N,y_N\right)\right\}$$ 其中，$x_i\in \mathcal{X}=\mathbf{R}^{\text{n}}$，$y_i\in \mathcal{Y}=\left\{+1,-1\right\}$ , $i=1,2,\cdots, N$。感知机$\text{sign}\left(w\cdot x+b\right)$ 学习的损失函数为$$L\left(w,b\right)=-\sum_{x_i\in M}{y_i\left(w\cdot x_i +b\right)}$$ 其中<em>M</em>为误分类点的集合，损失函数即为感知机学习的经验风险函数。</p>
 <h2 id="三、感知机学习算法"><a href="#三、感知机学习算法" class="headerlink" title="三、感知机学习算法"></a>三、感知机学习算法</h2><h3 id="3-1-感知机学习算法的原始形式"><a href="#3-1-感知机学习算法的原始形式" class="headerlink" title="3.1 感知机学习算法的原始形式"></a>3.1 感知机学习算法的原始形式</h3><p>&emsp;&emsp;首先，任意选取一个超平面$w_0,b_0$，然后用梯度下降法不断极小化目标函数，极小化的过程中不是一次使<em>M</em>中所有误分类点的梯度下降，而是一次随机选取一个误分类点使其梯度下降。<br>&emsp;&emsp;假设误分类点集合<em>M</em>是固定的，那么损失函数$L\left(w,b\right)$的梯度由<br>$$<br>\bigtriangledown_wL\left( w,b \right) =-\sum_{x_i\in M}{y_ix_i}<br>$$<br>$$<br>\bigtriangledown_wL\left( w,b \right) =-\sum_{x_i\in M}{y_i}<br>$$<br>给出。<br>&emsp;&emsp;随机选取一个误分类点 $\left(x_i,y_i\right)$ ，对 $w,b$ 进行更新：<br>$$<br>w\leftarrow w+\eta y_ix_i<br>$$<br>$$<br>b\leftarrow b+\eta y_i<br>$$<br>式中 $\eta \left(0&lt;\eta \le 1\right)$ 是步长，或叫做学习率。通过迭代可以使得损失函数$L\left(w,b\right) $ 不断减小，直到0为止。得到以下算法：</p>
 <p><font size="4"><strong>算法 1 （感知机学习算法的原始形式）</strong></font><br>&emsp;&emsp;输入：训练数据集 $T=\left\{\left(x_1,y_1\right),\left(x_2,y_2\right),\cdots,\left(x_N,y_N\right)\right\}$ ，其中，$x_i\in \mathcal{X}=\mathbf{R}^{\text{n}}$，$y_i\in \mathcal{Y}=\left\{+1,-1\right\}$ , $i=1,2,\cdots, N$ ；学习率 $\eta \left( 0&lt;\eta \le 1\right)$；<br>&emsp;&emsp;输出：$w,b$ ；感知机模型$f\left(x\right)=\text{sign}\left(w\cdot x+b\right)$。</p>
 <ol>
@@ -869,7 +869,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">52.5k</span>&nbsp;字
+                class="white-color">54.7k</span>&nbsp;字
             
             
             

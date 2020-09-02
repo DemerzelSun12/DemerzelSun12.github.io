@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="软件构造-第二章-第二节-软件构造的过程、系统和工具, Demerzel Sun&#39;s blog">
+    <meta name="keywords" content="k近邻法, Demerzel Sun&#39;s blog">
     <meta name="description" content="雨过枫山送远青">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>软件构造-第二章-第二节-软件构造的过程、系统和工具 | Demerzel Sun&#39;s blog</title>
+    <title>k近邻法 | Demerzel Sun&#39;s blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -202,12 +202,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">软件构造-第二章-第二节-软件构造的过程、系统和工具</h1>
+                    <h1 class="description center-align post-title">k近邻法</h1>
                 </div>
             </div>
         </div>
@@ -322,25 +322,12 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0%E7%AC%94%E8%AE%B0/">
-                                <span class="chip bg-color">软件构造笔记</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0/" class="post-category">
-                                软件构造
-                            </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -349,7 +336,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-03-21
+                    2020-08-31
                 </div>
                 
 
@@ -358,14 +345,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.8k
+                    2.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    10 分
+                    9 分
                 </div>
                 
 
@@ -375,258 +362,84 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="软件构造第二章-第二节-软件构造的过程、系统和工具"><a href="#软件构造第二章-第二节-软件构造的过程、系统和工具" class="headerlink" title="软件构造第二章 第二节 软件构造的过程、系统和工具"></a>软件构造第二章 第二节 软件构造的过程、系统和工具</h1><!-- toc -->
-
- <a id="more"></a>
-
-<h1 id="一、广义的软件构造过程"><a href="#一、广义的软件构造过程" class="headerlink" title="一、广义的软件构造过程"></a>一、广义的软件构造过程</h1><h2 id="1-1-编程-Programming"><a href="#1-1-编程-Programming" class="headerlink" title="1.1 编程(Programming)"></a>1.1 编程(Programming)</h2><center>
-<img src="https://img-blog.csdnimg.cn/20200328225435730.png" width="80%" height="35%">
+                <h2 id="一、基本形式"><a href="#一、基本形式" class="headerlink" title="一、基本形式"></a>一、基本形式</h2><p>&emsp;&emsp;感知机是一种线性二分类模型，输入为实例的特征向量，输出为实例的判别，取 $+1,\ -1$ 二值。实际上感知机将输入空间（特征空间）中的实例划分为正负两类的分离超平面。<br>&emsp;&emsp;导入基于误分类的损失函数，利用梯度下降法对损失函数进行极小化，求得感知机模型。</p>
+<p><font size="5">1. 感知机模型</font>：<br>&emsp;&emsp;假设输入空间（特征空间）是 $\mathcal{X}\in \mathbf{R}^{\text{n}}$ ，输出空间是  $\mathcal{Y}=\left \{ +1,-1\right \}$ 。输入  $\mathcal{x}\in \mathcal{X}$ 表示实例的特征向量，对应与输入空间的点；输出 $\mathcal{y}\in \mathcal{Y}$ 表示实例的类别。由输入空间到输出空间的如下函数  $$f\left(x\right)=\text{sign}\left(w\cdot x+b\right) $$ 称为感知机。其中 $w$ 和 $b$ 为感知机的模型参数，$w\in \mathbf{R}^{\text{n}}$ 为权值(<em>weight</em>)或权值向量(<em>weight&ensp;vector</em>)，$b\in \mathbf{R}$ 为偏置(<em>bias</em>)， $w\cdot x$ 表示 $w$ 与 $x$ 的内积。<em>sign</em>是符号函数。</p>
+<p><font size="5">2. 感知机的几何解释</font>：<br>&emsp;&emsp;线性方程 $w\cdot x+b=0$ 对应于特征空间 $\mathbf{R}^{\text{n}}$ 中的一个超平面S，其中w是超平面的法向量，b是超平面的截距。此超平面将特征空间划分为两部分，位于两部分的点被分为正负两类，超平面S又叫分离超平面，如图1-1。</p>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200902104301348.png" width="50%" height="35%">
 </center>
 <center>
-图1-1 常见软件构造过程
+图1-1 感知机模型
 </center>
-<br>
 
+
+<h2 id="二、感知机的学习策略"><a href="#二、感知机的学习策略" class="headerlink" title="二、感知机的学习策略"></a>二、感知机的学习策略</h2><p>&emsp;&emsp;感知机学习的目标是求得一个能够将训练集正实例点和负实例点完全正确区分的分离超平面。即确定模型参数 $w,b$ 。</p>
+<h3 id="2-1-损失函数"><a href="#2-1-损失函数" class="headerlink" title="2.1 损失函数"></a>2.1 损失函数</h3><p>&emsp;&emsp;感知机的损失函数选择：误分类点到超平面S的总距离。对于输入空间 $\mathbf{R}^{\text{n}}$ 中的任意一点 $x_0$ 到超平面S的距离: $$\frac{1}{\lVert w \rVert}\left| w\cdot x_0+b \right|  $$ ，其中 $\lVert w\rVert$ 是 $w$ 的 $L_2$ 范数。<br>&emsp;&emsp;补：$L_2$ 范数: $\lVert w \rVert _2=\left( w_1^2+w_2^2+\cdots +w_n^2 \right) ^{\frac{1}{2}}$ .<br>&emsp;&emsp;其次，对于<strong>误分类数据</strong>  $\left(x_i,y_i\right)$ ，当  $w\cdot x_i+b&gt;0$ 时，  $y_i=-1$ ；而当  $w\cdot x_i+b&lt;0$ 时，  $y_i=+1$ 。因此对于任意的误分类点，有$$-y_i\left(w\cdot x_i+b\right)&gt;0$$ 因此，误分类点 $x_i$ 到超平面<em>S</em>的距离是$$-\cfrac{1}{\lVert w \rVert}y_i\left(w\cdot x_i+b\right)$$这样假设超平面<em>S</em>误分类的点的集合为<em>M</em>，那么所有误分类点到超平面<em>S</em>的总距离为$$-\cfrac{1}{\lVert w \rVert}\sum_{x_i\in M}{y_i\left(w\cdot x_i+b\right)} $$不考虑 $\cfrac{1}{\lVert w \rVert}$ ，即得到感知机学习的损失函数。</p>
+<p>&emsp;&emsp;对于给定的数据集$$T=\left\{\left(x_1,y_1\right) , \left(x_2,y_2\right),\cdots,\left(x_N,y_N\right)\right\}$$ 其中，$x_i\in \mathcal{X}=\mathbf{R}^{\text{n}}$，$y_i\in \mathcal{Y}=\left\{+1,-1\right\}$ , $i=1,2,\cdots, N$。感知机$\text{sign}\left(w\cdot x+b\right)$ 学习的损失函数为$$L\left(w,b\right)=-\sum_{x_i\in M}{y_i\left(\right)}$$ 其中<em>M</em>为误分类点的集合，损失函数即为感知机学习的经验风险函数。</p>
+<h2 id="三、感知机学习算法"><a href="#三、感知机学习算法" class="headerlink" title="三、感知机学习算法"></a>三、感知机学习算法</h2><h3 id="3-1-感知机学习算法的原始形式"><a href="#3-1-感知机学习算法的原始形式" class="headerlink" title="3.1 感知机学习算法的原始形式"></a>3.1 感知机学习算法的原始形式</h3><p>&emsp;&emsp;首先，任意选取一个超平面$w_0,b_0$，然后用梯度下降法不断极小化目标函数，极小化的过程中不是一次使<em>M</em>中所有误分类点的梯度下降，而是一次随机选取一个误分类点使其梯度下降。<br>&emsp;&emsp;假设误分类点集合<em>M</em>是固定的，那么损失函数$L\left(w,b\right)$的梯度由<br>$$<br>\bigtriangledown_wL\left( w,b \right) =-\sum_{x_i\in M}{y_ix_i}<br>$$<br>$$<br>\bigtriangledown_wL\left( w,b \right) =-\sum_{x_i\in M}{y_i}<br>$$<br>给出。<br>&emsp;&emsp;随机选取一个误分类点 $\left(x_i,y_i\right)$ ，对 $w,b$ 进行更新：<br>$$<br>w\leftarrow w+\eta y_ix_i<br>$$<br>$$<br>b\leftarrow b+\eta y_i<br>$$<br>式中 $\eta \left(0&lt;\eta \le 1\right)$ 是步长，或叫做学习率。通过迭代可以使得损失函数$L\left(w,b\right) $ 不断减小，直到0为止。得到以下算法：</p>
+<p><font size="4"><strong>算法 1 （感知机学习算法的原始形式）</strong></font><br>&emsp;&emsp;输入：训练数据集 $T=\left\{\left(x_1,y_1\right),\left(x_2,y_2\right),\cdots,\left(x_N,y_N\right)\right\}$ ，其中，$x_i\in \mathcal{X}=\mathbf{R}^{\text{n}}$，$y_i\in \mathcal{Y}=\left\{+1,-1\right\}$ , $i=1,2,\cdots, N$ ；学习率 $\eta \left( 0&lt;\eta \le 1\right)$；<br>&emsp;&emsp;输出：$w,b$ ；感知机模型$f\left(x\right)=\text{sign}\left(w\cdot x+b\right)$。</p>
 <ol>
-<li><p>Construction languages</p>
-<ul>
-<li>用途上划分语言<ul>
-<li>Programming languages (e.g., C, C++, Java, Python) 编程语言</li>
-<li>Modeling languages (e.g., UML) 建模语言</li>
-<li>Configuration languages (e.g., XML) 配置语言</li>
-<li>Build languages (e.g., XML) 构建语言</li>
-</ul>
+<li><p>选取初值 $w_0,b_0$;</p>
 </li>
-<li>从形态上划分<ul>
-<li>Linguistic-based 基于语言学的构造语言</li>
-<li>Mathematics-based (formal) 基于数学的形式化构造语言</li>
-<li>Graphics-based (visual) 基于图形的可视化构造语言<br>
+<li><p>在训练集中选取数据 $\left(x_i,y_i\right)$;</p>
 </li>
-</ul>
+<li><p>如果$y_i\left(w\cdot x_i +b\right)\ne 0$，<br>$$<br>w\leftarrow w+\eta y_ix_i<br>$$<br>$$<br>b\leftarrow b+\eta y_i<br>$$</p>
 </li>
-</ul>
-</li>
-<li><p>Programming tools</p>
-<ul>
-<li>集成开发环境IDE</li>
-<li>IDE包括：<ul>
-<li>Source code editor with intelligent code completion, code refactoring tool 源代码编辑器、智能代码补全工具、代码重构工具</li>
-<li>File management tool 文件管理</li>
-<li>Library management tool 库管理</li>
-<li>Class browser, object browser, class hierarchy diagram 软件逻辑实体可视化</li>
-<li>Graphical User Interface (GUI) builder 图形化用户界面构造器</li>
-<li>Compiler, interpreter 编译器、解释器</li>
-<li>Build automation tools 自动化build工具</li>
-<li>Version control system 版本控制系统</li>
-<li>Extensible by more external third-party tools 外部的第三方工具<br>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Modeling languages 建模语言</p>
-<ul>
-<li>建模语言：<br>&emsp;建模语言是可以用来在由一致的规则集定义的结构中表达信息或知识或系统的任何人工语言，目的是可视化，推理，验证和传达系统的设计。</li>
-<li>UML语言:<center>
-<img src="https://img-blog.csdnimg.cn/20200328230951933.png" width="90%" height="35%">
-</center>
-<center>
-图1-2 UML图
-</center>
-<br>  
-<center>
-<img src="https://img-blog.csdnimg.cn/20200328231015347.png" width="80%" height="35%">
-</center>
-<center>
-图1-3 UML图示例
-</center>
-<br> 
-</li>
-</ul>
-</li>
-<li><p>Configuration languages 配置语言</p>
-<ul>
-<li>配置文件配置程序的参数和初始设置。</li>
-<li>应用程序应提供工具来创建，修改和验证其配置文件的语法；</li>
-<li>某些计算机程序仅在启动时读取其配置文件。其他人则定期检查配置文件中的更改。</li>
-<li>常见配置语言：XML, YAML, JSON</li>
-</ul>
+<li><p>转至2，直到训练集中没有误分类点。</p>
 </li>
 </ol>
-<h2 id="1-2-静态代码分析-Review-and-static-code-analysis"><a href="#1-2-静态代码分析-Review-and-static-code-analysis" class="headerlink" title="1.2 静态代码分析(Review and static code analysis)"></a>1.2 静态代码分析(Review and static code analysis)</h2><ol>
-<li><p>代码评审</p>
-<ul>
-<li>代码审查是对源代码的系统检查（同级审查）。</li>
-<li>旨在发现在初始开发阶段被忽略的错误，从而提高整体质量。</li>
-<li>审核以各种形式进行，例如配对编程，非正式演练和正式检查。<br>
-</li>
-</ul>
-</li>
-<li><p>代码评审会议</p>
-<ul>
-<li>正式的代码审查（例如Fagan检查）涉及一个仔细且详细的过程，涉及多个参与者和多个阶段。</li>
-<li>正式代码审查是传统的审查方法，其中软件开发人员通常使用材料的印刷副本参加一系列会议并逐行审查代码。</li>
-<li>正式检查非常彻底，并且可以有效地发现所审查代码中的缺陷。<br>
-</li>
-</ul>
-</li>
-<li><p>轻量级的代码评审</p>
-<ul>
-<li>轻量级代码检查通常比正式代码检查需要更少的开销，尽管在正确完成后它同样有效。</li>
-<li>轻量级审核通常是正常开发过程的一部分：<ul>
-<li>过度负责 - 当开发人员浏览代码时，另一位开发人员同时进行审查。</li>
-<li>电子邮件传递 - 源代码管理系统在签入后自动将代码通过电子邮件发送给审阅者。</li>
-<li>配对编程 - 两位作者在同一工作站上一起开发代码，这在Extreme Programming中很常见。</li>
-<li>工具辅助的代码审阅 - 作者和审阅者使用软件工具，非正式工具（例如pastebins和IRC）或专门用于对等代码审阅的专用工具。<br>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>利用工具进行的静态代码分析</p>
-<ul>
-<li>静态代码分析是对没有实际执行程序的情况下执行的计算机软件的分析（对执行程序执行的分析称为动态分析）。</li>
-<li>该过程可以对代码结构有所了解，并可以帮助确保代码符合行业标准。</li>
-<li>自动化工具可以帮助程序员和开发人员进行静态分析。<br>
-</li>
-</ul>
-</li>
-<li><p>代码审查目的</p>
-<ul>
-<li>改进代码。 查找错误，预见可能的错误，检查代码的清晰度以及检查与项目样式标准的一致性。</li>
-<li>提升程序员水平。 代码审查是程序员彼此学习和教导的重要方式，涉及新的语言功能，项目设计或其编码标准的更改以及新技术。 特别是在开源项目中，在代码审查中可以学习很多新知识。</li>
-<li>注：<font color="red" size="5">测试也是提高代码质量手段，但分析和设计为提升代码质量的最重要方式。</font><br>
+<p>Python代码实现如下：</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">perceptron</span><span class="token punctuation">(</span>dataArr<span class="token punctuation">,</span> labelArr<span class="token punctuation">,</span> iter<span class="token operator">=</span><span class="token number">50</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">'''
+    感知器训练过程
+    :param dataArr:训练集的数据 (list)
+    :param labelArr: 训练集的标签(list)
+    :param iter: 迭代次数，默认50
+    :return: 训练好的w和b
+    '''</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'start to trans'</span><span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true"># 将数据转换成矩阵形式（在机器学习中因为通常都是向量的运算，转换称矩阵形式方便运算）</span>
+    <span class="token comment" spellcheck="true"># 转换后的数据中每一个样本的向量都是横向的</span>
+    dataMat <span class="token operator">=</span> np<span class="token punctuation">.</span>mat<span class="token punctuation">(</span>dataArr<span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true"># 将标签转换成矩阵，之后转置(.T为转置)。</span>
+    <span class="token comment" spellcheck="true"># 转置是因为在运算中需要单独取label中的某一个元素，如果是1xN的矩阵的话，无法用label[i]的方式读取</span>
+    <span class="token comment" spellcheck="true"># 对于只有1xN的label可以不转换成矩阵，直接label[i]即可，这里转换是为了格式上的统一</span>
+    labelMat <span class="token operator">=</span> np<span class="token punctuation">.</span>mat<span class="token punctuation">(</span>labelArr<span class="token punctuation">)</span><span class="token punctuation">.</span>T
+    <span class="token comment" spellcheck="true"># 获取数据矩阵的大小，为m*n</span>
+    m<span class="token punctuation">,</span> n <span class="token operator">=</span> np<span class="token punctuation">.</span>shape<span class="token punctuation">(</span>dataMat<span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true"># 创建初始权重w，初始值全为0。</span>
+    <span class="token comment" spellcheck="true"># np.shape(dataMat)的返回值为m，n -> np.shape(dataMat)[1])的值即为n，与</span>
+    <span class="token comment" spellcheck="true"># 样本长度保持一致</span>
+    w <span class="token operator">=</span> np<span class="token punctuation">.</span>zeros<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> np<span class="token punctuation">.</span>shape<span class="token punctuation">(</span>dataMat<span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true"># 初始化偏置b为0</span>
+    b <span class="token operator">=</span> <span class="token number">0</span>
+    <span class="token comment" spellcheck="true"># 初始化步长，也就是梯度下降过程中的n，控制梯度下降速率</span>
+    h <span class="token operator">=</span> <span class="token number">0.0001</span>
 
-</li>
-</ul>
-</li>
-</ol>
-<h2 id="1-3-动态代码分析-Dynamic-code-analysis-profiling"><a href="#1-3-动态代码分析-Dynamic-code-analysis-profiling" class="headerlink" title="1.3 动态代码分析(Dynamic code analysis / profiling)"></a>1.3 动态代码分析(Dynamic code analysis / profiling)</h2><ol>
-<li>动态代码分析<ul>
-<li>动态程序分析是对通过执行程序执行的软件的分析。</li>
-<li>必须使用足够的测试输入来执行目标程序，以使软件产生正确的行为。即对代码的运行时状态和性能进行度量，发现代码中的潜在问题。</li>
-<li>使用软件测试措施（例如代码覆盖率）有助于确保已观察到程序的可能行为集中的适当部分。</li>
-<li>概要分析（“程序概要”，“软件概要”）是一种动态程序分析形式，用于测量程序的空间（内存）或时间复杂性，特定指令的使用情况或函数调用的频率和持续时间。<br>
-
-</li>
-</ul>
-</li>
-</ol>
-<h2 id="1-4-调试与测试-Debugging-and-Testing"><a href="#1-4-调试与测试-Debugging-and-Testing" class="headerlink" title="1.4 调试与测试(Debugging and Testing)"></a>1.4 调试与测试(Debugging and Testing)</h2><ol>
-<li><p>什么是测试？</p>
-<ul>
-<li>软件测试是为了向利益相关者提供有关被测产品或服务质量的信息而进行的调查。</li>
-<li>测试技术包括执行程序或应用程序的过程，目的是发现软件错误（错误或其他缺陷），并验证软件产品是否适合使用。</li>
-<li>软件测试包括执行软件组件或系统组件以评估一个或多个相关属性。<br>
-</li>
-</ul>
-</li>
-<li><p>什么是调试？</p>
-<ul>
-<li>调试是识别错误的根本原因并进行纠正的过程。</li>
-<li>与测试相反（测试是最初检测错误的过程），调试是成功测试的结果。<ul>
-<li>在某些项目中，调试占用了总开发时间的50％。</li>
-<li>对于许多程序员而言，调试是编程中最困难的部分。</li>
-</ul>
-</li>
-<li>像测试一样，调试不是提高软件质量的方法，而是诊断缺陷的方法。<ul>
-<li>必须从一开始就内置软件质量。 制作高质量产品的最佳方法是仔细开发需求，进行良好的设计并使用高质量的编码实践。</li>
-<li>调试是不得已的方法。<br>
-
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
-<h2 id="1-5-重构-Refactoring"><a href="#1-5-重构-Refactoring" class="headerlink" title="1.5 重构(Refactoring)"></a>1.5 重构(Refactoring)</h2><ol>
-<li><p>重构：</p>
-<ul>
-<li>重构是指以不改变代码的外部行为但改善其内部结构的方式更改软件系统的过程。<br>
-</li>
-</ul>
-</li>
-<li><p>重构的目的：</p>
-<ul>
-<li>产生短期时间/工作成本以获取长期利益，并为系统的整体质量进行长期投资。<br>
-</li>
-</ul>
-</li>
-<li><p>重构的方法：</p>
-<ul>
-<li>通过一系列小的保留语义的转换来重构（重新排列）代码，以使代码更易于维护和修改。</li>
-<li>重构不仅仅是对旧的结构重组，需要保持代码正常运行，保留语义的小步骤，进行单元测试以证明代码有效。<br>
-
-</li>
-</ul>
-</li>
-</ol>
-<h1 id="二、狭义的软件构造：build"><a href="#二、狭义的软件构造：build" class="headerlink" title="二、狭义的软件构造：build"></a>二、狭义的软件构造：build</h1><h2 id="2-1-build粗略理解"><a href="#2-1-build粗略理解" class="headerlink" title="2.1 build粗略理解"></a>2.1 build粗略理解</h2><p>&emsp;&emsp;粗略理解build：build-time $\rightarrow$ run-time. 借助于工具，将软件构造各阶段的活动“自动化”(编译、打包、静态分析、测试、生成文档、部署、…)，尽可能脱离“手工作业”，提高构造效率。</p>
-<h2 id="2-2-build场景综述"><a href="#2-2-build场景综述" class="headerlink" title="2.2 build场景综述"></a>2.2 build场景综述</h2><ol>
-<li>用传统编译语言(如C、C++、Java)编写软件（compilation）</li>
-<li>用解释型语言(如Perl、Python)编写软件的打包和测试(packaging and testing)</li>
-<li>用基于Web的应用程序进行编译和打包<ul>
-<li>使用静态HTML页面</li>
-<li>使用Java或C# 编写的源代码 </li>
-<li>使用JSP，ASP或PHP语法编写的混合文件以及多种类型的配置文件</li>
-</ul>
-</li>
-<li>执行单元测试代码的其余部分对软件进行隔离验证</li>
-<li>执行静态分析工具来是被程序源代码中的错误</li>
-<li>生成PDF或HTML文档</li>
-</ol>
-<h2 id="2-3-传统编译语言：C、C-、Java等"><a href="#2-3-传统编译语言：C、C-、Java等" class="headerlink" title="2.3 传统编译语言：C、C++、Java等"></a>2.3 传统编译语言：C、C++、Java等</h2><ol>
-<li>源文件被编译成目标文件，连接到代码库或可执行程序中<br>生成的文件被收集到可安装在目标机器上的发行包中</li>
-<li>版本控制工具</li>
-<li>源树和对象树：特定开发人员使用的源文件和编译对象文件集。</li>
-<li>构建机器：执行编译工具的计算设备</li>
-<li>发布打包和目标机器：打包软件，分发给最终用户，然后安装到目标机器上的方法</li>
-</ol>
-<h2 id="2-4-解释型语言：Perl、Python等"><a href="#2-4-解释型语言：Perl、Python等" class="headerlink" title="2.4 解释型语言：Perl、Python等"></a>2.4 解释型语言：Perl、Python等</h2><ol>
-<li>解释的源代码不会编译到目标代码中，不需要对象树，解释源文件本身被收集到一个发行包中被安排在目标机器上</li>
-<li>编译工具专注于转换源文件并将它们存储在发行包中</li>
-<li>不在程序构建时编译成机器码</li>
-</ol>
-<h2 id="2-5-基于Web应用程序的构建系统：编译代码，解释代码和配置或数据文件的混合"><a href="#2-5-基于Web应用程序的构建系统：编译代码，解释代码和配置或数据文件的混合" class="headerlink" title="2.5 基于Web应用程序的构建系统：编译代码，解释代码和配置或数据文件的混合"></a>2.5 基于Web应用程序的构建系统：编译代码，解释代码和配置或数据文件的混合</h2><ol>
-<li>静态HTML文件，只包含标记数据显示在Web浏览器中，直接复制到发行包</li>
-<li>包含代码的JavaScript文件将由最终用户浏览器解释，直接复制到发行包</li>
-<li>JSP，ASP或PHP页面，包含HTML和程序代码的混合，由Web应用程序服务器而不是构建系统编译和执行，复制到发布包，准备安装到Web服务器上</li>
-<li>构建系统在编译打包Java类文件之前执行转换。Java类在Web应用程序服务器上或浏览器内执行（使用小程序）</li>
-</ol>
-<h2 id="2-6-Build-process"><a href="#2-6-Build-process" class="headerlink" title="2.6 Build process"></a>2.6 Build process</h2><ol>
-<li>build process<br>&emsp;构建工具调用每个编译工具来完成工作，这是事件的端到端序列。</li>
-</ol>
-<center>
-<img src="https://img-blog.csdnimg.cn/2020032911281383.png" width="90%" height="35%">
-</center>
-<center>
-图2-1 build process
-</center>
-<br>  
-
-<ol start="2">
-<li>如何构建系统<ul>
-<li>开发人员构建：开发人员已检出VCS的源代码并正在专用工作区中构建软件，结果发布包将用于开发人员的私人开发。</li>
-<li>发布版本：为测试组提供一个完整的软件包供验证，软件的质量足够高时为客户提供相同的软件包。用于发布版本的源代码树只编译一次，永不修改。</li>
-<li>Sanity构建：与发布版本类似，但并非针对客户，可以每天发生多次，并且趋向于完全自动化。</li>
-</ul>
-</li>
-</ol>
-<h1 id="三、常见build工具"><a href="#三、常见build工具" class="headerlink" title="三、常见build工具"></a>三、常见build工具</h1><ol>
-<li>Java构造工具：Make、Ant、Maven、Gradle、Eclipse<br>.2 Maven将项目的生命周期大致分为9个，分别为：clean、validate、compile、test、package、verify、install、site、deploy <ul>
-<li>使用maven自动构建的方法：如mvn compile<ul>
-<li>validate - 验证项目是否正确，并提供所有必要的信息</li>
-<li>compile - 编译项目的源代码</li>
-<li>test - 使用单元测试框架测试已编译的源代码。这些测试不应该要求打包或部署代码</li>
-<li>package - 获取已编译的代码并将其打包为可分发的格式，例如JAR</li>
-<li>verify - 对集成测试结果进行任何检查，以确保符合质量标准</li>
-<li>install - 将软件包安装到本地存储库中，作为本地其他项目的依赖项</li>
-<li>deploy - 在构建环境中完成，将最终包复制到远程存储库，以便与其他开发人员和项目共享</li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
+    <span class="token comment" spellcheck="true"># 进行iter次迭代计算</span>
+    <span class="token keyword">for</span> k <span class="token keyword">in</span> range<span class="token punctuation">(</span>iter<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment" spellcheck="true"># 对于每一个样本进行梯度下降</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>m<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token comment" spellcheck="true"># 获取当前样本的向量</span>
+            xi <span class="token operator">=</span> dataMat<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+            <span class="token comment" spellcheck="true"># 获取当前样本所对应的标签</span>
+            yi <span class="token operator">=</span> labelMat<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+            <span class="token comment" spellcheck="true"># 判断是否是误分类样本</span>
+            <span class="token comment" spellcheck="true"># 误分类样本特征为： -yi(w*xi+b)>=0</span>
+            <span class="token keyword">if</span> <span class="token operator">-</span><span class="token number">1</span> <span class="token operator">*</span> yi <span class="token operator">*</span> <span class="token punctuation">(</span>w <span class="token operator">*</span> xi<span class="token punctuation">.</span>T <span class="token operator">+</span> b<span class="token punctuation">)</span> <span class="token operator">>=</span> <span class="token number">0</span><span class="token punctuation">:</span>
+                <span class="token comment" spellcheck="true"># 对于误分类样本，进行梯度下降，更新w和b</span>
+                w <span class="token operator">=</span> w <span class="token operator">+</span> h <span class="token operator">*</span> yi <span class="token operator">*</span> xi
+                b <span class="token operator">=</span> b <span class="token operator">+</span> h <span class="token operator">*</span> yi
+        <span class="token comment" spellcheck="true"># 打印训练进度</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'Round %d:%d training'</span> <span class="token operator">%</span> <span class="token punctuation">(</span>k<span class="token punctuation">,</span> iter<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true"># 返回训练完的w、b</span>
+    <span class="token keyword">return</span> w<span class="token punctuation">,</span> b</code></pre>
+<h3 id="3-2-算法的收敛性"><a href="#3-2-算法的收敛性" class="headerlink" title="3.2 算法的收敛性"></a>3.2 算法的收敛性</h3><p>&emsp;&emsp;对于现行可分数据集，感知机学习算法原始形式收敛，即经过有限次迭代可以得到一个将训练数据集完全划分的分离超平面及感知机模型。<br>&emsp;&emsp;将偏置量 $b$ 并入权重向量 $w$ ，记作 $\hat{w}=\left( w^{\text{T}},b \right) ^{\text{T}}$, 同时扩张输入向量，记作 $\hat{x}=\left(x^{\text{T}},1\right)$。这样，$\hat{x}\in \mathbf{R}^{\text{n+1}}$, $\hat{w}\in \mathbf{R}^{\text{n+1}}$, 显然 $\hat{w}\cdot \hat{x}=w\cdot x+b$.</p>
+<p><font size="4"><strong>定理 1 (<em>Novikoff</em>)</strong></font><br>&emsp;&emsp;设训练数据集$T=\left\{\left(x_1,y_1\right),\left(x_2,y_2\right),\cdots,\left(x_N,y_N\right)\right\}$ 是线性可分的，其中$x_i\in \mathcal{X}=\mathbf{R}^{\text{n}}$，$y_i\in \mathcal{Y}=\left\{+1,-1\right\}$ , $i=1,2,\cdots, N$，则</p>
+<p>&emsp;&emsp; 1. 存在满足条件 $\lVert \hat{w}_{\text{opt}}\cdot \hat{x}_i \rVert =1$ 的超平面 $\hat{w}_{\text{opt}}\cdot \hat{x}=w_{\text{opt}}\cdot x+b_{\text{opt}}=0$ 将训练数据集完全正确分开；且存在 $\gamma&gt;0$，对所有$i=1,2,\cdots N$，有$$<br>y_i\left(\hat{w}_{\text{opt}}\cdot \hat{x}_i\right)=y_i\left(w_{\text{opt}}\cdot x+b_{\text{opt}}\right)\ge\gamma<br>$$</p>
+<p>&emsp;&emsp; 2. 令 $R=\underset{1\le i\le N}{\max}\lVert \hat{x}_i \rVert$ ，则感知机算法贼训练数据集上的误分类次数<em>k</em>满足不等式<br>$$<br>k\le \left (\cfrac{R}{\eta}\right)^2<br>$$</p>
+<p>证明略.</p>
+<p>&emsp;&emsp;定理表明，误分类次数<em>k</em>是有上界的，经过有限次搜索可以找到将数据集完全正确分开的分离超平面。也就是说，当训练集线性可分时，感知机学习算法原始形式迭代是收敛的。但是，感知机学习算法存在多解，既取决于初值的选择，也依赖于迭代过程中误分类点的选择顺序。</p>
 
             </div>
             <hr/>
@@ -652,7 +465,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://demerzel.site/2020/03/21/ruan-jian-gou-zao-di-er-zhang-di-er-jie-ruan-jian-gou-zao-de-guo-cheng-xi-tong-he-gong-ju/">https://demerzel.site/2020/03/21/ruan-jian-gou-zao-di-er-zhang-di-er-jie-ruan-jian-gou-zao-de-guo-cheng-xi-tong-he-gong-ju/</a>
+                    <a href="https://demerzel.site/2020/08/31/k-jin-lin-fa/">https://demerzel.site/2020/08/31/k-jin-lin-fa/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -689,11 +502,7 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0%E7%AC%94%E8%AE%B0/">
-                                    <span class="chip bg-color">软件构造笔记</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -733,56 +542,39 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/03/24/ruan-jian-gou-zao-di-san-zhang-di-yi-jie-shu-ju-lei-xing-yu-lei-xing-jian-cha/">
+                <a href="/2020/08/31/k-jin-lin-fa/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="软件构造-第三章-第一节-数据类型与类型检查">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="k近邻法">
                         
-                        <span class="card-title">软件构造-第三章-第一节-数据类型与类型检查</span>
+                        <span class="card-title">k近邻法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            软件构造第三章 第一节 数据类型与类型检查
-
- 
-
-一、数据类型1.1 类型和变量
-数据类型：
-基本数据类型&emsp;int double long boolean double char
-面向对象的数据类型&emsp;String Bi
+                            一种基本的分类与回归方法——k近邻法
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-03-24
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-31
+                            </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0/" class="post-category">
-                                    软件构造
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Demerzel Sun
                             
                         </span>
                     </div>
                 </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0%E7%AC%94%E8%AE%B0/">
-                        <span class="chip bg-color">软件构造笔记</span>
-                    </a>
-                    
-                </div>
+
                 
             </div>
         </div>
@@ -793,35 +585,31 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/03/21/java-ji-chu-pian-string-he-stringbuffer-stringbuilder-de-qu-bie/">
+                <a href="/2020/08/15/jue-ce-shu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="Java基础—String 和 StringBuffer、StringBuilder 的区别">
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="决策树">
                         
-                        <span class="card-title">Java基础—String 和 StringBuffer、StringBuilder 的区别</span>
+                        <span class="card-title">决策树</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            软件构造笔记-Java基础—String 和 StringBuffer、StringBuilder 的区别
-
- 
-
-一、三者简介1.1 StringString 表示的就是 Java 中的字符串，日常用到的使用 “” 双引号包围的数都是字符
+                            
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-21
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-15
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0/" class="post-category">
-                                    软件构造
+                            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    机器学习
                                 </a>
                             
                             
@@ -831,8 +619,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0%E7%AC%94%E8%AE%B0/">
-                        <span class="chip bg-color">软件构造笔记</span>
+                    <a href="/tags/%E7%AE%97%E6%B3%95/">
+                        <span class="chip bg-color">算法</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">机器学习</span>
                     </a>
                     
                 </div>
