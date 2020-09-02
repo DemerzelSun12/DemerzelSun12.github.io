@@ -358,7 +358,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    778
+                    775
                 </div>
                 
 
@@ -388,8 +388,8 @@
 <h1 id="二、-Comparator-概念"><a href="#二、-Comparator-概念" class="headerlink" title="二、 Comparator 概念"></a>二、 Comparator 概念</h1><p>Comparator 是一个函数式接口。它经常用于没有天然排序的集合进行排序，如 Collections.sort 或 Arrays.sort。或者对于某些有序数据结构的排序规则进行声明，如 TreeSet 、TreeMap 。也就是该接口主要用来进行集合排序。</p>
 <h1 id="三、Comparator-中的方法"><a href="#三、Comparator-中的方法" class="headerlink" title="三、Comparator 中的方法"></a>三、Comparator 中的方法</h1><p>Comparator 作为一个函数式接口只有一个抽象方法,但是它有很多的默认方法。</p>
 <h2 id="3-1-compare-抽象方法"><a href="#3-1-compare-抽象方法" class="headerlink" title="3.1 compare 抽象方法"></a>3.1 compare 抽象方法</h2><p>作为Comparator 唯一的抽象方法，int compare(T o1,T o2) 比较两个参数的大小， 返回负整数，零，正整数 ，分别代表 o1 &lt; o2、o1=o2、o1 &gt; o2，通常分别返回 -1、0 或 1。伪表达式：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 输入两个同类型的对象 ，输出一个比较结果的int数字</span><br><span class="line">(x1,x2)-&gt; int</span><br></pre></td></tr></table></figure>
-<p>实现该方法一定要注意以下事项：</p>
+<pre><code>// 输入两个同类型的对象 ，输出一个比较结果的int数字
+(x1,x2)-&gt; int</code></pre><p>实现该方法一定要注意以下事项：</p>
 <ul>
 <li>必须保证compare(x,y) 和compare(y,x) 的值的和必须为 0 。</li>
 <li>必须保证比较的顺序关系是可传递的，如果compare(x,y)&gt;0 而且compare(y,z)&gt;0 则 compare(x,z)&gt;0。</li>
@@ -830,7 +830,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">52.6k</span>&nbsp;字
+                class="white-color">52.5k</span>&nbsp;字
             
             
             

@@ -445,11 +445,10 @@
 <ul>
 <li>String：不可变数据类型，在修改时必须创建一个新的String对象</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String s &#x3D; &quot;a&quot;;</span><br><span class="line">a &#x3D; s + &quot;b&quot;;&#x2F;&#x2F;s &#x3D; s.concat(&quot;b&quot;);</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>StringBuilder:可改变的数据类型，可以直接修改对象的值<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">StringBuilder sb &#x3D; new StringBuilder(&quot;a&quot;);</span><br><span class="line">sb.append(&quot;b&quot;);</span><br></pre></td></tr></table></figure>
-<h2 id="3-3-可变性与不可变性的优缺点"><a href="#3-3-可变性与不可变性的优缺点" class="headerlink" title="3.3 可变性与不可变性的优缺点"></a>3.3 可变性与不可变性的优缺点</h2></li>
+<pre><code>String s = &quot;a&quot;;
+a = s + &quot;b&quot;;//s = s.concat(&quot;b&quot;);</code></pre><ul>
+<li>StringBuilder:可改变的数据类型，可以直接修改对象的值<pre><code>StringBuilder sb = new StringBuilder(&quot;a&quot;);
+sb.append(&quot;b&quot;);</code></pre><h2 id="3-3-可变性与不可变性的优缺点"><a href="#3-3-可变性与不可变性的优缺点" class="headerlink" title="3.3 可变性与不可变性的优缺点"></a>3.3 可变性与不可变性的优缺点</h2></li>
 </ul>
 <ol>
 <li>可变数据类型最小化的拷贝以提高效率；使用 不可变类型，对其频繁修改会产生大量的临时拷贝 (需要垃圾回收 )</li>
@@ -929,7 +928,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">52.6k</span>&nbsp;字
+                class="white-color">52.5k</span>&nbsp;字
             
             
             

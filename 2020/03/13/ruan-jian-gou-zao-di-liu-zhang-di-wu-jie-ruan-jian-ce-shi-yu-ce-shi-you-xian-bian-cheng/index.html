@@ -526,10 +526,36 @@
 　　 </p>
 <h1 id="六、JUnit-测试用例写法"><a href="#六、JUnit-测试用例写法" class="headerlink" title="六、JUnit 测试用例写法"></a>六、JUnit 测试用例写法</h1><h2 id="6-1-JUnit测试"><a href="#6-1-JUnit测试" class="headerlink" title="6.1 JUnit测试"></a>6.1 JUnit测试</h2><p>Junit单元测试是依据 注释中@Test 之前的方法编写的<br>JUnit测试经常调用多次方法，常使用 assertEqual || assertTrue || assertFalse 来检查结果<br>@Before：准备测试、完成初始化，每个测试方法前执行一次<br>@After：清理现场，每个测试方法后执行一次<br>@Test：表明测试方法，内含Assert语句<br>第一个参数是预期结果、第二个参数实施及结果；<br>如果断言失败，该测试方法直接返回，Junit记录该测试的失败；<br>一个测试方法失败，其他测试方法仍运行<br>@Test(expected = *.class)：对错误的测试，expected的属性值是一个异常<br>@Test(timeout = xxx)：测试方法在制定的时间之内没有运行完则失败<br>@ignore：忽略测试方法</p>
 <p>代码示例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">public class Calculator &#123;</span><br><span class="line">    public int evaluate(String expression) &#123;</span><br><span class="line">        int sum &#x3D; 0;</span><br><span class="line">        for (String summand: expression.split(&quot;\\+&quot;))</span><br><span class="line">            sum +&#x3D; Integer.valueOf(summand);</span><br><span class="line">        return sum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> ---------------------------------------</span><br><span class="line">import static org.junit.Assert.assertEquals;</span><br><span class="line">import org.junit.Test;</span><br><span class="line"></span><br><span class="line">public class CalculatorTest &#123;</span><br><span class="line">@Test</span><br><span class="line">public void evaluatesExpression() &#123;</span><br><span class="line">        Calculator calculator &#x3D; new Calculator();</span><br><span class="line">        int sum &#x3D; calculator.evaluate(&quot;1 + 2 + 3&quot;);</span><br><span class="line">        assertEquals(6, sum);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code> public class Calculator {
+     public int evaluate(String expression) {
+         int sum = 0;
+         for (String summand: expression.split(&quot;\\+&quot;))
+             sum += Integer.valueOf(summand);
+         return sum;
+     }
+ }
+  ---------------------------------------
+ import static org.junit.Assert.assertEquals;
+ import org.junit.Test;
 
-<h2 id="6-2-JUnit测试常用方法"><a href="#6-2-JUnit测试常用方法" class="headerlink" title="6.2 JUnit测试常用方法"></a>6.2 JUnit测试常用方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">assertArrayEquals(&quot;failure - byte arrays not same&quot;, expected, actual);</span><br><span class="line">assertEquals(&quot;failure - strings are not equal&quot;, &quot;text&quot;, &quot;text&quot;);</span><br><span class="line">assertFalse(&quot;failure - should be false&quot;, false);</span><br><span class="line">assertNotNull(&quot;should not be null&quot;, new Object());</span><br><span class="line">assertNotSame(&quot;should not be same Object&quot;, new Object(), new Object());</span><br><span class="line">assertNull(&quot;should be null&quot;, null);</span><br><span class="line">assertSame(&quot;should be same&quot;, aNumber, aNumber);</span><br><span class="line">assertTrue(&quot;failure - should be true&quot;, true);</span><br><span class="line">assertThat(&quot;albumen&quot;, both(containsString(&quot;a&quot;)).and(containsString(&quot;b&quot;)));</span><br><span class="line">assertThat(Arrays.asList(&quot;one&quot;, &quot;two&quot;, &quot;three&quot;), hasItems(&quot;one&quot;, &quot;three&quot;));</span><br><span class="line">assertThat(&quot;good&quot;, allOf(equalTo(&quot;good&quot;), startsWith(&quot;good&quot;)));</span><br></pre></td></tr></table></figure>
-<p>更多方法见<a href="https://github.com/junit-team/junit4/wiki/Assertions" target="_blank" rel="noopener">JUnit测试方法</a></p>
+ public class CalculatorTest {
+ @Test
+ public void evaluatesExpression() {
+         Calculator calculator = new Calculator();
+         int sum = calculator.evaluate(&quot;1 + 2 + 3&quot;);
+         assertEquals(6, sum);
+     }
+ } </code></pre><h2 id="6-2-JUnit测试常用方法"><a href="#6-2-JUnit测试常用方法" class="headerlink" title="6.2 JUnit测试常用方法"></a>6.2 JUnit测试常用方法</h2><pre><code> assertArrayEquals(&quot;failure - byte arrays not same&quot;, expected, actual);
+ assertEquals(&quot;failure - strings are not equal&quot;, &quot;text&quot;, &quot;text&quot;);
+ assertFalse(&quot;failure - should be false&quot;, false);
+ assertNotNull(&quot;should not be null&quot;, new Object());
+ assertNotSame(&quot;should not be same Object&quot;, new Object(), new Object());
+ assertNull(&quot;should be null&quot;, null);
+ assertSame(&quot;should be same&quot;, aNumber, aNumber);
+ assertTrue(&quot;failure - should be true&quot;, true);
+ assertThat(&quot;albumen&quot;, both(containsString(&quot;a&quot;)).and(containsString(&quot;b&quot;)));
+ assertThat(Arrays.asList(&quot;one&quot;, &quot;two&quot;, &quot;three&quot;), hasItems(&quot;one&quot;, &quot;three&quot;));
+ assertThat(&quot;good&quot;, allOf(equalTo(&quot;good&quot;), startsWith(&quot;good&quot;)));</code></pre><p>更多方法见<a href="https://github.com/junit-team/junit4/wiki/Assertions" target="_blank" rel="noopener">JUnit测试方法</a></p>
 
             </div>
             <hr/>
@@ -945,7 +971,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">52.6k</span>&nbsp;字
+                class="white-color">52.5k</span>&nbsp;字
             
             
             
