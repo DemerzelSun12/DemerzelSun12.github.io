@@ -400,7 +400,7 @@
 </li>
 <li><p>在训练集中选取数据 $\left(x_i,y_i\right)$;</p>
 </li>
-<li><p>如果$y_i\left(w\cdot x_i +b\right)\ne 0$，<br>$$<br>w\leftarrow w+\eta y_ix_i<br>$$<br>$$<br>b\leftarrow b+\eta y_i<br>$$</p>
+<li><p>如果$y_i\left(w\cdot x_i +b\right)\le 0$，<br>$$<br>w\leftarrow w+\eta y_ix_i<br>$$<br>$$<br>b\leftarrow b+\eta y_i<br>$$</p>
 </li>
 <li><p>转至2，直到训练集中没有误分类点。</p>
 </li>
@@ -869,7 +869,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">54.7k</span>&nbsp;字
+                class="white-color">55.2k</span>&nbsp;字
             
             
             
