@@ -202,7 +202,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -362,7 +362,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.6k
+                    2.7k
                 </div>
                 
 
@@ -383,9 +383,9 @@
 <h3 id="1-1-k近邻算法"><a href="#1-1-k近邻算法" class="headerlink" title="1.1 k近邻算法"></a>1.1 <em>k</em>近邻算法</h3><p>&emsp;&emsp;<em>k</em>近邻算法：给定一个训练数据集，对于新的输入实例，在训练数据集中找到与该实例最邻近的<em>k</em>个实例，这<em>k</em>个实例的多数属于某个类，就把该输入实例分到这个类。</p>
 <p><font size="4"><strong>算法 1 （<em>k</em>近邻法）</strong></font><br>&emsp;&emsp;输入：训练数据集 $T=\left\{\left(x_1,y_1\right),\left(x_2,y_2\right),\cdots,\left(x_N,y_N\right)\right\}$ ，其中，$x_i\in \mathcal{X}=\mathbf{R}^{\text{n}}$ 为实例的特征向量，$y_i\in \mathcal{Y}=\left\{c_1,c_2,\cdots c_K\right\}$ 为实例的类别, $i=1,2,\cdots, N$ ；实例特征向量 $x$；<br>&emsp;&emsp;输出：实例 $x$ 所属的类别 $y$。</p>
 <ol>
-<li><p>根据给定的距离度量，在训练集中;</p>
+<li><p>根据给定的距离度量，在训练集 $T$ 中找出与 $x$ 最邻近的 $k$ 个点，涵盖这 $k$ 个点的 $x$ 的邻域记为 $N_k\left(x\right)$；</p>
 </li>
-<li><p>在训练集中选取数据 $\left(x_i,y_i\right)$;</p>
+<li><p>在 $N_k\left(x\right)$ 中根据分类决策规则;</p>
 </li>
 <li><p>如果$y_i\left(w\cdot x_i +b\right)\ne 0$，<br>$$<br>w\leftarrow w+\eta y_ix_i<br>$$<br>$$<br>b\leftarrow b+\eta y_i<br>$$</p>
 </li>
@@ -631,8 +631,7 @@
                 <a href="/2020/08/31/k-jin-lin-fa/">
                     <div class="card-image">
                         
-                        
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="k近邻法">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="k近邻法">
                         
                         <span class="card-title">k近邻法</span>
                     </div>
