@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="软件构造-第五章-第二节-面向可维护性的设计模式, Demerzel Sun&#39;s blog">
+    <meta name="keywords" content="PAT刷题记录, Demerzel Sun&#39;s blog">
     <meta name="description" content="雨过枫山送远青">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>软件构造-第五章-第二节-面向可维护性的设计模式 | Demerzel Sun&#39;s blog</title>
+    <title>PAT刷题记录 | Demerzel Sun&#39;s blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -202,12 +202,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/6.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">软件构造-第五章-第二节-面向可维护性的设计模式</h1>
+                    <h1 class="description center-align post-title">PAT刷题记录</h1>
                 </div>
             </div>
         </div>
@@ -324,8 +324,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0%E7%AC%94%E8%AE%B0/">
-                                <span class="chip bg-color">软件构造笔记</span>
+                            <a href="/tags/%E7%AE%97%E6%B3%95/">
+                                <span class="chip bg-color">算法</span>
+                            </a>
+                        
+                            <a href="/tags/PAT/">
+                                <span class="chip bg-color">PAT</span>
                             </a>
                         
                     </div>
@@ -336,8 +340,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0/" class="post-category">
-                                软件构造
+                            <a href="/categories/PAT/" class="post-category">
+                                PAT
                             </a>
                         
                     </div>
@@ -349,7 +353,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-05-06
+                    2020-09-01
                 </div>
                 
 
@@ -358,14 +362,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.5k
+                    883
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    8 分
+                    4 分
                 </div>
                 
 
@@ -375,213 +379,76 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="软件构造第五章-第二节-面向可维护性的设计模式"><a href="#软件构造第五章-第二节-面向可维护性的设计模式" class="headerlink" title="软件构造第五章 第二节 面向可维护性的设计模式"></a>软件构造第五章 第二节 面向可维护性的设计模式</h1><!-- toc -->
-
- <a id="more"></a>
-
-<h1 id="一、创造性模式"><a href="#一、创造性模式" class="headerlink" title="一、创造性模式"></a>一、创造性模式</h1><h2 id="1-1-工厂模式-Factory-Pattern"><a href="#1-1-工厂模式-Factory-Pattern" class="headerlink" title="1.1 工厂模式(Factory Pattern)"></a>1.1 工厂模式(Factory Pattern)</h2><ol>
-<li><p>定义：<br>工厂方法模式也被称为虚拟构造器。当client不知道要创建哪个具体类的实例，或者不想在client代码中指明要具体创建的实例时，用工厂方法。</p>
-</li>
-<li><p>意图：<br>定义一个用于创建对象的接口，让其子类来决定实例化哪一个类，从而使一个类的实例化延迟到其子类。</p>
-</li>
-<li><p>主要解决：<br>主要解决接口选择的问题。</p>
-</li>
-<li><p>应用实例：<br>需要一辆汽车，可以直接从工厂里面提货，而不用去管这辆汽车是怎么做出来的，以及这个汽车里面的具体实现。</p>
-</li>
-<li><p>优点：</p>
-<ul>
-<li>一个调用者想创建一个对象，只要知道其名称就可以了。</li>
-<li>扩展性高，如果想增加一个产品，只要扩展一个工厂类就可以。</li>
-<li>屏蔽产品的具体实现，调用者只关心产品的接口。</li>
-</ul>
-</li>
-<li><p>缺点：<br>每次增加一个产品时，都需要增加一个具体类和对象实现工厂，使得系统中类的个数成倍增加，在一定程度上增加了系统的复杂度，同时也增加了系统具体类的依赖。</p>
-</li>
-<li><p>满足OCP（Open-Closed Principle）：<br>对扩展的开放，对修改已有代码的封闭。</p>
-</li>
-<li><p>模式：</p>
-<center>
-<img src="https://img-blog.csdnimg.cn/20200516183407258.png" width="80%" height="35%">
-</center>
-<center>
-图1-1 工厂模式
-</center>
-</li>
-<li><p>示例：</p>
-<center>
-<img src="https://img-blog.csdnimg.cn/20200516201731661.png" width="80%" height="35%">
-</center>
-<center>
-图1-2 工厂模式构建示例
-</center>
-<br>
-<center>
-<img src="https://img-blog.csdnimg.cn/20200516201909543.png" width="80%" height="35%">
-</center>
-<center>
-图1-3 客户端调用该工厂方法
-</center>
-
-</li>
-</ol>
-<h2 id="1-2-抽象工厂模式-Abstract-Factory"><a href="#1-2-抽象工厂模式-Abstract-Factory" class="headerlink" title="1.2 抽象工厂模式(Abstract Factory)"></a>1.2 抽象工厂模式(Abstract Factory)</h2><ol>
-<li>定义：<br>抽象工厂模式（Abstract Factory Pattern）是围绕一个超级工厂创建其他工厂。该超级工厂又称为其他工厂的工厂。在抽象工厂模式中，接口是负责创建一个相关对象的工厂，不需要显式指定它们的类。每个生成的工厂都能按照工厂模式提供对象。</li>
-<li>方法：<br>提供接口以创建一组相关/相互依赖的对象，但不需要指明其具体类。</li>
-<li>用途：<br>系统的产品有多于一个的产品族，而系统只消费其中某一族的产品时使用。例：<br>①当一个UI，包含多个窗口控件，这些控件在不同的OS中实现不同。<br>②当一个仓库类，要控制多个设备，这些设备的制造商各有不同，控制接口有差异。</li>
-<li>优点：<br>当一个产品族中的多个对象被设计成一起工作时，它能保证客户端始终只使用同一个产品族中的对象。</li>
-<li>缺点：<br>产品族扩展非常困难，要增加一个系列的某一产品，既要在抽象的 Creator 里加代码，又要在具体的里面加代码。</li>
-<li>使用场景：<br>1、QQ 换皮肤，一整套一起换。<br>2、生成不同操作系统的程序。</li>
-<li>示例：</li>
-</ol>
-<center>
-<img src="https://img-blog.csdnimg.cn/20200516203350405.png" width="80%" height="35%">
-<img src="https://img-blog.csdnimg.cn/20200516203356783.png" width="80%" height="35%">
-<img src="https://img-blog.csdnimg.cn/20200516203427265.png" width="80%" height="35%">
-<img src="https://img-blog.csdnimg.cn/20200516203435430.png" width="80%" height="35%">
-<img src="https://img-blog.csdnimg.cn/20200516203456328.png" width="80%" height="35%">
-<img src="https://img-blog.csdnimg.cn/20200516203503753.png" width="80%" height="35%">
-</center>
-<center>
-图1-4 抽象工厂示例
-</center>
-
-<h1 id="二、结构化模式：Structual-patterns"><a href="#二、结构化模式：Structual-patterns" class="headerlink" title="二、结构化模式：Structual patterns"></a>二、结构化模式：Structual patterns</h1><h2 id="2-1-代理模式-Proxy-Pattern"><a href="#2-1-代理模式-Proxy-Pattern" class="headerlink" title="2.1 代理模式(Proxy Pattern)"></a>2.1 代理模式(Proxy Pattern)</h2><ol>
-<li>意图：<br>为其他对象提供一种代理以控制对这个对象的访问。</li>
-<li>主要解决：<br>在直接访问对象时带来的问题，比如说：要访问的对象在远程的机器上。在面向对象系统中，有些对象由于某些原因（比如对象创建开销很大，或者某些操作需要安全控制，或者需要进程外的访问），直接访问会给使用者或者系统结构带来很多麻烦，我们可以在访问此对象时加上一个对此对象的访问层。</li>
-<li>何时使用：<br>想在访问一个类时做一些控制。</li>
-<li>应用实例：<ul>
-<li>Windows 里面的快捷方式。</li>
-<li>猪八戒去找高翠兰结果是孙悟空变的，可以这样理解：把高翠兰的外貌抽象出来，高翠兰本人和孙悟空都实现了这个接口，猪八戒访问高翠兰的时候看不出来这个是孙悟空，所以说孙悟空是高翠兰代理类。</li>
-<li>买火车票不一定在火车站买，也可以去代售点。</li>
-<li>一张支票或银行存单是账户中资金的代理。支票在市场交易中用来代替现金，并提供对签发人账号上资金的控制。</li>
-<li>spring aop。</li>
-</ul>
-</li>
-<li>优点:<ul>
-<li>职责清晰</li>
-<li>高扩展性</li>
-<li>智能化</li>
-</ul>
-</li>
-<li>缺点：<ul>
-<li>由于在客户端和真实主题之间增加了代理对象，因此有些类型的代理模式可能会造成请求的处理速度变慢。</li>
-<li>实现代理模式需要额外的工作，有些代理模式的实现非常复杂。</li>
-</ul>
-</li>
-<li>使用场景：按职责来划分，通常有以下使用场景：<ul>
-<li>远程代理</li>
-<li>虚拟代理</li>
-<li>Copy-on-Write 代理</li>
-<li>保护（Protect or Access）代理</li>
-<li>Cache代理</li>
-<li>防火墙（Firewall）代理</li>
-<li>同步化（Synchronization）代理</li>
-<li>智能引用（Smart Reference）代理</li>
-</ul>
-</li>
-<li>注意事项：<ul>
-<li>和适配器模式的区别：适配器模式主要改变所考虑对象的接口，而代理模式不能改变所代理类的接口。</li>
-<li>和装饰器模式的区别：装饰器模式为了增强功能，而代理模式是为了加以控制</li>
-</ul>
-</li>
-<li>示例：<center>
-<img src="https://img-blog.csdnimg.cn/20200516212840412.png" width="90%" height="35%">
-</center>
-<center>
-图2-1 代理模式示例
-</center>
-<br>
-<center>
-<img src="https://img-blog.csdnimg.cn/20200516212845991.png" width="90%" height="35%">
-</center>
-<center>
-图2-2 代理模式客户端调用
-</center>
-
-
-</li>
-</ol>
-<h1 id="三、行为化模式：Behavioral-patterns"><a href="#三、行为化模式：Behavioral-patterns" class="headerlink" title="三、行为化模式：Behavioral patterns"></a>三、行为化模式：Behavioral patterns</h1><h2 id="3-1-观察者模式-Observer-Pattern"><a href="#3-1-观察者模式-Observer-Pattern" class="headerlink" title="3.1 观察者模式(Observer Pattern)"></a>3.1 观察者模式(Observer Pattern)</h2><ol>
-<li>意图：<br>定义对象间的一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都得到通知并被自动更新。</li>
-<li>主要解决：<br>一个对象状态改变给其他对象通知的问题，而且要考虑到易用和低耦合，保证高度的协作。</li>
-<li>何时使用：<br>一个对象（目标对象）的状态发生改变，所有的依赖对象（观察者对象）都将得到通知，进行广播通知。</li>
-<li>如何解决：<br>使用面向对象技术，可以将这种依赖关系弱化。</li>
-<li>关键代码：<br>在抽象类里有一个 ArrayList 存放观察者们。</li>
-<li>应用实例：<ul>
-<li>拍卖的时候，拍卖师观察最高标价，然后通知给其他竞价者竞价。</li>
-<li>西游记里面悟空请求菩萨降服红孩儿，菩萨洒了一地水招来一个老乌龟，这个乌龟就是观察者，他观察菩萨洒水这个动作。</li>
-</ul>
-</li>
-<li>优点：<ul>
-<li>观察者和被观察者是抽象耦合的。</li>
-<li>建立一套触发机制。</li>
-</ul>
-</li>
-<li>缺点：<ul>
-<li>如果一个被观察者对象有很多的直接和间接的观察者的话，将所有的观察者都通知到会花费很多时间。</li>
-<li>如果在观察者和观察目标之间有循环依赖的话，观察目标会触发它们之间进行循环调用，可能导致系统崩溃。</li>
-<li>观察者模式没有相应的机制让观察者知道所观察的目标对象是怎么发生变化的，而仅仅只是知道观察目标发生了变化。</li>
-</ul>
-</li>
-<li>使用场景：<ul>
-<li>一个抽象模型有两个方面，其中一个方面依赖于另一个方面。将这些方面封装在独立的对象中使它们可以各自独立地改变和复用。</li>
-<li>一个对象的改变将导致其他一个或多个对象也发生改变，而不知道具体有多少对象将发生改变，可以降低对象之间的耦合度。</li>
-<li>一个对象必须通知其他对象，而并不知道这些对象是谁。</li>
-<li>需要在系统中创建一个触发链，A对象的行为将影响B对象，B对象的行为将影响C对象……，可以使用观察者模式创建一种链式触发机制。</li>
-</ul>
-</li>
-<li>注意事项：<ul>
-<li>JAVA 中已经有了对观察者模式的支持类。</li>
-<li>避免循环引用。</li>
-<li>如果顺序执行，某一观察者错误会导致系统卡壳，一般采用异步方式。</li>
-</ul>
-</li>
-<li>示例：</li>
-</ol>
-<center>
-<img src="https://img-blog.csdnimg.cn/20200517155659875.png" width="90%" height="35%">
-<img src="https://img-blog.csdnimg.cn/2020051715575880.png" width="90%" height="35%">
-</center>
-<center>
-图3-1 观察者模式示例
-</center>
-<br>
-<center>
-<img src="https://img-blog.csdnimg.cn/2020051715575088.png" width="90%" height="35%">
-</center>
-<center>
-图3-2 观察者模式客户端调用
-</center>
-
-<h2 id="3-2-访问者模式-Visitor-Pattern"><a href="#3-2-访问者模式-Visitor-Pattern" class="headerlink" title="3.2 访问者模式(Visitor Pattern)"></a>3.2 访问者模式(Visitor Pattern)</h2><ol>
-<li>意图：<br>主要将数据结构与数据操作分离。</li>
-<li>主要解决<br>稳定的数据结构和易变的操作耦合问题。</li>
-<li>何时使用<br>需要对一个对象结构中的对象进行很多不同的并且不相关的操作，而需要避免让这些操作”污染”这些对象的类，使用访问者模式将这些封装到类中。</li>
-<li>如何解决<br>在被访问的类里面加一个对外提供接待访问者的接口。</li>
-<li>关键代码<br>在数据基础类里面有一个方法接受访问者，将自身引用传入访问者。</li>
-<li>应用实例：<br>您在朋友家做客，您是访问者，朋友接受您的访问，您通过朋友的描述，然后对朋友的描述做出一个判断，这就是访问者模式。</li>
-<li>优点：<ul>
-<li>符合单一职责原则</li>
-<li>优秀的扩展性</li>
-<li>灵活性</li>
-</ul>
-</li>
-<li>缺点：<ul>
-<li>具体元素对访问者公布细节，违反了迪米特原则</li>
-<li>具体元素变更比较困难</li>
-<li>违反了依赖倒置原则，依赖了具体类，没有依赖抽象</li>
-</ul>
-</li>
-<li>使用场景：<ul>
-<li>对象结构中对象对应的类很少改变，但经常需要在此对象结构上定义新的操作</li>
-<li>需要对一个对象结构中的对象进行很多不同的并且不相关的操作，而需要避免让这些操作”污染”这些对象的类，也不希望在增加新操作时修改这些类</li>
-</ul>
-</li>
-<li>注意事项：<ul>
-<li>访问者可以对功能进行统一，可以做报表、UI、拦截器与过滤器。</li>
-</ul>
-</li>
-</ol>
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>&emsp;&emsp;开个新坑，作为从小生活在北方的hiter，一直很向往南方的大学，高考很失败的没去上zju，那就研究生努力吧。看了一下，zju要求的上机测试可以用PAT甲级的成绩抵，那就开个刷题记录的新坑，之后可能也记录一些自己夏令营的经历。<br>&emsp;&emsp;初步先用 $Java$，之后转 $Python$ 吧。先说这些…</p>
+<h2 id="1001-A-B-Format"><a href="#1001-A-B-Format" class="headerlink" title="1001 A+B Format"></a>1001 A+B Format</h2><h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p>&emsp;&emsp;Calculate $a+b$ and output the sum in standard format – that is, the digits must be separated into groups of three by commas (unless there are less than four digits).</p>
+<p><font size="5"><strong>Input Specification</strong></font></p>
+<p>&emsp;&emsp;Each input file contains one test case. Each case contains a pair of integers $a$ and $b$ where $-10^6\le a,b\le 10^6$​​ . The numbers are separated by a space.</p>
+<p><font size="5"><strong>Output Specification</strong></font></p>
+<p>&emsp;&emsp;For each test case, you should output the sum of $a$ and $b$ in one line. The sum must be written in the standard format.</p>
+<p><font size="5"><strong>Sample Input</strong></font></p>
+<pre><code>-1000000 9</code></pre><p><font size="5"><strong>Sample Output</strong></font></p>
+<pre><code>-999,991</code></pre><h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><p>&emsp;&emsp;采用转化为字符串循环输出的方式，首先判断是否为负数。再对转化为字符串的结果绝对值进行判断，最前面的几位是否可以够3位，单独输出，最后把”,”和其后的三位数字在一起输出，循环切片即可。</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">PAT1001</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> a<span class="token punctuation">,</span> b<span class="token punctuation">;</span>
+        Scanner sc <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Scanner</span><span class="token punctuation">(</span>System<span class="token punctuation">.</span>in<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        a <span class="token operator">=</span> sc<span class="token punctuation">.</span><span class="token function">nextInt</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        b <span class="token operator">=</span> sc<span class="token punctuation">.</span><span class="token function">nextInt</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>a <span class="token operator">+</span> b <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"-"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        String s <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span>Math<span class="token punctuation">.</span><span class="token function">abs</span><span class="token punctuation">(</span>a <span class="token operator">+</span> b<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> i <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">%</span> <span class="token number">3</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">?</span> <span class="token number">3</span> <span class="token operator">:</span> s<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">%</span> <span class="token number">3</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> s<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i <span class="token operator">+=</span> <span class="token number">3</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token string">","</span> <span class="token operator">+</span> s<span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> i <span class="token operator">+</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<h2 id="1002-A-B-for-Polynomials"><a href="#1002-A-B-for-Polynomials" class="headerlink" title="1002 A+B for Polynomials"></a>1002 A+B for Polynomials</h2><h3 id="题目-1"><a href="#题目-1" class="headerlink" title="题目"></a>题目</h3><p>&emsp;&emsp;This time, you are supposed to find $A+B$ where $A$ and $B$ are two polynomials.</p>
+<p><font size="5"><strong>Input Specification</strong></font></p>
+<p>&emsp;&emsp;Each input file contains one test case. Each case occupies 2 lines, and each line contains the information of a polynomial:<br>$$<br>K\ N_1\ a_{N_k}\ N_2\ a_{N_2}\cdots N_K\ a_{N_K}<br>$$<br>where $K$ is the number of nonzero terms in the polynomial,​​ $N_i$ and $a_{N_i} \left(i=1,2,\cdots,K\right)$are the exponents and coefficients, respectively. It is given that $1\le K\le 10$，$0\le N_K \cdots &lt;N_2&lt;N_1\le 1000$.</p>
+<p><font size="5"><strong>Output Specification</strong></font></p>
+<p>&emsp;&emsp;For each test case you should output the sum of $A$ and $B$ in one line, with the same format as the input. Notice that there must be NO extra space at the end of each line. Please be accurate to $1$ decimal place.</p>
+<p><font size="5"><strong>Sample Input</strong></font></p>
+<pre><code>2 1 2.4 0 3.2
+2 2 1.5 1 0.5</code></pre><p><font size="5"><strong>Sample Output</strong></font></p>
+<pre><code>3 2 1.5 1 2.9 0 3.2</code></pre><h3 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h3><p>&emsp;&emsp;采用HashMap存储指数与系数的关系，这里用到了<code>getOrDefault()</code>方法，避免第一次添加键值对时取出的value为<code>null</code>，还有一个坑，当两式的某项对消时，不仅不要显示相应的指数项，连相应的项数也要减少，就是这里卡了好久，3~6测试用例过不去。<br><font size="5"><strong>Input</strong></font></p>
+<pre><code>2 2 0.1 0 0.1
+3 2 -0.2 1 0.1 0 -0.1</code></pre><p><font size="5"><strong>Output</strong></font></p>
+<pre><code>2 2 -0.1 1 0.1</code></pre><p>才是正确的，而</p>
+<pre><code>3 2 -0.1 1 0.1</code></pre><p>是错误的。所以map会进行一次去除操作，可能有点麻烦了…orz</p>
+<p>&emsp;&emsp;用<code>double</code>数据会有无法精准表示的问题，用<code>String.format()</code>方法保留一位小数，这个也是测试用例2的考察点。</p>
+<p>&emsp;&emsp;上正确代码</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">PAT1002</span> <span class="token punctuation">{</span>
+        <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Scanner sc <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Scanner</span><span class="token punctuation">(</span>System<span class="token punctuation">.</span>in<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Map<span class="token operator">&lt;</span>Integer<span class="token punctuation">,</span> Double<span class="token operator">></span> map <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> k <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> k <span class="token operator">&lt;</span> <span class="token number">2</span><span class="token punctuation">;</span> k<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">int</span> num <span class="token operator">=</span> sc<span class="token punctuation">.</span><span class="token function">nextInt</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> num<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">int</span> exp <span class="token operator">=</span> sc<span class="token punctuation">.</span><span class="token function">nextInt</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">double</span> coe <span class="token operator">=</span> sc<span class="token punctuation">.</span><span class="token function">nextDouble</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>exp<span class="token punctuation">,</span> map<span class="token punctuation">.</span><span class="token function">getOrDefault</span><span class="token punctuation">(</span>exp<span class="token punctuation">,</span> <span class="token number">0.0</span><span class="token punctuation">)</span> <span class="token operator">+</span> coe<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        Set<span class="token operator">&lt;</span>Integer<span class="token operator">></span> keyset <span class="token operator">=</span> map<span class="token punctuation">.</span><span class="token function">keySet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Object<span class="token punctuation">[</span><span class="token punctuation">]</span> array <span class="token operator">=</span> keyset<span class="token punctuation">.</span><span class="token function">toArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>Object key <span class="token operator">:</span> array<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>map<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                map<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>map<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Set<span class="token operator">&lt;</span>Integer<span class="token operator">></span> keyset2 <span class="token operator">=</span> map<span class="token punctuation">.</span><span class="token function">keySet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Object<span class="token punctuation">[</span><span class="token punctuation">]</span> array2 <span class="token operator">=</span> keyset2<span class="token punctuation">.</span><span class="token function">toArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Arrays<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span>array2<span class="token punctuation">,</span> Collections<span class="token punctuation">.</span><span class="token function">reverseOrder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>Object key <span class="token operator">:</span> array2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token string">" "</span> <span class="token operator">+</span> key <span class="token operator">+</span> <span class="token string">" "</span> <span class="token operator">+</span> String<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"%.1f"</span><span class="token punctuation">,</span> map<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
 
             </div>
             <hr/>
@@ -597,7 +464,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="/about" rel="external nofollow noreferrer">Demerzel Sun</a>
+                    <a href="/about" rel="external nofollow noreferrer">Demerzel</a>
                 </span>
             </div>
             <div class="reprint__type">
@@ -607,7 +474,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://demerzel.site/2020/05/06/ruan-jian-gou-zao-di-wu-zhang-di-er-jie-mian-xiang-ke-wei-hu-xing-de-she-ji-mo-shi/">https://demerzel.site/2020/05/06/ruan-jian-gou-zao-di-wu-zhang-di-er-jie-mian-xiang-ke-wei-hu-xing-de-she-ji-mo-shi/</a>
+                    <a href="https://demerzel.site/2020/09/01/pat-shua-ti-ji-lu/">https://demerzel.site/2020/09/01/pat-shua-ti-ji-lu/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -620,7 +487,7 @@
                     本博客所有文章除特別声明外，均采用
                     <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
                     许可协议。转载请注明来源
-                    <a href="/about" target="_blank">Demerzel Sun</a>
+                    <a href="/about" target="_blank">Demerzel</a>
                     !
                 </span>
             </div>
@@ -645,8 +512,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0%E7%AC%94%E8%AE%B0/">
-                                    <span class="chip bg-color">软件构造笔记</span>
+                                <a href="/tags/%E7%AE%97%E6%B3%95/">
+                                    <span class="chip bg-color">算法</span>
+                                </a>
+                            
+                                <a href="/tags/PAT/">
+                                    <span class="chip bg-color">PAT</span>
                                 </a>
                             
                         </div>
@@ -688,51 +559,51 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/05/07/he-wei-xian-cheng-chi/">
+                <a href="/2020/09/01/pat-shua-ti-ji-lu/">
                     <div class="card-image">
                         
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="PAT刷题记录">
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="何为线程池">
-                        
-                        <span class="card-title">何为线程池</span>
+                        <span class="card-title">PAT刷题记录</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            软件构造笔记-何为线程池
-
- 
-
-一、什么是线程池线程池，顾名思义就是装线程的池子。其用途是为了帮我们重复管理线程，避免创建大量的线程增加开销，提高响应速度。
-二、为什么要使用线程池规格严格的哈工大学生，不会希望别人看到我们的代码就开始吐槽
+                            PAT刷题记录
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-05-07
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-01
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0/" class="post-category">
-                                    软件构造
+                            <a href="/categories/PAT/" class="post-category">
+                                    PAT
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0%E7%AC%94%E8%AE%B0/">
-                        <span class="chip bg-color">软件构造笔记</span>
+                    <a href="/tags/%E7%AE%97%E6%B3%95/">
+                        <span class="chip bg-color">算法</span>
+                    </a>
+                    
+                    <a href="/tags/PAT/">
+                        <span class="chip bg-color">PAT</span>
                     </a>
                     
                 </div>
@@ -746,35 +617,30 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/04/28/bu-neng-shi-yong-fan-xing-de-ji-chong-qing-kuang/">
+                <a href="/2020/08/31/k-jin-lin-fa/">
                     <div class="card-image">
                         
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="k近邻法">
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="不能使用泛型的几种情况">
-                        
-                        <span class="card-title">不能使用泛型的几种情况</span>
+                        <span class="card-title">k近邻法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            软件构造笔记-Java 中不能使用泛型的几种情况
-
- 
-
-一、前言Java 1.5 引入了泛型来保证类型安全，防止在运行时发生类型转换异常，让类型参数化，提高了代码的可读性和重用率。但是有些情况下泛型也是不允许使用的，总结一下编码中不能使用
+                            一种基本的分类与回归方法——k近邻法
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-28
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-31
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0/" class="post-category">
-                                    软件构造
+                            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    机器学习
                                 </a>
                             
                             
@@ -784,8 +650,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0%E7%AC%94%E8%AE%B0/">
-                        <span class="chip bg-color">软件构造笔记</span>
+                    <a href="/tags/%E7%AE%97%E6%B3%95/">
+                        <span class="chip bg-color">算法</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">机器学习</span>
                     </a>
                     
                 </div>
