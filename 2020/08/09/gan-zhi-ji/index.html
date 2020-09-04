@@ -30,7 +30,8 @@
     <script src="/libs/jquery/jquery.min.js"></script>
 
 <meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Demerzel Sun's blog" type="application/atom+xml">
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/css/prism-duotone-light.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 
 <body>
@@ -406,7 +407,7 @@
 </li>
 </ol>
 <p>Python代码实现如下：</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">perceptron</span><span class="token punctuation">(</span>dataArr<span class="token punctuation">,</span> labelArr<span class="token punctuation">,</span> iter<span class="token operator">=</span><span class="token number">50</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">perceptron</span><span class="token punctuation">(</span>dataArr<span class="token punctuation">,</span> labelArr<span class="token punctuation">,</span> iter<span class="token operator">=</span><span class="token number">50</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
     <span class="token triple-quoted-string string">'''
     感知器训练过程
     :param dataArr:训练集的数据 (list)
@@ -450,7 +451,7 @@
         <span class="token comment" spellcheck="true"># 打印训练进度</span>
         <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'Round %d:%d training'</span> <span class="token operator">%</span> <span class="token punctuation">(</span>k<span class="token punctuation">,</span> iter<span class="token punctuation">)</span><span class="token punctuation">)</span>
     <span class="token comment" spellcheck="true"># 返回训练完的w、b</span>
-    <span class="token keyword">return</span> w<span class="token punctuation">,</span> b</code></pre>
+    <span class="token keyword">return</span> w<span class="token punctuation">,</span> b<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="3-2-算法的收敛性"><a href="#3-2-算法的收敛性" class="headerlink" title="3.2 算法的收敛性"></a>3.2 算法的收敛性</h3><p>&emsp;&emsp;对于现行可分数据集，感知机学习算法原始形式收敛，即经过有限次迭代可以得到一个将训练数据集完全划分的分离超平面及感知机模型。<br>&emsp;&emsp;将偏置量 $b$ 并入权重向量 $w$ ，记作 $\hat{w}=\left( w^{\text{T}},b \right) ^{\text{T}}$, 同时扩张输入向量，记作 $\hat{x}=\left(x^{\text{T}},1\right)$。这样，$\hat{x}\in \mathbf{R}^{\text{n+1}}$, $\hat{w}\in \mathbf{R}^{\text{n+1}}$, 显然 $\hat{w}\cdot \hat{x}=w\cdot x+b$.</p>
 <p><font size="4"><strong>定理 1 (<em>Novikoff</em>)</strong></font><br>&emsp;&emsp;设训练数据集$T=\left\{\left(x_1,y_1\right),\left(x_2,y_2\right),\cdots,\left(x_N,y_N\right)\right\}$ 是线性可分的，其中$x_i\in \mathcal{X}=\mathbf{R}^{\text{n}}$，$y_i\in \mathcal{Y}=\left\{+1,-1\right\}$ , $i=1,2,\cdots, N$，则</p>
 <p>&emsp;&emsp; 1. 存在满足条件 $\lVert \hat{w}_{\text{opt}}\cdot \hat{x}_i \rVert =1$ 的超平面 $\hat{w}_{\text{opt}}\cdot \hat{x}=w_{\text{opt}}\cdot x+b_{\text{opt}}=0$ 将训练数据集完全正确分开；且存在 $\gamma&gt;0$，对所有$i=1,2,\cdots N$，有$$<br>y_i\left(\hat{w}_{\text{opt}}\cdot \hat{x}_i\right)=y_i\left(w_{\text{opt}}\cdot x+b_{\text{opt}}\right)\ge\gamma<br>$$</p>

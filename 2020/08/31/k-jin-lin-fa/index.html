@@ -30,7 +30,8 @@
     <script src="/libs/jquery/jquery.min.js"></script>
 
 <meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Demerzel Sun's blog" type="application/atom+xml">
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/css/prism-duotone-light.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 
 <body>
@@ -401,7 +402,7 @@
 <h3 id="2-3-k值的选择"><a href="#2-3-k值的选择" class="headerlink" title="2.3 k值的选择"></a>2.3 <em>k</em>值的选择</h3><p>&emsp;&emsp;<em>k</em>值的选择会对算法产生很大的影响。<br>&emsp;&emsp;如果选择较小的<em>k</em>值，相当于在较小的邻域中选择实例进行训练，学习过程的近似误差会减小，即只与输入实例距离度量较近的训练实例才会起作用；但是学习过程的估计误差会增大，预测结果对近邻的实例点很敏感，如果邻近的实例点恰好是噪声，预测就会出错。换句话说，<em>k</em>值选择过小会产生过拟合。<br>&emsp;&emsp;如果选择较大的<em>k</em>值，相当于贼较大的邻域内选择实例进行训练，可以减小学习的估计误差，但是近似误差会增大。<em>k</em>值的增大意味着模型变得过于简单，当极端情况 $k=N$ 时，无论输入实例是什么，都将简单地预测属于训练实例中最多的类，即发生的欠拟合的现象。</p>
 <h3 id="2-4-分类决策规则"><a href="#2-4-分类决策规则" class="headerlink" title="2.4 分类决策规则"></a>2.4 分类决策规则</h3><p>&emsp;&emsp;<em>k</em>近邻法的分类规则往往是多数表决，即由输入实例的<em>k</em>个邻近的训练实例中的多数类决定输入实例的类。<br>&emsp;&emsp;多数表决规则有如下解释(<em>majority&ensp;voting&ensp;rule</em>)：如果分类的损失函数为 $0-1$ 损失函数，分类函数为<br>$$<br>f:\mathbf{R}^{\text{n}}\rightarrow \left\{c_1,c_2,\cdots,c_K\right\}<br>$$<br>则误分类的概率为<br>$$<br>P\left(Y\ne f\left(X\right)\right)=1-P\left(Y=f\left(X\right)\right)<br>$$<br>对给定的实例 $x\in \mathcal{X}$，其最邻近的<em>k</em>个训练实例点构成集合 $N_k\left(x\right)$。如果涵盖 $N_k\left(x\right)$ 的区域的类别是 $c_j$，那么误分类是<br>$$<br>\cfrac{1}{k}\sum_{x_i\in N_k\left( x \right)}{I\left( y_i\ne c_j \right)}=1-\frac{1}{k}\sum_{x_i\in N_k\left( x \right)}{I\left( y_i=c_j \right)}<br>$$<br>要使误分类最小化，就要使 $\sum_{x_i\in N_k\left( x \right)}{I\left( y_i=c_j \right)}$ 最大，所以多数表决规则等价于经验风险最小化。</p>
 <p>Python代码实现如下：</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">calcDist</span><span class="token punctuation">(</span>x1<span class="token punctuation">,</span> x2<span class="token punctuation">)</span><span class="token punctuation">:</span>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">calcDist</span><span class="token punctuation">(</span>x1<span class="token punctuation">,</span> x2<span class="token punctuation">)</span><span class="token punctuation">:</span>
     <span class="token triple-quoted-string string">"""
     计算两个实例点向量之间的距离，使用的是欧氏距离
     :param x1:向量1
@@ -488,7 +489,7 @@
 
     <span class="token comment" spellcheck="true"># 返回正确率</span>
     <span class="token keyword">return</span> <span class="token number">1</span> <span class="token operator">-</span> <span class="token punctuation">(</span>errorCnt <span class="token operator">/</span> <span class="token number">200</span><span class="token punctuation">)</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
