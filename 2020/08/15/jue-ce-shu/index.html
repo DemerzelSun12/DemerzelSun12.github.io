@@ -29,6 +29,8 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
+    <script src="http://echarts.baidu.com/dist/echarts.common.min.js"></script>
+
 <meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Demerzel Sun's blog" type="application/atom+xml">
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
@@ -363,14 +365,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    0
+                    2.2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    8 分
                 </div>
                 
 
@@ -380,7 +382,44 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h2 id="一、决策树模型与学习"><a href="#一、决策树模型与学习" class="headerlink" title="一、决策树模型与学习"></a>一、决策树模型与学习</h2><p>&emsp;&emsp;决策树是一种基本的分类与回归方法。决策树整体是一个树型结构，在分类的问题中，表示基于特征对实例进行分类的过程。可以认为是<code>if-then</code>的规则集合，也可以认为是定义在特征空间与类空间上的条件概率分布。<br>&emsp;&emsp;优点是模型具有可读性，分类速度快。决策树学习通常分为三个步骤：特征选择、决策树生成和决策树的修剪。</p>
+<ol>
+<li>学习时，可以利用训练数据，根据损失函数的最小化原则建立决策树模型。</li>
+<li>预测时，对新的数据，利用决策树模型进行分类。</li>
+</ol>
+<h3 id="1-1-决策树模型"><a href="#1-1-决策树模型" class="headerlink" title="1.1 决策树模型"></a>1.1 决策树模型</h3><p>&emsp;&emsp;<font size="3" face="黑体"><strong>定义1 （决策树）</strong></font></p>
+<p>&emsp;&emsp;<font face="楷体">分类决策树模型是一种描述对实例点进行分类的树型结构。由结点(<em>node</em>)和有向边(<em>directed&ensp;edge</em>)组成。结点有两种类型：内部结点(<em>internal&ensp;node</em>)和叶结点(<em>leaf&ensp;node</em>)。内部结点表示一个特征或属性，叶节点表示一个类。</font><br>&emsp;&emsp;利用决策树分类，从根节点开始，对某一特征进行测试，根据分类结果，将其分配到其子节点；如此递归进行测试并分配，直到叶节点，最后将实例分配到叶节点的类中。图1-1是一个决策树的示意图，圆表示内部节点，方框表示叶节点。</p>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200906093402365.png" width="50%" height="35%">
+</center>
+<center>
+图1-1 决策树模型
+</center>
+
+<h3 id="1-2-决策树与if-then规则"><a href="#1-2-决策树与if-then规则" class="headerlink" title="1.2 决策树与if-then规则"></a>1.2 决策树与if-then规则</h3><p>&emsp;&emsp;由决策树的根节点到叶节点的每一条路径构建一条规则；路径上的内部节点的特征对应着规则的条件，而叶节点的类对应着规则的结论。决策树的路径或其对应的<code>if-then</code>规则结合具有一个重要的性质：互斥且完备。即，每一个实例都被一条路径或规则覆盖，而且只被一条路径或规则覆盖。</p>
+<h3 id="1-3-决策树与条件概率分布"><a href="#1-3-决策树与条件概率分布" class="headerlink" title="1.3 决策树与条件概率分布"></a>1.3 决策树与条件概率分布</h3><p>&emsp;&emsp;决策树还表示为定义在给定的特征条件下的类的条件概率分布。这些条件概率分布定义在特征空间的一个划分上。决策树将特征空间划分为互不相交的单元(<em>cell</em>)，并在单元上定义了一个类的概率分布。决策树的一条路径对应了划分中的一个单元。<br>&emsp;&emsp;假设 $X$ 为表示特征的随机变量，$Y$ 为表示类的随机变量，那么这个条件概率分布可以表示为 $P\left(Y|X\right)$。$X$ 的取值与给定的划分下单元的集合，$Y$ 取值于类的集合。各叶节点上的条件概率往往偏向某一个类的概率较大，决策树在分类时会将该实例分配到条件概率较大的那一类去。<br>&emsp;&emsp;图1-2表示了一种特征空间的划分与与之对应的决策树。</p>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200906100954231.png" width="60%" height="35%">
+<img src="https://img-blog.csdnimg.cn/20200906101121405.png" width="60%" height="35%">
+</center>
+<center>
+图1-2 决策树对应于条件概率分布
+</center>
+
+<h3 id="1-4-决策树学习"><a href="#1-4-决策树学习" class="headerlink" title="1.4 决策树学习"></a>1.4 决策树学习</h3><p>&emsp;&emsp;假定给定训练数据集<br>$$<br>D=\left\{ \left( x_1,y_1 \right) ,\left( x_2,y_2 \right) ,\cdots ,\left( x_N,y_N \right) \right\}<br>$$<br>其中，$x_i=\left( x_{i}^{\left( 1 \right)},x_{i}^{\left( 2 \right)},\cdots ,x_{i}^{\left( n \right)} \right) ^{\text{T}}$ 为输入实例，$n$ 为特征个数，$y_i\in \left\{1,2,\cdots,K\right\}$ 为类标记，$i=1,2\cdots,N$，$N$ 为样本容量。决策树学习的目标是根据给定的训练数据集构建一个决策树模型，使其能够对新输入的实例进行正确分类。<br>&emsp;&emsp;决策树的本质是从训练数据集中归纳出一组分类规则。与训练集相符的决策树可能有多个，也可能没有。目标是构建一个与训练数据集向矛盾较小的决策树，并且具有很好的泛化能力。<br>&emsp;&emsp;决策树学习的损失函数通常是正则化的极大似然函数，学习策略的是以损失函数为目标函数的最小化。损失函数确定后，学习的目标变为在损失函数意义下的选择最优决策树的问题。因为从所有可能的决策树中选择合适的决策树属于 $NP$ 完全问题，因此实际中常常采用启发式方法，近似求解，这样得到的决策树为次最优的(<em>sub-optimal</em>)。<br>&emsp;&emsp;决策树的学习算法通常是一个递归地选择最优特征，并根据该特征对训练数据进行分割，使得各个子数据集有一个最好的分类过程。这个过程也就是特征空间的划分，也是决策树的构建过程。然后递归分类，直到所有训练数据子集基本都被正确分类，这样就生成了一颗决策树。<br>&emsp;&emsp;以上方法可能对训练数据集有一个很好的分类，但是对未知数据未必有很好的分类能力，很有可能发生过拟合的现象。因此我们需要对生成的树进行从叶到根进行剪枝，使树变得简单，由此拥有更好的泛化能力。具体做法是，去掉分类过于细致的叶节点，使其退回到父节点或更高的节点，然后将父节点或更高的节点变为叶节点。</p>
+<h2 id="二、特征选择"><a href="#二、特征选择" class="headerlink" title="二、特征选择"></a>二、特征选择</h2><h3 id="2-1-特征选择问题"><a href="#2-1-特征选择问题" class="headerlink" title="2.1 特征选择问题"></a>2.1 特征选择问题</h3><p>&emsp;&emsp;特征选择在于选择对数据集有分类能力的特征，以此提高决策树的效率。通常特征选择的标准是信息增益或信息增益比。</p>
+<h3 id="2-2-信息增益"><a href="#2-2-信息增益" class="headerlink" title="2.2 信息增益"></a>2.2 信息增益</h3><p>&emsp;&emsp;首先给出熵和条件熵的概念。</p>
+<p>&emsp;&emsp;<font size="3" face="楷体">熵(<em>entopy</em>)</font>是表示随机变量不确定性的度量。设 $X$ 是表示随机变量不确定性的度量。设 $X$ 是一个取有限个值的离散随机变量，其概率分布为 $P\left(X=x_i\right)=p_i, i=1,2,\cdots,n$ 则随机变量 $X$ 的熵定义为<br>$$<br>H\left(X\right) = -\sum_{i=1}^n{p_i}\log p_i<br>$$<br>若 $p_i=0$，则定义 $0\log 0=0$。通常上式的对数以 $2$ 或 $e$ 为底，这是熵的单位分别称为比特(<em>bit</em>)或纳特(<em>nat</em>)。由定义知，熵只依赖于 $X$ 的分布，与 $X$ 的取值无关，所以也将 $X$ 的熵记作 $H\left(p\right)$，即<br>$$<br>H\left(p\right)=-\sum_{i=1}^np_i\log p_i<br>$$<br>&emsp;&emsp;熵越大，随机变量的不确定性就越大。由定义可以验证<br>$$<br>0\le H\left(p\right)\le \log n<br>$$<br>&emsp;&emsp;当随机变量只取两个值时，例如 $1,0$ 时，即 $X$ 的分布为<br>$$<br>P\left(X=1\right)=p,\; P\left(X=0\right)=1-p,\; 0\le p\le 1<br>$$<br>熵为<br>$$<br>H\left(p\right)=-\log_2p-\left(1-p\right)\log_2\left(1-p\right)<br>$$<br>这时，熵 $H\left(p\right)$随概率 $p$ 变化的曲线如图1-3所示（单位为比特）。</p>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200906155438448.png" width="40%" height="35%">
+</center>
+<center>
+图1-3 伯努利分布熵与概率的关系
+</center>
+
+<p>&emsp;&emsp;当 $p=0$ 或 $p=1$ 时 $H\left(p\right)=0$，随机变量完全没有不确定性。当 $p=0.5$ 时，$H\left(p\right)=1$，熵取值最大，随机变量的不确定性最大。<br>&emsp;&emsp;设有随机变量 $\left(X,Y\right)$，其联合概率分布为<br>$$<br>P\left(X=x_i,Y=y_i\right)=p_{ij},\; i=1,2,\cdots ,n; \; j=1,2,\cdots,m<br>$$<br>条件熵 $H\left(Y|X\right)$ 表示在已知随机变量 $X$ 的条件下随机变量 $Y$ 的不确定性。随机变量 $X$给定条件下随机变量 $Y$ 的条件熵 $H\left(Y|X\right)$，定义为 $X$ 给定条件下 $Y$ 的条件概率分布的熵对 $X$ 的数学期望<br>$$<br>H\left(Y|X\right)=\sum_{i=1}^n{p_iH\left(Y|X=x_i\right)}<br>$$<br>这里，$p_i=P\left(X=x_i\right)$，$i=1,2,\cdots,n$。<br>&emsp;&emsp;当熵和条件熵中的概率由数据估计（一般是极大似然估计）得到时，所对应的熵和条件熵分别称为经验熵和经验条件熵。规定 $0\log 0=0$。<br>&emsp;&emsp;信息增益表示得知特征 $X$ 的信息而使得类 $Y$ 的信息不确定性减小的程度。</p>
+<p>&emsp;&emsp;<font size="3" face="黑体"><strong>定义2 （信息增益）</strong></font><br>&emsp;&emsp;<font face="楷体">特征 $A$ 对训练数据集 $D$ 的信息增益 $g\left(D,A\right)$，定义为集合 $D$ 的经验熵 $H\left(D\right)$ 与特征 $A$ 给定条件下 $D$ 的经验条件熵 $H\left(D|A\right)$ 之差，即</font><br>$$<br>g\left(D,A\right)=H\left(D\right)-H\left(D|A\right)<br>$$<br>&emsp;&emsp;决策树</p>
+
             </div>
             <hr/>
 
@@ -827,7 +866,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">59.1k</span>&nbsp;字
+                class="white-color">61.3k</span>&nbsp;字
             
             
             
