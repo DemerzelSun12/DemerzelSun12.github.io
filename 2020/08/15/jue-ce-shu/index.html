@@ -387,14 +387,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.2k
+                    3.9k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    8 分
+                    15 分
                 </div>
                 
 
@@ -440,7 +440,122 @@
 </center>
 
 <p>&emsp;&emsp;当 $p=0$ 或 $p=1$ 时 $H\left(p\right)=0$，随机变量完全没有不确定性。当 $p=0.5$ 时，$H\left(p\right)=1$，熵取值最大，随机变量的不确定性最大。<br>&emsp;&emsp;设有随机变量 $\left(X,Y\right)$，其联合概率分布为<br>$$<br>P\left(X=x_i,Y=y_i\right)=p_{ij},\; i=1,2,\cdots ,n; \; j=1,2,\cdots,m<br>$$<br>条件熵 $H\left(Y|X\right)$ 表示在已知随机变量 $X$ 的条件下随机变量 $Y$ 的不确定性。随机变量 $X$给定条件下随机变量 $Y$ 的条件熵 $H\left(Y|X\right)$，定义为 $X$ 给定条件下 $Y$ 的条件概率分布的熵对 $X$ 的数学期望<br>$$<br>H\left(Y|X\right)=\sum_{i=1}^n{p_iH\left(Y|X=x_i\right)}<br>$$<br>这里，$p_i=P\left(X=x_i\right)$，$i=1,2,\cdots,n$。<br>&emsp;&emsp;当熵和条件熵中的概率由数据估计（一般是极大似然估计）得到时，所对应的熵和条件熵分别称为经验熵和经验条件熵。规定 $0\log 0=0$。<br>&emsp;&emsp;信息增益表示得知特征 $X$ 的信息而使得类 $Y$ 的信息不确定性减小的程度。</p>
-<p>&emsp;&emsp;<font size="3" face="黑体"><strong>定义2 （信息增益）</strong></font><br>&emsp;&emsp;<font face="楷体">特征 $A$ 对训练数据集 $D$ 的信息增益 $g\left(D,A\right)$，定义为集合 $D$ 的经验熵 $H\left(D\right)$ 与特征 $A$ 给定条件下 $D$ 的经验条件熵 $H\left(D|A\right)$ 之差，即</font><br>$$<br>g\left(D,A\right)=H\left(D\right)-H\left(D|A\right)<br>$$<br>&emsp;&emsp;决策树</p>
+<p>&emsp;&emsp;<font size="3" face="黑体"><strong>定义2 （信息增益）</strong></font><br>&emsp;&emsp;<font face="楷体">特征 $A$ 对训练数据集 $D$ 的信息增益 $g\left(D,A\right)$，定义为集合 $D$ 的经验熵 $H\left(D\right)$ 与特征 $A$ 给定条件下 $D$ 的经验条件熵 $H\left(D|A\right)$ 之差，即</font><br>$$<br>g\left(D,A\right)=H\left(D\right)-H\left(D|A\right)<br>$$<br>&emsp;&emsp;决策树学习应用信息增益准则作为选择特征。对于给定的数据集 $D$ 和特征 $A$，经验熵 $H\left(D\right)$ 表示对数据集 $D$ 进行分类的不确定性。而经验条件熵 $H\left(D|A\right)$ 表示在特征 $A$ 给定条件下对数据集 $D$ 进行分类的不确定性。而二者的差，即信息增益，就是<strong>由于特征 $A$ 而使得对数据集 $D$ 的分类的不确定性的减少程度</strong>。显然，对于同一个数据集的不同特征，往往都有不同的信息增益，而信息增益大的特征具有更强的分类能力。</p>
+<p>&emsp;&emsp;<font size="4"><strong>算法 1（信息增益算法）</strong></font></p>
+<p>&emsp;&emsp;输入：训练数据集 $D$ 和特征 $A$，$\left| D \right|$ 为样本容量，设有 $K$ 个类 $C_k$，$k=1,2,\cdots,K$，$\left| C_k \right|$ 为属于 $C_k$ 的样本个数，$\sum_{k=1}^K{\left|C_k\right|}=\left|D\right|$。设特征 $A$ 有 $n$ 个不同的取值 $\left\{a_1,a_2,\cdots,a_n\right\}$，根据特征 $A$ 的取值将 $D$ 划分为 $n$ 个子集 $D_1,D_2,\cdots,D_n$，$\left|D_i\right|$ 为 $D_i$ 的样本个数，$\sum_{i=1}^n{\left|D_i\right|}=\left|D\right|$;</p>
+<p>&emsp;&emsp;输出：特征 $A$ 对训练数据集 $D$ 的信息增益$g\left(D,A\right)$。</p>
+<ol>
+<li><p>计算数据集 $D$ 的经验熵 $H\left(D\right)$;<br>$$<br>H\left( D \right) =-\sum_{k=1}^K{\frac{\left| C_k \right|}{\left| D \right|}\log _2}\frac{\left| C_k \right|}{\left| D \right|}<br>$$</p>
+</li>
+<li><p>计算特征 $A$ 对数据集 $D$ 的经验条件熵 $H\left(D|A\right)$</p>
+</li>
+</ol>
+<p>$$<br>H\left( D |A\right) =\sum_{i=1}^n{\frac{\left| D_i \right|}{\left| D \right|}H\left( D_i \right)}=-\sum_{i=1}^n{\frac{\left| D_i \right|}{\left| D \right|}\sum_{k=1}^K{\frac{\left| D_{ik} \right|}{\left| D_i \right|}\log _2\frac{\left| D_{ik} \right|}{\left| D_i \right|}}}<br>$$</p>
+<ol start="3">
+<li>计算信息增益</li>
+</ol>
+<p>$$<br>g\left(D,A\right)=H\left(D\right)-H\left(D|A\right)<br>$$</p>
+<p>&emsp;&emsp;<em>Python</em>代码如下</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">calc_H_D</span><span class="token punctuation">(</span>trainLabelArr<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""
+    计算数据集D的经验熵
+    :param trainLabelArr:当前数据集的标签集
+    :return: 经验熵
+    """</span>
+    <span class="token comment" spellcheck="true"># 初始化为0</span>
+    H_D <span class="token operator">=</span> <span class="token number">0</span>
+    <span class="token comment" spellcheck="true"># 将当前所有标签放入集合中，这样只要有的标签都会在集合中出现，且出现一次。</span>
+    <span class="token comment" spellcheck="true"># 遍历该集合就可以遍历所有出现过的标记并计算其Ck</span>
+    <span class="token comment" spellcheck="true"># 这么做有一个很重要的原因：首先假设一个背景，当前标签集中有一些标记已经没有了，比如说标签集中</span>
+    <span class="token comment" spellcheck="true"># 没有0（这是很正常的，说明当前分支不存在这个标签）。</span>
+    <span class="token comment" spellcheck="true"># 计算Cl和D并求和时，由于没有0，那么C0=0，此时C0/D0=0,log2(C0/D0) = log2(0)，事实上0并不在log的定义区间内，出现了问题</span>
+    <span class="token comment" spellcheck="true"># 所以使用集合的方式先知道当前标签中都出现了那些标签，随后对每个标签进行计算，如果没出现的标签那一项就</span>
+    <span class="token comment" spellcheck="true"># 不在经验熵中出现（未参与，对经验熵无影响），保证log的计算能一直有定义</span>
+    trainLabelSet <span class="token operator">=</span> set<span class="token punctuation">(</span><span class="token punctuation">[</span>label <span class="token keyword">for</span> label <span class="token keyword">in</span> trainLabelArr<span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true"># 遍历每一个出现过的标签</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> trainLabelSet<span class="token punctuation">:</span>
+        <span class="token comment" spellcheck="true"># 计算|Ck|/|D|</span>
+        <span class="token comment" spellcheck="true"># trainLabelArr == i：当前标签集中为该标签的的位置</span>
+        <span class="token comment" spellcheck="true"># 例如a = [1, 0, 0, 1], c = (a == 1): c == [True, false, false, True]</span>
+        <span class="token comment" spellcheck="true"># trainLabelArr[trainLabelArr == i]：获得为指定标签的样本</span>
+        <span class="token comment" spellcheck="true"># trainLabelArr[trainLabelArr == i].size：获得为指定标签的样本的大小，即标签为i的样本</span>
+        <span class="token comment" spellcheck="true"># 数量，就是|Ck|</span>
+        <span class="token comment" spellcheck="true"># trainLabelArr.size：整个标签集的数量（也就是样本集的数量），即|D|</span>
+        p <span class="token operator">=</span> trainLabelArr<span class="token punctuation">[</span>trainLabelArr <span class="token operator">==</span> i<span class="token punctuation">]</span><span class="token punctuation">.</span>size <span class="token operator">/</span> trainLabelArr<span class="token punctuation">.</span>size
+        <span class="token comment" spellcheck="true"># 对经验熵的每一项累加求和</span>
+        H_D <span class="token operator">+=</span> <span class="token operator">-</span><span class="token number">1</span> <span class="token operator">*</span> p <span class="token operator">*</span> np<span class="token punctuation">.</span>log2<span class="token punctuation">(</span>p<span class="token punctuation">)</span>
+
+    <span class="token comment" spellcheck="true"># 返回经验熵</span>
+    <span class="token keyword">return</span> H_D
+
+
+<span class="token keyword">def</span> <span class="token function">calcH_D_A</span><span class="token punctuation">(</span>trainDataArr_DevFeature<span class="token punctuation">,</span> trainLabelArr<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""
+    计算经验条件熵
+    :param trainDataArr_DevFeature:切割后只有feature那列数据的数组
+    :param trainLabelArr: 标签集数组
+    :return: 经验条件熵
+    """</span>
+    <span class="token comment" spellcheck="true"># 初始为0</span>
+    H_D_A <span class="token operator">=</span> <span class="token number">0</span>
+    <span class="token comment" spellcheck="true"># 在featue那列放入集合中，是为了根据集合中的数目知道该feature目前可取值数目是多少</span>
+    trainDataSet <span class="token operator">=</span> set<span class="token punctuation">(</span><span class="token punctuation">[</span>label <span class="token keyword">for</span> label <span class="token keyword">in</span> trainDataArr_DevFeature<span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+    <span class="token comment" spellcheck="true"># 对于每一个特征取值遍历计算条件经验熵的每一项</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> trainDataSet<span class="token punctuation">:</span>
+        <span class="token comment" spellcheck="true"># 计算H(D|A)</span>
+        <span class="token comment" spellcheck="true"># trainDataArr_DevFeature[trainDataArr_DevFeature == i].size / trainDataArr_DevFeature.size:|Di| / |D|</span>
+        <span class="token comment" spellcheck="true"># calc_H_D(trainLabelArr[trainDataArr_DevFeature == i]):H(Di)</span>
+        H_D_A <span class="token operator">+=</span> trainDataArr_DevFeature<span class="token punctuation">[</span>trainDataArr_DevFeature <span class="token operator">==</span> i<span class="token punctuation">]</span><span class="token punctuation">.</span>size <span class="token operator">/</span> trainDataArr_DevFeature<span class="token punctuation">.</span>size \
+                 <span class="token operator">*</span> calc_H_D<span class="token punctuation">(</span>trainLabelArr<span class="token punctuation">[</span>trainDataArr_DevFeature <span class="token operator">==</span> i<span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true"># 返回得出的条件经验熵</span>
+    <span class="token keyword">return</span> H_D_A
+
+
+<span class="token keyword">def</span> <span class="token function">calcBestFeature</span><span class="token punctuation">(</span>trainDataList<span class="token punctuation">,</span> trainLabelList<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""
+    计算信息增益最大的特征
+    :param trainDataList: 当前数据集
+    :param trainLabelList: 当前标签集
+    :return: 信息增益最大的特征及最大信息增益值
+    """</span>
+    <span class="token comment" spellcheck="true"># 将数据集和标签集转换为数组形式</span>
+    trainDataArr <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span>trainDataList<span class="token punctuation">)</span>
+    trainLabelArr <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span>trainLabelList<span class="token punctuation">)</span>
+
+    <span class="token comment" spellcheck="true"># 获取当前特征数目，也就是数据集的横轴大小</span>
+    featureNum <span class="token operator">=</span> trainDataArr<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+
+    <span class="token comment" spellcheck="true"># 初始化最大信息增益</span>
+    maxG_D_A <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span>
+    <span class="token comment" spellcheck="true"># 初始化最大信息增益的特征</span>
+    maxFeature <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span>
+
+    <span class="token comment" spellcheck="true"># 信息增益的算法：</span>
+    <span class="token comment" spellcheck="true"># 1.计算数据集D的经验熵H(D)</span>
+    H_D <span class="token operator">=</span> calc_H_D<span class="token punctuation">(</span>trainLabelArr<span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true"># 对每一个特征进行遍历计算</span>
+    <span class="token keyword">for</span> feature <span class="token keyword">in</span> range<span class="token punctuation">(</span>featureNum<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment" spellcheck="true"># 2.计算条件经验熵H(D|A)</span>
+        <span class="token comment" spellcheck="true"># 由于条件经验熵的计算过程中只涉及到标签以及当前特征，为了提高运算速度（全部样本</span>
+        <span class="token comment" spellcheck="true"># 做成的矩阵运算速度太慢，需要剔除不需要的部分），将数据集矩阵进行切割</span>
+        <span class="token comment" spellcheck="true"># 数据集在初始时刻是一个Arr = 60000*784的矩阵，针对当前要计算的feature，在训练集中切割下</span>
+        <span class="token comment" spellcheck="true"># Arr[:, feature]这么一条来，因为后续计算中数据集中只用到这个</span>
+        <span class="token comment" spellcheck="true"># trainDataArr[:, feature]:在数据集中切割下这么一条</span>
+        <span class="token comment" spellcheck="true"># trainDataArr[:, feature].flat：将这么一条转换成竖着的列表</span>
+        <span class="token comment" spellcheck="true"># np.array(trainDataArr[:, feature].flat)：再转换成一条竖着的矩阵，大小为60000*1（只是初始是</span>
+        <span class="token comment" spellcheck="true"># 这么大，运行过程中是依据当前数据集大小动态变的）</span>
+        trainDataArr_DevideByFeature <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span>trainDataArr<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> feature<span class="token punctuation">]</span><span class="token punctuation">.</span>flat<span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># 3.计算信息增益G(D|A)    G(D|A) = H(D) - H(D | A)</span>
+        G_D_A <span class="token operator">=</span> H_D <span class="token operator">-</span> calcH_D_A<span class="token punctuation">(</span>trainDataArr_DevideByFeature<span class="token punctuation">,</span> trainLabelArr<span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># 不断更新最大的信息增益以及对应的feature</span>
+        <span class="token keyword">if</span> G_D_A <span class="token operator">></span> maxG_D_A<span class="token punctuation">:</span>
+            maxG_D_A <span class="token operator">=</span> G_D_A
+            maxFeature <span class="token operator">=</span> feature
+    <span class="token keyword">return</span> maxFeature<span class="token punctuation">,</span> maxG_D_A
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="2-3-信息增益比"><a href="#2-3-信息增益比" class="headerlink" title="2.3 信息增益比"></a>2.3 信息增益比</h3><p>&emsp;&emsp;以信息增益作为划分数据集的特征，存在<strong>偏向于选择取值较多的特征</strong>的问题。使用信息增益比(<em>information&ensp;gain&emsp;ratio</em>)可以对这个问题校正。也可以依据这个选择特征作为划分。<br>&emsp;&emsp;<font size="3" face="黑体"><strong>定义3 （信息增益比）</strong></font><br>&emsp;&emsp;<font face="楷体">特征 $A$ 对训练数据集 $D$ 的信息增益比 $g_R\left(D,A\right)$，定义为其信息增益 $g\left(D,A\right)$ 与训练数据集 $D$ 关于特征 $A$ 的值的熵 $H_A\left(D\right)$ 之比，即</font><br>$$<br>g_R\left(D,A\right)=\cfrac{g\left(D,A\right)}{H_A\left(D\right)}<br>$$<br>其中，<br>$$<br>H_A\left( D \right) =-\sum_{i=1}^n{\frac{\left| D_i \right|}{\left| D \right|}\log _2}\frac{\left| D_i \right|}{\left| D \right|}<br>$$<br>$n$ 是特征 $A$ 取值的个数。</p>
+<h2 id="三、决策树的生成"><a href="#三、决策树的生成" class="headerlink" title="三、决策树的生成"></a>三、决策树的生成</h2><h3 id="3-1-ID3算法"><a href="#3-1-ID3算法" class="headerlink" title="3.1 ID3算法"></a>3.1 ID3算法</h3><p>&emsp;&emsp;<em>ID3</em>算法的核心是在决策树各个节点上应用<strong>信息增益准则</strong>选择特征</p>
 
             </div>
             <hr/>
@@ -888,7 +1003,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">63.8k</span>&nbsp;字
+                class="white-color">65.5k</span>&nbsp;字
             
             
             
