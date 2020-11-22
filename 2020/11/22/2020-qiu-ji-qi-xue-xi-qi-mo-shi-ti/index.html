@@ -227,7 +227,7 @@
 <script src="/libs/cryptojs/crypto-js.min.js"></script>
 <script>
     (function () {
-        let pwd = 'Sunxiao';
+        let pwd = '';
         if (pwd && pwd.length > 0) {
             if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc
                     .Hex)) {
