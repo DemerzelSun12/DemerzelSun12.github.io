@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>视听觉信号处理听觉复习笔记</title>
+      <link href="/2020/12/19/shi-ting-jue-xin-hao-chu-li-ting-jue-fu-xi-bi-ji/"/>
+      <url>/2020/12/19/shi-ting-jue-xin-hao-chu-li-ting-jue-fu-xi-bi-ji/</url>
+      
+        <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>教务处的垃圾排课，非要单双周上课，结果听觉上完课的两天后就考试，就nm离谱，被迫现在开始复习。</p><h2 id="总述"><a href="#总述" class="headerlink" title="总述"></a>总述</h2><p>课程主要内容：</p><ul><li>语音识别(Speech Recognition)</li><li>语音编码(Speech Coding)</li></ul><h2 id="一、语音的声学表示"><a href="#一、语音的声学表示" class="headerlink" title="一、语音的声学表示"></a>一、语音的声学表示</h2><h3 id="1-1-语音的声学特性"><a href="#1-1-语音的声学特性" class="headerlink" title="1.1 语音的声学特性"></a>1.1 语音的声学特性</h3><p>&emsp;&emsp;语音以声波的形式在空气中传播，声波是纵波，振动方向与传播方向一致。</p><h3 id="1-2-声波的基本物理量"><a href="#1-2-声波的基本物理量" class="headerlink" title="1.2 声波的基本物理量"></a>1.2 声波的基本物理量</h3><ol><li><p>频率：人耳对声波频率高低的感觉与实际频率近似成对数关系，即“分贝”的由来。<strong>基频：60Hz~500Hz</strong>。</p></li><li><p>振幅:</p></li></ol><ul><li>用声压或声强表示声音的强度</li><li>声压p用来度量由于声波的传播导致的气压的变化，单位帕斯卡</li><li>声强 I 为单位时间内通过与声波传播方向垂直的某一单位面积上的声能的平均值，单位$\left.W /m^2 \right.$.</li><li>最小声压：闻阈，约为$2\times 10^{-5}Pa$；</li><li>最大声压：痛阈，约为$200Pa$.</li></ul><ol start="3"><li>分贝：</li></ol><ul><li>以闻阈$P_0$为基准，单位dB，</li><li>依照声压定义分贝：$L=20\log_{10}\left(P\left. / P_0\right.\right)\left(\mathrm{dB}\right)$</li><li>依照声强定义分贝：$L=10\log_{10}\left(I\left. / I_0\right.\right)\left(\mathrm{dB}\right)$</li><li>闻阈相当于 $0\mathrm{dB}$，痛阈相当于 $140\mathrm{dB}$，人讲话时，一米远处的声强大约为$60dB~80dB$。</li></ul><ol start="4"><li>共振和共振峰</li></ol><ul><li>共振：物体受迫振动时，所加驱动频率等于物体固有频率时，物体以最大振幅振动。</li><li>元音的音色和区别特征主要取决于声道的共振峰特性。</li></ul><h2 id="二、语音的数字信号表示"><a href="#二、语音的数字信号表示" class="headerlink" title="二、语音的数字信号表示"></a>二、语音的数字信号表示</h2><h3 id="2-1-数字信号处理"><a href="#2-1-数字信号处理" class="headerlink" title="2.1 数字信号处理"></a>2.1 数字信号处理</h3><p>就nm躲不过了呗。</p><ol><li>离散时间信号与系统</li></ol><ul><li>在时间上离散，只在某些不连续的规定瞬间给出函数值。幅值连续—抽样信号，幅值离散—数字信号。</li><li>通常函数值离散时刻之间的间隔是均匀的，以序列 $x\left(n\right)\; \left(n=0, \pm1,\pm2,\cdots\right)$表示。</li></ul><ol start="2"><li>离散信号序列的基本运算</li></ol><p>序列中同序号的数值逐项运算构成一个新序列。</p><table><thead><tr><th align="center">运算</th><th align="center">规则</th></tr></thead><tbody><tr><td align="center">加</td><td align="center">$z\left(n\right) = x\left(n\right)+y\left(n\right)$</td></tr><tr><td align="center">乘</td><td align="center">$z\left(n\right) = x\left(n\right)\cdot y\left(n\right)$</td></tr><tr><td align="center">时延</td><td align="center">$z\left(n\right) = x\left(n-m\right)$</td></tr><tr><td align="center">求能量</td><td align="center">$E = \sum\limits_{n=-\infty}^{\infty}\lvert x\left(n\right) \rvert^{2}$</td></tr></tbody></table>]]></content>
+      
+      
+      <categories>
+          
+          <category> 视听觉信号处理 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 学长的火炬 </tag>
+            
+            <tag> 视听觉信号处理 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>2020秋机器学习期末试题</title>
       <link href="/2020/11/22/2020-qiu-ji-qi-xue-xi-qi-mo-shi-ti/"/>
       <url>/2020/11/22/2020-qiu-ji-qi-xue-xi-qi-mo-shi-ti/</url>
