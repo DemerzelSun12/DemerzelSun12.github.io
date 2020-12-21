@@ -8,7 +8,7 @@
       <link href="/2020/12/19/shi-ting-jue-xin-hao-chu-li-ting-jue-fu-xi-bi-ji/"/>
       <url>/2020/12/19/shi-ting-jue-xin-hao-chu-li-ting-jue-fu-xi-bi-ji/</url>
       
-        <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>教务处的垃圾排课，非要单双周上课，结果听觉上完课的两天后就考试，就nm离谱，被迫现在开始复习。</p><h2 id="总述"><a href="#总述" class="headerlink" title="总述"></a>总述</h2><p>课程主要内容：</p><ul><li>语音识别(Speech Recognition)</li><li>语音编码(Speech Coding)</li></ul><h2 id="一、语音的声学表示"><a href="#一、语音的声学表示" class="headerlink" title="一、语音的声学表示"></a>一、语音的声学表示</h2><h3 id="1-1-语音的声学特性"><a href="#1-1-语音的声学特性" class="headerlink" title="1.1 语音的声学特性"></a>1.1 语音的声学特性</h3><p>&emsp;&emsp;语音以声波的形式在空气中传播，声波是纵波，振动方向与传播方向一致。</p><h3 id="1-2-声波的基本物理量"><a href="#1-2-声波的基本物理量" class="headerlink" title="1.2 声波的基本物理量"></a>1.2 声波的基本物理量</h3><ol><li><p>频率：人耳对声波频率高低的感觉与实际频率近似成对数关系，即“分贝”的由来。<strong>基频：60Hz~500Hz</strong>。</p></li><li><p>振幅:</p></li></ol><ul><li>用声压或声强表示声音的强度</li><li>声压p用来度量由于声波的传播导致的气压的变化，单位帕斯卡</li><li>声强 I 为单位时间内通过与声波传播方向垂直的某一单位面积上的声能的平均值，单位$\left.W /m^2 \right.$.</li><li>最小声压：闻阈，约为$2\times 10^{-5}Pa$；</li><li>最大声压：痛阈，约为$200Pa$.</li></ul><ol start="3"><li>分贝：</li></ol><ul><li>以闻阈$P_0$为基准，单位dB，</li><li>依照声压定义分贝：$L=20\log_{10}\left(P\left. / P_0\right.\right)\left(\mathrm{dB}\right)$</li><li>依照声强定义分贝：$L=10\log_{10}\left(I\left. / I_0\right.\right)\left(\mathrm{dB}\right)$</li><li>闻阈相当于 $0\mathrm{dB}$，痛阈相当于 $140\mathrm{dB}$，人讲话时，一米远处的声强大约为$60dB~80dB$。</li></ul><ol start="4"><li>共振和共振峰</li></ol><ul><li>共振：物体受迫振动时，所加驱动频率等于物体固有频率时，物体以最大振幅振动。</li><li>元音的音色和区别特征主要取决于声道的共振峰特性。</li></ul><h2 id="二、语音的数字信号表示"><a href="#二、语音的数字信号表示" class="headerlink" title="二、语音的数字信号表示"></a>二、语音的数字信号表示</h2><h3 id="2-1-数字信号处理"><a href="#2-1-数字信号处理" class="headerlink" title="2.1 数字信号处理"></a>2.1 数字信号处理</h3><p>就nm躲不过了呗。</p><ol><li>离散时间信号与系统</li></ol><ul><li>在时间上离散，只在某些不连续的规定瞬间给出函数值。幅值连续—抽样信号，幅值离散—数字信号。</li><li>通常函数值离散时刻之间的间隔是均匀的，以序列 $x\left(n\right)\; \left(n=0, \pm1,\pm2,\cdots\right)$表示。</li></ul><ol start="2"><li>离散信号序列的基本运算</li></ol><p>序列中同序号的数值逐项运算构成一个新序列。</p><table><thead><tr><th align="center">运算</th><th align="center">规则</th></tr></thead><tbody><tr><td align="center">加</td><td align="center">$z\left(n\right) = x\left(n\right)+y\left(n\right)$</td></tr><tr><td align="center">乘</td><td align="center">$z\left(n\right) = x\left(n\right)\cdot y\left(n\right)$</td></tr><tr><td align="center">时延</td><td align="center">$z\left(n\right) = x\left(n-m\right)$</td></tr><tr><td align="center">求能量</td><td align="center">$E = \sum\limits_{n=-\infty}^{\infty}\lvert x\left(n\right) \rvert^{2}$</td></tr></tbody></table>]]></content>
+        <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>教务处的垃圾排课，非要单双周上课，结果听觉上完课的两天后就考试，就nm离谱，被迫现在开始复习。</p><h2 id="总述"><a href="#总述" class="headerlink" title="总述"></a>总述</h2><p>课程主要内容：</p><ul><li>语音识别(Speech Recognition)</li><li>语音编码(Speech Coding)</li></ul><h2 id="一、语音的声学表示"><a href="#一、语音的声学表示" class="headerlink" title="一、语音的声学表示"></a>一、语音的声学表示</h2><h3 id="1-1-语音的声学特性"><a href="#1-1-语音的声学特性" class="headerlink" title="1.1 语音的声学特性"></a>1.1 语音的声学特性</h3><p>&emsp;&emsp;语音以声波的形式在空气中传播，声波是纵波，振动方向与传播方向一致。</p><h3 id="1-2-声波的基本物理量"><a href="#1-2-声波的基本物理量" class="headerlink" title="1.2 声波的基本物理量"></a>1.2 声波的基本物理量</h3><ol><li><p>频率：人耳对声波频率高低的感觉与实际频率近似成对数关系，即“分贝”的由来。<strong>基频：60Hz~500Hz</strong>。</p></li><li><p>振幅:</p></li></ol><ul><li>用声压或声强表示声音的强度</li><li>声压p用来度量由于声波的传播导致的气压的变化，单位帕斯卡</li><li>声强 I 为单位时间内通过与声波传播方向垂直的某一单位面积上的声能的平均值，单位$\left.W /m^2 \right.$.</li><li>最小声压：闻阈，约为$2\times 10^{-5}Pa$；</li><li>最大声压：痛阈，约为$200Pa$.</li></ul><ol start="3"><li>分贝：</li></ol><ul><li>以闻阈$P_0$为基准，单位dB，</li><li>依照声压定义分贝：$L=20\log_{10}\left(P\left. / P_0\right.\right)\left(\mathrm{dB}\right)$</li><li>依照声强定义分贝：$L=10\log_{10}\left(I\left. / I_0\right.\right)\left(\mathrm{dB}\right)$</li><li>闻阈相当于 $0\mathrm{dB}$，痛阈相当于 $140\mathrm{dB}$，人讲话时，一米远处的声强大约为$60dB~80dB$。</li></ul><ol start="4"><li>共振和共振峰</li></ol><ul><li>共振：物体受迫振动时，所加驱动频率等于物体固有频率时，物体以最大振幅振动。</li><li>元音的音色和区别特征主要取决于声道的共振峰特性。</li></ul><h2 id="二、语音的数字信号表示"><a href="#二、语音的数字信号表示" class="headerlink" title="二、语音的数字信号表示"></a>二、语音的数字信号表示</h2><h3 id="2-1-数字信号处理"><a href="#2-1-数字信号处理" class="headerlink" title="2.1 数字信号处理"></a>2.1 数字信号处理</h3><p>就nm躲不过了呗。</p><ol><li>离散时间信号与系统</li></ol><ul><li>在时间上离散，只在某些不连续的规定瞬间给出函数值。幅值连续—抽样信号，幅值离散—数字信号。</li><li>通常函数值离散时刻之间的间隔是均匀的，以序列 $x\left(n\right)\; \left(n=0, \pm1,\pm2,\cdots\right)$表示。</li></ul><ol start="2"><li>离散信号序列的基本运算</li></ol><p>序列中同序号的数值逐项运算构成一个新序列。</p><div style="text-align:center"><table><thead><tr><th align="center">运算</th><th align="center">规则</th></tr></thead><tbody><tr><td align="center">加</td><td align="center">$z\left(n\right) = x\left(n\right)+y\left(n\right)$</td></tr><tr><td align="center">乘</td><td align="center">$z\left(n\right) = x\left(n\right)\cdot y\left(n\right)$</td></tr><tr><td align="center">时延</td><td align="center">$z\left(n\right) = x\left(n-m\right)$</td></tr><tr><td align="center">求能量</td><td align="center">$E = \sum\limits_{n=-\infty}^{\infty}\lvert x\left(n\right) \rvert^{2}$</td></tr></tbody></table></div><ol start="3"><li>离散时间系统：系统的激励和相应都是离散信号序列。离散时间系统的数学模型是差分方程。</li></ol><ul><li>常见为线性时不变系统，设$y_1\left(n\right)$和$y_2\left(n\right)$分别为激励$x_1\left(n\right)$和$x_2\left(n\right)$的响应，则线性系统有激励$\alpha x_1\left(n\right)+\beta x_2\left(n\right)$，响应为$\alpha y_1\left(n\right)+\beta y_2\left(n\right)$；时不变系统有激励$x\left(n-k\right)$，响应为$y\left(n-k\right)$。</li></ul><ol start="4"><li><p>卷积、滤波、离散傅里叶变换（Discrete Fourier Transform）略过。</p></li><li><p>Z变换：</p></li></ol><ul><li>将离散系统的数学模型（差分方程）转化为代数方程。</li><li>Z变换定义：$X\left(z\right) = \sum\limits_{n=-\infty}^{\infty}x\left(n\right)z^{-n}$</li><li>Z变换在其收敛域$R_1&lt;\lvert z \rvert&lt;R_2$内满足：$\sum_{n=-\infty}^{\infty}\lvert x\left(n\right) \rvert \lvert z \rvert^{-n} &lt; \infty$</li><li><strong>DFT为特殊的Z变换</strong>，取$z = \exp \left(j\left(\left.2\pi/N\right.\right)k\right)$即可得到DFT变换。在z平面的单位圆上，取辐角为$\omega = \left. 2\pi k/N \right.$计算其Z变换，得到了DFT的第k个样值点。<strong>有限长序列的DFT可以解释为其Z变换在单位圆上的均匀抽样</strong>。</li><li>Z变换满足线性可加性，位移性$Z\left[x\left(n-m\right)\right] = z^{-m}X\left(z\right)$和时域的卷积定理$Z\left[x\left(n\right)\ast y\left(n\right)\right] = X\left(z\right)Y\left(z\right)$。</li></ul><ol start="6"><li>离散余弦变换（<strong>D</strong>iscrete <strong>C</strong>osine <strong>T</strong>ransform）：</li></ol><ul><li>$C\left(k\right) = \sum\limits_{n=0}^{N-1}x\left(n\right)\cos\left(\pi k\left.\left(\left. n+1 /\right. 2\right) /\right. N\right)\quad \left(0\le k\le N-1\right)$</li><li>$x\left(n\right) =  \left.\left[C\left(0\right)+2\sum\limits_{k=1}^{N-1}C\left(k\right)\cos\left(\pi k\left. \left(\left. n+1 / \right.2 \right)/ \right. N \right)\right] /\right.N \quad \left(0\le n\le N-1\right)$</li><li>DCT优点是能量集中，相对于DFT，系数主要集中在维数较低的部分，可以用更少的系数逼近原来的信号。</li></ul><h2 id="三、语音的语言表示"><a href="#三、语音的语言表示" class="headerlink" title="三、语音的语言表示"></a>三、语音的语言表示</h2><h3 id="3-1-语音的语言表示"><a href="#3-1-语音的语言表示" class="headerlink" title="3.1 语音的语言表示"></a>3.1 语音的语言表示</h3><ol><li>句子$\Rightarrow$短语$\Rightarrow$词语$\Rightarrow$音节$\Rightarrow$音素。</li><li>音素是语音的基本单位，分为元音（浊音）和辅音（清音）。</li><li>还有半元音、双元音、半辅音等。</li></ol><h3 id="3-2-不同语言的语音表示"><a href="#3-2-不同语言的语音表示" class="headerlink" title="3.2 不同语言的语音表示"></a>3.2 不同语言的语音表示</h3><ol><li>美国英语42个音素：元音12个；双元音6个；半元音4个；辅音20个。</li><li>汉语音素为64个，分为辅音、单元音、复元音和复鼻元音。</li></ol><h2 id="四、语音的时频域分析"><a href="#四、语音的时频域分析" class="headerlink" title="四、语音的时频域分析"></a>四、语音的时频域分析</h2><h3 id="4-1-特征的分析时长"><a href="#4-1-特征的分析时长" class="headerlink" title="4.1 特征的分析时长"></a>4.1 特征的分析时长</h3><h4 id="4-1-1-短时分析"><a href="#4-1-1-短时分析" class="headerlink" title="4.1.1 短时分析"></a>4.1.1 短时分析</h4><p>&emsp;&emsp;语音信号是非平稳信号，但是在10ms~30ms内，认为语音信号为平稳信号。</p><p>&emsp;&emsp;短时分析的最基本手段是对语音信息加窗。<br>$$S_w\left(n\right) = s\left(m\right)w\left(n\right)$$</p><p>常见的窗函数：N为窗长。</p><ul><li><p>方窗：$w\left(n\right) = \left\{ \begin{array}{l}<br>  1\quad 0\le n\le N-1\<br>  0\quad 其它\<br>\end{array} \right. $</p></li><li><p>哈明窗</p></li><li><p>哈宁窗</p></li></ul><h4 id="4-1-2-特征的时域分析方法"><a href="#4-1-2-特征的时域分析方法" class="headerlink" title="4.1.2 特征的时域分析方法"></a>4.1.2 特征的时域分析方法</h4><ol><li>短时能量：</li></ol><p>&emsp;&emsp;短时能量可以用于<strong>清浊判断</strong>、<strong>有声段和无声段判定</strong>、<strong>声母韵母分界</strong>以及<strong>连字的分界</strong>，经常是识别系统中特征的一维。</p><p>计算公式：<br>$$E_n = \sum\limits_{m=-\infty}^{\infty}\left[x\left(m\right)w\left(m\right)\right]^2$$</p><ol start="2"><li>短时平均幅度：</li></ol><p>&emsp;&emsp;单位时间内过零发生的次数。</p><p>公式：<br>$$Z_n = \sum_{m=-\infty}^{\infty}\lvert \text{sgn}\left[x\left(m\right)\right] - \text{sgn}\left[x\left(m-1\right)\right] \rvert w\left(m\right)$$</p><p>式中：<br>$$\text{sgn}\left[x\left(n\right)\right] = \left\{ \begin{array}{l}<br>    1\quad x\left(n\right)\ge0\<br>    -1\quad x\left(n\right)&lt;0\<br>\end{array} \right.,\quad<br>w\left(n\right) = \left\{ \begin{array}{l}<br>    \left.1/ \right.2N\quad 0\le n\le N-1\<br>    0\quad 其它\<br>\end{array} \right.<br>$$</p><p>&emsp;&emsp;短时平均过零率容易受到低频的干扰，因而提出了门限过零率的思想。</p><p>计算公式：<br>$$Z_n = \sum_{m=-\infty}^{\infty}\left\{\lvert \text{sgn}\left[x\left(m\right)-T\right] - \text{sgn}\left[x\left(m-1\right)-T\right] \rvert +<br>\lvert \text{sgn}\left[x\left(m\right)+T\right] - \text{sgn}\left[x\left(m-1\right)+T\right] \rvert\right\} w\left(m\right)$$</p>]]></content>
       
       
       <categories>
@@ -114,9 +114,9 @@
       
         <tags>
             
-            <tag> 机器学习 </tag>
-            
             <tag> 算法 </tag>
+            
+            <tag> 机器学习 </tag>
             
         </tags>
       
@@ -168,9 +168,9 @@
       
         <tags>
             
-            <tag> 机器学习 </tag>
-            
             <tag> 算法 </tag>
+            
+            <tag> 机器学习 </tag>
             
         </tags>
       
@@ -195,9 +195,9 @@
       
         <tags>
             
-            <tag> 机器学习 </tag>
-            
             <tag> 算法 </tag>
+            
+            <tag> 机器学习 </tag>
             
         </tags>
       
@@ -222,9 +222,9 @@
       
         <tags>
             
-            <tag> 机器学习 </tag>
-            
             <tag> 算法 </tag>
+            
+            <tag> 机器学习 </tag>
             
         </tags>
       
@@ -249,9 +249,9 @@
       
         <tags>
             
-            <tag> 机器学习 </tag>
-            
             <tag> 算法 </tag>
+            
+            <tag> 机器学习 </tag>
             
         </tags>
       
@@ -276,9 +276,9 @@
       
         <tags>
             
-            <tag> 机器学习 </tag>
-            
             <tag> 算法 </tag>
+            
+            <tag> 机器学习 </tag>
             
         </tags>
       
@@ -303,9 +303,9 @@
       
         <tags>
             
-            <tag> 机器学习 </tag>
-            
             <tag> 算法 </tag>
+            
+            <tag> 机器学习 </tag>
             
         </tags>
       
@@ -330,9 +330,9 @@
       
         <tags>
             
-            <tag> 机器学习 </tag>
-            
             <tag> 算法 </tag>
+            
+            <tag> 机器学习 </tag>
             
         </tags>
       

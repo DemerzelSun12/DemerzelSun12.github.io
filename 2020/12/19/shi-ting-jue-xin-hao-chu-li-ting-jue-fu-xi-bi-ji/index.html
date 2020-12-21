@@ -387,14 +387,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    610
+                    1.6k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    7 分
                 </div>
                 
 
@@ -452,6 +452,8 @@
 <li>离散信号序列的基本运算</li>
 </ol>
 <p>序列中同序号的数值逐项运算构成一个新序列。</p>
+<div style="text-align:center">
+
 <table>
 <thead>
 <tr>
@@ -476,6 +478,68 @@
 <td align="center">$E = \sum\limits_{n=-\infty}^{\infty}\lvert x\left(n\right) \rvert^{2}$</td>
 </tr>
 </tbody></table>
+</div>
+
+<ol start="3">
+<li>离散时间系统：系统的激励和相应都是离散信号序列。离散时间系统的数学模型是差分方程。</li>
+</ol>
+<ul>
+<li>常见为线性时不变系统，设$y_1\left(n\right)$和$y_2\left(n\right)$分别为激励$x_1\left(n\right)$和$x_2\left(n\right)$的响应，则线性系统有激励$\alpha x_1\left(n\right)+\beta x_2\left(n\right)$，响应为$\alpha y_1\left(n\right)+\beta y_2\left(n\right)$；时不变系统有激励$x\left(n-k\right)$，响应为$y\left(n-k\right)$。</li>
+</ul>
+<ol start="4">
+<li><p>卷积、滤波、离散傅里叶变换（Discrete Fourier Transform）略过。</p>
+</li>
+<li><p>Z变换：</p>
+</li>
+</ol>
+<ul>
+<li>将离散系统的数学模型（差分方程）转化为代数方程。</li>
+<li>Z变换定义：$X\left(z\right) = \sum\limits_{n=-\infty}^{\infty}x\left(n\right)z^{-n}$</li>
+<li>Z变换在其收敛域$R_1&lt;\lvert z \rvert&lt;R_2$内满足：$\sum_{n=-\infty}^{\infty}\lvert x\left(n\right) \rvert \lvert z \rvert^{-n} &lt; \infty$</li>
+<li><strong>DFT为特殊的Z变换</strong>，取$z = \exp \left(j\left(\left.2\pi/N\right.\right)k\right)$即可得到DFT变换。在z平面的单位圆上，取辐角为$\omega = \left. 2\pi k/N \right.$计算其Z变换，得到了DFT的第k个样值点。<strong>有限长序列的DFT可以解释为其Z变换在单位圆上的均匀抽样</strong>。</li>
+<li>Z变换满足线性可加性，位移性$Z\left[x\left(n-m\right)\right] = z^{-m}X\left(z\right)$和时域的卷积定理$Z\left[x\left(n\right)\ast y\left(n\right)\right] = X\left(z\right)Y\left(z\right)$。</li>
+</ul>
+<ol start="6">
+<li>离散余弦变换（<strong>D</strong>iscrete <strong>C</strong>osine <strong>T</strong>ransform）：</li>
+</ol>
+<ul>
+<li>$C\left(k\right) = \sum\limits_{n=0}^{N-1}x\left(n\right)\cos\left(\pi k\left.\left(\left. n+1 /\right. 2\right) /\right. N\right)\quad \left(0\le k\le N-1\right)$</li>
+<li>$x\left(n\right) =  \left.\left[C\left(0\right)+2\sum\limits_{k=1}^{N-1}C\left(k\right)\cos\left(\pi k\left. \left(\left. n+1 / \right.2 \right)/ \right. N \right)\right] /\right.N \quad \left(0\le n\le N-1\right)$</li>
+<li>DCT优点是能量集中，相对于DFT，系数主要集中在维数较低的部分，可以用更少的系数逼近原来的信号。</li>
+</ul>
+<h2 id="三、语音的语言表示"><a href="#三、语音的语言表示" class="headerlink" title="三、语音的语言表示"></a>三、语音的语言表示</h2><h3 id="3-1-语音的语言表示"><a href="#3-1-语音的语言表示" class="headerlink" title="3.1 语音的语言表示"></a>3.1 语音的语言表示</h3><ol>
+<li>句子$\Rightarrow$短语$\Rightarrow$词语$\Rightarrow$音节$\Rightarrow$音素。</li>
+<li>音素是语音的基本单位，分为元音（浊音）和辅音（清音）。</li>
+<li>还有半元音、双元音、半辅音等。</li>
+</ol>
+<h3 id="3-2-不同语言的语音表示"><a href="#3-2-不同语言的语音表示" class="headerlink" title="3.2 不同语言的语音表示"></a>3.2 不同语言的语音表示</h3><ol>
+<li>美国英语42个音素：元音12个；双元音6个；半元音4个；辅音20个。</li>
+<li>汉语音素为64个，分为辅音、单元音、复元音和复鼻元音。</li>
+</ol>
+<h2 id="四、语音的时频域分析"><a href="#四、语音的时频域分析" class="headerlink" title="四、语音的时频域分析"></a>四、语音的时频域分析</h2><h3 id="4-1-特征的分析时长"><a href="#4-1-特征的分析时长" class="headerlink" title="4.1 特征的分析时长"></a>4.1 特征的分析时长</h3><h4 id="4-1-1-短时分析"><a href="#4-1-1-短时分析" class="headerlink" title="4.1.1 短时分析"></a>4.1.1 短时分析</h4><p>&emsp;&emsp;语音信号是非平稳信号，但是在10ms~30ms内，认为语音信号为平稳信号。</p>
+<p>&emsp;&emsp;短时分析的最基本手段是对语音信息加窗。<br>$$S_w\left(n\right) = s\left(m\right)w\left(n\right)$$</p>
+<p>常见的窗函数：N为窗长。</p>
+<ul>
+<li><p>方窗：$w\left(n\right) = \left\{ \begin{array}{l}<br>  1\quad 0\le n\le N-1\<br>  0\quad 其它\<br>\end{array} \right. $</p>
+</li>
+<li><p>哈明窗</p>
+</li>
+<li><p>哈宁窗</p>
+</li>
+</ul>
+<h4 id="4-1-2-特征的时域分析方法"><a href="#4-1-2-特征的时域分析方法" class="headerlink" title="4.1.2 特征的时域分析方法"></a>4.1.2 特征的时域分析方法</h4><ol>
+<li>短时能量：</li>
+</ol>
+<p>&emsp;&emsp;短时能量可以用于<strong>清浊判断</strong>、<strong>有声段和无声段判定</strong>、<strong>声母韵母分界</strong>以及<strong>连字的分界</strong>，经常是识别系统中特征的一维。</p>
+<p>计算公式：<br>$$E_n = \sum\limits_{m=-\infty}^{\infty}\left[x\left(m\right)w\left(m\right)\right]^2$$</p>
+<ol start="2">
+<li>短时平均幅度：</li>
+</ol>
+<p>&emsp;&emsp;单位时间内过零发生的次数。</p>
+<p>公式：<br>$$Z_n = \sum_{m=-\infty}^{\infty}\lvert \text{sgn}\left[x\left(m\right)\right] - \text{sgn}\left[x\left(m-1\right)\right] \rvert w\left(m\right)$$</p>
+<p>式中：<br>$$\text{sgn}\left[x\left(n\right)\right] = \left\{ \begin{array}{l}<br>    1\quad x\left(n\right)\ge0\<br>    -1\quad x\left(n\right)&lt;0\<br>\end{array} \right.,\quad<br>w\left(n\right) = \left\{ \begin{array}{l}<br>    \left.1/ \right.2N\quad 0\le n\le N-1\<br>    0\quad 其它\<br>\end{array} \right.<br>$$</p>
+<p>&emsp;&emsp;短时平均过零率容易受到低频的干扰，因而提出了门限过零率的思想。</p>
+<p>计算公式：<br>$$Z_n = \sum_{m=-\infty}^{\infty}\left\{\lvert \text{sgn}\left[x\left(m\right)-T\right] - \text{sgn}\left[x\left(m-1\right)-T\right] \rvert +<br>\lvert \text{sgn}\left[x\left(m\right)+T\right] - \text{sgn}\left[x\left(m-1\right)+T\right] \rvert\right\} w\left(m\right)$$</p>
 
             </div>
             <hr/>
@@ -952,7 +1016,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">66.9k</span>&nbsp;字
+                class="white-color">67.9k</span>&nbsp;字
             
             
             
