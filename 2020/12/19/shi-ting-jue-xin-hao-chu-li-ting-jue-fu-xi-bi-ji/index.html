@@ -387,14 +387,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.6k
+                    2.4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    7 分
+                    9 分
                 </div>
                 
 
@@ -431,7 +431,7 @@
 <li>以闻阈$P_0$为基准，单位dB，</li>
 <li>依照声压定义分贝：$L=20\log_{10}\left(P\left. / P_0\right.\right)\left(\mathrm{dB}\right)$</li>
 <li>依照声强定义分贝：$L=10\log_{10}\left(I\left. / I_0\right.\right)\left(\mathrm{dB}\right)$</li>
-<li>闻阈相当于 $0\mathrm{dB}$，痛阈相当于 $140\mathrm{dB}$，人讲话时，一米远处的声强大约为$60dB~80dB$。</li>
+<li>闻阈相当于 $0\mathrm{dB}$，痛阈相当于 $140\mathrm{dB}$，人讲话时，一米远处的声强大约为$60dB \sim80dB$。</li>
 </ul>
 <ol start="4">
 <li>共振和共振峰</li>
@@ -527,7 +527,7 @@
 <li><p>哈宁窗</p>
 </li>
 </ul>
-<h4 id="4-1-2-特征的时域分析方法"><a href="#4-1-2-特征的时域分析方法" class="headerlink" title="4.1.2 特征的时域分析方法"></a>4.1.2 特征的时域分析方法</h4><ol>
+<h3 id="4-2-特征的时域分析方法"><a href="#4-2-特征的时域分析方法" class="headerlink" title="4.2 特征的时域分析方法"></a>4.2 特征的时域分析方法</h3><ol>
 <li>短时能量：</li>
 </ol>
 <p>&emsp;&emsp;短时能量可以用于<strong>清浊判断</strong>、<strong>有声段和无声段判定</strong>、<strong>声母韵母分界</strong>以及<strong>连字的分界</strong>，经常是识别系统中特征的一维。</p>
@@ -539,8 +539,65 @@
 <p>公式：<br>$$Z_n = \sum_{m=-\infty}^{\infty}\lvert \text{sgn}\left[x\left(m\right)\right] - \text{sgn}\left[x\left(m-1\right)\right] \rvert w\left(m\right)$$</p>
 <p>式中：<br>$$\text{sgn}\left[x\left(n\right)\right] = \left\{ \begin{array}{l}<br>    1\quad x\left(n\right)\ge0\<br>    -1\quad x\left(n\right)&lt;0\<br>\end{array} \right.,\quad<br>w\left(n\right) = \left\{ \begin{array}{l}<br>    \left.1/ \right.2N\quad 0\le n\le N-1\<br>    0\quad 其它\<br>\end{array} \right.<br>$$</p>
 <p>&emsp;&emsp;短时平均过零率容易受到低频的干扰，因而提出了门限过零率的思想。</p>
-<p>计算公式：<br>$$Z_n = \sum_{m=-\infty}^{\infty}\left\{\lvert \text{sgn}\left[x\left(m\right)-T\right] - \text{sgn}\left[x\left(m-1\right)-T\right] \rvert +<br>\lvert \text{sgn}\left[x\left(m\right)+T\right] - \text{sgn}\left[x\left(m-1\right)+T\right] \rvert\right\} w\left(m\right)$$</p>
-
+<p>计算公式：<br>$$Z_n = \sum_{m=-\infty}^{\infty}\left\{\lvert \text{sgn}\left[x\left(m\right)-T\right] - \text{sgn}\left[x\left(m-1\right)-T\right] \rvert +<br>\lvert \text{sgn}\left[x\left(m\right)+T\right] - \text{sgn}\left[x\left(m-1\right)+T\right] \rvert\right\} w\left(m\right)<br>$$</p>
+<h4 id="4-2-1-端点检测"><a href="#4-2-1-端点检测" class="headerlink" title="4.2.1 端点检测"></a>4.2.1 端点检测</h4><ol>
+<li>端点检测是对语音进行“浊音/清音/无音的判定”。</li>
+<li>浊音的能量高于清音，清音的过零率高于无声段。</li>
+<li>双门限法：</li>
+</ol>
+<ul>
+<li>用较高的短时门限能量门限$M_1$确保$A_1\thicksim A_2$肯定是浊音；</li>
+<li>从$A_1$和$A_2$开始向两端搜索，短时能量&gt;较低门限$M_1$的$B_1\thicksim B_2$还是语音段；</li>
+<li>从$B_1$开始向前搜索，短时过零率&lt;门限$Z_s$的为清音段。</li>
+</ul>
+<h4 id="4-2-2-短时自相关函数"><a href="#4-2-2-短时自相关函数" class="headerlink" title="4.2.2 短时自相关函数"></a>4.2.2 短时自相关函数</h4><ol>
+<li>自相关函数</li>
+</ol>
+<ul>
+<li>对于确定的离散信号$x\left(n\right)$，自相关函数定义为<br>$$R\left(k\right) = \sum_{m=-\infty}^{+\infty}x\left(m\right)x\left(m+k\right)$$</li>
+<li>$R\left(k\right)$表示一个信号和延迟<em>k</em>点后</li>
+</ul>
+<h2 id="五、语音编码"><a href="#五、语音编码" class="headerlink" title="五、语音编码"></a>五、语音编码</h2><h3 id="5-1-语音编码总述"><a href="#5-1-语音编码总述" class="headerlink" title="5.1 语音编码总述"></a>5.1 语音编码总述</h3><ol>
+<li>语音数据大小:</li>
+</ol>
+<ul>
+<li>fs：每秒钟样本数（8k~44.1k）；</li>
+<li>c：每个样本的通道数（1或2）；</li>
+<li>b：每个样本点的位数（8或16）。</li>
+</ul>
+<ol start="2">
+<li><p>比特率：<br>$$fs\times c \times b$$<br>单位 $\text{bit/s}$，或bps。</p>
+</li>
+<li><p>为什么语音可以压缩：</p>
+</li>
+</ol>
+<ul>
+<li>语音存在冗余度<ul>
+<li>幅度非均匀分布</li>
+<li>语音信号样本间的相关性很强</li>
+<li>浊音具有准周期</li>
+<li>声道的形状及其变化缓慢</li>
+<li>语音间隙</li>
+</ul>
+</li>
+<li>人的听觉感知机理<ul>
+<li>人的听觉特性具有掩蔽效应</li>
+<li>人耳对不同频段声音的敏感程度不同</li>
+<li>人耳对语音相位不敏感</li>
+</ul>
+</li>
+</ul>
+<ol start="4">
+<li>编码类型：</li>
+</ol>
+<ul>
+<li>波形编码：根据语音信号的波形导出相应的数字编码的形式，目的是尽量保持波形不变，使接收端能再现原始语音。抗噪性强，语音质量好；但是需要较高的码率，一般为$16\sim64Kbps$。</li>
+<li>参数编码：通过对语音信号进行分析，提取参数，对参数进行编码。接收端能用解码后的参数重构语音信号，参数编码主要从听觉感知的角度重现语音，并不保证波形相同，参数编码对码率的要求比波形编码低得多。</li>
+<li>混合编码：上述两种方法的有机组合，既增加了语音的自然度，提高语音质量；也相对于波形编码实现较低的数码率指标。</li>
+</ul>
+<h3 id="5-2-波形编码"><a href="#5-2-波形编码" class="headerlink" title="5.2 波形编码"></a>5.2 波形编码</h3><h4 id="5-2-1-均匀量化PCM"><a href="#5-2-1-均匀量化PCM" class="headerlink" title="5.2.1 均匀量化PCM"></a>5.2.1 均匀量化PCM</h4><p>&emsp;&emsp;最直接的方法，采样量化的A/D转换。采样时，采样频率要高于信号最高频率的两倍，一般采样前还需要低通滤波控制信号的最高频率。量化时将采样得到的样本的幅度用均匀量化的方法表示成二进制数字信号，相当于用一组二进制脉冲序列表示各量化后采样值。这就是脉冲编码调制方法(PCM)。</p>
+<p>&emsp;&emsp;量化过程不可避免会产生误差，量化误差$e\left(n\right)$定义为：<br>$$e\left(n\right) = \bar{x}\left(n\right) - x\left(n\right)$$</p>
+<h4 id="5-2-2-非均匀化"><a href="#5-2-2-非均匀化" class="headerlink" title="5.2.2 非均匀化"></a>5.2.2 非均匀化</h4>
             </div>
             <hr/>
 
@@ -1016,7 +1073,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">67.9k</span>&nbsp;字
+                class="white-color">68.7k</span>&nbsp;字
             
             
             
