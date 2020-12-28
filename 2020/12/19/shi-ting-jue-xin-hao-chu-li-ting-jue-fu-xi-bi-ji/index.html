@@ -387,14 +387,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.4k
+                    3.4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    9 分
+                    13 分
                 </div>
                 
 
@@ -597,7 +597,20 @@
 </ul>
 <h3 id="5-2-波形编码"><a href="#5-2-波形编码" class="headerlink" title="5.2 波形编码"></a>5.2 波形编码</h3><h4 id="5-2-1-均匀量化PCM"><a href="#5-2-1-均匀量化PCM" class="headerlink" title="5.2.1 均匀量化PCM"></a>5.2.1 均匀量化PCM</h4><p>&emsp;&emsp;最直接的方法，采样量化的A/D转换。采样时，采样频率要高于信号最高频率的两倍，一般采样前还需要低通滤波控制信号的最高频率。量化时将采样得到的样本的幅度用均匀量化的方法表示成二进制数字信号，相当于用一组二进制脉冲序列表示各量化后采样值。这就是脉冲编码调制方法(PCM)。</p>
 <p>&emsp;&emsp;量化过程不可避免会产生误差，量化误差$e\left(n\right)$定义为：<br>$$e\left(n\right) = \bar{x}\left(n\right) - x\left(n\right)$$</p>
-<h4 id="5-2-2-非均匀化"><a href="#5-2-2-非均匀化" class="headerlink" title="5.2.2 非均匀化"></a>5.2.2 非均匀化</h4>
+<h4 id="5-2-2-非均匀量化PCM"><a href="#5-2-2-非均匀量化PCM" class="headerlink" title="5.2.2 非均匀量化PCM"></a>5.2.2 非均匀量化PCM</h4><p>&emsp;&emsp;均匀量化PCM的主要问题是编码速率过高。为了防止幅度较大的信号因为超出量化范围而出现过载，必须使用较高的量化比特数。因此需要进行非均匀量化。对小幅度样本使用小的量化间隔，可以精确量化；对大幅度样本使用大的量化间隔，既可以成功地提高信噪比，又可避免大新号的过载。</p>
+<p>&emsp;&emsp;最常用的非均匀量化为对数压扩方法。编码时，利用语音信号的幅度统计特性，对幅度按对数变换进行压缩，然后再进行均匀量化。解码时，进行逆向的扩张变换。有不同的变换方法，如$\mu$律变换、A律变换等。</p>
+<h4 id="5-2-3-自适应化PCM"><a href="#5-2-3-自适应化PCM" class="headerlink" title="5.2.3 自适应化PCM"></a>5.2.3 自适应化PCM</h4><p>&emsp;&emsp;核心思想是对短时能量较大的信号，采用较大量化间隔进行量化；对短时能量较小的信号，采用较小的量化间隔进行量化，有助于减小量化噪声，提高量化后信号的信噪比。</p>
+<p>&emsp;&emsp;除了采用量化间隔作为量化器的特性，还可以采用放大器增益来作为量化器特性，对能量较大的信号采用较小的放大增益，对能量较小的信号采用较大的放大增益。由以上可知，APCM除了发送量化结果之外，还需要发送自适应的调整参数作为边信息。</p>
+<h4 id="5-2-3-差分脉冲编码"><a href="#5-2-3-差分脉冲编码" class="headerlink" title="5.2.3 差分脉冲编码"></a>5.2.3 差分脉冲编码</h4><p>&emsp;&emsp;由于相邻采样值之间的差值远小于采样值本身，可以对差值进行编码，而不是对采样值本身进行编码，这就是差分脉冲编码DPCM。</p>
+<p>&emsp;&emsp;产生差分信号：直接存储前一次的采样值，用本次的采样值计算差值，经过量化得到数字语音编码。解码端做相反处理，恢复原信号。</p>
+<p>&emsp;&emsp;用Z变换考查各点信号的时域关系，有<br>$$C\left(z\right) = X\left(z\right)\left(1-z^{-1}\right) +E\left(z\right)$$<br>和<br>$$\overline{X}\left(z\right) = \frac{C\left(z\right)}{1-z^{-1}} = X\left(z\right) + \frac{E\left(z\right)}{1-z^{-1}}$$<br>式中，$E\left(z\right)$为量化器量化噪声$e\left(n\right)$的Z变换。</p>
+<p>&emsp;&emsp;由于量化器的量化噪声被累积叠加到了输出信号中，即每次的量化噪声信号都被保存，叠加到下次的输出当中，如果量化噪声始终是同一方向，则输出信号会越来越偏离原信号。因此，<strong>编码器应采用前一次解码后的采样值代替前一次的输入采样值</strong>，以生成差分信号。</p>
+<p>则<br>$$\widetilde{X}\left(z\right) = \frac{C\left(z\right)z^{-1}}{1-z^{-1}}$$<br>编码结果为<br>$$C\left(z\right) = X\left(z\right) - \widetilde{X}\left(z\right)+E\left(z\right)$$<br>代入后有<br>$$C\left(z\right) = \left(X\left(z\right)+E\left(z\right)\right)\left(1-z^{-1}\right)$$</p>
+<p>因此有<br>$$\overline{X}\left(z\right) = \frac{C\left(z\right)}{1-z^{-1}} = X\left(z\right) + E\left(z\right)$$</p>
+<p>由此可见，已经消除了量化噪声的累积。</p>
+<p>&emsp;&emsp;DPCM仅仅用到了两个采样值之间的相关性。然而，当前输入采样不仅与上一时刻的采样值相关，也与前面若干采样值相关，可以使用线性预测分析的方法实现一般形式的差分脉冲编码。根据线性预测分析的原理，可以用过去的一些采样值的线性组合来预测和推断当前的采样值，得到一组线性预测系数，且预测误差$e\left(n\right)$的动态范围和平均能量均比信号$x\left(n\right)$小得多，预测阶数越高，预测误差越小，相应的编码速率可以越低。</p>
+<h4 id="5-2-4-自适应差分脉冲编码"><a href="#5-2-4-自适应差分脉冲编码" class="headerlink" title="5.2.4 自适应差分脉冲编码"></a>5.2.4 自适应差分脉冲编码</h4><p>&emsp;&emsp;由于语音信号的不稳定，</p>
+
             </div>
             <hr/>
 
@@ -734,42 +747,40 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/12/19/shi-ting-jue-xin-hao-chu-li-ting-jue-fu-xi-bi-ji/">
+                <a href="/2020/12/19/ji-suan-ji-zu-zhi-yu-ti-xi-jie-gou-qi-mo-yu-xi-bi-ji/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="视听觉信号处理听觉复习笔记">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="计算机组织与体系结构期末预习笔记">
                         
-                        <span class="card-title">视听觉信号处理听觉复习笔记</span>
+                        <span class="card-title">计算机组织与体系结构期末预习笔记</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            2020秋季学期视听觉信号处理听觉复习笔记
+                            2020秋季学期计算机组织与体系结构期末预习笔记
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-19
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-12-19
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E8%A7%86%E5%90%AC%E8%A7%89%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/" class="post-category">
-                                    视听觉信号处理
+                            <a href="/categories/%E8%AE%A1%E7%BB%84/" class="post-category">
+                                    计组
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
@@ -777,8 +788,12 @@
                         <span class="chip bg-color">学长的火炬</span>
                     </a>
                     
-                    <a href="/tags/%E8%A7%86%E5%90%AC%E8%A7%89%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/">
-                        <span class="chip bg-color">视听觉信号处理</span>
+                    <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">
+                        <span class="chip bg-color">计算机组成原理</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/">
+                        <span class="chip bg-color">计算机体系结构</span>
                     </a>
                     
                 </div>
@@ -1073,7 +1088,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">68.7k</span>&nbsp;字
+                class="white-color">70.1k</span>&nbsp;字
             
             
             
