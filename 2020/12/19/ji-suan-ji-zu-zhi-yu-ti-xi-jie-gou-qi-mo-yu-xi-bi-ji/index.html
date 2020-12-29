@@ -391,14 +391,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3.1k
+                    4.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    10 分
+                    14 分
                 </div>
                 
 
@@ -707,10 +707,68 @@
 </li>
 <li>单机系统中并行性的发展：<ul>
 <li>在发展高性能单处理机过程中，<strong>起主导作用的是时间重叠原理</strong></li>
+<li>实现时间重叠的基础：部件功能专用化</li>
+</ul>
+</li>
+<li>多机系统中并行性的发展：<ul>
+<li>多机系统遵循时间重叠、资源重叠、资源共享管理</li>
+<li>发展为三种不同机型：同构型多处理机，异构型多处理机，分布式系统</li>
+<li>耦合度：反映多机系统中各机器之间物理连接的紧密程度和交互能力的强弱。</li>
 </ul>
 </li>
 </ol>
-<h3 id="2-3-计算机系统设计和分析"><a href="#2-3-计算机系统设计和分析" class="headerlink" title="2.3 计算机系统设计和分析"></a>2.3 计算机系统设计和分析</h3>
+<h3 id="2-3-计算机系统设计和分析"><a href="#2-3-计算机系统设计和分析" class="headerlink" title="2.3 计算机系统设计和分析"></a>2.3 计算机系统设计和分析</h3><h4 id="2-3-1-成本与价格"><a href="#2-3-1-成本与价格" class="headerlink" title="2.3.1 成本与价格"></a>2.3.1 成本与价格</h4><p>略过，买不起</p>
+<h4 id="2-3-2-基准测试程序"><a href="#2-3-2-基准测试程序" class="headerlink" title="2.3.2 基准测试程序"></a>2.3.2 基准测试程序</h4><p>不重要，略过</p>
+<h4 id="2-3-3-量化设计的基本原则"><a href="#2-3-3-量化设计的基本原则" class="headerlink" title="2.3.3 量化设计的基本原则"></a>2.3.3 量化设计的基本原则</h4><ol>
+<li><p>大概率事件优先原则：追求全局的最优结果</p>
+<ul>
+<li>对于大概率事件，赋予其优先的处理权和资源使用权，以获得全局的最优结果</li>
+</ul>
+</li>
+<li><p>Amdahl定律</p>
+<ul>
+<li>系统性能加速比，受限于该部件在系统中所占的重要性</li>
+<li>可以定量计算</li>
+<li>假设我们对机器部件进行某种改造，那么机器系统部件的加速比为<br>$$ 系统加速比 = \frac{系统性能_{改进前}}{系统性能_{改进后}} = \frac{总执行时间_{改进前}}{总执行时间_{执行后}} $$</li>
+<li>系统加速比告诉我们改进后的机器比改进前快多少，依赖于两个因素：<ul>
+<li><strong>可改进比例</strong>：可改进部分在原系统 计算时间所占的比例，总是小于1的</li>
+<li><strong>部件加速比</strong>：可改进部分改进后的性能提高，一般是大于1的</li>
+</ul>
+</li>
+<li>改进后，系统的总执行时间等于不可改进部分的执行时间加上可改进部分改进后的执行时间。<br>$$<br>\begin{aligned}<br>\text{总执行时间}_{\text{改进后}}<br>&amp;=\left( 1-\text{可改进比例} \right) \times \text{总执行时间}_{\text{改进前}}+\frac{\text{可改进比例}\times \text{总执行时间}_{\text{改进前}}}{\text{部件加速比}}\<br>&amp;=\text{总执行时间}_{\text{改进前}}\times \left[ \left( 1-\text{可改进比例} \right) +\frac{\text{可改进比例}}{\text{部件加速比}} \right]\<br>\end{aligned}<br>$$</li>
+<li>系统加速比为改进前与改进后总执行时间之比，为<br>$$<br>\begin{aligned}<br>\text{系统加速比}&amp;=\frac{\text{总执行时间}_{\text{改进前}}}{\text{总执行时间}_{\text{改进后}}}\<br>&amp;=\frac{1}{\left(1-\text{可改进比例}\right)+\frac{\text{可改进比例}}{\text{部件加速比}}}<br>\end{aligned}<br>$$</li>
+<li>Amdahl定律的观点：<ul>
+<li>性能增加的递减原则</li>
+<li>针对整个任务的一部分进行优化，则<strong>最大加速比</strong>不大于$\frac{1}{1-可改进比例}$</li>
+<li>Amdahl定律衡量一个好的计算机系统：具有高性能的计算机系统是一个带宽平衡的系统，而不是看某些部件的性能</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>程序的局部性原理</p>
+<ul>
+<li>程序执行时所访问存储器在时-空上是相对簇聚的</li>
+<li>簇聚包括时间局部性和空间局部性</li>
+<li>程序的时间局部性：程序即将用到的信息可能是目前正在使用的信息</li>
+<li>程序的空间局部性：程序即将用到的信息与目前正在使用的信息在空间上相邻或相近</li>
+</ul>
+</li>
+<li><p>CPU时间</p>
+<ul>
+<li>CPU时间：执行一个程序所需的时间：CPU时间 = 执行程序所需的时钟周期数$\times$时钟周期时间</li>
+<li>CPI：每条指令执行的平均时钟周期数：CPI = 执行程序所需的时钟周期数 / IC，取决于计算机组成和指令系统的结构</li>
+<li>IC：执行指令的条数，取决于指令系统结构和编译技术</li>
+<li>CPU时间 = IC $\times$ CPI $\times$ 时钟周期时间，取决于硬件实现技术和计算机组成</li>
+</ul>
+</li>
+<li><p>CPU性能公式</p>
+<ul>
+<li>假设计算机系统有n种指令，其中第i种指令的处理时间为$\text{CPI}_i$，在程序中第i种指令出现的次数为$\text{IC}_i$</li>
+</ul>
+</li>
+</ol>
+<p>$$<br>\begin{aligned}<br>    \text{T}_{\text{CPU}} &amp;= \sum \left(\text{IC}_i\times \text{CPI}_i\right) / f\<br>    &amp;= \sum \left(\text{IC}_i\times \text{CPI}_i\right) \times \text{T}_{\text{CLK}}\<br>\end{aligned}<br>$$<br>$$<br>\begin{aligned}<br>    \text{CPI} &amp;= \sum \left(\text{IC}_i\times \text{CPI}_i\right) / \text{IC}\<br>    &amp;=\sum\left[\left(\text{IC}_i / \text{IC}\right) \times \text{CPI}_i\right]<br>\end{aligned}<br>$$</p>
+
             </div>
             <hr/>
 
@@ -1188,7 +1246,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">72.8k</span>&nbsp;字
+                class="white-color">73.8k</span>&nbsp;字
             
             
             
