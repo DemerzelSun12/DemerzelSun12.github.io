@@ -391,14 +391,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    4.4k
+                    5.5k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    15 分
+                    19 分
                 </div>
                 
 
@@ -795,7 +795,105 @@
 </ul>
 </li>
 </ol>
-<h3 id="3-3-总线的特性和性能指标"><a href="#3-3-总线的特性和性能指标" class="headerlink" title="3.3 总线的特性和性能指标"></a>3.3 总线的特性和性能指标</h3><h3 id="3-4-总线结构"><a href="#3-4-总线结构" class="headerlink" title="3.4 总线结构"></a>3.4 总线结构</h3><h3 id="3-5-总线控制"><a href="#3-5-总线控制" class="headerlink" title="3.5 总线控制"></a>3.5 总线控制</h3>
+<h3 id="3-3-总线的特性和性能指标"><a href="#3-3-总线的特性和性能指标" class="headerlink" title="3.3 总线的特性和性能指标"></a>3.3 总线的特性和性能指标</h3><ol>
+<li><p>总线特性：</p>
+<ul>
+<li>机械特性</li>
+<li>电气特性</li>
+<li>功能特性</li>
+<li>时间特性</li>
+</ul>
+</li>
+<li><p>性能指标：</p>
+<ul>
+<li>总线宽度：数据线根数</li>
+<li>总线带宽：每秒传输的最大字节数（MBps）</li>
+<li>时钟同步/异步</li>
+<li>总线复用：地址线与数据线复用</li>
+<li>信号线数：地址线、数据线和控制线的总和</li>
+<li>总线控制方式：突发、自动、仲裁、逻辑、计数</li>
+<li>其他指标：负载能力</li>
+</ul>
+</li>
+</ol>
+<h3 id="3-4-总线结构"><a href="#3-4-总线结构" class="headerlink" title="3.4 总线结构"></a>3.4 总线结构</h3><p>见ppt5的26页$\sim$34页。</p>
+<h3 id="3-5-总线控制"><a href="#3-5-总线控制" class="headerlink" title="3.5 总线控制"></a>3.5 总线控制</h3><h4 id="3-5-1-总线判优控制"><a href="#3-5-1-总线判优控制" class="headerlink" title="3.5.1 总线判优控制"></a>3.5.1 总线判优控制</h4><ol>
+<li><p>基本概念：</p>
+<ul>
+<li>主设备（模块）：对总线有控制权</li>
+<li>从设备（模块）：响应从主设备发来的总线命令，对总线无控制权</li>
+<li>总线判优控制<ul>
+<li>集中式：链式查询、计数器定时查询、独立请求方式</li>
+<li>分布式</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>链式查询<br><img src="/2020/12/19/ji-suan-ji-zu-zhi-yu-ti-xi-jie-gou-qi-mo-yu-xi-bi-ji/%E9%93%BE%E5%BC%8F%E6%9F%A5%E8%AF%A2%E6%80%BB%E7%BA%BF.png" alt="链式查询总线"></p>
+<ul>
+<li>控制总线中有三根用于总线控制（BS总线忙、BR总线请求、BG总线同意）</li>
+<li>BG串行地从一个I/O接口送到下一个I/O接口。若BG到达的接口有总线请求，则BG信号不再继续下传，并建立总线忙的BS信号。</li>
+<li>优：较少的线可以按照一定优先次序实现总线控制，并且容易扩充设备</li>
+<li>缺：对电路故障敏感，且优先级低的设备可能很难获得请求。</li>
+<li><strong>需要两根线确定总线使用权属于哪个设备</strong></li>
+</ul>
+</li>
+<li><p>计数器定时查询<br><img src="/2020/12/19/ji-suan-ji-zu-zhi-yu-ti-xi-jie-gou-qi-mo-yu-xi-bi-ji/%E8%AE%A1%E6%95%B0%E5%99%A8%E5%AE%9A%E6%97%B6%E6%9F%A5%E8%AF%A2.png" alt="计数器定时查询"></p>
+<ul>
+<li>相对于链式查询，多了一组设备地址线，少了一根总线同意线BG。</li>
+<li>总线控制部件接到由BR送来的总线请求信号后，在总线未被使用（BS=0）的情况下，总线控制部件中的计数器开始计数，并通过设备的地址线，向各设备发出一组地址信号。当某个请求占用总线的设备地址与计数器一致时，便获得总线使用权，此时终止计数查询。</li>
+<li>优：计数可以从任意位置开始，保证了设备使用总线的优先级相等；计数器初始值可以由程序设计，优先次序也可以改变；对电路故障不如链式查询敏感。</li>
+<li>缺：增加了控制线数量，控制较为复杂。</li>
+<li><strong>大致用$\log_2n$根线，n为允许接纳最大设备数</strong></li>
+</ul>
+</li>
+<li><p>独立请求方式<br><img src="/2020/12/19/ji-suan-ji-zu-zhi-yu-ti-xi-jie-gou-qi-mo-yu-xi-bi-ji/%E7%8B%AC%E7%AB%8B%E8%AF%B7%E6%B1%82%E6%9F%A5%E8%AF%A2%E6%96%B9%E5%BC%8F.png" alt="独立请求方式"></p>
+<ul>
+<li>每一台设备均有一对总线请求线$BR_i$和总线同意线$BG_i$。</li>
+<li>设备需要使用总线时，发出该设备的请求信号。</li>
+<li>总线控制部件中有一排队电路，可根据优先次序确定响应哪一台设备的请求。</li>
+<li>优：响应速度快，优先次序控制灵活</li>
+<li>缺：控制总线数量多，总线控制更复杂。</li>
+<li><strong>需要2n根线</strong></li>
+</ul>
+</li>
+</ol>
+<h4 id="3-5-2-总线通信控制"><a href="#3-5-2-总线通信控制" class="headerlink" title="3.5.2 总线通信控制"></a>3.5.2 总线通信控制</h4><ol>
+<li>目的：解决通信双方协调配合问题</li>
+<li>总线传输周期：<ul>
+<li>申请分配阶段</li>
+<li>寻址阶段</li>
+<li>传数阶段</li>
+<li>结束阶段</li>
+</ul>
+</li>
+<li>总线通信的四种方式<ul>
+<li>同步通信：由<strong>统一时标</strong>控制数据传送</li>
+<li>异步通信：采用<strong>应答方式</strong>，没有公共时钟标准</li>
+<li>半同步通信：同步、异步相结合<ul>
+<li>同步：发送方用系统时钟前沿发信号，接收方用时钟后沿判断、识别</li>
+<li>异步：允许不同速度的模块和谐工作，增加一条<strong>响应等待信号</strong></li>
+</ul>
+</li>
+<li>分离式通信：充分挖掘系统总线每个瞬间的潜力</li>
+<li>前三种特点：一个总线传输周期（以输入数据为例）<ul>
+<li>主模块发地址、命令，占用总线</li>
+<li>从模块准备数据，不占用总线，总线空闲</li>
+<li>从模块向主模块发数据，占用总线</li>
+</ul>
+</li>
+<li>分离式通信特点：<ul>
+<li>各模块有权申请占用总线</li>
+<li>采用同步方式通信，不等对方回答</li>
+<li>各模块准备数据时，不占用总线</li>
+<li>总线被占用时，无空闲</li>
+<li><strong>充分提高了总线的有效占用</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="四、指令系统"><a href="#四、指令系统" class="headerlink" title="四、指令系统"></a>四、指令系统</h2><h3 id="4-1-机器指令"><a href="#4-1-机器指令" class="headerlink" title="4.1 机器指令"></a>4.1 机器指令</h3><h3 id="4-2-操作数类型和操作类型"><a href="#4-2-操作数类型和操作类型" class="headerlink" title="4.2 操作数类型和操作类型"></a>4.2 操作数类型和操作类型</h3><h3 id="4-3-寻址方式"><a href="#4-3-寻址方式" class="headerlink" title="4.3 寻址方式"></a>4.3 寻址方式</h3><h3 id="4-4-指令系统结构的分类"><a href="#4-4-指令系统结构的分类" class="headerlink" title="4.4 指令系统结构的分类"></a>4.4 指令系统结构的分类</h3><h3 id="4-5-指令系统的设计与优化"><a href="#4-5-指令系统的设计与优化" class="headerlink" title="4.5 指令系统的设计与优化"></a>4.5 指令系统的设计与优化</h3><h3 id="4-6-指令系统的发展和改进"><a href="#4-6-指令系统的发展和改进" class="headerlink" title="4.6 指令系统的发展和改进"></a>4.6 指令系统的发展和改进</h3><h3 id="4-7-指令格式举例"><a href="#4-7-指令格式举例" class="headerlink" title="4.7 指令格式举例"></a>4.7 指令格式举例</h3>
             </div>
             <hr/>
 
@@ -936,9 +1034,67 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2020/12/19/ji-suan-ji-zu-zhi-yu-ti-xi-jie-gou-qi-mo-yu-xi-bi-ji/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="计算机组织与体系结构期末预习笔记">
+                        
+                        <span class="card-title">计算机组织与体系结构期末预习笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            2020秋季学期计算机组织与体系结构期末预习笔记
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-19
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%AE%A1%E7%BB%84/" class="post-category">
+                                    计组
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%AD%A6%E9%95%BF%E7%9A%84%E7%81%AB%E7%82%AC/">
+                        <span class="chip bg-color">学长的火炬</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">
+                        <span class="chip bg-color">计算机组成原理</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/">
+                        <span class="chip bg-color">计算机体系结构</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
             <div class="card">
                 <a href="/2020/12/19/shi-ting-jue-xin-hao-chu-li-ting-jue-fu-xi-bi-ji/">
                     <div class="card-image">
@@ -955,9 +1111,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-12-19
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-19
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -979,58 +1135,6 @@
                     
                     <a href="/tags/%E8%A7%86%E5%90%AC%E8%A7%89%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/">
                         <span class="chip bg-color">视听觉信号处理</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2020/11/22/2020-qiu-ji-qi-xue-xi-qi-mo-shi-ti/">
-                    <div class="card-image">
-                        
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="2020秋机器学习期末试题">
-                        
-                        <span class="card-title">2020秋机器学习期末试题</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            2020秋季学期机器学习期末试题
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-22
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E5%AD%A6%E9%95%BF%E7%9A%84%E7%81%AB%E7%82%AC/" class="post-category">
-                                    学长的火炬
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E5%AD%A6%E9%95%BF%E7%9A%84%E7%81%AB%E7%82%AC/">
-                        <span class="chip bg-color">学长的火炬</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
-                        <span class="chip bg-color">机器学习</span>
                     </a>
                     
                 </div>
@@ -1273,7 +1377,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">74.1k</span>&nbsp;字
+                class="white-color">75.2k</span>&nbsp;字
             
             
             
