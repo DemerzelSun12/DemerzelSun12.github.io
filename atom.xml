@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://demerzelsun12.github.io/"/>
-  <updated>2020-12-28T14:48:23.922Z</updated>
+  <updated>2020-12-24T08:59:50.982Z</updated>
   <id>https://demerzelsun12.github.io/</id>
   
   <author>
@@ -15,36 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>计算机组织与体系结构期末预习笔记</title>
-    <link href="https://demerzelsun12.github.io/2020/12/19/ji-suan-ji-zu-zhi-yu-ti-xi-jie-gou-qi-mo-yu-xi-bi-ji/"/>
-    <id>https://demerzelsun12.github.io/2020/12/19/ji-suan-ji-zu-zhi-yu-ti-xi-jie-gou-qi-mo-yu-xi-bi-ji/</id>
-    <published>2020-12-19T07:53:28.000Z</published>
-    <updated>2020-12-28T14:48:23.922Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本学期最绝望的一门课，没有之一，建议学弟学妹们不要选这门课，真的内容多又难，而且作业多，签到多，选修不做实验真的什么都不懂，建议选修cv专业课和认知神经科学原理，真的很赚。</p><h2 id="一、计算机系统概论"><a href="#一、计算机系统概论" class="headerlink" title="一、计算机系统概论"></a>一、计算机系统概论</h2><h3 id="1-1-计算机系统简介"><a href="#1-1-计算机系统简介" class="headerlink" title="1.1 计算机系统简介"></a>1.1 计算机系统简介</h3><ol><li>计算机系统：</li></ol><ul><li>硬件：计算机实体</li><li>软件：具有各类特殊功能的信息<ul><li>系统软件：管理整个计算机系统：语言处理程序、操作系统、服务型程序、数据库管理系统、网络软件。</li><li>应用软件：按任务的各种应用程序。</li></ul></li></ul><ol start="2"><li>计算机解题过程：</li></ol><p>高级语言$\xrightarrow{翻译}$目标程$\xrightarrow{运行}$结果</p><ol start="3"><li>计算机系统结构层次</li></ol><ul><li>高级语言$\rightarrow$虚拟机器$M_4$，用编译程序翻译为汇编语言程序</li><li>汇编语言$\rightarrow$虚拟机器$M_3$，用汇编程序翻译成机器语言程序</li><li>操作系统$\rightarrow$虚拟机器$M_2$，用机器语言解释操作系统</li><li>机器语言$\rightarrow$实际机器$M_1$，用微指令集解释机器指令</li><li>微指令系统$\rightarrow$微程序机器$M_0$，由硬件直接执行微指令</li></ul><h3 id="1-2-计算机基本组成"><a href="#1-2-计算机基本组成" class="headerlink" title="1.2 计算机基本组成"></a>1.2 计算机基本组成</h3><h4 id="1-2-1-冯诺依曼计算机特点"><a href="#1-2-1-冯诺依曼计算机特点" class="headerlink" title="1.2.1 冯诺依曼计算机特点"></a>1.2.1 冯诺依曼计算机特点</h4><ol><li>计算机由五大部件组成</li><li>指令和数据以同等地位与存储器，可按照地址寻访</li><li>指令和数据用二进制表示</li><li>指令由操作码和地址码组成</li><li><strong>存储程序</strong></li><li>以运算器为中心</li></ol>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;本学期最绝望的一门课，没有之一，建议学弟学妹们不要选这门课，真的内容多又难，而且作业多，签到多，选修不做实验真的什么都不懂，建议选修cv专业
-      
-    
-    </summary>
-    
-    
-      <category term="计组" scheme="https://demerzelsun12.github.io/categories/%E8%AE%A1%E7%BB%84/"/>
-    
-    
-      <category term="学长的火炬" scheme="https://demerzelsun12.github.io/tags/%E5%AD%A6%E9%95%BF%E7%9A%84%E7%81%AB%E7%82%AC/"/>
-    
-      <category term="计算机组成原理" scheme="https://demerzelsun12.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/"/>
-    
-      <category term="计算机体系结构" scheme="https://demerzelsun12.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/"/>
-    
-  </entry>
   
   <entry>
     <title>视听觉信号处理听觉复习笔记</title>
@@ -72,6 +42,36 @@
       <category term="学长的火炬" scheme="https://demerzelsun12.github.io/tags/%E5%AD%A6%E9%95%BF%E7%9A%84%E7%81%AB%E7%82%AC/"/>
     
       <category term="视听觉信号处理" scheme="https://demerzelsun12.github.io/tags/%E8%A7%86%E5%90%AC%E8%A7%89%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>计算机组织与体系结构期末预习笔记</title>
+    <link href="https://demerzelsun12.github.io/2020/12/19/ji-suan-ji-zu-zhi-yu-ti-xi-jie-gou-qi-mo-yu-xi-bi-ji/"/>
+    <id>https://demerzelsun12.github.io/2020/12/19/ji-suan-ji-zu-zhi-yu-ti-xi-jie-gou-qi-mo-yu-xi-bi-ji/</id>
+    <published>2020-12-19T07:53:28.000Z</published>
+    <updated>2020-12-29T06:51:28.963Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本学期最绝望的一门课，没有之一，建议学弟学妹们不要选这门课，真的内容多又难，而且作业多，签到多，选修不做实验真的什么都不懂，建议选修cv专业课和认知神经科学原理，真的很赚。</p><h2 id="一、计算机系统概论"><a href="#一、计算机系统概论" class="headerlink" title="一、计算机系统概论"></a>一、计算机系统概论</h2><h3 id="1-1-计算机系统简介"><a href="#1-1-计算机系统简介" class="headerlink" title="1.1 计算机系统简介"></a>1.1 计算机系统简介</h3><ol><li>计算机系统：</li></ol><ul><li>硬件：计算机实体</li><li>软件：具有各类特殊功能的信息<ul><li>系统软件：管理整个计算机系统：语言处理程序、操作系统、服务型程序、数据库管理系统、网络软件。</li><li>应用软件：按任务的各种应用程序。</li></ul></li></ul><ol start="2"><li>计算机解题过程：</li></ol><p>高级语言$\xrightarrow{翻译}$目标程$\xrightarrow{运行}$结果</p><ol start="3"><li>计算机系统结构层次</li></ol><ul><li>高级语言$\rightarrow$虚拟机器$M_4$，用编译程序翻译为汇编语言程序</li><li>汇编语言$\rightarrow$虚拟机器$M_3$，用汇编程序翻译成机器语言程序</li><li>操作系统$\rightarrow$虚拟机器$M_2$，用机器语言解释操作系统</li><li>机器语言$\rightarrow$实际机器$M_1$，用微指令集解释机器指令</li><li>微指令系统$\rightarrow$微程序机器$M_0$，由硬件直接执行微指令</li></ul><h3 id="1-2-计算机基本组成"><a href="#1-2-计算机基本组成" class="headerlink" title="1.2 计算机基本组成"></a>1.2 计算机基本组成</h3><h4 id="1-2-1-冯诺依曼计算机特点"><a href="#1-2-1-冯诺依曼计算机特点" class="headerlink" title="1.2.1 冯诺依曼计算机特点"></a>1.2.1 冯诺依曼计算机特点</h4><ol><li><p>计算机由五大部件组成</p><ul><li>存储器：存放数据和程序</li><li>运算器：算术运算和逻辑运算</li><li>控制器：指挥程序运行</li><li>输入设备：将信息转换为机器可以识别的形式</li><li>输出设备：将机器运算结果转换为人可识别的形式</li></ul></li><li><p>指令和数据以同等地位与存储器，可按照地址寻访</p></li><li><p>指令和数据用二进制表示</p></li><li><p>指令由操作码和地址码组成</p></li><li><p><strong>存储程序</strong></p></li><li><p>以运算器为中心</p></li></ol><h4 id="1-2-2-现代计算机"><a href="#1-2-2-现代计算机" class="headerlink" title="1.2.2 现代计算机"></a>1.2.2 现代计算机</h4><p>&emsp;&emsp;现代计算机一存储器为核心，运算器ALU + 控制器CU = CPU，主存 + 辅存 = 存储器，主存 + CPU = 主机，输入设备 + 输出设备 = I/O设备，主机 + I/O设备 = 硬件。</p><h4 id="1-2-3-计算机工作步骤"><a href="#1-2-3-计算机工作步骤" class="headerlink" title="1.2.3 计算机工作步骤"></a>1.2.3 计算机工作步骤</h4><ol><li><p>上机前准备</p><ul><li>建立数学模型</li><li>确定计算方法</li><li>编制解题程序<ul><li>程序：运算的全部步骤</li><li>指令：每一个步骤</li></ul></li></ul></li><li><p>计算机解题过程</p><ul><li>存储器的基本组成<ul><li>存储单元：存放一串二进制代码</li><li>存储字：存储单元中二进制代码的组合</li><li>存储字长：存储单元中二进制代码的组合，每个存储单元会被赋予一个地址号</li><li>按地址访问</li><li>MAR：存储器地址寄存器，反应存储单元的个数</li><li>MDR：存储器数据寄存器，反应存储字长</li><li>eg：MAR=4位，MDR=8位，则存储单元有16个，每个的存储字长为8位。</li></ul></li><li>运算器的基本组成</li></ul></li></ol><table><thead><tr><th align="center"></th><th align="center">ACC</th><th align="center">MQ</th><th align="center">X</th></tr></thead><tbody><tr><td align="center">加法</td><td align="center">被加数 和</td><td align="center"></td><td align="center">加数</td></tr><tr><td align="center">减法</td><td align="center">被减数 差</td><td align="center"></td><td align="center">减数</td></tr><tr><td align="center">乘法</td><td align="center">乘积高位</td><td align="center">乘数和乘积低数位</td><td align="center">被乘数</td></tr><tr><td align="center">除法</td><td align="center">被除数和余数</td><td align="center">商</td><td align="center">除数</td></tr></tbody></table><ol start="3"><li>控制器的基本组成<ul><li>PC：存放当前欲执行指令的地址，具有计数功能，（PC）+1$\rightarrow$PC</li><li>IR：存放当前欲执行的指令</li><li>CU：控制单元</li></ul></li></ol><h3 id="1-3-硬件主要技术指标"><a href="#1-3-硬件主要技术指标" class="headerlink" title="1.3 硬件主要技术指标"></a>1.3 硬件主要技术指标</h3><ol><li><p>机器字长：CPU一次能处理数据的位数，与CPU中的寄存器位数有关（即rax，rbx寄存器位数）。</p></li><li><p>运算速度</p><ul><li>主频</li><li>吉普森法：$T_m = \sum_{i=1}^{n}f_it_i$</li><li>MIPS：每秒执行百万条指令</li><li>CPI：执行一条指令所需时钟周期数</li><li>FLOATS：每秒浮点运算次数</li></ul></li><li><p>存储容量：存放二进制信息的总位数</p><ul><li>主存容量：存储单元$\times$存储字长。<ul><li>eg：MAR = 10，MDR = 8，容量1Kb$\times$8位；MAR = 16，MDR = 32，容量64Kb$\times$32位</li><li>字节数：1K=$2^{10}$，1B=$2^3$b，1GB=$2^{30}$B</li></ul></li><li>辅存容量：字节数</li></ul></li></ol><h2 id="二、计算机系统量化分析基础"><a href="#二、计算机系统量化分析基础" class="headerlink" title="二、计算机系统量化分析基础"></a>二、计算机系统量化分析基础</h2><h3 id="2-1-计算机体系结构概念"><a href="#2-1-计算机体系结构概念" class="headerlink" title="2.1 计算机体系结构概念"></a>2.1 计算机体系结构概念</h3><h4 id="2-1-1-计算机体系结构概念演变"><a href="#2-1-1-计算机体系结构概念演变" class="headerlink" title="2.1.1 计算机体系结构概念演变"></a>2.1.1 计算机体系结构概念演变</h4><p>&emsp;&emsp;计算机体系结构是程序员所看见的计算机的属性，即概念性结构和功能特性。</p><p>&emsp;&emsp;程序员所看见的计算机属性：</p><ol><li>通用寄存器：<ul><li>数据表示：硬件能直接辨认和处理的数据类型</li><li>寻址规则：最小寻址单元、寻址方式及其表示</li><li>寄存器定义：寄存器定义、数量、使用方式</li><li>指令系统：机器指令的操作类型和格式、指令间的排序和控制机构</li><li>中断系统：中断的类型和中断响应硬件的功能</li><li>机器工作状态的定义和切换：管态、目态</li><li>存储系统：程序员可用的最大存储容量</li><li>信息保护：信息保护方式和硬件支持</li><li>I/O结构：I/O寻址方式、数据传送方式</li></ul></li></ol><h4 id="2-1-2-计算机体系结构、组成和实现"><a href="#2-1-2-计算机体系结构、组成和实现" class="headerlink" title="2.1.2 计算机体系结构、组成和实现"></a>2.1.2 计算机体系结构、组成和实现</h4><p>&emsp;&emsp;体系结构的概念用于描述计算机系统设计的技术、方法和理论，包括：</p><ul><li>计算机指令系统</li><li>计算机组成</li><li>计算机硬件实现</li></ul><ol><li>计算机组成</li></ol><ul><li>指令集结构的逻辑实现<ul><li>数据通路的宽度</li><li>专用功能部件的设置</li><li>功能部件的并行性</li><li>缓冲和排队技术</li><li>预测技术</li><li>可靠性技术</li><li>控制机构组成</li></ul></li></ul><ol start="2"><li>计算机实现</li></ol><ul><li>处理器、主存的物理结构</li><li>器件的集成度和速度</li><li>信号传输</li><li>器件、模块、插件、底板的划分与连接</li><li>涉及的专用器件</li><li>电源、冷却</li><li>微组装技术</li><li>整机装配技术</li></ul><h4 id="2-1-3-系列机和兼容"><a href="#2-1-3-系列机和兼容" class="headerlink" title="2.1.3 系列机和兼容"></a>2.1.3 系列机和兼容</h4><h3 id="2-2-计算机体系结构发展"><a href="#2-2-计算机体系结构发展" class="headerlink" title="2.2 计算机体系结构发展"></a>2.2 计算机体系结构发展</h3><h3 id="2-3-计算机系统设计和分析"><a href="#2-3-计算机系统设计和分析" class="headerlink" title="2.3 计算机系统设计和分析"></a>2.3 计算机系统设计和分析</h3>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;本学期最绝望的一门课，没有之一，建议学弟学妹们不要选这门课，真的内容多又难，而且作业多，签到多，选修不做实验真的什么都不懂，建议选修cv专业
+      
+    
+    </summary>
+    
+    
+      <category term="计组" scheme="https://demerzelsun12.github.io/categories/%E8%AE%A1%E7%BB%84/"/>
+    
+    
+      <category term="学长的火炬" scheme="https://demerzelsun12.github.io/tags/%E5%AD%A6%E9%95%BF%E7%9A%84%E7%81%AB%E7%82%AC/"/>
+    
+      <category term="计算机组成原理" scheme="https://demerzelsun12.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/"/>
+    
+      <category term="计算机体系结构" scheme="https://demerzelsun12.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/"/>
     
   </entry>
   
