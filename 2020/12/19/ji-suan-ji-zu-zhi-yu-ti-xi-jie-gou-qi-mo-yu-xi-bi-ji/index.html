@@ -391,14 +391,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    5.5k
+                    6k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    19 分
+                    21 分
                 </div>
                 
 
@@ -893,7 +893,56 @@
 </ul>
 </li>
 </ol>
-<h2 id="四、指令系统"><a href="#四、指令系统" class="headerlink" title="四、指令系统"></a>四、指令系统</h2><h3 id="4-1-机器指令"><a href="#4-1-机器指令" class="headerlink" title="4.1 机器指令"></a>4.1 机器指令</h3><h3 id="4-2-操作数类型和操作类型"><a href="#4-2-操作数类型和操作类型" class="headerlink" title="4.2 操作数类型和操作类型"></a>4.2 操作数类型和操作类型</h3><h3 id="4-3-寻址方式"><a href="#4-3-寻址方式" class="headerlink" title="4.3 寻址方式"></a>4.3 寻址方式</h3><h3 id="4-4-指令系统结构的分类"><a href="#4-4-指令系统结构的分类" class="headerlink" title="4.4 指令系统结构的分类"></a>4.4 指令系统结构的分类</h3><h3 id="4-5-指令系统的设计与优化"><a href="#4-5-指令系统的设计与优化" class="headerlink" title="4.5 指令系统的设计与优化"></a>4.5 指令系统的设计与优化</h3><h3 id="4-6-指令系统的发展和改进"><a href="#4-6-指令系统的发展和改进" class="headerlink" title="4.6 指令系统的发展和改进"></a>4.6 指令系统的发展和改进</h3><h3 id="4-7-指令格式举例"><a href="#4-7-指令格式举例" class="headerlink" title="4.7 指令格式举例"></a>4.7 指令格式举例</h3>
+<h2 id="四、指令系统"><a href="#四、指令系统" class="headerlink" title="四、指令系统"></a>四、指令系统</h2><h3 id="4-1-机器指令"><a href="#4-1-机器指令" class="headerlink" title="4.1 机器指令"></a>4.1 机器指令</h3><h4 id="4-1-1-指令的一般格式"><a href="#4-1-1-指令的一般格式" class="headerlink" title="4.1.1 指令的一般格式"></a>4.1.1 指令的一般格式</h4><ol>
+<li><p>操作码：反映机器做了什么操作</p>
+<ul>
+<li>长度固定，操作码集中在指令的一个字段</li>
+<li>长度可变，操作码分散在指令字的不同字段</li>
+<li><strong>扩展操作码技术</strong>：操作码位数随地址数减少而增加。<br>eg：指令一般格式为 $OP\, A_1\, A_2\,A_3$。4位操作码，OP范围是0000$\sim$1110，最多15条三地址指令；8位操作码，OP范围1111 0000$\sim$1111 1110，最多15条二地址指令；12位操作码，OP范围1111 1111 0000$\sim$1111 1111 1110，最多15条一地址；16位操作码，OP范围1111 1111 1111 0000$\sim$1111 1111 1111 1111，16条零地址，即无地址码。</li>
+</ul>
+</li>
+<li><p>地址码</p>
+<ol>
+<li>四地址：<ul>
+<li>格式：$OP\,A_1\,A_2\,A_3\,A_4$，OP8位，其余6位，故指令字长为32位，操作码固定8位，4次访存，寻址范围$2^6=64$，若用PC代替$A_4$，则表示$A_1\, OP\, A_2\rightarrow A_3$</li>
+<li>$A_1$：第一操作数地址，$A_2$：第二操作数地址，$A_3$：结果地址，$A_4$：下一条指令地址</li>
+</ul>
+</li>
+<li>三地址：<ul>
+<li>格式：$OP\,A_1\,A_2\,A_3$，OP8位，其余8位，指令字长32位，操作码8位，4次访存，寻址范围$2^8=256$</li>
+</ul>
+</li>
+<li>二地址：<ul>
+<li>格式：$OP\,A_1\,A_2$，OP8位，其余12位，指令字长32位，操作码8位，4次访存，寻址范围$2^{12}=4K$。若结果存于ACC，则为3次访存</li>
+</ul>
+</li>
+<li>一地址：<ul>
+<li>格式：$OP\,A_1$，OP8位，其余24位，指令字长32位，操作码8位，2次访存，寻址范围$2^{24} = 16M$</li>
+</ul>
+</li>
+<li>零地址：<ul>
+<li>格式：无地址码</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h4 id="4-1-2-指令字长"><a href="#4-1-2-指令字长" class="headerlink" title="4.1.2 指令字长"></a>4.1.2 指令字长</h4><ol>
+<li>指令字长取决于：<ul>
+<li>操作码长度</li>
+<li>操作数地址的长度</li>
+<li>操作数地址的个数</li>
+</ul>
+</li>
+<li>指令字长，固定时，指令字长=存储字长；可变时，按字节的倍数变化</li>
+<li><strong>当用一些硬件资源代替指令字中的地址码字段后</strong><ul>
+<li>可以扩大指令操作数的寻址范围</li>
+<li>可以缩短指令字长</li>
+<li>可减少访存次数</li>
+</ul>
+</li>
+</ol>
+<h3 id="4-2-操作数类型和操作类型"><a href="#4-2-操作数类型和操作类型" class="headerlink" title="4.2 操作数类型和操作类型"></a>4.2 操作数类型和操作类型</h3><h3 id="4-3-寻址方式"><a href="#4-3-寻址方式" class="headerlink" title="4.3 寻址方式"></a>4.3 寻址方式</h3><h3 id="4-4-指令系统结构的分类"><a href="#4-4-指令系统结构的分类" class="headerlink" title="4.4 指令系统结构的分类"></a>4.4 指令系统结构的分类</h3><h3 id="4-5-指令系统的设计与优化"><a href="#4-5-指令系统的设计与优化" class="headerlink" title="4.5 指令系统的设计与优化"></a>4.5 指令系统的设计与优化</h3><h3 id="4-6-指令系统的发展和改进"><a href="#4-6-指令系统的发展和改进" class="headerlink" title="4.6 指令系统的发展和改进"></a>4.6 指令系统的发展和改进</h3><h3 id="4-7-指令格式举例"><a href="#4-7-指令格式举例" class="headerlink" title="4.7 指令格式举例"></a>4.7 指令格式举例</h3>
             </div>
             <hr/>
 
@@ -1034,67 +1083,9 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
-            <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
-            <div class="card">
-                <a href="/2020/12/19/ji-suan-ji-zu-zhi-yu-ti-xi-jie-gou-qi-mo-yu-xi-bi-ji/">
-                    <div class="card-image">
-                        
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="计算机组织与体系结构期末预习笔记">
-                        
-                        <span class="card-title">计算机组织与体系结构期末预习笔记</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            2020秋季学期计算机组织与体系结构期末预习笔记
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-19
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E8%AE%A1%E7%BB%84/" class="post-category">
-                                    计组
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E5%AD%A6%E9%95%BF%E7%9A%84%E7%81%AB%E7%82%AC/">
-                        <span class="chip bg-color">学长的火炬</span>
-                    </a>
-                    
-                    <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">
-                        <span class="chip bg-color">计算机组成原理</span>
-                    </a>
-                    
-                    <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/">
-                        <span class="chip bg-color">计算机体系结构</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
         <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
                 <a href="/2020/12/19/shi-ting-jue-xin-hao-chu-li-ting-jue-fu-xi-bi-ji/">
                     <div class="card-image">
@@ -1111,9 +1102,9 @@
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-19
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-12-19
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -1135,6 +1126,58 @@
                     
                     <a href="/tags/%E8%A7%86%E5%90%AC%E8%A7%89%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/">
                         <span class="chip bg-color">视听觉信号处理</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/11/22/2020-qiu-ji-qi-xue-xi-qi-mo-shi-ti/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="2020秋机器学习期末试题">
+                        
+                        <span class="card-title">2020秋机器学习期末试题</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            2020秋季学期机器学习期末试题
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-22
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%AD%A6%E9%95%BF%E7%9A%84%E7%81%AB%E7%82%AC/" class="post-category">
+                                    学长的火炬
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%AD%A6%E9%95%BF%E7%9A%84%E7%81%AB%E7%82%AC/">
+                        <span class="chip bg-color">学长的火炬</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">机器学习</span>
                     </a>
                     
                 </div>
@@ -1377,7 +1420,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">75.2k</span>&nbsp;字
+                class="white-color">75.7k</span>&nbsp;字
             
             
             
