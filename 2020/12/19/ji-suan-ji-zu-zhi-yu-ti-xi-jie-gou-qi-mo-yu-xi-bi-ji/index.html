@@ -391,14 +391,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    6.5k
+                    7.2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    23 分
+                    25 分
                 </div>
                 
 
@@ -1011,13 +1011,78 @@
 </ul>
 </li>
 <li>数据寻址<ul>
-<li>指令格式：操作码+寻址特征+形式地址<ul>
+<li>指令格式：操作码+寻址特征+形式地址A<ul>
 <li>形式地址：指令字中的地址</li>
 <li>有效地址：操作数的真实地址</li>
 <li><strong>约定，指令字长=存储字长=机器字长</strong></li>
 </ul>
 </li>
-<li>立即寻址：</li>
+<li>立即寻址：形式地址A就是操作数，立即数可正可负，为补码表示<ul>
+<li><strong>指令执行阶段不访存</strong></li>
+<li>A的位数限制了立即数的范围</li>
+</ul>
+</li>
+<li>直接寻址：有效地址由形式地址直接给出<ul>
+<li>执行阶段访问一次存储器</li>
+<li>A的位数决定了指令操作数的寻址范围</li>
+<li>问题：操作数的地址不易修改，即必须修改A</li>
+</ul>
+</li>
+<li>隐含寻址：操作数地址隐含在操作码中<ul>
+<li>如8086的MUL指令，被乘数隐含在AX（16位）或AL（8位）中；MOVS指令，源操作数地址隐含在SI中，目的操作数的地址隐含在DI中</li>
+<li><strong>指令字中少了一个地址字段，可以缩短指令字长</strong></li>
+</ul>
+</li>
+<li>间接寻址：有效地址由形式地址间接提供<ul>
+<li>执行指令阶段需要两次访存</li>
+<li>可以扩大寻址范围</li>
+<li>便于编写程序</li>
+</ul>
+</li>
+<li>寄存器寻址：有效地址为寄存器编号<ul>
+<li>执行阶段不访存，值访问寄存器，执行速度快</li>
+<li>寄存器个数有限，可以缩短指令字长</li>
+</ul>
+</li>
+<li>寄存器间接寻址：有效地址在寄存器中<ul>
+<li>有效地址在寄存器中，操作数在存储器中，执行阶段访存</li>
+<li>便于编写循环程序</li>
+</ul>
+</li>
+<li>基址寻址<ol>
+<li>采用专用寄存器作基址寄存器：EA = （BR）+ A<ul>
+<li>可以扩大寻址范围</li>
+<li>利于多道程序</li>
+<li>BR内容由操作系统或管理程序决定</li>
+<li>在程序的执行过程中BR内容不变，形式地址A可变</li>
+</ul>
+</li>
+<li>采用通用寄存器作基址寄存器<ul>
+<li>由用户指定哪个通用寄存器作基址寄存器</li>
+<li>基址寄存器的内容由操作系统决定</li>
+<li>在程序的执行过程中BR内容不变，形式地址A可变</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>变址寻址：IX为变址寄存器，通用寄存器也可以用作变址寄存器<ul>
+<li>可以扩大寻址范围</li>
+<li>IX内容由用户决定</li>
+<li>在程序执行过程中，IX内容可变，形式地址A不变</li>
+<li>便于处理数组问题</li>
+</ul>
+</li>
+<li>相对寻址：EA=（PC）+A，A相当于当前指令的位移量（可正可负，补码）<ul>
+<li>A的位数决定了操作数的寻址范围</li>
+<li>程序浮动</li>
+<li>广泛用于转移指令</li>
+</ul>
+</li>
+<li>堆栈寻址：<ul>
+<li>硬堆栈：多个寄存器；软堆栈：指定的存储空间</li>
+<li>进栈：（SP）-1$\rightarrow$SP，出栈：（SP）+1$\rightarrow$SP。（按照字编址，按字节编址需要$\pm$2）</li>
+</ul>
+</li>
 </ul>
 </li>
 </ol>
@@ -1499,7 +1564,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">76.2k</span>&nbsp;字
+                class="white-color">76.8k</span>&nbsp;字
             
             
             
