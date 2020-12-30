@@ -391,14 +391,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    6k
+                    6.5k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    21 分
+                    23 分
                 </div>
                 
 
@@ -941,8 +941,87 @@
 <li>可减少访存次数</li>
 </ul>
 </li>
+<li><strong>当指令的地址字段为寄存器时</strong><ul>
+<li>三地址：$OP\,R_1\,R_2\,R_3$</li>
+<li>二地址：$OP\,R_1\,R_2$</li>
+<li>一地址：$OP\,R_1$</li>
+<li>可以缩短指令字长</li>
+<li><strong>指令执行阶段不访存</strong></li>
+</ul>
+</li>
 </ol>
-<h3 id="4-2-操作数类型和操作类型"><a href="#4-2-操作数类型和操作类型" class="headerlink" title="4.2 操作数类型和操作类型"></a>4.2 操作数类型和操作类型</h3><h3 id="4-3-寻址方式"><a href="#4-3-寻址方式" class="headerlink" title="4.3 寻址方式"></a>4.3 寻址方式</h3><h3 id="4-4-指令系统结构的分类"><a href="#4-4-指令系统结构的分类" class="headerlink" title="4.4 指令系统结构的分类"></a>4.4 指令系统结构的分类</h3><h3 id="4-5-指令系统的设计与优化"><a href="#4-5-指令系统的设计与优化" class="headerlink" title="4.5 指令系统的设计与优化"></a>4.5 指令系统的设计与优化</h3><h3 id="4-6-指令系统的发展和改进"><a href="#4-6-指令系统的发展和改进" class="headerlink" title="4.6 指令系统的发展和改进"></a>4.6 指令系统的发展和改进</h3><h3 id="4-7-指令格式举例"><a href="#4-7-指令格式举例" class="headerlink" title="4.7 指令格式举例"></a>4.7 指令格式举例</h3>
+<h3 id="4-2-操作数类型和操作种类"><a href="#4-2-操作数类型和操作种类" class="headerlink" title="4.2 操作数类型和操作种类"></a>4.2 操作数类型和操作种类</h3><h4 id="4-2-1-操作数类型"><a href="#4-2-1-操作数类型" class="headerlink" title="4.2.1 操作数类型"></a>4.2.1 操作数类型</h4><ol>
+<li><p>操作数类型和操作数表示也是软硬件的分界之一</p>
+<ul>
+<li>操作数类型是面向应用、面向软件系统所处理的各种数据结构</li>
+<li>操作数表示是硬件结构能够识别、指令系统可以直接调用的结构</li>
+</ul>
+</li>
+<li><p>整数：字节（8位），半字（16位），单字（32位）</p>
+</li>
+<li><p>浮点数：单精度，双精度</p>
+</li>
+<li><p>字符和字符串：8位ASCII码表示</p>
+</li>
+<li><p>十进制：“压缩十进制”或“二进制编码十进制BCD”</p>
+</li>
+</ol>
+<h4 id="4-2-2-在存储器中存放方式"><a href="#4-2-2-在存储器中存放方式" class="headerlink" title="4.2.2 在存储器中存放方式"></a>4.2.2 在存储器中存放方式</h4><ol>
+<li>大端序（字地址为高地址）、小端序（字地址为低地址）</li>
+</ol>
+<h4 id="4-2-3-操作种类"><a href="#4-2-3-操作种类" class="headerlink" title="4.2.3 操作种类"></a>4.2.3 操作种类</h4><ol>
+<li>数据传送：MOVE，STORE，LOAD，PUSH，POP</li>
+<li>算数逻辑操作：加减乘除增一减一，求补，浮点运算，与或非，异或，位操作，位求反</li>
+<li>移位操作：算数移位，逻辑移位，循环移位</li>
+<li>转移：<ul>
+<li>无条件转移：JMP</li>
+<li>条件转移：<ul>
+<li>JZ（Z=1），结果为零跳</li>
+<li>JO（O=1），结果溢出跳</li>
+<li>JC（C=1），结果有进位跳</li>
+<li>SKP，跳过一条指令</li>
+</ul>
+</li>
+<li>调用和返回<ul>
+<li>call、ret</li>
+</ul>
+</li>
+<li>陷阱Trap与陷阱指令（意外事故的中断）<ul>
+<li>一般不给用户直接使用，出现事故时，由CPU自动产生并执行</li>
+<li>设置供用户使用的陷阱指令：8086 的 INT TYPE，软中断</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>输入输出<ul>
+<li>入：端口地址$\rightarrow$CPU的寄存器</li>
+<li>出：CPU的寄存器$\rightarrow$端口地址</li>
+</ul>
+</li>
+</ol>
+<h3 id="4-3-寻址方式"><a href="#4-3-寻址方式" class="headerlink" title="4.3 寻址方式"></a>4.3 寻址方式</h3><ol>
+<li>寻址方式：确定本条指令的操作数地址和下一条欲执行指令的指令地址<ul>
+<li>数据寻址</li>
+<li>指令寻址</li>
+</ul>
+</li>
+<li>指令寻址<ul>
+<li>顺序：（PC）+1 = PC</li>
+<li>跳跃：由跳转指令指出</li>
+</ul>
+</li>
+<li>数据寻址<ul>
+<li>指令格式：操作码+寻址特征+形式地址<ul>
+<li>形式地址：指令字中的地址</li>
+<li>有效地址：操作数的真实地址</li>
+<li><strong>约定，指令字长=存储字长=机器字长</strong></li>
+</ul>
+</li>
+<li>立即寻址：</li>
+</ul>
+</li>
+</ol>
+<h3 id="4-4-指令系统结构的分类"><a href="#4-4-指令系统结构的分类" class="headerlink" title="4.4 指令系统结构的分类"></a>4.4 指令系统结构的分类</h3><h3 id="4-5-指令系统的设计与优化"><a href="#4-5-指令系统的设计与优化" class="headerlink" title="4.5 指令系统的设计与优化"></a>4.5 指令系统的设计与优化</h3><h3 id="4-6-指令系统的发展和改进"><a href="#4-6-指令系统的发展和改进" class="headerlink" title="4.6 指令系统的发展和改进"></a>4.6 指令系统的发展和改进</h3><h3 id="4-7-指令格式举例"><a href="#4-7-指令格式举例" class="headerlink" title="4.7 指令格式举例"></a>4.7 指令格式举例</h3>
             </div>
             <hr/>
 
@@ -1420,7 +1499,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">75.7k</span>&nbsp;字
+                class="white-color">76.2k</span>&nbsp;字
             
             
             
