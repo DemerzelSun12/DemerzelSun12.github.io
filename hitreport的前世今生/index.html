@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="不能使用泛型的几种情况, Demerzel Sun&#39;s blog">
+    <meta name="keywords" content="hitreport的前世今生, Demerzel Sun&#39;s blog">
     <meta name="description" content="雨过枫山送远青">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>不能使用泛型的几种情况 | Demerzel Sun&#39;s blog</title>
+    <title>hitreport的前世今生 | Demerzel Sun&#39;s blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -227,12 +227,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">不能使用泛型的几种情况</h1>
+                    <h1 class="description center-align post-title">hitreport的前世今生</h1>
                 </div>
             </div>
         </div>
@@ -347,25 +347,12 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0%E7%AC%94%E8%AE%B0/">
-                                <span class="chip bg-color">软件构造笔记</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0/" class="post-category">
-                                软件构造
-                            </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -374,7 +361,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-04-28
+                    2020-12-31
                 </div>
                 
 
@@ -383,14 +370,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    603
+                    0
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    1 分
                 </div>
                 
 
@@ -400,66 +387,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="软件构造笔记-Java-中不能使用泛型的几种情况"><a href="#软件构造笔记-Java-中不能使用泛型的几种情况" class="headerlink" title="软件构造笔记-Java 中不能使用泛型的几种情况"></a>软件构造笔记-Java 中不能使用泛型的几种情况</h1><!-- toc -->
-
- <a id="more"></a>
-
-<h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>Java 1.5 引入了泛型来保证类型安全，防止在运行时发生类型转换异常，让类型参数化，提高了代码的可读性和重用率。但是有些情况下泛型也是不允许使用的，总结一下编码中不能使用泛型的一些场景。</p>
-<h1 id="二、基本类型无法直接使用泛型"><a href="#二、基本类型无法直接使用泛型" class="headerlink" title="二、基本类型无法直接使用泛型"></a>二、基本类型无法直接使用泛型</h1><p>以下写法是错误的：</p>
-<center>
-<img src="https://img-blog.csdnimg.cn/20200607154813512.png" width="80%" height="35%">
-</center>
-基本类型是不能够作为泛型类型的,需要使用它们对应的包装类。
-<center>
-<img src="https://img-blog.csdnimg.cn/20200607154909119.png" width="80%" height="35%">
-</center>
-
-<h1 id="三、泛型类型无法被直接实例化"><a href="#三、泛型类型无法被直接实例化" class="headerlink" title="三、泛型类型无法被直接实例化"></a>三、泛型类型无法被直接实例化</h1><p>泛型类型可以理解为一个抽象类型，只是代表了类型的抽象，因此不能直接实例化它，下面的做法也是错误的：</p>
-<center>
-<img src="https://img-blog.csdnimg.cn/20200607155137663.png" width="80%" height="35%">
-</center>
-
-<h1 id="四、泛型无法作为静态变量类型"><a href="#四、泛型无法作为静态变量类型" class="headerlink" title="四、泛型无法作为静态变量类型"></a>四、泛型无法作为静态变量类型</h1><p>Java 中的静态类型随着类加载而实例化，此时泛型的具体类型并没有声明。同时因为静态变量作为所有对象的共享变量，只有类实例化或者方法调用时才能确定其类型。如果是泛型类型将无法确定其类型。同样在类上声明的泛型也无法作为返回值类型出现在类的静态方法中，下面的写法也是错误的：</p>
-<center>
-<img src="https://img-blog.csdnimg.cn/20200607155539892.png" width="80%" height="35%">
-</center>
-
-
-<h1 id="五、无法进行-instanceof-判断"><a href="#五、无法进行-instanceof-判断" class="headerlink" title="五、无法进行 instanceof 判断"></a>五、无法进行 instanceof 判断</h1><p>Java 中的泛型是伪泛型，在编译期会被擦除，运行的字节码中不存在泛型，所以下面的判断条件无法进行：</p>
-<center>
-<img src="https://img-blog.csdnimg.cn/202006071607517.png" width="80%" height="35%">
-</center>
-
-<p>但是泛型的无界通配符 &lt;?&gt; 可以进行 instanceof 判断，你仔细想想为什么。</p>
-<h1 id="六、无法创建参数化类型的数组"><a href="#六、无法创建参数化类型的数组" class="headerlink" title="六、无法创建参数化类型的数组"></a>六、无法创建参数化类型的数组</h1><p>首先下面这种写法是对的：</p>
-<center>
-<img src="https://img-blog.csdnimg.cn/20200607160921704.png" width="80%" height="35%">
-</center>
-但是加上了泛型就编译不通过了：
-<center>
-<img src="https://img-blog.csdnimg.cn/20200607161025384.png" width="80%" height="35%">
-</center>
-
-<h1 id="七、不能直接或者间接扩展Throwable"><a href="#七、不能直接或者间接扩展Throwable" class="headerlink" title="七、不能直接或者间接扩展Throwable"></a>七、不能直接或者间接扩展Throwable</h1><p>下面的两种写法将引发编译错误：</p>
-<center>
-<img src="https://img-blog.csdnimg.cn/20200607161123191.png" width="80%" height="35%">
-</center>
-
-<p>如果成立将出现：</p>
-<center>
-<img src="https://img-blog.csdnimg.cn/20200607161218343.png" width="80%" height="35%">
-</center>
-
-<p>如何才能对异常进行具体的处理，这显然不便于精确的异常处理逻辑。但是可以抛出一个 不确定的异常，但是同样不能在静态方法中使用类声明的泛型：</p>
-<center>
-<img src="https://img-blog.csdnimg.cn/20200607161412985.png" width="80%" height="35%">
-</center>
-
-<h1 id="八、泛型擦除后相同参数签名的方法不能重载"><a href="#八、泛型擦除后相同参数签名的方法不能重载" class="headerlink" title="八、泛型擦除后相同参数签名的方法不能重载"></a>八、泛型擦除后相同参数签名的方法不能重载</h1><p>由于泛型擦除的原因，以下的不视为方法的重载且无法编译 ：</p>
-<center>
-<img src="https://img-blog.csdnimg.cn/2020060716150451.png" width="80%" height="35%">
-</center>
-
+                
             </div>
             <hr/>
 
@@ -484,7 +412,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://demerzelsun12.github.io/2020/04/28/bu-neng-shi-yong-fan-xing-de-ji-chong-qing-kuang/">https://demerzelsun12.github.io/2020/04/28/bu-neng-shi-yong-fan-xing-de-ji-chong-qing-kuang/</a>
+                    <a href="https://demerzelsun12.github.io/hitreport%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F/index.html">https://demerzelsun12.github.io/hitreport%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F/index.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -521,11 +449,7 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0%E7%AC%94%E8%AE%B0/">
-                                    <span class="chip bg-color">软件构造笔记</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -568,7 +492,7 @@
         repo: 'DemerzelSun12.github.io',
         owner: 'DemerzelSun12',
         admin: "DemerzelSun12",
-        id: '2020-04-28T15-46-00',
+        id: '2020-12-31T20-55-07',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -592,54 +516,39 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/05/06/ruan-jian-gou-zao-di-wu-zhang-di-er-jie-mian-xiang-ke-wei-hu-xing-de-she-ji-mo-shi/">
+                <a href="/hitreport%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F/index.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="软件构造-第五章-第二节-面向可维护性的设计模式">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="hitreport的前世今生">
                         
-                        <span class="card-title">软件构造-第五章-第二节-面向可维护性的设计模式</span>
+                        <span class="card-title">hitreport的前世今生</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            软件构造第五章 第二节 面向可维护性的设计模式
-
- 
-
-一、创造性模式1.1 工厂模式(Factory Pattern)
-定义：工厂方法模式也被称为虚拟构造器。当client不知道要创建哪个具体类的实例，或者不想在client代码中指明要具
+                            
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-05-06
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-31
+                            </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0/" class="post-category">
-                                    软件构造
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Demerzel Sun
                             
                         </span>
                     </div>
                 </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0%E7%AC%94%E8%AE%B0/">
-                        <span class="chip bg-color">软件构造笔记</span>
-                    </a>
-                    
-                </div>
+
                 
             </div>
         </div>
@@ -647,57 +556,37 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+                本篇&nbsp;<i class="far fa-dot-circle"></i>
             </div>
             <div class="card">
-                <a href="/2020/04/24/ruan-jian-gou-zao-di-wu-zhang-di-yi-jie-ke-wei-hu-xing-de-du-liang-yu-gou-zao-yuan-ze/">
+                <a href="/hitreport%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F/index.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="软件构造-第五章-第一节-可维护性的度量与构造原则">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="hitreport的前世今生">
                         
-                        <span class="card-title">软件构造-第五章-第一节-可维护性的度量与构造原则</span>
+                        <span class="card-title">hitreport的前世今生</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            软件构造第五章 第一节 可维护性的度量与构造原则
-
- 
-
-一、软件的维护和演化
-定义：
-软件可维护性是指软件产品被修改的能力，修改包括纠正、改进或软件对环境、需求和功能规格说明变化的适应。简而言之，软件维护：修复错误、改善性能。
-
-
-类型：
+                            
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-24
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-31
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0/" class="post-category">
-                                    软件构造
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Demerzel Sun
                             
                         </span>
                     </div>
                 </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0%E7%AC%94%E8%AE%B0/">
-                        <span class="chip bg-color">软件构造笔记</span>
-                    </a>
-                    
-                </div>
+
                 
             </div>
         </div>
@@ -869,18 +758,6 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
 </main>
 
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script>
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [
-                ['$', '$'],
-                ['\(', '\)']
-            ]
-        }
-    });
-</script>
 
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 

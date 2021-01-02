@@ -391,14 +391,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    7.2k
+                    8k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    25 分
+                    28 分
                 </div>
                 
 
@@ -1086,7 +1086,108 @@
 </ul>
 </li>
 </ol>
-<h3 id="4-4-指令系统结构的分类"><a href="#4-4-指令系统结构的分类" class="headerlink" title="4.4 指令系统结构的分类"></a>4.4 指令系统结构的分类</h3><h3 id="4-5-指令系统的设计与优化"><a href="#4-5-指令系统的设计与优化" class="headerlink" title="4.5 指令系统的设计与优化"></a>4.5 指令系统的设计与优化</h3><h3 id="4-6-指令系统的发展和改进"><a href="#4-6-指令系统的发展和改进" class="headerlink" title="4.6 指令系统的发展和改进"></a>4.6 指令系统的发展和改进</h3><h3 id="4-7-指令格式举例"><a href="#4-7-指令格式举例" class="headerlink" title="4.7 指令格式举例"></a>4.7 指令格式举例</h3>
+<p>各种寻址方式的比较<br>|方式|算法|主要优点|主要缺点|<br>|:–:|:–:|:–:|:–:|<br>|立即寻址|操作数=A|无存储器访问|操作数范围有限|<br>|直接寻址|EA=A|简单|地址范围有限|<br>|间接寻址|EA=（A）|地址范围更大|需要访问多重存储器|<br>|寄存器寻址|EA=R|无存储器访问|地址范围有限|<br>|寄存器间接寻址|EA=（R）|地址范围更大|需要额外的存储器访问|<br>|相对/基址/变址寻址|EA=A+（R）|灵活|复杂|<br>|堆栈寻址|EA=栈顶|无存储器访问|应用有限|</p>
+<h3 id="4-4-指令系统结构的分类"><a href="#4-4-指令系统结构的分类" class="headerlink" title="4.4 指令系统结构的分类"></a>4.4 指令系统结构的分类</h3><ol>
+<li>指令集结构分类方法<ul>
+<li><strong>在CPU中操作数的存储方法</strong></li>
+<li>指令中显式表示的操作数的个数</li>
+<li>操作数的寻址方式</li>
+<li>指令集所提供的操作类型</li>
+<li>操作数的类型和大小</li>
+</ul>
+</li>
+</ol>
+<h4 id="4-4-1-通用寄存器型指令集结构"><a href="#4-4-1-通用寄存器型指令集结构" class="headerlink" title="4.4.1 通用寄存器型指令集结构"></a>4.4.1 通用寄存器型指令集结构</h4><ol>
+<li><p>优点：</p>
+<ul>
+<li>在表达式求值方面，比其他类型的指令集结构都有更大的灵活性</li>
+<li>寄存器可以用来存放变量<ul>
+<li>减少存储器的通信量，加快程序的执行速度（寄存器比存储器更快）</li>
+<li>可以用更少的地址位寻址寄存器，有效地改进程序的目标代码的大小。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>通用寄存器指令集结构分类</p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="center">ALU指令中存储器<br>操作数个数</th>
+<th align="center">ALU指令中操作数<br>最多个数</th>
+<th align="center">结构类型</th>
+<th align="center">机器实例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0</td>
+<td align="center">3</td>
+<td align="center">RR</td>
+<td align="center">MIPS,SPARC,<br>Alpha,PowerPC,ARM</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">2</td>
+<td align="center">RM</td>
+<td align="center">IBM360/370,Intel 80x86</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">3</td>
+<td align="center">RM</td>
+<td align="center">IBM360/370</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">2</td>
+<td align="center">MM</td>
+<td align="center">VAX</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">3</td>
+<td align="center">MM</td>
+<td align="center">VAX</td>
+</tr>
+</tbody></table>
+<ol start="3">
+<li><p>可以将目前大多数的通用寄存器型指令集结构分为三种类型</p>
+<ul>
+<li>寄存器——寄存器型（RR）</li>
+<li>寄存器——存储器型（RM）</li>
+<li>存储器——存储器型（MM）</li>
+</ul>
+</li>
+<li><p>三种寄存器型指令集结构优缺点：</p>
+</li>
+</ol>
+<p>（m，n）表示指令的n个操作数中有m个存储器操作数</p>
+<table>
+<thead>
+<tr>
+<th align="center">指令集结构类型</th>
+<th align="center">优点</th>
+<th align="center">缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">寄存器-寄存器型<br>（0，3）</td>
+<td align="center">指令字长固定<br>指令结构简洁<br>简单的代码结构<br>各种指令的执行周期数相近</td>
+<td align="center">与指令中含存储器操作数的指令系统结构相比，<br>指令条数多，目标代码不紧凑，程序占用空间较大</td>
+</tr>
+<tr>
+<td align="center">寄存器-存储器型<br>（1，2）</td>
+<td align="center">可在ALU指令中对存储器操作数进行引用，<br>不必先用load指令加载，容易对指令编码，<br>目标代码紧凑</td>
+<td align="center">有一个操作数被破坏，指令中两个操作数不对称，<br>在一条指令中同时对寄存器操作数和存储器操作数进行编码，<br>可能限制指令所能表示的寄存器个数</td>
+</tr>
+<tr>
+<td align="center">存储器-存储器型<br>（2，2）或（3，3）</td>
+<td align="center">目标代码最紧凑，不需要设置存储器来保存变量</td>
+<td align="center">指令字长变换很大，特别是3个操作数指令。<br>而且每条指令完成的工作也差别很大。对存储器的频率访问会使存储器成为瓶颈。<br>这种类型的指令系统现在已经不用了</td>
+</tr>
+</tbody></table>
+<h3 id="4-5-指令系统的设计与优化"><a href="#4-5-指令系统的设计与优化" class="headerlink" title="4.5 指令系统的设计与优化"></a>4.5 指令系统的设计与优化</h3><h4 id="4-5-1-指令系统设计的基本原则"><a href="#4-5-1-指令系统设计的基本原则" class="headerlink" title="4.5.1 指令系统设计的基本原则"></a>4.5.1 指令系统设计的基本原则</h4><h3 id="4-6-指令系统的发展和改进"><a href="#4-6-指令系统的发展和改进" class="headerlink" title="4.6 指令系统的发展和改进"></a>4.6 指令系统的发展和改进</h3><h3 id="4-7-指令格式举例"><a href="#4-7-指令格式举例" class="headerlink" title="4.7 指令格式举例"></a>4.7 指令格式举例</h3>
             </div>
             <hr/>
 
@@ -1564,7 +1665,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">76.8k</span>&nbsp;字
+                class="white-color">77.6k</span>&nbsp;字
             
             
             
