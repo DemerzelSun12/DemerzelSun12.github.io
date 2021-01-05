@@ -31,9 +31,9 @@
 
     <script src="http://echarts.baidu.com/dist/echarts.common.min.js"></script>
 
-<meta name="generator" content="Hexo 4.2.1"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"><link rel="alternate" href="/atom.xml" title="Demerzel Sun's blog" type="application/atom+xml">
-</head>
+<meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Demerzel Sun's blog" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 
 <body>
@@ -391,14 +391,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    9k
+                    9.9k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    32 分
+                    35 分
                 </div>
                 
 
@@ -1328,7 +1328,80 @@
 </ol>
 <p>完成一条指令包括，取指分析的取指周期，执行的执行周期。部分指令由间指周期或者中断周期。</p>
 <h4 id="5-3-2-微操作命令分析"><a href="#5-3-2-微操作命令分析" class="headerlink" title="5.3.2 微操作命令分析"></a>5.3.2 微操作命令分析</h4><p>完成一条指令分为4个工作周期<br>取指周期，间指周期，执行周期，中断周期</p>
-<h3 id="5-4-MIPS-CPU的简单实现"><a href="#5-4-MIPS-CPU的简单实现" class="headerlink" title="5.4 MIPS CPU的简单实现"></a>5.4 MIPS CPU的简单实现</h3>
+<ol>
+<li>取指周期</li>
+</ol>
+<p>PC$\rightarrow$MAR$\rightarrow$地址线<br>1$\rightarrow$R<br>M（MAR）$\rightarrow$MDR<br>MDR$\rightarrow$IR<br>OP（IR）$\rightarrow$CU<br>（PC）+1$\rightarrow$PC</p>
+<ol start="2">
+<li>间指周期</li>
+</ol>
+<p>指令形式地址$\rightarrow$MAR<br>Ad（IR）$\rightarrow$MAR<br>I$\rightarrow$R<br>M（MAR）$\rightarrow$MDR<br>MDR$\rightarrow$Ad（IR）</p>
+<h4 id="5-3-3-控制单元功能"><a href="#5-3-3-控制单元功能" class="headerlink" title="5.3.3 控制单元功能"></a>5.3.3 控制单元功能</h4><ol>
+<li><p>多级时序系统</p>
+<ol>
+<li>机器周期：所有指令执行过程中的一个基准周期</li>
+<li>基准时间确定：以完成最复杂指令功能的时间为准，以访问一次存储器的时间为基准。如果指令字长=存储字长，则取指周期=机器周期</li>
+<li>时钟周期：控制计算机操作的最小时钟单位</li>
+<li>机器周期、节拍组成多级时序系统，一个指令周期包含若干个机器周期，一个机器周期包含若干个时钟周期</li>
+</ol>
+</li>
+</ol>
+<h3 id="5-4-MIPS-CPU的简单实现"><a href="#5-4-MIPS-CPU的简单实现" class="headerlink" title="5.4 MIPS CPU的简单实现"></a>5.4 MIPS CPU的简单实现</h3><p>处理器的指令字长为32位，包含：</p>
+<ul>
+<li>32个32位通用寄存器R0$\sim$R31，R0的值为0</li>
+<li>1个32位的指令寄存器IR</li>
+<li>1个32位的程序计数器PC</li>
+</ul>
+<p>操作码6位。将指令执行划分为5个阶段</p>
+<ul>
+<li>取指令阶段</li>
+<li>指令译码/读寄存器阶段</li>
+<li>执行/有效地址计算周期</li>
+<li>存储器访问/分支完成周期</li>
+<li>写回周期</li>
+</ul>
+<h2 id="六、流水线技术"><a href="#六、流水线技术" class="headerlink" title="六、流水线技术"></a>六、流水线技术</h2><h3 id="6-1-流水线概述"><a href="#6-1-流水线概述" class="headerlink" title="6.1 流水线概述"></a>6.1 流水线概述</h3><ol>
+<li>流水线特点：</li>
+</ol>
+<ul>
+<li>流水过程由多个相关的子过程组成，子过程称为流水线的段，段的数目称为流水线的深度</li>
+<li>每个子过程由专用的功能段实现</li>
+<li>各功能段的时间应该基本相等，通常为1个时钟周期</li>
+<li>流水线需要经过一定的通过时间才能稳定</li>
+<li>流水线技术适合大量重复的时序过程</li>
+</ul>
+<ol start="2">
+<li><strong>流水线分类：</strong></li>
+</ol>
+<ul>
+<li>按照完成的功能分类<ul>
+<li>单功能流水线：只完成一种固定功能的流水线</li>
+<li>过功能流水线：各段可以进行不同连接，从而完成不同功能</li>
+</ul>
+</li>
+<li>按同一时间流水段的连接方式划分<ul>
+<li>静态流水线：在同一时间内，流水线各段只能按同一种功能的连接方式工作</li>
+<li>动态流水线：在同一时间内，在某些段正在实现某种运算时，另一些段却在实现另一种运算，会使得流水线的控制变得很复杂。</li>
+</ul>
+</li>
+<li>按流水级别划分<ul>
+<li>部件级流水线：吧处理机的算数逻辑部件分段，使得各种数据类型的操作能够流水</li>
+<li>处理机级流水：把解释指令的过程按照流水方式处理</li>
+<li>处理机间流水：由两个以上的处理机串行地对同一数据流进行处理，每个处理机完成一项任务</li>
+</ul>
+</li>
+<li>按数据表示进行分类<ul>
+<li>标量流水处理机：仅对标量数据进行流水处理</li>
+<li>向量流水处理机：处理机具有向量数据表示，并通过向量指令对向量的各元素进行处理</li>
+</ul>
+</li>
+<li>按是否有反馈回路进行分类<ul>
+<li>线性流水线：流水线各段串行连接，没有反馈回路</li>
+<li>非线性流水线：除了串行连接之外，还有反馈回路</li>
+</ul>
+</li>
+</ul>
+<h3 id="6-2-MIPS的基本流水线"><a href="#6-2-MIPS的基本流水线" class="headerlink" title="6.2 MIPS的基本流水线"></a>6.2 MIPS的基本流水线</h3><h3 id="6-3-流水线中的冲突"><a href="#6-3-流水线中的冲突" class="headerlink" title="6.3 流水线中的冲突"></a>6.3 流水线中的冲突</h3><h3 id="6-4-向量处理机"><a href="#6-4-向量处理机" class="headerlink" title="6.4 向量处理机"></a>6.4 向量处理机</h3><h2 id="七、指令级并行"><a href="#七、指令级并行" class="headerlink" title="七、指令级并行"></a>七、指令级并行</h2><h3 id="7-1-指令级并行概念"><a href="#7-1-指令级并行概念" class="headerlink" title="7.1 指令级并行概念"></a>7.1 指令级并行概念</h3><h3 id="7-2-指令的动态调度"><a href="#7-2-指令的动态调度" class="headerlink" title="7.2 指令的动态调度"></a>7.2 指令的动态调度</h3><h3 id="7-3-控制相关的动态解决技术"><a href="#7-3-控制相关的动态解决技术" class="headerlink" title="7.3 控制相关的动态解决技术"></a>7.3 控制相关的动态解决技术</h3><h3 id="7-4-多指令流出技术"><a href="#7-4-多指令流出技术" class="headerlink" title="7.4 多指令流出技术"></a>7.4 多指令流出技术</h3>
             </div>
             <hr/>
 
@@ -1806,7 +1879,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">78.8k</span>&nbsp;字
+                class="white-color">79.6k</span>&nbsp;字
             
             
             
