@@ -31,9 +31,9 @@
 
     <script src="http://echarts.baidu.com/dist/echarts.common.min.js"></script>
 
-<meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Demerzel Sun's blog" type="application/atom+xml">
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+<meta name="generator" content="Hexo 4.2.1"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"><link rel="alternate" href="/atom.xml" title="Demerzel Sun's blog" type="application/atom+xml">
+</head>
 
 
 <body>
@@ -391,14 +391,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    8.1k
+                    9k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    28 分
+                    32 分
                 </div>
                 
 
@@ -1216,7 +1216,119 @@
 </ul>
 </li>
 </ol>
-<h4 id="4-5-2-控制指令"><a href="#4-5-2-控制指令" class="headerlink" title="4.5.2 控制指令"></a>4.5.2 控制指令</h4><h3 id="4-6-指令系统的发展和改进"><a href="#4-6-指令系统的发展和改进" class="headerlink" title="4.6 指令系统的发展和改进"></a>4.6 指令系统的发展和改进</h3><h3 id="4-7-指令格式举例"><a href="#4-7-指令格式举例" class="headerlink" title="4.7 指令格式举例"></a>4.7 指令格式举例</h3>
+<h4 id="4-5-2-控制指令"><a href="#4-5-2-控制指令" class="headerlink" title="4.5.2 控制指令"></a>4.5.2 控制指令</h4><ol>
+<li><p>跳转：无条件</p>
+</li>
+<li><p>分支：有条件改变控制流</p>
+<ul>
+<li>跳转</li>
+<li>条件分支</li>
+<li>过程调用</li>
+<li>过程返回</li>
+</ul>
+</li>
+<li><p>条件分支指令表示</p>
+<ul>
+<li>条件码CC：自由设置分支条件，但限制了指令执行顺序</li>
+<li>条件寄存器：简单，但占用一个寄存器</li>
+<li>比较分支：一条指令完成两条指令功能，但分支指令操作增多</li>
+</ul>
+</li>
+<li><p>过程调用和返回的状态保存：</p>
+<ul>
+<li>调用者保存</li>
+<li>被调用者保存</li>
+</ul>
+</li>
+</ol>
+<h3 id="4-6-指令系统的发展和改进"><a href="#4-6-指令系统的发展和改进" class="headerlink" title="4.6 指令系统的发展和改进"></a>4.6 指令系统的发展和改进</h3><p>CISC$\rightarrow$RISC。</p>
+<p>RISC设计原则：</p>
+<ol>
+<li>选择使用频率最高的指令，并补充最有用的指令</li>
+<li>每条指令功能尽可能简单，并在一个机器周期内部完成</li>
+<li>指令长度相同</li>
+<li>只有load和store操作指令才访问存储器，其他指令在寄存器之间进行</li>
+<li>以简单有效的方式支持高级语言</li>
+</ol>
+<h2 id="五、CPU设计与实现"><a href="#五、CPU设计与实现" class="headerlink" title="五、CPU设计与实现"></a>五、CPU设计与实现</h2><h3 id="5-1-CPU结构"><a href="#5-1-CPU结构" class="headerlink" title="5.1 CPU结构"></a>5.1 CPU结构</h3><ol>
+<li>CPU功能</li>
+</ol>
+<ul>
+<li>控制器功能<ul>
+<li>指令控制</li>
+<li>操作控制</li>
+<li>时间控制</li>
+<li>处理中断</li>
+</ul>
+</li>
+<li>运算器功能<ul>
+<li>数据加工</li>
+</ul>
+</li>
+</ul>
+<ol start="2">
+<li><p>CPU结构</p>
+</li>
+<li><p>CPU寄存器</p>
+<ul>
+<li>用户可见寄存器<ul>
+<li>通用寄存器：存放操作数或作为寻址方式所需的专用寄存器</li>
+<li>数据寄存器：存放操作数</li>
+<li>地址寄存器：存放地址，可用作特殊的寻址方式：段基址、栈指针</li>
+<li>条件码寄存器：存放条件码：正负零溢出进位</li>
+</ul>
+</li>
+<li>控制和状态寄存器<ul>
+<li>控制寄存器：$PC\rightarrow MAR\rightarrow M \rightarrow MDR \rightarrow IR$。控制CPU操作，除PC外皆用户不可见</li>
+<li>状态寄存器</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>控制单元CU和中断系统</p>
+<ul>
+<li>CU：产生全部指令的微操作命令序列<ul>
+<li>组合逻辑设计：硬连线逻辑</li>
+<li>微程序设计：存储逻辑</li>
+</ul>
+</li>
+<li>中断系统</li>
+</ul>
+</li>
+<li><p>ALU</p>
+</li>
+</ol>
+<h3 id="5-2-运算方法与ALU"><a href="#5-2-运算方法与ALU" class="headerlink" title="5.2 运算方法与ALU"></a>5.2 运算方法与ALU</h3><h4 id="5-2-1-定点运算"><a href="#5-2-1-定点运算" class="headerlink" title="5.2.1 定点运算"></a>5.2.1 定点运算</h4><ol>
+<li>移位运算</li>
+</ol>
+<p>&emsp;&emsp;移位规则：<br>正数，原码、补码、反码，左移右移都添0<br>负数，原码，左移右移都添0<br>负数，补码，左移添0，右移添1<br>负数，反码，左移右移都添1</p>
+<p>算数移位：有符号数的移位<br>逻辑移位：无符号数的移位</p>
+<p>逻辑左右移都是加0，相应位丢失<br>算数左移，低位补0，高位符号位不变；算数右移，次高位补1，最高位符号不变</p>
+<ol start="2">
+<li>加减法运算</li>
+</ol>
+<p>加法会舍入溢出位。减法连同符号位一起计算，符号位产生的进位自然丢掉。</p>
+<ol start="3">
+<li><p>溢出判断</p>
+<ul>
+<li>一位符号位判断溢出<br>参加操作的两个数符号相同，其结果的符号与原操作数的符号不同，即为溢出。<br>硬件实现方法：最高有效位的进位$\oplus$符号位进位 = 1，则溢出</li>
+<li>两位符号位判断溢出<br>结果的双符号位相同，则未溢出；结果的双符号位不同，则溢出。最高符号位才是其真正的符号位</li>
+</ul>
+</li>
+<li><p>原码乘法</p>
+</li>
+</ol>
+<p>n位小数，移位n次，相加操作n次。用移位的次数判断乘法是否结束</p>
+<h4 id="5-2-2-浮点四则远算"><a href="#5-2-2-浮点四则远算" class="headerlink" title="5.2.2 浮点四则远算"></a>5.2.2 浮点四则远算</h4><ol>
+<li>加减运算<br>对阶时，阶数小的向阶数大的看齐</li>
+</ol>
+<h4 id="5-2-3-算数逻辑单元ALU"><a href="#5-2-3-算数逻辑单元ALU" class="headerlink" title="5.2.3 算数逻辑单元ALU"></a>5.2.3 算数逻辑单元ALU</h4><p>略过</p>
+<h3 id="5-3-多级时序系统"><a href="#5-3-多级时序系统" class="headerlink" title="5.3 多级时序系统"></a>5.3 多级时序系统</h3><h4 id="5-3-1-指令周期"><a href="#5-3-1-指令周期" class="headerlink" title="5.3.1 指令周期"></a>5.3.1 指令周期</h4><ol>
+<li>指令周期：取出并执行一条指令所需要的全部时间</li>
+</ol>
+<p>完成一条指令包括，取指分析的取指周期，执行的执行周期。部分指令由间指周期或者中断周期。</p>
+<h4 id="5-3-2-微操作命令分析"><a href="#5-3-2-微操作命令分析" class="headerlink" title="5.3.2 微操作命令分析"></a>5.3.2 微操作命令分析</h4><p>完成一条指令分为4个工作周期<br>取指周期，间指周期，执行周期，中断周期</p>
+<h3 id="5-4-MIPS-CPU的简单实现"><a href="#5-4-MIPS-CPU的简单实现" class="headerlink" title="5.4 MIPS CPU的简单实现"></a>5.4 MIPS CPU的简单实现</h3>
             </div>
             <hr/>
 
@@ -1694,7 +1806,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">77.8k</span>&nbsp;字
+                class="white-color">78.8k</span>&nbsp;字
             
             
             
