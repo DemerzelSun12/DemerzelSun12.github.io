@@ -4,11 +4,38 @@
   
     
     <entry>
+      <title>Docker学习记录</title>
+      <link href="/2021/01/14/docker-xue-xi-ji-lu/"/>
+      <url>/2021/01/14/docker-xue-xi-ji-lu/</url>
+      
+        <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>为了给hitreport写CI，github的CI实在用不明白了，于是乎自己学一下Docker，记录一下。</p><h2 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h2><p>本来打算在电脑上装wsl的，结果C盘空间不太够，有几个比较大的软件还挪不了地方，点名Visual Studio，那就用虚拟机吧。</p><p>查看Ubuntu环境</p><pre class="line-numbers language-bash"><code class="language-bash"><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>查看</p><pre class="line-numbers language-bash"><code class="language-bash"><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><ol><li>更换国内软件源</li></ol><p>应用程序$\rightarrow$软件和更新$\rightarrow$选择下载服务器$\rightarrow$选择最佳服务器</p><ol start="2"><li>更新源</li></ol><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> update<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><ol start="3"><li>安装依赖</li></ol><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> apt-transport-https ca-certificates software-properties-common curl<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><ol start="4"><li>添加 GPG 密钥，并添加 Docker-ce 软件源</li></ol><pre class="line-numbers language-bash"><code class="language-bash">curl -fsSL https://mirrors.ustc.edu.cn/docker-ce/linux/ubuntu/gpg <span class="token operator">|</span> <span class="token function">sudo</span> apt-key add -<span class="token function">sudo</span> add-apt-repository <span class="token string">"deb [arch=amd64] https://mirrors.ustc.edu.cn/docker-ce/linux/ubuntu \<span class="token variable"><span class="token variable">$(</span>lsb_release -cs<span class="token variable">)</span></span> stable"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Docker </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Docker </tag>
+            
+            <tag> 程序员的自我修养 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>hitreport的前世今生</title>
       <link href="/2020/12/19/hitreport-de-qian-shi-jin-sheng/"/>
       <url>/2020/12/19/hitreport-de-qian-shi-jin-sheng/</url>
       
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>自己第一次接触$\LaTeX$是在大二春季学期，在软件构造的正则式的章节里第一次听说了$\LaTeX$，</p>]]></content>
       
       
       <categories>
