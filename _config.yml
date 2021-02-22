@@ -3,7 +3,7 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Demerzel Sun's blog
+title: Demerzel's blog
 subtitle: Demerzel's blog
 description: '雨过枫山送远青'
 keywords:
@@ -115,5 +115,5 @@ deploy:
   type: git
   repo: 
     github: git@github.com:DemerzelSun12/DemerzelSun12.github.io.git,master
-    # gitee: git@gitee.com:demerzel/demerzelpages.git,master
+    gitee: git@gitee.com:demerzel/demerzel.git,master
     coding: git@e.coding.net:demerzel/demerzel12.coding.me/demerzel12.git,master
