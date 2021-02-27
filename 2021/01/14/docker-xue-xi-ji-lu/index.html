@@ -387,14 +387,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    746
+                    1.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    4 分
                 </div>
                 
 
@@ -428,6 +428,30 @@
 demerzel@DESKTOP-70JN6UI:/<span class="token comment" spellcheck="true">#</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <h3 id="列出本地镜像"><a href="#列出本地镜像" class="headerlink" title="列出本地镜像"></a>列出本地镜像</h3><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> docker images
 REPOSITORY      TAG     IMAGE ID    CREATED     VIRTUAL SIZE      <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>字段含义：</p>
+<ul>
+<li>REPOSITORY：来源的仓库</li>
+<li>TAG：镜像的标记</li>
+<li>IMAGE ID：ID号，唯一</li>
+<li>CREATED：创建时间</li>
+<li>VIRTUAL SIZE：镜像大小</li>
+</ul>
+<p>其中，镜像的ID唯一的标识了镜像，相同ID的镜像为相同。TAG信息用来标记同一个仓库的不同镜像，例如ubuntu仓库中有多个镜像，通过TAG区分发行版本，例如10.04、12.04、12.10等。例如如下命令指定使用镜像ubuntu:14.04启动一个容器。</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> docker run -t -i ubuntu:14.04 /bin/bash<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>如果不指定具体标记，则默认使用latest标记信息。</p>
+<h3 id="创建镜像"><a href="#创建镜像" class="headerlink" title="创建镜像"></a>创建镜像</h3><p>用户可以从Docker Hub获取已有镜像并更新，或者利用本地文件系统新建一个镜像。</p>
+<h4 id="修改已有镜像"><a href="#修改已有镜像" class="headerlink" title="修改已有镜像"></a>修改已有镜像</h4><p>首先下载镜像启动器</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> docker run -t -i training/sinatra /bin/bash
+root@0b2616b0e5a8:/<span class="token comment" spellcheck="true">#</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>在容器中添加json和gem两个应用。</p>
+<pre class="line-numbers language-bash"><code class="language-bash">root@0b2616b0e5a8:/<span class="token comment" spellcheck="true"># gem install json</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>结束后，使用exit退出，使用<code>docker commit</code>提交更改后的副本。</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sudo</span> docker commit -m <span class="token string">"Added json gem"</span> -a <span class="token string">"Docker Newbee"</span> 0b2616b0e5a8 ourusr/sinatra:4f166bd27a9ff0f6dc2a830403925b5360bfe0b93d476f7fc3231110e7f71b1c<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>其中，-m指定提交说明信息，与VCS相同；-a可以指定更新用户信息；之后是用来创建容器的ID；最后是指定目标镜像的仓库名和tag信息。创建成功后会返回镜像的ID信息。</p>
+<h4 id="利用DockerFile创建镜像"><a href="#利用DockerFile创建镜像" class="headerlink" title="利用DockerFile创建镜像"></a>利用DockerFile创建镜像</h4><p>首先创建一个Dockerfile，包含一些如何创建镜像的指令。</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">mkdir</span> sinatra
+<span class="token function">cd</span> sinatra
+<span class="token function">touch</span> Dockerfile<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
@@ -894,7 +918,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">83.1k</span>&nbsp;字
+                class="white-color">83.5k</span>&nbsp;字
             
             
             
