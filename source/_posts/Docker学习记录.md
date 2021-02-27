@@ -87,3 +87,58 @@ demerzel@DESKTOP-70JN6UI:/#
 sudo docker images
 REPOSITORY      TAG     IMAGE ID    CREATED     VIRTUAL SIZE      
 ```
+
+字段含义：
+
+- REPOSITORY：来源的仓库
+- TAG：镜像的标记
+- IMAGE ID：ID号，唯一
+- CREATED：创建时间
+- VIRTUAL SIZE：镜像大小
+
+其中，镜像的ID唯一的标识了镜像，相同ID的镜像为相同。TAG信息用来标记同一个仓库的不同镜像，例如ubuntu仓库中有多个镜像，通过TAG区分发行版本，例如10.04、12.04、12.10等。例如如下命令指定使用镜像ubuntu:14.04启动一个容器。
+
+```bash
+sudo docker run -t -i ubuntu:14.04 /bin/bash
+```
+
+如果不指定具体标记，则默认使用latest标记信息。
+
+### 创建镜像
+
+用户可以从Docker Hub获取已有镜像并更新，或者利用本地文件系统新建一个镜像。
+
+#### 修改已有镜像
+
+首先下载镜像启动器
+
+```bash
+sudo docker run -t -i training/sinatra /bin/bash
+root@0b2616b0e5a8:/#
+```
+
+在容器中添加json和gem两个应用。
+
+```bash
+root@0b2616b0e5a8:/# gem install json
+```
+
+结束后，使用exit退出，使用`docker commit`提交更改后的副本。
+
+```bash
+sudo docker commit -m "Added json gem" -a "Docker Newbee" 0b2616b0e5a8 ourusr/sinatra:4f166bd27a9ff0f6dc2a830403925b5360bfe0b93d476f7fc3231110e7f71b1c
+```
+
+其中，-m指定提交说明信息，与VCS相同；-a可以指定更新用户信息；之后是用来创建容器的ID；最后是指定目标镜像的仓库名和tag信息。创建成功后会返回镜像的ID信息。
+
+#### 利用DockerFile创建镜像
+
+首先创建一个Dockerfile，包含一些如何创建镜像的指令。
+
+```bash
+mkdir sinatra
+cd sinatra
+touch Dockerfile
+```
+
+
