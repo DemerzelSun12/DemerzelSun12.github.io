@@ -141,4 +141,23 @@ cd sinatra
 touch Dockerfile
 ```
 
+DockerFile中每一条指令代表创建镜像的一层，例如：
+
+```bash
+# This is a comment
+FROM ubuntu:14.04
+MAINTAINER demerzelsun <demerzelsun@gmail.com> # 现在已弃用
+LABEL maintainer="demerzelsun@gmail.com"
+RUN apt-get -qq update
+RUN apt-get -qqy install ruby ruby-dev
+RUN gem install sinstra
+```
+
+Dockerfile的基本语法是
+
+- 使用 # 作为注释
+- FROM告诉Docker使用哪个镜像作为基础
+- 维护者信息，现在MAINTAINER标签已被弃用，应该使用更易flexible的LABEL指令
+- RUN开头的指令会在创建时运行
+
 
