@@ -387,7 +387,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.1k
+                    1.2k
                 </div>
                 
 
@@ -452,6 +452,21 @@ root@0b2616b0e5a8:/<span class="token comment" spellcheck="true">#</span><span a
 <pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">mkdir</span> sinatra
 <span class="token function">cd</span> sinatra
 <span class="token function">touch</span> Dockerfile<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>DockerFile中每一条指令代表创建镜像的一层，例如：</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># This is a comment</span>
+FROM ubuntu:14.04
+MAINTAINER demerzelsun <span class="token operator">&lt;</span>demerzelsun@gmail.com<span class="token operator">></span> <span class="token comment" spellcheck="true"># 现在已弃用</span>
+LABEL maintainer<span class="token operator">=</span><span class="token string">"demerzelsun@gmail.com"</span>
+RUN <span class="token function">apt-get</span> -qq update
+RUN <span class="token function">apt-get</span> -qqy <span class="token function">install</span> ruby ruby-dev
+RUN gem <span class="token function">install</span> sinstra<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Dockerfile的基本语法是</p>
+<ul>
+<li>使用 # 作为注释</li>
+<li>FROM告诉Docker使用哪个镜像作为基础</li>
+<li>维护者信息，现在MAINTAINER标签已被弃用，应该使用更易flexible的LABEL指令</li>
+<li>RUN开头的指令会在创建时运行</li>
+</ul>
 
             </div>
             <hr/>
@@ -918,7 +933,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">83.5k</span>&nbsp;字
+                class="white-color">86k</span>&nbsp;字
             
             
             
