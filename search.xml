@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>GlusterFS分布式文件系统原理</title>
+      <link href="/2021/03/01/glusterfs-fen-bu-shi-wen-jian-xi-tong-yuan-li/"/>
+      <url>/2021/03/01/glusterfs-fen-bu-shi-wen-jian-xi-tong-yuan-li/</url>
+      
+        <content type="html"><![CDATA[<h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><p>以 Docker 为代表的容器技术在云计算领域正扮演着越来越重要的角色，甚至一度被认为是虚拟化技术的替代品。企业级的容器应用常常需要将重要的数据持久化，方便在不同容器间共享。为了能够持久化数据以及共享容器间的数据，Docker 提出了 Volume 的概念。单机环境的数据卷难以满足 Docker 集群化的要求，因此需要引入分布式文件系统。目前开源的分布式文件系统有许多，例如 GFS，Ceph，HDFS，FastDFS，GlusterFS 等。GlusterFS 因其部署简单、扩展性强、高可用等特点，在分布式存储领域被广泛使用。本文主要介绍了如何利用 GlusterFS 为 Docker 集群提供可靠的分布式文件存储。</p><h2 id="GlusterFS-分布式文件系统简介"><a href="#GlusterFS-分布式文件系统简介" class="headerlink" title="GlusterFS 分布式文件系统简介"></a>GlusterFS 分布式文件系统简介</h2><h3 id="GlusterFS-概述"><a href="#GlusterFS-概述" class="headerlink" title="GlusterFS 概述"></a>GlusterFS 概述</h3><p>GlusterFS (Gluster File System) 是一个开源的分布式文件系统，主要由 Z RESEARCH 公司负责开发。GlusterFS 是 Scale-Out 存储解决方案 Gluster 的核心，具有强大的横向扩展能力，通过扩展能够支持数PB存储容量和处理数千客户端。GlusterFS 借助 TCP/IP 或 InfiniBand RDMA 网络将物理分布的存储资源聚集在一起，使用单一全局命名空间来管理数据。GlusterFS 基于可堆叠的用户空间设计，可为各种不同的数据负载提供优异的性能。</p><p>GlusterFS 总体架构与组成部分如图1所示，它主要由存储服务器（Brick Server）、客户端以及 NFS/Samba 存储网关组成。不难发现，GlusterFS 架构中没有元数据服务器组件，这是其最大的设计这点，对于提升整个系统的性能、可靠性和稳定性都有着决定性的意义。</p><p>GlusterFS 支持 TCP/IP 和 InfiniBand RDMA 高速网络互联。<br>客户端可通过原生 GlusterFS 协议访问数据，其他没有运行 GlusterFS 客户端的终端可通过 NFS/CIFS 标准协议通过存储网关访问数据（存储网关提供弹性卷管理和访问代理功能）。<br>存储服务器主要提供基本的数据存储功能，客户端弥补了没有元数据服务器的问题，承担了更多的功能，包括数据卷管理、I/O 调度、文件定位、数据缓存等功能，利用 FUSE（File system in User Space）模块将 GlusterFS 挂载到本地文件系统之上，实现 POSIX 兼容的方式来访问系统数据。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 分布式系统 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 程序员的自我修养 </tag>
+            
+            <tag> 分布式系统 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>curl使用指南</title>
       <link href="/2021/02/28/curl-shi-yong-zhi-nan/"/>
       <url>/2021/02/28/curl-shi-yong-zhi-nan/</url>
@@ -35,7 +62,7 @@
       <link href="/2021/02/28/shu-ju-ku-bi-ji/"/>
       <url>/2021/02/28/shu-ju-ku-bi-ji/</url>
       
-        <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>深圳校区的《数据库系统》课程笔记。本部的数据库一直饱受诟病的是太依赖mooc了，不是说mooc不好，计算机本来就是一门发展极快的学科，mooc一录用好几年的情况实在不适合用在计算机学科上，我们希望能学到最新的知识，或者能与当前的技术做结合，第一节课之后，觉得深圳这边讲课的拓展比本部好很多。希望在这边能学到在本部学不到的知识。</p><h2 id="数据库系统基本概念"><a href="#数据库系统基本概念" class="headerlink" title="数据库系统基本概念"></a>数据库系统基本概念</h2><ol><li>Table的常用语：</li></ol><ul><li>列/字段/属性/数据项</li><li>行/元组/记录</li><li>表标题（格式）</li><li>表内容（值）</li></ul><ol start="2"><li><p>Table中描述了一批相互有关联关系的数据$\rightarrow$关系。第二章中给以严格定义：关系模型与关系运算</p></li><li><p>数据库：相互之间有关联关系的Table的集合</p></li><li><p>数据库系统(工作环境)<br>数据库(DB): Database<br>数据库管理系统(DBMS): Database Management System<br>数据库应用(DBAP): DataBase Application<br>数据库管理员(DBA): DataBase Administrator<br>计算机基本系统</p></li></ol><p><strong>数据库管理系统不包括数据库管理员，数据库系统包括数据库管理员。</strong></p><ol start="5"><li>数据库管理系统(系统软件):从用户角度看DBMS的功能</li></ol><ul><li><p>数据库定义: 定义数据库中Table的名称、标题(内含的属性名称及对该属性的值的要求)等。</p><ul><li>DBMS提供一套数据定义语言(DDL:Data Definition Language)给用户；</li><li>用户使用DDL描述其所要建立表的格式；</li><li>DBMS依照用户的定义，创建数据库及其中的Table。</li></ul></li><li><p>数据库操纵: 向数据库的Table中增加/删除/更新数据及对数据进行查询、  检索、统计等。</p><ul><li>DBMS提供一套数据操纵语言(DML:Data Manipulation Language)给用户；</li><li>用户使用DML描述其所要进行的增、删、改、查等操作；</li><li>DBMS依照用户的操作描述，实际执行这些操作。</li></ul></li><li><p>数据库控制: 控制数据库中数据的使用—哪些用户可以使用,哪些不可以<br>DBMS提供一套数据控制语言(DCL:Data Control Language)给用户</p><ul><li>用户使用DCL描述其对数据库所要实施的控制</li><li>DBMS依照用户的描述，实际进行控制</li></ul></li></ul>]]></content>
+        <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>深圳校区的《数据库系统》课程笔记。本部的数据库一直饱受诟病的是太依赖mooc了，不是说mooc不好，计算机本来就是一门发展极快的学科，mooc一录用好几年的情况实在不适合用在计算机学科上，我们希望能学到最新的知识，或者能与当前的技术做结合，第一节课之后，觉得深圳这边讲课的拓展比本部好很多。希望在这边能学到在本部学不到的知识。</p><h2 id="数据库系统基本概念"><a href="#数据库系统基本概念" class="headerlink" title="数据库系统基本概念"></a>数据库系统基本概念</h2><ol><li>Table的常用语：</li></ol><ul><li>列/字段/属性/数据项</li><li>行/元组/记录</li><li>表标题（格式）</li><li>表内容（值）</li></ul><ol start="2"><li><p>Table中描述了一批相互有关联关系的数据$\rightarrow$关系。第二章中给以严格定义：关系模型与关系运算</p></li><li><p>数据库：相互之间有关联关系的Table的集合</p></li><li><p>数据库系统(工作环境)<br>数据库(DB): Database<br>数据库管理系统(DBMS): Database Management System<br>数据库应用(DBAP): DataBase Application<br>数据库管理员(DBA): DataBase Administrator<br>计算机基本系统</p></li></ol><p><strong>数据库管理系统不包括数据库管理员，数据库系统包括数据库管理员。</strong></p><ol start="5"><li>数据库管理系统(系统软件):从用户角度看DBMS的功能</li></ol><ul><li><p>数据库定义: 定义数据库中Table的名称、标题(内含的属性名称及对该属性的值的要求)等。</p><ul><li>DBMS提供一套数据定义语言(DDL:Data Definition Language)给用户；</li><li>用户使用DDL描述其所要建立表的格式；</li><li>DBMS依照用户的定义，创建数据库及其中的Table。</li></ul></li><li><p>数据库操纵: 向数据库的Table中增加/删除/更新数据及对数据进行查询、  检索、统计等。</p><ul><li>DBMS提供一套数据操纵语言(DML:Data Manipulation Language)给用户；</li><li>用户使用DML描述其所要进行的增、删、改、查等操作；</li><li>DBMS依照用户的操作描述，实际执行这些操作。</li></ul></li><li><p>数据库控制: 控制数据库中数据的使用—哪些用户可以使用,哪些不可以<br>DBMS提供一套数据控制语言(DCL:Data Control Language)给用户</p><ul><li>用户使用DCL描述其对数据库所要实施的控制</li><li>DBMS依照用户的描述，实际进行控制</li></ul></li><li><p>数据库维护: 转储/恢复/重组/性能监测/分析…</p><ul><li>DBMS提供一系列程序(实用程序/例行程序) 给用户</li><li>在这些程序中提供了对数据库维护的各种功能</li><li>用户使用这些程序进行各种数据库维护操作</li><li>数据库维护的实用程序，一般都是由数据库管理员(DBA)来使用和掌握的</li></ul></li></ul><ol start="6"><li>数据库语言</li></ol><p>使用者通过数据库语言利用DBMS操作数据库</p><ul><li>数据定义语言(DDL:Data Definition Language)<ul><li>DBMS提供给用户,以便用户定义数据格式</li></ul></li><li>数据操纵语言(DML:Data Manipulation Language)<ul><li>DBMS提供给用户,以便用户对数据进行操作</li></ul></li><li>数据控制语言(DCL:Data Control Language)<ul><li>DBMS提供给用户,以便用户对数据进行控制</li></ul></li></ul><p>数据库各种操作的执行<br>—-DBMS按用户要求进行定义、操纵、控制和维护</p><p>数据库语言与高级语言:<br>一条数据库语言语句相当于高级语言的一个或多个循环程序</p><p>Select 列名<br>From 表名<br>Where 条件</p>]]></content>
       
       
       <categories>
@@ -99,9 +126,9 @@
       
         <tags>
             
-            <tag> Docker </tag>
-            
             <tag> 程序员的自我修养 </tag>
+            
+            <tag> Docker </tag>
             
         </tags>
       
