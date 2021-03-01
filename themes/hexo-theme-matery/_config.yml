@@ -204,7 +204,7 @@ clicklove:
 # 在”关于”页面中配置个人信息，包括头像、职业和个人介绍.
 profile:
   avatar: /medias/avatar.jpg
-  career: An undergraduate from Harbin Institute of Technology, major in Computer Science and Technology, research direction is image target detection and distributed systems.
+  career: An undergraduate from Harbin Institute of Technology, major in Computer Science and Technology, research direction is distributed systems and block storage.
   introduction: 霜荧潦水寒泊棹，雨过枫山送远青。
 
 # config my projects informations in about page.

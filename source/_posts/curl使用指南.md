@@ -10,7 +10,7 @@ img: /medias/featureimages/21.jpg
 coverImg:
 password:
 summary: curl指令使用的方法
-tags: [程序员的自我修养,深圳之行,]
+tags: [程序员的自我修养,深圳之行]
 categories: 杂七杂八学习记录
 ---
 
