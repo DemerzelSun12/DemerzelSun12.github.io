@@ -387,14 +387,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.2k
+                    4.4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    7 分
+                    16 分
                 </div>
                 
 
@@ -566,6 +566,136 @@
 </ol>
 <p>一个关系模式（如$r_1$）可能在它的属性中包括另一个关系模式（如$r_2$）的主码。这个属性在$r_1$上称作参照$r_2$的<strong>外码</strong>。关系$r_1$也称为外码依赖的<strong>参照关系</strong>，$r_2$叫做外码的<strong>被参照关系</strong>。</p>
 <h3 id="模式图"><a href="#模式图" class="headerlink" title="模式图"></a>模式图</h3><p>一个含有主码和外码依赖的数据库模式可以用<strong>模式图</strong>表示。</p>
+<h2 id="关系模型与关系运算"><a href="#关系模型与关系运算" class="headerlink" title="关系模型与关系运算"></a>关系模型与关系运算</h2><h3 id="关系与关系模型"><a href="#关系与关系模型" class="headerlink" title="关系与关系模型"></a>关系与关系模型</h3><h4 id="关系"><a href="#关系" class="headerlink" title="关系"></a>关系</h4><p>关系即表Table。</p>
+<p>笛卡尔积：</p>
+<p>一组域$D_1,D_2,\cdots,D_n$的笛卡尔积为：<br>$$<br>D_1\times D_2\times \cdots D_n = \left\{ \left(d_1,d_2,\cdots,d_n\right) | d_i\in D_i,i = 1,2,\cdots,n \right\}<br>$$</p>
+<p>笛卡尔积的每个元素$\left(d_1,d_2,\cdots,d_n\right)$称为一个n-元组。元组$\left(d_1,d_2,\cdots,d_n\right)$的每一个值$d_i$叫做一个分量。</p>
+<p>由于笛卡尔积中的所有元组并不都是有意义的，将笛卡尔积中有某一方面意义的那些元组称为一个关系。需要重新为每个列起一个名字，即该列的属性名，不同列名的列值可以来自相同的域。</p>
+<p>关系可以用$R\left(A_1:D_1,A_2:D_2,\cdots A_n:D_n\right)$表示，可简记为$R\left(A_1,A_2,\cdots,A_n\right)$，这种描述又称为关系模式或表标题。</p>
+<p>R为关系名字，$A_i$为属性，$D_i$是属性所对应的域，n为关系的度，关系中元组的数目称为关系的基数。</p>
+<p>关系模式$R\left(A_1:D_1,A_2:D_2,\cdots,A_n:D_n\right)$中属性向域的映射在DBMS中常表示为属性的类型、长度等。</p>
+<p>eg：</p>
+<pre class="line-numbers language-SQL"><code class="language-SQL">Student(Snum char(8), Sname char(10), 
+Ssex char(2), Sage integer, Dnum char(2), Sclass char(6))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>➢列位置互换性：区分哪一列是靠列名<br>➢行位置互换性：区分哪一行是靠某一或某几列的值(关键字/键字/码字)<br>➢关系是以内容(名字或值)来区分的，而不是属性在关系的位置来区分<br>➢如下面两个关系是完全相同的关系</p>
+<p>➢理论上：任意两个元组不能完全相同。(集合的要求：集合内不能有相同的<br>两个元素)；真实Table可能有完全相同的两行!<br>➢元组相同是指两个元组的每个分量都相同</p>
+<p><strong>属性不可再分性称为关系第一范式。</strong></p>
+<h4 id="关系模型"><a href="#关系模型" class="headerlink" title="关系模型"></a>关系模型</h4><ol>
+<li>关系模型</li>
+</ol>
+<ul>
+<li>DB数据的基本结构：Relation/Table</li>
+<li>DB数据的基本操作有：$\cup$(并, UNION)、 −(差, DIFFERENCE) 、<br>$\times$(广义积, PRODUCT)、 $\sigma$(选择, SELECTION)、 $\prod$(投影, PROJECTION)、 $\cap$(交, INTERSECTION) 、$\Join$(连接, JOIN)、 $\div$(除, DIVISION)运算</li>
+<li>DB数据的结构与操作受三个完整性的约束：实体完整性、参照完整<br>性和用户自定义的完整性</li>
+</ul>
+<ol start="2">
+<li>关系模型中的完整性</li>
+</ol>
+<p>➢ Relation/Table已在前面介绍过<br>➢ DB数据的基本操作对象是Relation/Table ，操作的结果仍然是Relation<br>/Table；<br>➢ 关系操作是集合操作，操作的对象及结果都是集合，是一次一集合(Set-at-a-time)的方式。而非关系型的数据操作方式是一次一记录(Record-at-a-time).</p>
+<ul>
+<li><p>实体完整性</p>
+<ul>
+<li>关系的主码中的属性值不能为空值；</li>
+<li>空值：不知道或无意义的值；</li>
+<li>意义：关系中的元组对应到现实世界相互之间可区分的一个个个体，这些个体是通过主码来唯一标识的；若主码为空，则出现不可标识的个体，这是不容许的。</li>
+</ul>
+</li>
+<li><p>参照完整性</p>
+<ul>
+<li>如果关系R1的外码Fk与关系R2的主码Pk相对应，则R1中的每一个元组的Fk值或者等于R2 中某个元组的Pk 值，或者为空值</li>
+<li>意义：如果关系R1的某个元组t1参照了关系R2的某个元组t2，则t2必须存在</li>
+<li>例如关系Student在D#上的取值有两种可能:<ul>
+<li>空值，表示该学生尚未分到任何系中</li>
+<li>若非空值，则必须是Dept关系中某个元组的D#值，表示该学生不可能分到一个不存在的系中</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>用户自定义完整性</p>
+<ul>
+<li>用户针对具体的应用环境定义的完整性约束条件</li>
+</ul>
+</li>
+</ul>
+<p>DBMS对关系完整性的支持</p>
+<ul>
+<li>实体完整性和参照完整性由DBMS系统自动支持</li>
+<li>DBMS系统通常提供了如下机制：<ul>
+<li>它使用户可以自行定义有关的完整性约束条件</li>
+<li>当有更新操作时，自动检验更新操作的正确性，即是否符合用户自定义的完整性</li>
+</ul>
+</li>
+</ul>
+<h3 id="关系代数与关系运算"><a href="#关系代数与关系运算" class="headerlink" title="关系代数与关系运算"></a>关系代数与关系运算</h3><h4 id="关系代数"><a href="#关系代数" class="headerlink" title="关系代数"></a>关系代数</h4><ol>
+<li>并相容性</li>
+</ol>
+<ul>
+<li>参与运算的两个关系及其相关属性之间有一定的对应性</li>
+<li>定义：关系R与关系S存在相容性，当且仅当：<ol>
+<li>关系R和关系S 的属性数目必须相同；</li>
+<li>对于任意i，关系R的第i个属性的域必须和关系S的第i个属性的域相同<br>假设：R(A1, A2, … , An) , S(B1, B2, … ,Bm)。R和S满足并相容性：n = m 并且 Domain(Ai) = Domain(Bi)</li>
+</ol>
+</li>
+</ul>
+<p>关系代数定义了一组在关系上的运算，对应于作用在数字上的普通运算，如加减法乘法。关系代数通常以一个或两个关系作为输入，返回一个关系作为输出。</p>
+<ol start="2">
+<li><p>集合操作</p>
+<ol>
+<li><p>并<br>假设关系R和关系S是并相容的，则关系R与关系S的并运算结果也是一个关系，记作：$R\cup S$, 它由或者出现在关系R中，或者出现在S中的元组构成。<br>数学描述： $R\cup S =\left\{ t | t\in R \lor t\in S \right\}$ ，其中t是元组<br>并运算是将两个关系的元组合并成一个关系，在合并时去掉重复的元组。<br>$R\cup S$ 与 $S\cup R$运算的结果是同一个关系。</p>
+</li>
+<li><p>差<br>假设关系R 和关系S是并相容的，则关系R 与关系S 的差运算结果也是一个关系，记作：R − S, 它由出现在关系R中但不出现在关系S中的元组构成。<br>数学描述： $R − S =\left\{ t | t\in R \land t \ni S \right\}$ ，其中t是元组.<br>$R − S$ 与 $S − R$ 是不同的.</p>
+</li>
+<li><p>交<br>假设关系R和关系S是并相容的，则关系R与关系S的交运算结果也是一个关系，记作：$R\cap S$, 它由同时出现在关系R和关系S中的元组构成。<br>数学描述： $R\cap S =\left\{ t | t\in R \land t\in S \right\}$ ，其中t是元组<br>$R\cap S$ 和 $S\cap R$ 运算的结果是同一个关系<br>交运算可以通过差运算来实现：$R\cap S = R − (R − S) = S − (S − R)$</p>
+</li>
+<li><p>广义笛卡尔积<br>定义：关系$R (&lt;a1, a2, …, an &gt;)$ 与关系$S(&lt;b1, b2, …, bm &gt;)$ 的广义笛卡尔积(简称广义积) 运算结果也是一个关系，记作： $R \times S$, 它由关系R中的元组与关系S的元组进行所有可能的拼接(或串接)构成。<br>数学描述： $R \times S =\left\{ &lt;a1, a2, …, an, b1, b2, …, bm&gt; |&lt;a1, a2, …, an&gt; \in R \land &lt;b1, b2, …, bm&gt; \in S \right\}$<br>$R \times S = S \times R$ ： $R \times S$为R中的每一个元组都和S中的所有元组进行串接。$S \times R$为S中的每一个元组都和R中的所有元组进行串接。结果是相同的。<br>两个关系R和S，它们的属性个数分别为n和m(R是n度关系，S是m度关系), 则笛卡尔积 $R \times S$的属性个数为n + m, 即元组的前n个分量是R中元组的分量，后m个分量是S中元组的分量($R \times S$是n+m度关系).<br>两个关系R和S，它们的元组个数分别为x和y(关系R的基数x, S的基数y),则笛卡尔积$R \times S$的元组个数为$x \times y$ ($R \times S$的基数是$x \times y$)</p>
+</li>
+</ol>
+</li>
+<li><p>纯关系操作</p>
+<ol>
+<li>选择<br>给定一个关系R, 同时给定一个选择的条件condition(简记con), 选择运算结果也是一个关系，记作$\sigma_{con}\left(R\right)$ , 它从关系R中选择出满足给定条件condition的元组构成。</li>
+</ol>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="left">符号</th>
+<th align="left">示例</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">$\sigma$选择</td>
+<td align="left">$\sigma_{salsry&gt;=85000}\left(instructor\right)$</td>
+<td align="left">返回输入关系中满足谓词的行</td>
+</tr>
+<tr>
+<td align="left">$\prod$投影</td>
+<td align="left">$\prod_{ID,salary}\left(instructor\right)$</td>
+<td align="left">对输入关系的所有行输出指定的属性。从输出中去除重复元组</td>
+</tr>
+<tr>
+<td align="left">$\Join$自然连接</td>
+<td align="left">$instructor \Join department$</td>
+<td align="left">从两个输入关系中输出这样的元组对：它们在具有相同名字的所有属性上取值相同</td>
+</tr>
+<tr>
+<td align="left">$\times$笛卡尔积</td>
+<td align="left">$instructor \times department$</td>
+<td align="left">从两个输入关系中输出所有的元组对（无论它们在共同属性上的取值是否相同）</td>
+</tr>
+<tr>
+<td align="left">$\cup$并</td>
+<td align="left">$\prod_{name}\left(instructor\right)\cup \prod_{name}\left(student\right)$</td>
+<td align="left">输出两个输入关系中元组的并</td>
+</tr>
+</tbody></table>
+<h3 id="关系查询语言"><a href="#关系查询语言" class="headerlink" title="关系查询语言"></a>关系查询语言</h3><p>查询语言：用户来从数据库中请求获取信息的语言。</p>
+<ol>
+<li>过程化语言：用户指导系统对数据库执行一系列操作以计算出所需结果。</li>
+<li>非过程化语言：用户只需要描述信息，而不用给出获取该信息的具体过程。</li>
+</ol>
 
             </div>
             <hr/>
@@ -1036,7 +1166,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">88.6k</span>&nbsp;字
+                class="white-color">90.8k</span>&nbsp;字
             
             
             
