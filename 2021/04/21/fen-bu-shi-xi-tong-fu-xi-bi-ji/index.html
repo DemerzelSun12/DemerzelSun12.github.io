@@ -409,14 +409,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    9.2k
+                    16.3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    33 分
+                    58 分
                 </div>
                 
 
@@ -466,7 +466,7 @@
 <li>防止软件执行中的超时</li>
 <li>避免性能瓶颈：设计算法避免</li>
 </ul>
-<ol start="4">
+<ol start="5">
 <li>失败处理问题:</li>
 </ol>
 <ul>
@@ -476,11 +476,11 @@
 <li>从失败处恢复：从软件层面设计，当服务器崩溃后，永久性数据可被恢复或回滚</li>
 <li>冗余组件：可通过冗余组件容忍失败。</li>
 </ul>
-<ol start="5">
+<ol start="6">
 <li>并发性：</li>
 </ol>
 <p>多线程并发使用同一资源，考虑性能表现</p>
-<ol start="6">
+<ol start="7">
 <li>透明性：</li>
 </ol>
 <ul>
@@ -493,7 +493,7 @@
 <li>性能透明性：允许重新配置系统以随负载变化而提高性能。</li>
 <li>伸缩透明性：允许系统和应用程序按比例扩展，而无需更改系统结构或应用程序算法。</li>
 </ul>
-<ol start="7">
+<ol start="8">
 <li>服务质量</li>
 </ol>
 <ul>
@@ -660,7 +660,7 @@
 <p>使用UDP不可靠地传递所有消息</p>
 <p>计算方法：对称模式下：</p>
 <p><img src="/2021/04/21/fen-bu-shi-xi-tong-fu-xi-bi-ji/NTP.jpg" alt="NTP"></p>
-<p>时延计算方法$d_i = \left(T_i - T_{i-3}\right) - \left(T_{i-1} - T_{i-2}\right)$。<br>时钟A设置时间为$T_i + o_i = T_{i-1}+ \left. d_i / \right. 2$</p>
+<p>时延计算方法$d_i = \left(T_i - T_{i-3}\right) - \left(T_{i-1} - T_{i-2}\right)$。<br>时钟A设置时间为$T_{i} + o_i = T_{i-1}+ \left. d_i / \right. 2$</p>
 <p>提升精度方法：</p>
 <ul>
 <li><p>单一来源的数据过滤</p>
@@ -721,7 +721,7 @@
 <p>根据向量时钟区分 happened-before 和 concurrent<br>定义</p>
 <ul>
 <li>$V = V’$：当$i = 1, \cdots, N$时，$V \left[i\right] = V’\left[i\right]$</li>
-<li>$V≤\le V’$：当$i = 1, \cdots, N$时，$V \left[i\right]\le V’\left[i\right]$</li>
+<li>$V\le V’$：当$i = 1, \cdots, N$时，$V \left[i\right]\le V’\left[i\right]$</li>
 <li>$V &lt; V’$：如果$V\le V’$，并且$V\ne V’$</li>
 <li>$V\left(e\right)$：事件e的时间戳向量</li>
 </ul>
@@ -744,7 +744,7 @@
 <ol start="4">
 <li>全序组播</li>
 </ol>
-<p>对于m1 ||m2，所有接收者都必须以相同的顺序接收m1和m2（即m2之前的所有m1或m1之前的所有m2）。</p>
+<p>对于m1 || m2，所有接收者都必须以相同的顺序接收m1和m2（即m2之前的所有m1或m1之前的所有m2）。</p>
 <h2 id="五、互斥算法-amp-选举算法"><a href="#五、互斥算法-amp-选举算法" class="headerlink" title="五、互斥算法 &amp; 选举算法"></a>五、互斥算法 &amp; 选举算法</h2><h3 id="5-1-互斥算法"><a href="#5-1-互斥算法" class="headerlink" title="5.1 互斥算法"></a>5.1 互斥算法</h3><h4 id="5-1-1-集中式算法"><a href="#5-1-1-集中式算法" class="headerlink" title="5.1.1 集中式算法"></a>5.1.1 集中式算法</h4><p>模拟单处理器系统，一个进程当选为协调员。</p>
 <p>步骤：</p>
 <ol>
@@ -845,7 +845,7 @@
 <p>与Ricart-Agrawala的区别：</p>
 <ul>
 <li>每个人都做出回应（acks）…总是-没有阻碍</li>
-<li>流程根据其请求是否是其队列中的最早者来决定是否进行</li>
+<li>进程根据其请求是否是其队列中的最早者来决定是否进行</li>
 </ul>
 <p>释放关键部分</p>
 <ul>
@@ -889,9 +889,9 @@
 </ul>
 <h4 id="5-2-2-环选举算法"><a href="#5-2-2-环选举算法" class="headerlink" title="5.2.2 环选举算法"></a>5.2.2 环选举算法</h4><p>流程安排</p>
 <ul>
-<li>如果有任何过程检测到协调器故障<ul>
+<li>如果有任何进程检测到协调器故障<ul>
 <li>构造带有进程ID的选举消息并发送到下一个进程</li>
-<li>如果后继者失败，请跳过</li>
+<li>如果后继者失败，跳过</li>
 <li>重复直到找到正在运行的进程</li>
 </ul>
 </li>
@@ -918,7 +918,7 @@
 </ul>
 </li>
 <li>如果PID（消息）&lt; PID（进程）<ul>
-<li>用PID（消息）替换消息中的PID</li>
+<li>用PID（进程）替换消息中的PID</li>
 <li>转发新消息–我们的ID号更高； 用它</li>
 </ul>
 </li>
@@ -971,7 +971,7 @@
 <li>检测和处理客户端/服务器进程和网络的故障</li>
 </ul>
 <p>RPC工作流程：</p>
-<p>对于服务接口中的每个方法,访问服务的客户端包含了一个存根过程( stub procedure)。该存根过程的行为对客户端来说就像一个本地过程，但不执行调用。存根过程把过程标识符和参数编码成一个请求消息。该请求消息通过它的通信模块发送给服务器。当应答消息返回时，它将对结果进行解码。对于服务接口中的每个方法，服务器端包含分发器程序、服务器存根过程和服务过程。该分发器程序根据请求消息中的过程标识符选择一个服务器存根过程。该服务器存根过程对请求消息中的参数解码，然后调用相应的服务过程,并把返回值编码成应答消息服务过程是服务接口中过程的具体实现。客户和服务器的存根过程及分发器程序可以通过接口编译器从服务的接口定义中自动生成。</p>
+<p>对于服务接口中的每个方法，访问服务的客户端包含了一个存根过程( stub procedure)。该存根过程的行为对客户端来说就像一个本地过程，但不执行调用。存根过程把过程标识符和参数编码成一个请求消息。该请求消息通过它的通信模块发送给服务器。当应答消息返回时，它将对结果进行解码。对于服务接口中的每个方法，服务器端包含分发器程序、服务器存根过程和服务过程。该分发器程序根据请求消息中的过程标识符选择一个服务器存根过程。该服务器存根过程对请求消息中的参数解码，然后调用相应的服务过程,并把返回值编码成应答消息服务过程是服务接口中过程的具体实现。客户和服务器的存根过程及分发器程序可以通过接口编译器从服务的接口定义中自动生成。</p>
 <ol>
 <li>客户端调用存根过程，将参数压栈。Client calls stub (push parameters onto stack)</li>
 <li>客户端的存根过程将过程标识符和参数编码成一个请求消息，并调用操作系统<strong>中断</strong>，请求发送消息。Clnt_stub marshals parameters to message &amp; makes an OS call (client blocked)</li>
@@ -980,7 +980,7 @@
 <li>服务器存根过程对请求消息中的参数解码，然后调用相应的服务过程。Svr-stub unmarshals parameters &amp; calls service routine (local call)</li>
 <li>服务过程将返回结果传递给服务器存根过程。Return to the stub from service routine</li>
 <li>服务器存根过程封装消息并调用操作系统请求发送消息。Svr_stub marshals return-value &amp; requests OS to send out message</li>
-<li>数据在网络 上传输。Transfer message over network</li>
+<li>数据在网络上传输。Transfer message over network</li>
 <li>客户端存根过程接收消息，<strong>恢复进程</strong>。Deliver message to client (unblock client)</li>
 <li>客户端存根过程将返回值返回客户端程序。Clnt_stub unmarshals return-value &amp; returns to client program…</li>
 </ol>
@@ -1244,6 +1244,510 @@
 <p>坏处：</p>
 <ul>
 <li>浪费在网络上，浪费在路由器上的多余状态和数据包重复</li>
+</ul>
+<h2 id="十、一致性和复制"><a href="#十、一致性和复制" class="headerlink" title="十、一致性和复制"></a>十、一致性和复制</h2><h3 id="10-1-以数据为中心的一致性模型"><a href="#10-1-以数据为中心的一致性模型" class="headerlink" title="10.1 以数据为中心的一致性模型"></a>10.1 以数据为中心的一致性模型</h3><ol>
+<li>严格一致性</li>
+</ol>
+<p>对数据项x的任何读取都将返回一个值，该值对应于对x的最新写入的结果。如果两个操作在相同的时间间隔内发生冲突，则表示它们在同一数据上进行操作，并且其中之一是写操作。</p>
+<p>严格的一致性是理想的模型，但是不可能在分布式系统中实现，因为它基于绝对的全局时钟。</p>
+<ol start="2">
+<li>线性一致性</li>
+</ol>
+<p>基本的想法是让一个系统看起来好像只有一个数据副本，而且所有的操作都是原子性的(线性一致寄存器的行为就好像只有单个数据副本一样，且每个操作似乎都是在某个时间点以原子性的方式生效的)。</p>
+<p>一旦新的值被写入或读取，所有后续的读都会看到写入的值，直到它被再次覆盖。</p>
+<ol start="3">
+<li>顺序一致性</li>
+</ol>
+<ul>
+<li>一个线程中的所有操作必须按照程序的顺序来执行。</li>
+<li>（不管程序是否同步）所有线程都只能看到一个单一的操作执行顺序。在顺序一致性内存模型中，每个操作都必须原子执行且立刻对所有线程可见。</li>
+</ul>
+<p>在概念上，顺序一致性模型有一个单一的全局内存，这个内存通过一个左右摆动的开关可以连接到任意一个线程。同时，每一个线程必须按程序的顺序来执行内存读/写操作。</p>
+<ol start="4">
+<li>因果一致性</li>
+</ol>
+<p>当在读取之后进行写入时，这两个事件可能是因果相关的。没有因果关系的操作被称为并发。</p>
+<p>必要条件：可能因果相关的写入必须以相同顺序在所有进程中看到。 在不同的机器上，并发写入的顺序可能不同。</p>
+<ol start="5">
+<li>先入先出一致性</li>
+</ol>
+<p>放宽一致性要求，我们消除了因果关系</p>
+<p>必要条件：由单个进程完成的写入将按发布的顺序被所有其他进程看到，但是来自不同进程的写入可能会被不同进程以不同的顺序看到。</p>
+<p>由不同进程生成的所有写入均被视为并发。易于实现。</p>
+<p>单个进程对数据操作顺序化，不同进程之间的值看不到。</p>
+<ol start="6">
+<li>弱一致性</li>
+</ol>
+<p>我们可以在所看到的相同过程中释放写入的要求，以便在各处引入同步变量。<br>同步操作将同步数据存储的所有本地副本。<br>弱一致性的属性：</p>
+<ul>
+<li>对与数据存储关联的同步变量的访问顺序一致</li>
+<li>直到在所有地方完成所有先前的写操作后，才允许对同步变量执行任何操作</li>
+<li>在对同步变量进行所有先前的操作之前，不允许对数据项执行读或写操作。</li>
+</ul>
+<p>它强制对一组操作进行一致性，而不是对单个写入和读取进行一致性<br>它限制了保持一致性的时间，而不是一致性的形式。</p>
+<ol start="7">
+<li>释放一致性</li>
+</ol>
+<p>获取操作以告知正在输入关键区域，当要退出关键区域时释放操作。</p>
+<p>规则：</p>
+<ul>
+<li>在对共享数据执行读或写操作之前，该进程完成的所有先前获取必须已成功完成。</li>
+<li>在允许执行发布之前，必须完成该进程的所有先前读取和写入操作</li>
+<li>对同步变量的访问是FIFO一致的（不需要顺序一致）。</li>
+</ul>
+<p>需要明确的获取和发布调用</p>
+<ol start="8">
+<li>入口一致性</li>
+</ol>
+<p>每个数据项均有访问锁和释放锁，只要进入锁，就读取最新值。</p>
+<p>条件：</p>
+<ul>
+<li>直到针对该过程执行了对受保护共享数据的所有更新之前，不允许对该过程执行同步变量的获取访问。</li>
+<li>在相对于该进程允许以独占模式访问某个进程的同步变量之前，没有其他进程可以保存该同步变量，即使在非独占模式下也是如此。</li>
+<li>在执行了对同步变量的排他模式访问之后，直到对该变量的所有者执行了该同步变量的任何其他进程的下一个非排他模式访问，才可以执行该同步变量。</li>
+</ul>
+<p>总结</p>
+<table>
+<thead>
+<tr>
+<th align="center">一致性</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">严格一致性</td>
+<td align="left">所有共享访问权限的绝对时间排序</td>
+</tr>
+<tr>
+<td align="center">线性一致性</td>
+<td align="left">所有进程必须以相同顺序查看所有共享访问。此外，还根据（非唯一的）全局时间戳对访问进行排序</td>
+</tr>
+<tr>
+<td align="center">顺序一致性</td>
+<td align="left">所有进程以相同顺序查看所有共享访问，访问不按照时间顺序进行</td>
+</tr>
+<tr>
+<td align="center">因果一致性</td>
+<td align="left">所有进程以相同的顺序查看因果相关的共享访问</td>
+</tr>
+<tr>
+<td align="center">FIFO一致性</td>
+<td align="left">所有进程按使用顺序相互查看写操作。来自不同进程的写入可能并不总是按该顺序显示</td>
+</tr>
+<tr>
+<td align="center">弱一致性</td>
+<td align="left">只有完成同步后，共享数据才能保持一致</td>
+</tr>
+<tr>
+<td align="center">释放一致性</td>
+<td align="left">退出关键区域时，共享数据将保持一致</td>
+</tr>
+<tr>
+<td align="center">入口一致性</td>
+<td align="left">输入关键区域时，与关键区域有关的共享数据将保持一致。</td>
+</tr>
+</tbody></table>
+<h3 id="10-2-以客户端为中心的一致性模型"><a href="#10-2-以客户端为中心的一致性模型" class="headerlink" title="10.2 以客户端为中心的一致性模型"></a>10.2 以客户端为中心的一致性模型</h3><p>客户端通常使用本地副本访问分布式数据存储。更新最终会传播到其他副本。</p>
+<p>单调读</p>
+<ul>
+<li>如果某个进程读取了数据项x的值，则该进程对x进行的任何后续读取操作都将始终返回相同的值或更新的值</li>
+</ul>
+<p>单调写</p>
+<ul>
+<li>在通过同一进程对某个数据项x进行任何连续的写操作之前，已完成对x进行的写操作。</li>
+</ul>
+<p>读的是自己写的结果</p>
+<ul>
+<li>进程对数据项x的写操作的结果将始终被同一进程对x的连续读取操作看到</li>
+</ul>
+<p>写之后才读</p>
+<ul>
+<li>保证在相同的进程对x的先前读取操作之后，进程对数据项x的写操作将在相同或更新的x值上进行</li>
+</ul>
+<h3 id="10-3-一致性协议"><a href="#10-3-一致性协议" class="headerlink" title="10.3 一致性协议"></a>10.3 一致性协议</h3><ol>
+<li><p>主动协议<br>任何一个数据项x都有一个主服务器作为协调者，协调对x的写操作。需满足顺序一致性。</p>
+</li>
+<li><p>复制写协议<br>任何写操作都可以在多个服务器上操作。每个副本都有一个执行更新操作的关联过程。通过导致更新的写操作来传播更新。升级需要维护操作顺序（Lamport时间戳或协调器）；<br>复制调用的问题：同一对象的多次调用会产生错误。<br><strong>客户端在访问数据之前请求并获得多台服务器的许可</strong><br>$N_R+N_W \ge , N_W \ge \left . N / 2\right .$<br>投票算法的三个示例：</p>
+<ul>
+<li>正确选择读写集</li>
+<li>可能导致写-写冲突的选择（$N_W = \left . N / 2\right .$）</li>
+<li>正确的选择，称为ROWA（读一次，全部写）</li>
+</ul>
+</li>
+<li><p>高速缓存相关协议<br>可以根据不同的参数分析缓存</p>
+<ul>
+<li><p>相干检测策略（何时）</p>
+<ul>
+<li>在访问缓存数据之前进行一致性验证</li>
+<li>无验证：假定数据一致</li>
+<li>使用缓存数据后进行验证</li>
+</ul>
+</li>
+<li><p>一致性执行策略（方法）</p>
+<ul>
+<li>没有缓存的共享数据（仅在服务器上）</li>
+<li>服务器将无效消息发送到所有缓存</li>
+<li>服务器传播更新</li>
+</ul>
+</li>
+<li><p>直写式缓存</p>
+<ul>
+<li>客户端修改缓存的数据并将更新转发到服务器</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="十一、Unix-文件系统"><a href="#十一、Unix-文件系统" class="headerlink" title="十一、Unix 文件系统"></a>十一、Unix 文件系统</h2><ol>
+<li>每个文件都有一个索引节点：</li>
+</ol>
+<p>文件属性和数据索引：</p>
+<ul>
+<li>文件属性：<ul>
+<li>所有者，访问权限，访问时间，文件大小</li>
+<li>共12字节</li>
+</ul>
+</li>
+<li>资料索引：<ul>
+<li>13个索引：10个直接索引，1个间接索引，1个二级间接索引，1个三级间接索引</li>
+<li>13 * 4 = 52字节</li>
+</ul>
+</li>
+<li>索引节点的大小= 64字节。<br>一个索引节点由其索引节点＃引用</li>
+</ul>
+<ol start="2">
+<li>目录文件</li>
+</ol>
+<p>是由将名称映射到索引节点编号的条目组成的普通文件，例如目录文件   /etc<br>在BSD4.3之后，文件名的长度可变（最多255个字节）。每个条目都有条目长度，名称和索引节点号。</p>
+<ol start="3">
+<li>目录结构和名称解析</li>
+</ol>
+<p>目录结构是树形结构，从根（或相对）目录中逐个部分递归地将路径名解析为索引节点编号。</p>
+<p>e.g: /home/lec/jia/unix-fs.doc<br>a）从“/”的inode ＃3开始加载 “/” 的inode<br>b）读取目录文件“ /”的内容：<br>  1368 bin/ 1478 lib/ 233756 rpool/ 2484 boot/ 1486 mnt/<br>  1489 sbin/ 1369 dev/ 154559 net/ 1494 system/ 2818 devices/<br>   6 export/ 2429 platform/ 5 var/ 27376 home/ …………………<br>c）映射 “home” $\rightarrow$ inode ＃27376 $\rightarrow$ load inode 27376<br>d）读取目录文件 “/home”：<br>     94171 bsft08/ 93753 course/ 231 lec/ 94363 ms10/<br>     55531 bsft09/ 94125 cslab/ 94239 misc/ 91159 ms11/ ……<br>e）映射 “lec” $\rightarrow$ 索引节点 231 $\rightarrow$ 加载索引节点231<br>f）重复上述步骤，直到映射 “unix-fs.doc” $\rightarrow$ inode＃</p>
+<p><strong>共访问8次</strong>，斜线个数+节点个数</p>
+<ol start="4">
+<li>超级块</li>
+</ol>
+<p>每个文件系统都有一个超级块，其中包含：</p>
+<ul>
+<li>文件系统的大小</li>
+<li>系统中的空闲块数</li>
+<li>缓存的空闲块号数组</li>
+<li>下一个空闲块号的索引</li>
+<li>指向i节点区域开始的指针</li>
+<li>系统中空闲的i节点数</li>
+<li>缓存的空闲i节点编号列表</li>
+<li>下一个空闲索引节点编号的索引</li>
+</ul>
+<p><strong>系统启动时，必须将根文件系统的超级块（通常是一个磁盘块）加载到内存中。</strong></p>
+<ol start="5">
+<li>名称解析</li>
+</ol>
+<ol start="6">
+<li>从硬盘中读取到缓存中步骤</li>
+</ol>
+<p>读取文件数据的步骤：<br>read（fp，n，buf）<br>fp$\rightarrow$指向文件表中条目的指针，获取偏移量<br>$\rightarrow$指向inode表中条目的指针<br>$\rightarrow$获取数据的 block #<br>$\rightarrow$将 block # 转换为head, cylinker, sector<br>$\rightarrow$要求磁盘控制器读入数据并将n个字节复制到buf中</p>
+<ol start="7">
+<li>挂载</li>
+</ol>
+<pre class="line-numbers language-bash"><code class="language-bash">mount<span class="token punctuation">(</span>dev_name, dir_name, options<span class="token punctuation">)</span><span class="token punctuation">;</span>
+umount<span class="token punctuation">(</span>dev_name<span class="token punctuation">)</span>
+
+e.g., mount<span class="token punctuation">(</span>“/dev/dsk1”, “/usr”, 0<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="8">
+<li>链接文件</li>
+</ol>
+<pre class="line-numbers language-bash"><code class="language-bash">link<span class="token punctuation">(</span>sour_fname, dest_fname<span class="token punctuation">)</span>
+e.g. link<span class="token punctuation">(</span>“usr/src/uts/sys”, “/usr/include/sys”<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>文件系统首先找到源文件的索引节点号。<br>然后，它搜索dest_fname的父目录。<br>它在dest文件的父目录中添加一个条目），并填写dest_fname和inode＃对。<br>注意：链接不能跨文件系统。</p>
+<h2 id="十二、分布式文件系统"><a href="#十二、分布式文件系统" class="headerlink" title="十二、分布式文件系统"></a>十二、分布式文件系统</h2><ol>
+<li><p>分布式文件系统目标</p>
+<ul>
+<li>位置透明：不包含文件物理位置信息的统一文件名空间。</li>
+<li>并发透明性：一个用户的文件操作不会受到其他用户的干扰。</li>
+<li>故障透明性：当系统的一部分出现故障时，系统的其余部分仍然可以提供文件服务。</li>
+<li>异构性：可以在不同的操作系统和通信协议之间进行互操作。</li>
+<li>可伸缩性：随着系统规模的扩大，系统性能不会降低。</li>
+</ul>
+</li>
+<li><p>DFS 组成</p>
+<ul>
+<li>平面文件服务：提供一组简单的常规操作，以访问文件的属性和数据，并由UFID索引。</li>
+<li>目录服务：将文本名称映射到UFID。</li>
+<li>客户端模块：允许在单个应用程序编程界面下访问文件和目录服务。</li>
+</ul>
+</li>
+</ol>
+<p>状态保持由客户端负责；服务器的目录服务保存文件的树形存储结构，服务器端的索引与文件分离，是无状态的</p>
+<ol start="3">
+<li><p>DFS与本地文件系统区别</p>
+<ul>
+<li>文件服务和目录服务的分离：<ul>
+<li>文件服务变得更加通用，目录服务的设计可以更加灵活。</li>
+<li>它从文件服务器上卸载目录服务。</li>
+</ul>
+</li>
+<li>DFS中的无状态服务器：<ul>
+<li>文件服务器的工作非常简单，将大部分工作留给了客户端模块。</li>
+<li>服务器可以有效地从故障中恢复，而无需恢复客户端的状态。</li>
+<li>客户端模块模拟传统的FS接口。</li>
+</ul>
+</li>
+<li>可重复的操作<ul>
+<li>文件操作是幂等的，允许使用至少一次的RPC语义。</li>
+<li>创建操作是例外的（但对用户没有副作用）。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>文件表示</p>
+</li>
+</ol>
+<p>每个文件都使用索引块（类似于UNIX中的i节点）来指向数据块（或索引块的另一层）。<br>通过使用UFID可以找到索引块。 UFID可以组织为B树结构以进行有效搜索。<br>从UFID到对应索引块的映射存储在磁盘中，并且映射可能太大而无法一次存储在内存中。<br>服务器的位置（文件组ID）嵌入在UFID中。 在进行RPC进行文件访问之前，客户端需要知道服务器的位置。 可以通过以下对任何服务器的RPC来完成此操作：<br>端口ID = GetServerPort（FileGroupID）</p>
+<ol start="5">
+<li>文件删除</li>
+</ol>
+<p>由于目录服务器与文件服务器的分离，某些目录链接已被删除的文件可能会保留在磁盘中，并且永远不会被访问。<br>在大多数系统中，该问题都被忽略或避免。<br>  一种“终生”方法旨在解决该问题：<br>目录服务器会定期轮循所有文件，即为在目录服务器上注册的所有文件设置生命周期。<br>文件服务器以一定的时钟速率减少所有文件的生存时间，对文件的每次访问都会更新其生存期。<br>寿命为0的文件将被删除（无法访问）。</p>
+<ol start="6">
+<li>客户端挂载服务</li>
+</ol>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">mount</span> <span class="token punctuation">[</span> -F nfs<span class="token punctuation">]</span> <span class="token punctuation">[</span>generic_options<span class="token punctuation">]</span> <span class="token punctuation">[</span>-o specific_options<span class="token punctuation">]</span>  <span class="token punctuation">[</span>-O<span class="token punctuation">]</span> resource mount_point
+mountall <span class="token punctuation">[</span>-F FSType<span class="token punctuation">]</span> <span class="token punctuation">[</span>-l <span class="token operator">|</span> -r<span class="token punctuation">]</span>  <span class="token punctuation">[</span>file_system_table<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>挂载过程在路径名位置mount_point处将命名目录附加到文件系统层次结构。<br>/ etc / vfstab：每个文件系统的默认参数列表。<br>每个条目均包含以空格分隔的字段：<br>要安装的设备，要fsck的设备，安装点，FS类型，fsck pass，在引导时安装，安装选项。<br>那些在mount-at-boot字段为“ yes”的文件系统会在安装时由mountall自动安装<br>/ etc / mnttab：当前已挂载的文件系统的记录。<br>每个条目均包含由TAB分隔的字段：<br>特殊，mount_point，fstype，选项，时间</p>
+<h2 id="十三、事务处理系统"><a href="#十三、事务处理系统" class="headerlink" title="十三、事务处理系统"></a>十三、事务处理系统</h2><h3 id="13-1-原子事务"><a href="#13-1-原子事务" class="headerlink" title="13.1 原子事务"></a>13.1 原子事务</h3><p>原子事务：一系列数据访问操作，在以下意义上是原子的：</p>
+<ul>
+<li>all or nothing</li>
+<li>可序列化</li>
+</ul>
+<p>RM-ODP中事务的ACID属性：<br>原子性 atomicity<br>一致性 consistency<br>隔离性 isolation<br>耐用性 durability</p>
+<h3 id="13-2-事务原子性解决方法"><a href="#13-2-事务原子性解决方法" class="headerlink" title="13.2 事务原子性解决方法"></a>13.2 事务原子性解决方法</h3><ol>
+<li>故障恢复（保证 nothing or all）</li>
+</ol>
+<ul>
+<li>意图列表</li>
+<li>影子版本</li>
+</ul>
+<ol start="2">
+<li>并发控制（保证可序列化）</li>
+</ol>
+<ul>
+<li>两阶段锁</li>
+<li>时间戳顺序</li>
+<li>乐观并发控制</li>
+</ul>
+<h3 id="13-3-故障恢复方法"><a href="#13-3-故障恢复方法" class="headerlink" title="13.3 故障恢复方法"></a>13.3 故障恢复方法</h3><p>事务的执行分为两个阶段：</p>
+<ul>
+<li>暂时阶段，执行事务主体</li>
+<li>确认阶段，使暂定值永久不变</li>
+</ul>
+<p>使事务故障可恢复：</p>
+<ul>
+<li>将暂定的数据值保留在磁盘上，以免发生故障</li>
+<li>从失败重新启动时恢复数据项（恢复操作应该是幂等的）</li>
+<li>使提交阶段可重复</li>
+</ul>
+<h4 id="13-3-1-意图列表"><a href="#13-3-1-意图列表" class="headerlink" title="13.3.1 意图列表"></a>13.3.1 意图列表</h4><p>使用意向列表进行的事务操作：</p>
+<ul>
+<li>Twrite将数据写入意图列表。</li>
+<li>Tread从意图列表中读取数据（如果存在）。</li>
+<li>CloseTrans在意图列表中对数据库文件（或恢复文件）执行操作。</li>
+</ul>
+<p>恢复管理器：服务器从故障中重新启动时调用的程序（服务器的一部分）。<br>恢复文件：恢复管理器用来将数据库恢复到一致性状态的文件。对于一个事务，文件的每个条目都包含以下信息：</p>
+<ul>
+<li>Tid</li>
+<li>事务状态</li>
+<li>意图列表</li>
+</ul>
+<h4 id="13-3-2-影子版本"><a href="#13-3-2-影子版本" class="headerlink" title="13.3.2 影子版本"></a>13.3.2 影子版本</h4><p>当事务修改文件或数据项时，它会创建文件的影子（暂定）版本。<br>随后的Twrite / Tread 在影子版本上执行。<br>在closeTrans处，它检测与其他并发事务的版本是否冲突（通过并发控制完成）。<br>如果没有冲突，则将影子版本与已经提交的其他并发版本合并；否则将舍弃此更改。</p>
+<p>在事务的第一个Twrite时创建文件索引块的副本。<br>每个Twrite操作都会创建影子页面。 修改页的索引条目指向影子页。<br>事务提交时，原始文件索引块被新文件索引块替换（这是幂等操作）。</p>
+<h3 id="13-4-并发控制"><a href="#13-4-并发控制" class="headerlink" title="13.4 并发控制"></a>13.4 并发控制</h3><h4 id="13-4-1-事务的可序列化"><a href="#13-4-1-事务的可序列化" class="headerlink" title="13.4.1 事务的可序列化"></a>13.4.1 事务的可序列化</h4><p>冲突的操作：两项操作访问相同的数据项，其中一项被写入。<br>冲突的事务：两个事务中有冲突的操作。</p>
+<p>事务T1和T2的可序列化性：<br>T1$\rightarrow$T2，如果任意两个冲突的操作 $op_{1i}\in T_1, op_{2j} \in T_2$ ：$op_{1i} \rightarrow op_{2i}$。</p>
+<p>事务的可序列化性：<br>一组事务T1 T2，…，Tm的执行等同于按顺序执行它们，即$T_{i1}\rightarrow T_{i2}\rightarrow , \cdots, T_{im}$</p>
+<p>注意：一般而言，可序列化性是数据库一致性的最低要求。</p>
+<h4 id="13-4-2-两阶段锁"><a href="#13-4-2-两阶段锁" class="headerlink" title="13.4.2 两阶段锁"></a>13.4.2 两阶段锁</h4><p>第一阶段：获取锁。<br>第二阶段：释放锁。<br>当事务开始释放锁时，它不能再申请锁。</p>
+<p>锁管理器：服务器程序的模块。它维护服务器数据项的锁表。<br>锁表中的每个条目都具有：</p>
+<ul>
+<li>事务编号</li>
+<li>数据项ID</li>
+<li>锁类型</li>
+<li>条件变量（等待等待解锁的客户端的队列）</li>
+</ul>
+<p>锁管理器提供两种操作：<br>lock（trans，dataItem，lockType）<br>unlock（trans），向条件变量发出信号<br>lock和unlock操作必须是原子的</p>
+<p>两相锁定中可能会发生死锁</p>
+<p>死锁的预防和处理：<br>在事务开始时锁定事务访问的所有数据项。<br>设置等待锁定的超时时间。</p>
+<p>锁定的优点：<br>没有中止并重新启动。<br>易于理解和实施。</p>
+<p>缺点：<br>悲观。<br>效率低下（锁定成本和客户端等待锁定的成本）。<br>死锁。</p>
+<h4 id="13-4-3-时间戳"><a href="#13-4-3-时间戳" class="headerlink" title="13.4.3 时间戳"></a>13.4.3 时间戳</h4><p>时间戳顺序的可序列化性：事务按其开始时间（openTrans）的顺序进行序列化。</p>
+<p>重要时间戳记：<br>每个事务在开放时都会分配一个唯一的时间戳T（也用作TID）。<br>每个数据项都有一个写入时间戳（wt）和一个读取时间戳（rt）。</p>
+<p>读取/写入操作：将事务的时间戳记T与数据的rt和wt进行比较，以确定操作是否可以继续进行。<br>读取规则：<br>仅当数据项是由较早的事务最后写入时，事务T才能读取该数据项。<br>如果接受对T的读取，则T成为数据的暂定rt（如果T&gt; rt）。<br>写入规则：<br>仅当数据由较早的事务最后一次读写时，事务T才能写入数据。<br>当接受T的写入时，将使用时间戳T创建数据的暂定版本；<br>提交阶段：<br>当T提交时，其暂定版本的数据和暂定rt成为永久性；<br>如果T中止，则删除T创建的所有临时数据和rts。</p>
+<p>暂定值（包括数据对象的暂定rt）的提交必须等待较早事务的暂定值的提交。<br>事务仅等待较早的事务，从而避免了死锁。</p>
+<p>注意：所有事务都按照它们开始时的时间顺序进行序列化（openTrans）。</p>
+<p>好处：<br>没有死锁。<br>坏处：<br>额外空间的存储时间戳。<br>可能中止并重新启动。<br>长时间的事务可能会阻止其他事务。</p>
+<h4 id="13-4-4-多版本时间戳排序"><a href="#13-4-4-多版本时间戳排序" class="headerlink" title="13.4.4 多版本时间戳排序"></a>13.4.4 多版本时间戳排序</h4><p>服务器将旧的提交版本（版本历史记录）以及临时版本保留在数据版本列表中。<br>读到太迟的内容不必拒绝。 它返回版本最大的wt小于事务的数据。 读取仍然需要等待暂定版本提交/中止。<br>写入操作之间没有冲突，bcs每个事务都在其自己的数据版本上进行写入。 但是，如果以后的事务读取了数据，则写入将被拒绝。<br>如果提交不从较早版本中读取数据，则无需等待较早的事务（bcs多个版本可以共存）。</p>
+<h3 id="13-5-乐观并发控制"><a href="#13-5-乐观并发控制" class="headerlink" title="13.5 乐观并发控制"></a>13.5 乐观并发控制</h3><p>基础：两次交易发生冲突的可能性很小。事务可以进行，就好像根本没有冲突一样。</p>
+<p>事务具有三个阶段：暂定，校验阶段和提交阶段。</p>
+<p>暂定阶段：读取和写入将立即返回（写入是暂定版本）。记录事务的读集（RS）和写集（WS）。<br>校验阶段：检测与其他并发事务的冲突并确定提交/中止的结果。<br>提交阶段：提交事务产生的暂定值。<br><strong>注意：事务按其关闭时间的顺序进行序列化。</strong></p>
+<p>验证Ti时，系统会检查与Ti并发的每个Tj（即Ti开始在Tj的开始和结束之间）。</p>
+<ol>
+<li><p>顺序验证（在试验阶段重叠）：<br>$ WS(T_j) \cap RS(T_i)=\varnothing $</p>
+</li>
+<li><p>并发验证（验证/提交阶段中的重叠）：<br>$ WS(T_j) \cap (RS(T_i)\cup WS(T_i))=\varnothing $<br>（如果$ WS(T_j) \cup WS(T_i)\ne \varnothing $，Tj可能会由于并发提交而覆盖Ti的数据）</p>
+</li>
+</ol>
+<p>无论哪种情况，Tj和Ti都等于Tj$\rightarrow$Ti。</p>
+<p>当Ti进入验证时，记录时间finish_t，复制validation_set，然后将Ti添加到validation_set中。</p>
+<p>在临时阶段，commit_t在Ti的start_t和finish_t之间的事务在尝试阶段是并发的，而在验证阶段是与Ti进行的串行的。</p>
+<p>validate_set中的事务在验证阶段与Ti并发。</p>
+<p>如果Ti通过验证，它将进入写入阶段。<br>记录Ti的commit_t并将Ti从validation_set中删除。</p>
+<p>分析乐观并发控制</p>
+<ul>
+<li>可序列化<ul>
+<li>事务按照关闭时的时间顺序进行序列化。</li>
+</ul>
+</li>
+<li>饥饿问题<ul>
+<li>（长）事务可能会一次又一次中止。</li>
+</ul>
+</li>
+<li>优势<ul>
+<li>乐观（高并发）。</li>
+<li>没有死锁。</li>
+<li>事务不会被其他进程阻止。</li>
+</ul>
+</li>
+<li>坏处：<ul>
+<li>复杂化。</li>
+<li>饥饿问题。</li>
+<li>存在中止并重新启动现象。</li>
+</ul>
+</li>
+</ul>
+<h3 id="13-6-总结并发控制方法"><a href="#13-6-总结并发控制方法" class="headerlink" title="13.6 总结并发控制方法"></a>13.6 总结并发控制方法</h3><p>两阶段锁定：</p>
+<ul>
+<li>访问之前锁定数据项。</li>
+<li>获取锁保证顺序序列化。</li>
+<li>没有中止并重新启动。</li>
+</ul>
+<p>时间戳顺序：</p>
+<ul>
+<li>访问之前，请检查数据项的时间戳。</li>
+<li>按照开始时间的顺序进行序列化。</li>
+<li>在执行期间中止。</li>
+</ul>
+<p>乐观的方法：</p>
+<ul>
+<li>在结束时进行验证。</li>
+<li>按照关闭时间的顺序进行序列化。</li>
+<li>验证时不符合则舍弃。</li>
+</ul>
+<h2 id="十四、网络搜索技术"><a href="#十四、网络搜索技术" class="headerlink" title="十四、网络搜索技术"></a>十四、网络搜索技术</h2><ol>
+<li>网络搜索结构</li>
+</ol>
+<p><img src="/2021/04/21/fen-bu-shi-xi-tong-fu-xi-bi-ji/%E7%BD%91%E7%BB%9C%E6%90%9C%E7%B4%A2%E7%BB%93%E6%9E%84.jpg" alt="网络搜索结构"></p>
+<ol start="2">
+<li>Spiders</li>
+</ol>
+<p>自动检索网页</p>
+<ul>
+<li><p>以URL开头，检索网页</p>
+</li>
+<li><p>在网页上查找所有URL，然后递归检索尚未搜索的URL<br>算法问题</p>
+</li>
+<li><p>效率和质量：如何快速收集尽可能多的有用网页？</p>
+</li>
+<li><p>如何选择下一个网址？</p>
+</li>
+<li><p>如何避免子网过载？</p>
+</li>
+</ul>
+<ol start="3">
+<li>索引</li>
+</ol>
+<p>选择术语（关键字）为文档建立索引，需要网页作者通过Meta标签（在html文件中的Title标签旁边）进行合作，以指明要索引的特定术语</p>
+<p>算法问题：</p>
+<ul>
+<li>如何选择术语/短语来为文档建立索引，以便可以准确，有效地返回用户查询</li>
+<li>如何索引以不同类型编码的文档（多媒体数据检索）</li>
+</ul>
+<ol>
+<li>数据库</li>
+</ol>
+<p>结构化数据（请参阅Google Bigtable）<br>Bigtable：用于结构化数据的分布式存储系统，CACM，2008年6月<br>并行搜索和分布式存储</p>
+<p>算法问题：</p>
+<ul>
+<li>数据分区和分布式存储：在数以千计的服务器中存储PB级数据</li>
+<li>实时数据检索和更新（短延迟）</li>
+<li>容错（数据冗余）</li>
+</ul>
+<ol start="5">
+<li><p>搜索引擎</p>
+</li>
+<li><p>互联网信息检索的难点</p>
+</li>
+</ol>
+<p>多元化的用户（从外行到计算机书呆子）。<br>可以开发一个适应用户的不断发展的系统吗？</p>
+<p>语言表达的歧义：<br>由于互联网上数据的多样性，这是一个重要的问题<br>如何收集和应用用户配置文件技术来解决该问题？<br>虚假信息：网上诱骗，垃圾邮件，误导性广告</p>
+<ol start="7">
+<li>Spider架构</li>
+</ol>
+<p><img src="/2021/04/21/fen-bu-shi-xi-tong-fu-xi-bi-ji/Spider.jpg" alt="Spider架构"></p>
+<ol start="8">
+<li>Digraph</li>
+</ol>
+<p>节点：网页（其地址为URL）<br>有向边：从一个网页到另一网页的超链接<br>节点内容：对应网页的内容<br>有向图的动态性质：<br>对于某些节点，有一些我们尚不知道的外向边缘。<br>尚未处理的节点（不知道其内容）<br>新的边缘（超链接）可能已添加到某些节点<br>对于所有节点，都有一些我们尚不知道的传入边缘。</p>
+<p>没有超级链接的中央控制，每个搜索引擎只能映射整个网站空间的一小部分<br>超级链接由各个网页作者动态添加和删除<br>没有网页知道其传入的超链接<br>某些搜索引擎未记录某些网页</p>
+<ol start="9">
+<li>Digraph反向链接</li>
+</ol>
+<p>Web上的超链接是向前指向的。 网页不知道指向它们的超链接。<br>网页作者可以自由链接到网络空间中的其他文档，而无需其作者的同意<br>反向链接信息很重要<br>在科学文献中，SCI（科学引文索引）是判断一篇学术论文学术价值的重要指标。<br>找到所有反向链接并不容易</p>
+<ol start="10">
+<li>反向链接实现：FAN</li>
+</ol>
+<p>网页的FAN具有指向该网页的链接。<br>用户在访问和查看页面内容后，将向该网页添加链接。</p>
+<p>网页拥有的 fans 越多，受欢迎程度就越高。<br>例如，SCI（科学引文索引）是一种评价研究论文重要性的众所周知的方法。<br>但是，一些非常流行的网页众所周知，因此人们无需将其放在自己的网页中，例如google.com，yahoo.com等。<br>关于反向链接流行的另一个有争议的论点：<br>与许多不重要的网页所指向的网页相比，某些重要网页所指向的网页？</p>
+<ol start="11">
+<li>Page Ranking</li>
+</ol>
+<p>网页排名的两个因素：</p>
+<ul>
+<li>指向它的网页的等级，越高越好</li>
+<li>网页中指向它的传出链接的数量，越少越好</li>
+</ul>
+<p>A页的页面等级PR（A）的计算方法如下：</p>
+<ul>
+<li>假设页面A具有指向它的页面T1 … Tn（即反向链接）。</li>
+<li>d是介于0和1之间的因子（通常设置为0.85）。</li>
+<li>C（T）是页面T的传出链接数。</li>
+</ul>
+<p>$$<br>PR\left(A\right) = \left(1-d\right) + d\times \left(\frac{PR\left(T_1\right)}{C_{\left(T_1\right)}} + \cdots \frac{PR\left(T_n\right)}{C_{\left(T_n\right)}}\right)<br>$$</p>
+<p>PR（A）的定义是循环的，即，页面的等级取决于其他页面的等级。 但是，可以通过简单的迭代算法来计算页面排名。<br>网页排名可以通过使用Web有向图来有效地计算。在中等大小的工作站上，可以在几个小时内计算出2600万页的页面排名。<br>页面排名可帮助搜索引擎根据其受欢迎程度或重要性对搜索结果进行排名（此处不考虑搜索结果的相关性）。</p>
+<ol start="12">
+<li>倒排文件</li>
+</ol>
+<p><img src="/2021/04/21/fen-bu-shi-xi-tong-fu-xi-bi-ji/%E5%80%92%E6%8E%92%E6%96%87%E4%BB%B6.jpg" alt="倒排文件"></p>
+<p>创建倒排文件方法：</p>
+<ul>
+<li>将文件名（文档）映射到文件ID</li>
+<li>删除对搜索没有意义的停用词（“ in”，“ the”，“ in”，……）。</li>
+<li>进行小写（可选），删除数字（可选），插入单数和复数形式的名词，动词的不同时态，同一单词的形容词和副词以进行搜索。</li>
+<li>生成倒排文件<ul>
+<li>建立从单词到文档ID的反向文件映射。可以插入有关单词在文档中出现的次数或单词的出现位置的信息，以进行更准确的搜索。</li>
+<li>对关键字进行排序以进行快速搜索。</li>
+</ul>
+</li>
+</ul>
+<p>搜索倒排文件方法：</p>
+<ul>
+<li>二元搜寻<ul>
+<li>小规模使用</li>
+</ul>
+</li>
+<li>创建同义词库并结合以下技术：<ul>
+<li>散列</li>
+<li>B+树</li>
+<li>指向索引文件中地址的指针</li>
+</ul>
+</li>
 </ul>
 
             </div>
@@ -1721,7 +2225,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">101.9k</span>&nbsp;字
+                class="white-color">109.9k</span>&nbsp;字
             
             
             
