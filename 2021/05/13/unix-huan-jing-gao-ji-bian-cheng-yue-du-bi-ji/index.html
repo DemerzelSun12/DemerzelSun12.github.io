@@ -409,14 +409,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    377
+                    3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    10 分
                 </div>
                 
 
@@ -442,7 +442,159 @@
 <ol start="2">
 <li>文件名</li>
 </ol>
-<p><strong>斜线（/）和空字符不允许出现在文件名中</strong></p>
+<p><strong>斜线（/）和空字符不允许出现在文件名中</strong>，创建目录会自动创建两个文件名：（.）指向当前目录和（..），在最高层次的根目录中，二者相同。</p>
+<ol start="3">
+<li>路径名</li>
+</ol>
+<p>斜线开头路径为绝对路径，否则为相对路径。根名字是特殊的绝对路径名，不包含文件。</p>
+<ol start="4">
+<li>工作目录</li>
+</ol>
+<p>所有相对路径从当前目录开始解释。进程可以使用chdir函数更改其工作目录。</p>
+<h3 id="1-3-输入输出"><a href="#1-3-输入输出" class="headerlink" title="1.3 输入输出"></a>1.3 输入输出</h3><ol>
+<li>文件描述符</li>
+</ol>
+<p>文件描述符为一个小的非负整数，内核用于标识一个特定进程正在访问的文件。当内核打开现有文件时或创建新文件时，会返回文件描述符。</p>
+<ol start="2">
+<li>标准输入、标准输出、标准错误</li>
+</ol>
+<p>每当运行新的程序时，所有的shell都会为其打开3个文件描述符，即标准输入、标准输出、标准错误。<strong>一般情况下，三个描述符的链接都指向终端</strong>，可以使其中一个或三个重定向到某个文件。例如</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 执行 ls 命令，将输出重定向到名为 file.txt 的文件</span>
+<span class="token function">ls</span> <span class="token operator">></span> file.txt<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<ol start="3">
+<li>缓冲的IO</li>
+</ol>
+<p>函数 open、read、write、lseek 以及 close提供了不带缓冲区的IO，这些函数都使用文件描述符。</p>
+<ol start="4">
+<li>标准IO</li>
+</ol>
+<p>标准IO为不带有缓冲的IO函数提供了一个带缓冲的接口。使用标准IO函数无需担心选择最佳缓冲区的大小。</p>
+<h3 id="1-4-程序和进程"><a href="#1-4-程序和进程" class="headerlink" title="1.4 程序和进程"></a>1.4 程序和进程</h3><ol>
+<li><p>程序：程序是存储在磁盘的某个目录中的可执行文件。内核使用exec函数，将程序读入内存，并执行程序。</p>
+</li>
+<li><p>进程和进程ID</p>
+</li>
+</ol>
+<p>程序的执行实例为进程（process），UNIX系统确保每个进程有唯一的数字标识符，称为进程ID，为非负整数。</p>
+<ol start="3">
+<li>进程控制</li>
+</ol>
+<p>3个主要函数：fork，exec，waitpid。</p>
+<p>fork：父进程通过调用 fork 函数创建一个新的运行的子进程。</p>
+<ul>
+<li>子进程得到与父进程用户级虚拟地址空间相同但独立的副本，包括代码和数据段、堆、共享库和用户栈，但是私有地址空间不同。</li>
+<li>子进程获得与父进程任何打开文件描述符相同的副本，即子进程可以读写父进程中打开的任何文件。</li>
+<li>父子进程最大的区别在于有着不同的PID。</li>
+<li><strong>fork函数调用一次，返回两次</strong>，父进程中，fork函数返回子进程的PID；在子进程中，返回0。因为子进程的PID永远非0，可以用于区分是父进程还是子进程。</li>
+</ul>
+<ol start="4">
+<li>线程和线程ID</li>
+</ol>
+<p>通常，一个进程只有一个控制线程，某一时刻执行的一组机器指令。一个进程内的所有线程共享同一地址空间、文件描述符、栈以及与进程相关的属性。<strong>各线程在访问共享数据时需要采取同步措施避免不一致性。</strong></p>
+<p>进程ID只在其所属的进程内起作用，一个进程中的线程ID在另一个进程中没有意义。可以使用线程ID对进程内的特定线程进行操作。</p>
+<h3 id="1-5-出错处理"><a href="#1-5-出错处理" class="headerlink" title="1.5 出错处理"></a>1.5 出错处理</h3><p>UNIX系统出错后一般会返回一个负值，整形变量 errno 具有特定信息的值。在支持线程的环境中，多个线程共享地址空间，每个线程有属于其自己的局部errno，避免一个线程干扰另一个线程。</p>
+<p>Linux支持多线程存取 errno，定义为：</p>
+<pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">extern</span> <span class="token keyword">int</span> <span class="token operator">*</span><span class="token function">__errno_location</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token macro property">#<span class="token directive keyword">define</span> errno (*__errno_location())</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>注意规则有二：</p>
+<ol>
+<li>若没有出错，则 errno 的值不会被例程清除。所以，只有当函数的返回值明确出错时，才会校验其值。</li>
+<li>任何函数都不会将 errno 的值设置为0，而且在 <code>&lt;errno.h&gt;</code>中定义的所有常量都不为0。</li>
+</ol>
+<p>C 标准定义了两个函数，用于打印出错信息。</p>
+<pre class="line-numbers language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;string.h></span></span>
+<span class="token keyword">char</span> <span class="token operator">*</span><span class="token function">strerror</span><span class="token punctuation">(</span><span class="token keyword">int</span> errnum<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+<span class="token keyword">void</span> <span class="token function">perror</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>msg<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>strerror 将 errnum 映射为出错消息字符串，并返回字符串指针。<br>perror 函数基于 errno 当前值，在标准错误上产生一条出错信息，然后返回。</p>
+<h2 id="二、UNIX标准"><a href="#二、UNIX标准" class="headerlink" title="二、UNIX标准"></a>二、UNIX标准</h2><h2 id="三、文件IO"><a href="#三、文件IO" class="headerlink" title="三、文件IO"></a>三、文件IO</h2><h3 id="3-1-文件描述符"><a href="#3-1-文件描述符" class="headerlink" title="3.1 文件描述符"></a>3.1 文件描述符</h3><p>对内核而言，所有打开的文件都通过文件描述符引用。文件描述符为非负整数。</p>
+<p>打开一个现有文件或创建一个新文件时，内核向进程返回一个文件描述符。读、写一个文件时，使用 open 或 creat 返回的文件描述符标识该文件，将其作为参数传递给 read 或 write。</p>
+<p>文件描述符的变化范围为$0 \sim OPEN\_MAX-1$，早期UNIX的上限为19，即打开19个文件。对于FreeBSD 8.0、Linux 3.2.0，MacOS X和Solaris 10，文件描述符范围只受制于存储器总量、整型的字长以及系统管理员所配置的软权限和硬权限。</p>
+<h3 id="3-2-open-opanat"><a href="#3-2-open-opanat" class="headerlink" title="3.2 open opanat"></a>3.2 open opanat</h3><p>调用函数open或 openat可以打开或创建文件，两函数成功调用，则返回文件描述符，出错则返回-1。</p>
+<pre class="line-numbers language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;fcntl.h></span></span>
+<span class="token keyword">int</span> <span class="token function">open</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>path<span class="token punctuation">,</span> <span class="token keyword">int</span> oflag<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token comment" spellcheck="true">/* mode_t mode*/</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">openat</span><span class="token punctuation">(</span><span class="token keyword">int</span> fd<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>path<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token comment" spellcheck="true">/* mode_t mode*/</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>最后一个参数可变，open函数仅当创建新文件时才使用最后一个参数。path为打开或创建的文件名字，oflag用于指定函数的多个选项。</p>
+<h3 id="3-3-creat"><a href="#3-3-creat" class="headerlink" title="3.3 creat"></a>3.3 creat</h3><p>调用 creat 函数创建新文件。</p>
+<pre class="line-numbers language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;fcntl.h></span></span>
+<span class="token keyword">int</span> <span class="token function">creat</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>path<span class="token punctuation">,</span> mode_t mode<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>等效于</p>
+<pre class="line-numbers language-c"><code class="language-c"><span class="token function">open</span><span class="token punctuation">(</span>path<span class="token punctuation">,</span> O_WRONLT <span class="token operator">|</span> O_CREAT <span class="token operator">|</span> O_TRUNC<span class="token punctuation">,</span> mode<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>creat的不足是以只写道德形式打开文件。在提供open的新版本之前，如果需要临时创建文件，并且要先写再读，则必须先调用 creat、close，再调用 open。现在可以使用新版的 open实现：</p>
+<pre class="line-numbers language-c"><code class="language-c"><span class="token function">open</span><span class="token punctuation">(</span>path<span class="token punctuation">,</span> O_RDWR <span class="token operator">|</span> O_CREAT <span class="token operator">|</span> O_TRUNC<span class="token punctuation">,</span> mode<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="3-4-close"><a href="#3-4-close" class="headerlink" title="3.4 close"></a>3.4 close</h3><p>调用close函数关闭一个文件：</p>
+<pre class="line-numbers language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h></span></span>
+
+<span class="token keyword">int</span> <span class="token function">close</span><span class="token punctuation">(</span><span class="token keyword">int</span> fd<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p><strong>关闭一个文件也将释放该进程加在该文件上的所有记录锁</strong>。当进程终止时，内核会自动关闭其打开的所有文件。可以使用这种方法，不需要显式地调用 close 关闭文件。</p>
+<h3 id="3-5-lseek"><a href="#3-5-lseek" class="headerlink" title="3.5 lseek"></a>3.5 lseek</h3><p>每个打开文件都有与之关联的“当前文件偏移量”，通常为非负整数，度量从文件开始处计算的字节数。通常，读写操作都是从当前文件偏移量开始，并使得偏移量增加读写字节数。当打开文件时，除非指定 <code>O_APPEND</code>选项，否则该偏移量设置为0。</p>
+<pre class="line-numbers language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h></span></span>
+
+off_t <span class="token function">lseek</span><span class="token punctuation">(</span><span class="token keyword">int</span> fd<span class="token punctuation">,</span> off_t offset<span class="token punctuation">,</span> <span class="token keyword">int</span> whence<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>对参数 offset 的解释和参数 whence 有关，</p>
+<ul>
+<li>whence 为 <code>SEEK_SET</code>，则将该文件的偏移量设置为距文件开始处 offset 字节</li>
+<li>whence 为 <code>SEEK_CUR</code>，则将该文件的偏移量设置为其当前值加 offset 字节，offset 可正可负</li>
+<li>whence 为 <code>SEEK_END</code>，则将该文件的偏移量设置为文件长度加 offset 字节，offset 可正可负</li>
+</ul>
+<p>若 lseek 执行成功，返回新的文件偏移量，可用下列方式确定打开文件的当前偏移量：</p>
+<pre class="line-numbers language-c"><code class="language-c">off_t currpos<span class="token punctuation">;</span>
+currops <span class="token operator">=</span> <span class="token function">lseek</span><span class="token punctuation">(</span>fd<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> SEEK_CUR<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p><strong>也可以用来检验所涉及的文件是否设置偏移量</strong>。如果该文件描述符指向的是管道、FIFO或socket，则lseek返回-1，并将 errno 设置为 ESPIPE。</p>
+<ol>
+<li>通常，文件的当前偏移量为非负整数，但是某些设备也允许负的偏移量。<strong>对于普通文件，偏移量必须为非负值</strong>。</li>
+<li>文件偏移量可以大于当前文件长度，此时，对该文件的下一次写将加长该文件，并在文件中构成一个空洞，位于文件中但是没有写过的字节都被读为0.</li>
+<li>文件的空洞并不要求在磁盘上占用存储区，具体处理方式与文件系统有关，当定位到</li>
+</ol>
+<h2 id="四、文件和目录"><a href="#四、文件和目录" class="headerlink" title="四、文件和目录"></a>四、文件和目录</h2><h3 id="4-1-函数-stat、fstat、fstatat、lstat"><a href="#4-1-函数-stat、fstat、fstatat、lstat" class="headerlink" title="4.1 函数 stat、fstat、fstatat、lstat"></a>4.1 函数 stat、fstat、fstatat、lstat</h3><pre class="line-numbers language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;sys/stat.h></span></span>
+
+<span class="token keyword">int</span> <span class="token function">stat</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>restrict pathname<span class="token punctuation">,</span> <span class="token keyword">struct</span> stat <span class="token operator">*</span>restrict buf<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">fstat</span><span class="token punctuation">(</span><span class="token keyword">int</span> fd<span class="token punctuation">,</span> <span class="token keyword">struct</span> stat <span class="token operator">*</span>buf<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">lstat</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>restrict pathname<span class="token punctuation">,</span> <span class="token keyword">struct</span> stat <span class="token operator">*</span>restrict buf<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">fstatat</span><span class="token punctuation">(</span><span class="token keyword">int</span> fd<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span>restrict pathname<span class="token punctuation">,</span> <span class="token keyword">struct</span> stat <span class="token operator">*</span>restrict buf<span class="token punctuation">,</span> <span class="token keyword">int</span> flag<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// 所有四个函数的返回值，成功返回0，出错返回-1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>给出pathname后，stat函数会返回与此命名文件有关的信息结构。fstat函数获得已在描述符fd上打开文件的有关信息。lstat函数类似于stat，但是当命名的文件是一个符号链接时，lstat返回该符号链接的有关信息，而不是该符号链接引用的文件信息。</p>
+<p>fstatat 函数为一个相对于当前打开目录的路径名返回文件统计信息。flag参数控制着是否紧跟一个符号链接，</p>
+<h3 id="4-2-文件类型"><a href="#4-2-文件类型" class="headerlink" title="4.2 文件类型"></a>4.2 文件类型</h3><ol>
+<li>普通文件</li>
+</ol>
+<p>除了二进制可执行文件外，其他文件的形式对于UNIX系统来说并无区别。二进制可执行文件为了执行，内核必须理解其格式，所有二进制可执行文件都遵循一种标准格式，使得内核能确定程序文本和数据的加载位置。</p>
+<ol start="2">
+<li>目录文件</li>
+</ol>
+<p>包含其他文件的名字以及指向与这些文件有关信息的指针。<strong>对一个目录文件有读权限的任一进程都可以读该目录的内容，但是只有内核可以直接写目录文件</strong>。</p>
+<ol start="3">
+<li>块特殊文件</li>
+</ol>
+<p>提供对设备带缓冲的访问，每次访问以固定长度为单位进行。</p>
+<ol start="4">
+<li>字符特殊文件</li>
+</ol>
+<p>提供对设备不带缓冲的访问，每次访问长度可变。</p>
+<ol start="5">
+<li>FIFO</li>
+</ol>
+<p>用于进程间通信，有时也称为命名管道（named piped）</p>
+<ol start="6">
+<li>socket 套接字</li>
+</ol>
+<p>进程间网络通信，也可用于一台主机上的非网络通信。</p>
+<ol start="7">
+<li>符号链接</li>
+</ol>
+<p>这种类型的文件指向另一个文件。</p>
+<h3 id="4-3-设置用户ID和设置组ID"><a href="#4-3-设置用户ID和设置组ID" class="headerlink" title="4.3 设置用户ID和设置组ID"></a>4.3 设置用户ID和设置组ID</h3><p>与一个进程相关联的ID一般有6个</p>
+<ol>
+<li>实际用户ID</li>
+<li>实际组ID</li>
+<li>有效用户ID</li>
+<li>有效组ID</li>
+<li>附属组ID</li>
+<li>保存的设置用户ID</li>
+<li>保存的设置组ID</li>
+</ol>
+<p>1和2在登录时取自口令文件中的登录项。</p>
 
             </div>
             <hr/>
@@ -580,29 +732,28 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/05/13/unix-huan-jing-gao-ji-bian-cheng-yue-du-bi-ji/">
+                <a href="/2021/05/30/linux-za-tan/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="UNIX环境高级编程阅读笔记">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="Linux杂谈">
                         
-                        <span class="card-title">UNIX环境高级编程阅读笔记</span>
+                        <span class="card-title">Linux杂谈</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            《UNIX环境高级编程阅读笔记》
+                            关于Liunx零零碎碎的知识
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-05-13
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-05-30
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -615,16 +766,15 @@
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/UNIX/">
-                        <span class="chip bg-color">UNIX</span>
+                    <a href="/tags/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB/">
+                        <span class="chip bg-color">程序员的自我修养</span>
                     </a>
                     
-                    <a href="/tags/%E5%9F%BA%E7%A1%80%E5%87%86%E5%A4%87/">
-                        <span class="chip bg-color">基础准备</span>
+                    <a href="/tags/UNIX/">
+                        <span class="chip bg-color">UNIX</span>
                     </a>
                     
                 </div>
@@ -919,7 +1069,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">110.3k</span>&nbsp;字
+                class="white-color">116.8k</span>&nbsp;字
             
             
             
