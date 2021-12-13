@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>Go 初学踩坑</title>
+      <link href="/2021/12/13/go-chu-xue-cai-keng/"/>
+      <url>/2021/12/13/go-chu-xue-cai-keng/</url>
+      
+        <content type="html"><![CDATA[<h2 id="初级篇"><a href="#初级篇" class="headerlink" title="初级篇"></a>初级篇</h2><ol><li>开大括号不能放在单独的一行<br>在大多数其他使用大括号的语言中，需要选择放置它们的位置。Go 的方式不同。由于自动分号的注入（没有预读），不需要手动添加分号<br>失败的例子：</li></ol><pre class="line-numbers language-Go"><code class="language-Go">package mainimport "fmt"func main()  { //error, can't have the opening brace on a separate line    fmt.Println("hello there!")}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>编译错误：</p><pre class="line-numbers language-bash"><code class="language-bash">/tmp/sandbox826898458/main.go:6: syntax error: unexpected semicolon or newline before <span class="token punctuation">{</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>正确示例：</p><pre class="line-numbers language-Go"><code class="language-Go">package mainimport "fmt"func main() {      fmt.Println("works!")}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><ol start="2"><li>未使用的变量</li></ol><p>如果有未使用的变量，代码将编译失败。当然也有例外。在函数内一定要使用声明的变量，但未使用的全局变量是没问题的。<br>如果给未使用的变量分配了一个新的值，代码还是会编译失败。需要在某个地方使用这个变量，才能让编译器编译通过。</p><p>Fail:</p><pre class="line-numbers language-Go"><code class="language-Go">package mainvar gVar int //not an errorfunc main() {      var one int   //error, unused variable    two := 2      //error, unused variable    var three int //error, even though it's assigned 3 on the next line    three = 3     }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>Compiles error:</p><pre class="line-numbers language-bash"><code class="language-bash">/tmp/sandbox473116179/main.go:6: one declared and not used/tmp/sandbox473116179/main.go:7: two declared and not used/tmp/sandbox473116179/main.go:8: three declared and not used<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><p>Works:</p><pre class="line-numbers language-Go"><code class="language-Go">package mainimport "fmt"func main() {      var one int    _ = one    two := 2     fmt.Println(two)    var three int     three = 3    one = three    var four int    four = four}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><ol start="3"><li>未使用的 import</li></ol><p>如果引入一个包，而没有使用其中的任何函数、接口、结构体或者变量的话，代码将会编译失败。<br>可以使用 goimports 来增加引入或者移除未使用的引用：</p><pre class="line-numbers language-bash"><code class="language-bash">$ go get golang.org/x/tools/cmd/goimports<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>Fails:</p><pre class="line-numbers language-Go"><code class="language-Go">package mainimport (    "fmt"    "log"    "time")func main() {}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>编译错误</p><pre class="line-numbers language-bash"><code class="language-bash">/tmp/sandbox627475386/main.go:4: imported and not used: <span class="token string">"fmt"</span>/tmp/sandbox627475386/main.go:5: imported and not used: <span class="token string">"log"</span>/tmp/sandbox627475386/main.go:6: imported and not used: <span class="token string">"time"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><p>Works:</p><pre class="line-numbers language-Go"><code class="language-Go">package mainimport (    _ "fmt"    "log"    "time")var _ = log.Printlnfunc main() {    _ = time.Now}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Go </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> graduate learning </tag>
+            
+            <tag> Go </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>南国纪行（三）</title>
       <link href="/2021/06/12/nan-guo-ji-xing-san/"/>
       <url>/2021/06/12/nan-guo-ji-xing-san/</url>
