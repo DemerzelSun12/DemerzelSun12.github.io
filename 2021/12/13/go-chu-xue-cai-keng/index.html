@@ -409,14 +409,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    460
+                    902
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    4 分
                 </div>
                 
 
@@ -503,6 +503,106 @@ var _ = log.Println
 func main() {
     _ = time.Now
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="4">
+<li>简式的变量声明仅可以在函数内部使用</li>
+</ol>
+<p>Fails:</p>
+<pre class="line-numbers language-Go"><code class="language-Go">package main
+myvar := 1 //error
+func main() {
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Compile Error:</p>
+<pre class="line-numbers language-bash"><code class="language-bash">/tmp/sandbox265716165/main.go:3: non-declaration statement outside <span class="token keyword">function</span> body<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>Works:</p>
+<pre class="line-numbers language-Go"><code class="language-Go">package main
+func main() {
+    one := 0
+    one, two := 1,2
+    one,two = two,one
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="5">
+<li>偶然的变量隐藏 Accidental Variable Shadowing</li>
+</ol>
+<p>Wrong:</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">package</span> main
+<span class="token keyword">import</span> <span class="token string">"fmt"</span>
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    x <span class="token operator">:=</span> <span class="token number">1</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span>     <span class="token comment" spellcheck="true">//prints 1</span>
+    <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//prints 1</span>
+        x <span class="token operator">:=</span> <span class="token number">2</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//prints 2</span>
+    <span class="token punctuation">}</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span>     <span class="token comment" spellcheck="true">//prints 1 (bad if you need 2)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>可以使用 <code>vet</code> 命令来发现一些这样的问题。默认情况下， vet不会执行这样的检查，需要设置 -shadow参数：</p>
+<pre class="line-numbers language-bash"><code class="language-bash">go tool vet -shadow your_file.go<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ol start="6">
+<li>不使用显式类型，无法使用“nil”来初始化变量</li>
+</ol>
+<p><code>nil</code> 标志符用于表示 <code>interface</code> 、<code>func</code>、 <code>maps</code> 、 <code>slices</code> 和 <code>channels</code> 的“零值”。如果你不指定变量的类型，编译器将无法编译你的代码，因为它猜不出具体的类型。</p>
+<p>Fails:</p>
+<pre class="line-numbers language-bash"><code class="language-bash">package main
+func main<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    var x <span class="token operator">=</span> nil //error
+    _ <span class="token operator">=</span> x
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Compiler Error:</p>
+<pre class="line-numbers language-bash"><code class="language-bash">/tmp/sandbox188239583/main.go:4: use of untyped nil<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>Works:</p>
+<pre class="line-numbers language-bash"><code class="language-bash">package main
+func main<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    var x interface<span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token operator">=</span> nil
+    _ <span class="token operator">=</span> x
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="8">
+<li>使用“nil” Slices and Maps</li>
+</ol>
+<p>在一个 nil 的 slice 中添加元素是没问题的，但对一个 map 做同样的事将会生成一个运行时的 panic 。<br>Works:</p>
+<pre class="line-numbers language-bash"><code class="language-bash">package main
+func main<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    var s <span class="token punctuation">[</span><span class="token punctuation">]</span>int
+    s <span class="token operator">=</span> append<span class="token punctuation">(</span>s,1<span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Fails:</p>
+<pre class="line-numbers language-bash"><code class="language-bash">package main
+func main<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    var m map<span class="token punctuation">[</span>string<span class="token punctuation">]</span>int
+    m<span class="token punctuation">[</span><span class="token string">"one"</span><span class="token punctuation">]</span> <span class="token operator">=</span> 1 //error
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="9">
+<li>map的容量</li>
+</ol>
+<p>可以在 <code>map</code> 创建时指定它的容量，但你无法在 <code>map</code> 上使用 <code>cap()</code> 函数。<br>Fails:</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">package</span> main
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    m <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">,</span><span class="token number">99</span><span class="token punctuation">)</span>
+    <span class="token function">cap</span><span class="token punctuation">(</span>m<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//error</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Compile Error:</p>
+<pre class="line-numbers language-bash"><code class="language-bash">/tmp/sandbox326543983/main.go:5: invalid argument m <span class="token punctuation">(</span>type map<span class="token punctuation">[</span>string<span class="token punctuation">]</span>int<span class="token punctuation">)</span> <span class="token keyword">for</span> cap<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ol start="10">
+<li>字符串不会为nil</li>
+</ol>
+<p>Fails:</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">package</span> main
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> x <span class="token builtin">string</span> <span class="token operator">=</span> <span class="token boolean">nil</span> <span class="token comment" spellcheck="true">//error</span>
+    <span class="token keyword">if</span> x <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">//error</span>
+        x <span class="token operator">=</span> <span class="token string">"default"</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Compile Errors:</p>
+<pre class="line-numbers language-bash"><code class="language-bash">/tmp/sandbox630560459/main.go:4: cannot use nil as <span class="token function">type</span> string <span class="token keyword">in</span> assignment /tmp/sandbox630560459/main.go:6: invalid operation: x <span class="token operator">==</span> nil <span class="token punctuation">(</span>mismatched types string and nil<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>Works:</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">package</span> main
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> x <span class="token builtin">string</span> <span class="token comment" spellcheck="true">//defaults to "" (zero value)</span>
+    <span class="token keyword">if</span> x <span class="token operator">==</span> <span class="token string">""</span> <span class="token punctuation">{</span>
+        x <span class="token operator">=</span> <span class="token string">"default"</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
@@ -975,7 +1075,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">117.7k</span>&nbsp;字
+                class="white-color">118.2k</span>&nbsp;字
             
             
             
