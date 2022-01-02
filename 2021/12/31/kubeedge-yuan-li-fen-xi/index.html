@@ -400,7 +400,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-12-31
+                    2021-12-31
                 </div>
                 
 
@@ -428,7 +428,7 @@
             <div id="articleContent">
                 <p>可能由于各自的定位不同，K3S更像是一个kubernetes厂商的一个发行版，在边缘计算方面其实是没有摄入细节的。相比起来，KubeEdge目标更明确，除了在kubernetes的方面做了各种异步通信通道，保障offline后的业务连续性之外；还定义了一系列的设备抽象，用来管理边缘设备。而且，其v1.4版本正朝着边缘端服务网格，以及函数式计算等方向发展。总体感觉是基本功能可用，但是更深入的功能有待开发，比如函数式计算这块貌似只有界面，但是使用手册和功能都缺失等。</p>
 <p>这里记录一下学习kubeedge v1.4分支代码的一些理解，便于后续快速查看。其实华为在该项目中文档还算写的比较完备的，官方文档可以参考<a href="https://docs.kubeedge.io/en/docs/" target="_blank" rel="noopener">这里</a>。</p>
-<h2 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h2><img src="/2022/12/31/kubeedge-yuan-li-fen-xi/kubeedge_arch.png" width="500px" height alt="KubeEdge架构" align="center">
+<h2 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h2><img src="/2021/12/31/kubeedge-yuan-li-fen-xi/kubeedge_arch.png" width="500px" height alt="KubeEdge架构" align="center">
 
 <p>整体架构图比较明了，在不考虑edgesite的情况下，其架构分为了云端和边缘端。其实可以理解为kubernetes的管理侧和kubelet节点侧（对应edge端）。很多年前rancher就采用这种架构，通过隧道网络通过一个机头来统一纳管位于多个云服务提供商上的计算节点。但是请注意，这里的场景是边缘计算，意味着edge端的网络环境难以保障。</p>
 <h2 id="云边通信"><a href="#云边通信" class="headerlink" title="云边通信"></a>云边通信</h2><p>于是就衍生出了cloud端的cloud Hub与edge端的Edge Hub。这两个模块之间通过websocket或者quic通信，相当于建立了一条底层通信隧道，供k8s和其他应用通信。当然，使用什么协议通信不是重点，重点是如何保障当着之间的链路都无法保障的时候，业务不受到影响，这就是MetaManager的要解决的问题了。</p>
@@ -454,14 +454,14 @@
 <h2 id="各模块实现"><a href="#各模块实现" class="headerlink" title="各模块实现"></a>各模块实现</h2><h3 id="边缘端-1"><a href="#边缘端-1" class="headerlink" title="边缘端"></a>边缘端</h3><ol>
 <li>入口与beehive<br>beehive模块在整个kubeedge中扮演了非常重要的作用，它实现了一套Module管理的接口，程序中各个模块的启动、运行、模块间的通信等都是由其统一封装管理。下图是kubeedge的edge端代码的main启动流程，这里涉及到的modules就是由beehive提供。</li>
 </ol>
-<img src="/2022/12/31/kubeedge-yuan-li-fen-xi/kubeedge-code-edge-main.png" width="500px" height alt="KubeEdge架构" align="center">
+<img src="/2021/12/31/kubeedge-yuan-li-fen-xi/kubeedge-code-edge-main.png" width="500px" height alt="KubeEdge边缘端" align="center">
 
 <p>可以看到，在初始化的时候，分别加载了各个edge端modules的init函数，用来注册其modules到heehive框架中。然后在core.Run中遍历启动（StartModules）。</p>
 <p>另外，值得提及的是，用于模块间通信，发送message到group/module的功能，在beehive中，其实是通过channel来通信的。这也是golang推荐的goroutine间通信的方式。</p>
 <ol start="2">
 <li>EdgeHub</li>
 </ol>
-<img src="/2022/12/31/kubeedge-yuan-li-fen-xi/kubeedge-code-edge-edgehub.png" width="500px" height alt="KubeEdge架构" align="center">
+<img src="/2021/12/31/kubeedge-yuan-li-fen-xi/kubeedge-code-edge-edgehub.png" width="500px" height alt="KubeEdge 边缘端 EdgeHub" align="center">
 
 <p>重点是启动了两个go routine，用来实现往两个方向的消息接收和分发。这里go ehc.routeToEdge对应从隧道端点接收cloud端发往edge端的消息，然后调用ehc.dispatch解析出消息的目标module并基于heehive模块module间消息的通信机制来转发出去。</p>
 <p>同理，go ehc.routeToCloud实现将edge端消息基于隧道转发到cloud端的cloudHub模块处理。当然，该模块中实现了对同步消息的response等到超时处理的逻辑，当在未超时期间收到response消息，会转发到消息发送端模块。比较暴力的是，一旦发送消息到cloud失败，该goroutine会退出，通知所有模块，当前与cloud端是未连接状态，然后重新发起连接。</p>
@@ -469,14 +469,14 @@
 <ol start="3">
 <li>Edged</li>
 </ol>
-<img src="/2022/12/31/kubeedge-yuan-li-fen-xi/kubeedge-code-edge-edged.png" width="500px" height alt="KubeEdge架构" align="center">
+<img src="/2021/12/31/kubeedge-yuan-li-fen-xi/kubeedge-code-edge-edged.png" width="500px" height alt="KubeEdge 边缘端 Edged" align="center">
 
 <p>这块基本是调用kubelet的代码，实现较多的是启动流程。另外，将之前kubelet的client作为fake的假接口，转而将数据都通过metaClient来存储数据到metaManager，从而代理之前直接访问api-server的操作。</p>
 <p>这里差异化的一块代码在e.syncPod的实现，通过读取metaManager和EdgeController的pod任务列表，来执行对本地pod的操作。同时，这些pod关联的configmap和secret也会随着处理pod的过程而一并处理。对pod的操作也是基于一个操作类别的queue，比如e.podAddWorkerRun就启动了一个用于消费添加pod的queue的goroutine。外部的封装基本就这样，内部完全通过引用kubelet原生的包来处理。</p>
 <ol start="4">
 <li>MetaManager</li>
 </ol>
-<img src="/2022/12/31/kubeedge-yuan-li-fen-xi/kubeedge-code-edge-metamanager.png" width="500px" height alt="KubeEdge架构" align="center">
+<img src="/2021/12/31/kubeedge-yuan-li-fen-xi/kubeedge-code-edge-metamanager.png" width="500px" height alt="KubeEdge 边缘端 MetaManager" align="center">
 
 <p>从代码架构看起来，该模块比较简单，首先在外层按照一定周期给自己发送消息，触发定时同步pod状态到cloud端。另外，在mainLoop中启动一个独立的goroutine接收外部消息，并执行处理逻辑。</p>
 <p>处理逻辑基于消息类型分类，分别包括：</p>
@@ -491,7 +491,7 @@
 <ol start="5">
 <li>EventBus与ServiceBus</li>
 </ol>
-<img src="/2022/12/31/kubeedge-yuan-li-fen-xi/kubeedge-code-edge-eventBus.png" width="500px" height alt="KubeEdge架构" align="center">
+<img src="/2021/12/31/kubeedge-yuan-li-fen-xi/kubeedge-code-edge-eventBus.png" width="500px" height alt="KubeEdge 边缘端 EventBus与ServiceBus" align="center">
 
 <p>EventBus<br>eventBus用于对接MQTT Broker与beehive，MQTT broker有几种启动模式，从代码实现的角度分为：</p>
 <p>使用内嵌MQTT broker<br>使用外部MQTT broker<br>在内嵌MQTT broker模式下，eventBus启动了golang实现的broker包gomqtt用来作为外部MQTT设备的接入，具体用法请参考其github项目首页。两种模式下eventBus都做了一些共性的操作，具体包括：</p>
@@ -512,7 +512,7 @@
 <li><p>DeviceTwin</p>
 </li>
 </ol>
-<img src="/2022/12/31/kubeedge-yuan-li-fen-xi/kubeedge-code-edge-deviceTwin.png" width="500px" height alt="KubeEdge架构" align="center">
+<img src="/2021/12/31/kubeedge-yuan-li-fen-xi/kubeedge-code-edge-deviceTwin.png" width="500px" height alt="KubeEdge 边缘端 DeviceTwin" align="center">
 
 <p>DeviceTwin包含一下几个部分的功能：</p>
 <p>数据存储方面，将设备数据存储到本地存储sqlLite，包括三张表：device、deviceAttr和deviceTwin。<br>处理其他模块发送到twin module的消息，然后调用 dtc.distributeMsg来处理消息。在消息处理逻辑里面，消息被分为了四个类别，并分别发送到这四个类别的action执行处理（每一个类别又包含多个action）：</p>
@@ -523,13 +523,13 @@
 <li>twin</li>
 </ul>
 <p>由于这个部分和设备更紧密相关，为何要分着几个类别，都是如何抽象，这块的理解方面还不够透彻，暂时只关注其主业务逻辑，官方文档对这块有比较详细的描述。</p>
-<h3 id="云端-1"><a href="#云端-1" class="headerlink" title="云端"></a>云端</h3><img src="/2022/12/31/kubeedge-yuan-li-fen-xi/kubeedge-code-cloud-main.png" width="500px" height alt="KubeEdge架构" align="center">
+<h3 id="云端-1"><a href="#云端-1" class="headerlink" title="云端"></a>云端</h3><img src="/2021/12/31/kubeedge-yuan-li-fen-xi/kubeedge-code-cloud-main.png" width="500px" height alt="KubeEdge 云端" align="center">
 
 <p>这里重点关注在init中加载了cloudHub、controller（也就是edgeController）和devicecontroller三个部分。然后和edge端一样，都是beehive的套路，调用StartModules来启动所有的模块。</p>
 <ol>
 <li>CloudHub</li>
 </ol>
-<img src="/2022/12/31/kubeedge-yuan-li-fen-xi/kubeedge-code-cloud-cloudHub.png" width="500px" height alt="KubeEdge架构" align="center">
+<img src="/2021/12/31/kubeedge-yuan-li-fen-xi/kubeedge-code-cloud-cloudHub.png" width="500px" height alt="KubeEdge 云端 CloudHub" align="center">
 
 <p>handler.WebSocketHandler.ServeEvent在websocket server上接收新边缘node的连接，然后为新node分配channel queue。再进一步将消息交给负责内容读写的逻辑处理。</p>
 <p>channelq.NewChannelEventQueue为每一个边缘node维护了一个对应的channel queue（这里默认有10个消息的缓存），然后调用go q.dispatchMessage 来接收由controller发送到clouHub的消息，基于消息内容解析其目的node，然后将消息发送到node对应的channel排队处理。</p>
@@ -538,7 +538,7 @@
 <ol start="2">
 <li>Controller（EdgeController）</li>
 </ol>
-<img src="/2022/12/31/kubeedge-yuan-li-fen-xi/kubeedge-code-cloud-controller.png" width="500px" height alt="KubeEdge架构" align="center">
+<img src="/2021/12/31/kubeedge-yuan-li-fen-xi/kubeedge-code-cloud-controller.png" width="500px" height alt="KubeEdge 云端 Controller" align="center">
 
 <p>controller的核心逻辑是upstream和downstream。</p>
 <p>upstream<br>接收由beehive发送到controller的消息，然后基于消息资源类型，通过go uc.dispatchMessage转发到不同的的goroutine处理。这里包括nodeStatus、podStatus、queryConfigMap、querySecret、queryService、queryEndpoints等；各种类别的操作都是调用k8s的client代码来将节点状态写到API-Server。</p>
@@ -546,7 +546,7 @@
 <ol start="3">
 <li>DeviceController</li>
 </ol>
-<img src="/2022/12/31/kubeedge-yuan-li-fen-xi/kubeedge-code-cloud-deviceController.png" width="500px" height alt="KubeEdge架构" align="center">
+<img src="/2021/12/31/kubeedge-yuan-li-fen-xi/kubeedge-code-cloud-deviceController.png" width="500px" height alt="KubeEdge 云端 DeviceController" align="center">
 
 <p>deviceController同edgeController，只是其关心的资源不再是k8s的workload的子资源，而是为device定义的CRD，包括：device和deviceModel。</p>
 
@@ -574,7 +574,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://demerzelsun12.github.io/2022/12/31/kubeedge-yuan-li-fen-xi/">https://demerzelsun12.github.io/2022/12/31/kubeedge-yuan-li-fen-xi/</a>
+                    <a href="https://demerzelsun12.github.io/2021/12/31/kubeedge-yuan-li-fen-xi/">https://demerzelsun12.github.io/2021/12/31/kubeedge-yuan-li-fen-xi/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -662,7 +662,7 @@
         repo: 'DemerzelSun12.github.io',
         owner: 'DemerzelSun12',
         admin: "DemerzelSun12",
-        id: '2022-12-31T11-30-58',
+        id: '2021-12-31T11-30-58',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -691,7 +691,7 @@
                 <i class="far fa-dot-circle"></i>&nbsp;本篇
             </div>
             <div class="card">
-                <a href="/2022/12/31/kubeedge-yuan-li-fen-xi/">
+                <a href="/2021/12/31/kubeedge-yuan-li-fen-xi/">
                     <div class="card-image">
                         
                         <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="KubeEdge原理分析">
@@ -707,7 +707,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-12-31
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-12-31
                             </span>
                         <span class="publish-author">
                             
