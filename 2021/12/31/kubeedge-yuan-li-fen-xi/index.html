@@ -426,8 +426,8 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>可能由于各自的定位不同，K3S更像是一个kubernetes厂商的一个发行版，在边缘计算方面其实是没有摄入细节的。相比起来，KubeEdge目标更明确，除了在kubernetes的方面做了各种异步通信通道，保障offline后的业务连续性之外；还定义了一系列的设备抽象，用来管理边缘设备。而且，其v1.4版本正朝着边缘端服务网格，以及函数式计算等方向发展。总体感觉是基本功能可用，但是更深入的功能有待开发，比如函数式计算这块貌似只有界面，但是使用手册和功能都缺失等。</p>
-<p>这里记录一下学习kubeedge v1.4分支代码的一些理解，便于后续快速查看。其实华为在该项目中文档还算写的比较完备的，官方文档可以参考<a href="https://docs.kubeedge.io/en/docs/" target="_blank" rel="noopener">这里</a>。</p>
+                <p>可能由于各自的定位不同，K3S更像是一个kubernetes厂商的一个发行版，在边缘计算方面其实是没有摄入细节的。相比起来，KubeEdge目标更明确，除了在kubernetes的方面做了各种异步通信通道，保障offline后的业务连续性之外；还定义了一系列的设备抽象，用来管理边缘设备。而且，其v1.8版本正朝着边缘端服务网格，以及函数式计算等方向发展。总体感觉是基本功能可用，但是更深入的功能有待开发，比如函数式计算这块貌似只有界面，但是使用手册和功能都缺失等。</p>
+<p>这里记录一下学习kubeedge v1.8分支代码的一些理解，便于后续快速查看。其实华为在该项目中文档还算写的比较完备的，官方文档可以参考<a href="https://docs.kubeedge.io/en/docs/" target="_blank" rel="noopener">这里</a>。</p>
 <h2 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h2><img src="/2021/12/31/kubeedge-yuan-li-fen-xi/kubeedge_arch.png" width="500px" height alt="KubeEdge架构" align="center">
 
 <p>整体架构图比较明了，在不考虑edgesite的情况下，其架构分为了云端和边缘端。其实可以理解为kubernetes的管理侧和kubelet节点侧（对应edge端）。很多年前rancher就采用这种架构，通过隧道网络通过一个机头来统一纳管位于多个云服务提供商上的计算节点。但是请注意，这里的场景是边缘计算，意味着edge端的网络环境难以保障。</p>
@@ -504,7 +504,7 @@
     <span class="token string">"SYS/dis/upload_records"</span><span class="token punctuation">,</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>当接收到对应的event时，触发回调函数onSubscribe</p>
-<p>回调函数中，对event做了简单的分类，分别发送到不同的目的地（DeviceTwin或EventHub）<br>所有$hw/events/device/+/twin/+和$hw/events/node/+/membership/gettopic的的event发送到DeviceTwin，其他的event直接发送到EventHub再同步到Cloud端。</p>
+<p>回调函数中，对event做了简单的分类，分别发送到不同的目的地（DeviceTwin或EventHub）<br>所有<code>$hw/events/device/+/twin/+</code>和<code>$hw/events/node/+/membership/gettopic</code>的event发送到DeviceTwin，其他的event直接发送到EventHub再同步到Cloud端。</p>
 <p>当然，该部分也包括了创建客户端，往MQTT broker发布events的接口，这里就不展开了。</p>
 <ol start="6">
 <li><p>ServiceBus<br>ServiceBus启动一个goroutine来接受来自beehive的消息，然后基于消息中带的参数，通过调用http client将消息通过REST-API发送到本地127.0.0.1上的目标APP。这相当于一个客户端，而APP是一个http Rest-API server，所有的操作和设备状态都需要客户端调用接口来下发和获取。</p>
@@ -686,51 +686,53 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/12/31/kubeedge-yuan-li-fen-xi/">
+                <a href="/2022/01/08/mqtt-xie-yi-xue-xi-ji-lu/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="KubeEdge原理分析">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="mqtt协议学习记录">
                         
-                        <span class="card-title">KubeEdge原理分析</span>
+                        <span class="card-title">mqtt协议学习记录</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            KubeEdge原理分析
+                            MQTT 协议学习记录
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-12-31
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-01-08
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/KubeEdge/" class="post-category">
-                                    KubeEdge
+                            <a href="/categories/Go/" class="post-category">
+                                    Go
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E8%BE%B9%E7%BC%98%E8%AE%A1%E7%AE%97/">
-                        <span class="chip bg-color">边缘计算</span>
+                    <a href="/tags/graduate-learning/">
+                        <span class="chip bg-color">graduate learning</span>
                     </a>
                     
-                    <a href="/tags/KubeEdge/">
-                        <span class="chip bg-color">KubeEdge</span>
+                    <a href="/tags/Go/">
+                        <span class="chip bg-color">Go</span>
+                    </a>
+                    
+                    <a href="/tags/mqtt/">
+                        <span class="chip bg-color">mqtt</span>
                     </a>
                     
                 </div>
@@ -1013,7 +1015,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">121.9k</span>&nbsp;字
+                class="white-color">127.7k</span>&nbsp;字
             
             
             
