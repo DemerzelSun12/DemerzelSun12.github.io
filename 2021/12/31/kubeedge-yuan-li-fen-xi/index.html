@@ -443,7 +443,7 @@
 </li>
 <li><p>Edged<br>之前提到过kubernetes的kubelet，它相当于k8s的核心。这块其实简单做了一些裁剪，去掉一些用不上的功能，然后就成为Edged模块，该模块就是保障cloud端下发的pod以及其对应的各种配置、存储（后续会支持函数式计算）能够在edge端稳定运行，并在异常之后提供自动检测、故障恢复等能力。当然，由于k8s本身运行时的发展，该模块对应支持各种CRI应该也比较容易。</p>
 </li>
-<li><p>EventBus/ServiceBus/Mappper<br>前面讲到的模块都与k8s直接或间接相关，接下来说下与设备（或者说真正IOT业务）相关的设备管理侧。外部设备的接入当前支持MQTT和Rest-API，这里分别对应EventBus和ServiceBus。EventBus就是一个MQTT broker的客户端，主要功能是将edge端各模块通信的message与设备mapper上报到MQTT的event做转换的组件；而ServiceBus就是对应当外部是Rest-API接入时的转换组件。说道这里，就有必要提一下MQTT broker，其实搞互联网的基本都用过类似于rabbitmq、activeMQ之类的消息中间件，其实他们就支持MQTT协议啦（可以理解为AMQP的精简版）。IOT的各种设备可能直接支持MQTT，但有的只支持蓝牙或者其他近场通信的协议。没关系，Mappper可以实现将各种协议转换为对MQTT的订阅与发布，从而实现与edge端的通信。当然，ServiceBus对应就适用于支持http协议的服务了。</p>
+<li><p><strong>EventBus/ServiceBus/Mappper</strong><br>前面讲到的模块都与k8s直接或间接相关，接下来说下与设备（或者说真正IOT业务）相关的设备管理侧。外部设备的接入当前支持MQTT和Rest-API，这里分别对应EventBus和ServiceBus。EventBus就是一个MQTT broker的客户端，主要功能是将edge端各模块通信的message与设备mapper上报到MQTT的event做转换的组件；而ServiceBus就是对应当外部是Rest-API接入时的转换组件。说道这里，就有必要提一下MQTT broker，其实搞互联网的基本都用过类似于rabbitmq、activeMQ之类的消息中间件，其实他们就支持MQTT协议（可以理解为AMQP的精简版）。IOT的各种设备可能直接支持MQTT，但有的只支持蓝牙或者其他近场通信的协议。没关系，Mappper可以实现将各种协议转换为对MQTT的订阅与发布，从而实现与edge端的通信。当然，ServiceBus对应就适用于支持http协议的服务了。</p>
 </li>
 <li><p>DeviceTwin<br>edge端最后就剩下一个DeviceTwin模块了，要理解这个名词，就得提一下数字孪生这个概念。这里来科幻一下，假设人类要实现乾坤大挪移，但是有点难度的是，这下是要把你移到火星上。怎么办？这里有一个解决方案：在地球上通过扫描你的所有生物信息，生成拥有你完整生物特征的数据包之后，然后在地球上就把你毁灭了。再将描述你完整信息的数据包通过电波光速发送到火星上，让火星的设备再使用接收到的生物特征造出一个你。回个头来，我们要说的数字孪生就是那个用来传输到火星的用于描述你所有生物特征的数据包；当然，这里对应就是接入设备信息。所以，DeviceTwin就是将这些信息保存到本地DB中，并处理基于cloud端的操作来修改device的某些属性（也就是操作设备）；同时，将设备基于eventBus上报的状态信息同步到本地DB和cloud端的中间人。</p>
 </li>
@@ -1015,7 +1015,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">127.7k</span>&nbsp;字
+                class="white-color">130.5k</span>&nbsp;字
             
             
             
