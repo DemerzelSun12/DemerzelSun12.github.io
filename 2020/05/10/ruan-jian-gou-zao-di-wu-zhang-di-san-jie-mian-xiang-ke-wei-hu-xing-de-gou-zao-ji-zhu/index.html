@@ -1,0 +1,1239 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="软件构造-第五章-第三节-面向可维护性的构造技术, Demerzel&#39;s blog">
+    <meta name="description" content="雨过枫山送远青">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>软件构造-第五章-第三节-面向可维护性的构造技术 | Demerzel&#39;s blog</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+    <script src="http://echarts.baidu.com/dist/echarts.common.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Demerzel's blog" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Demerzel&#39;s blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/gogame" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>Game</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Demerzel&#39;s blog</div>
+        <div class="logo-desc">
+            
+            雨过枫山送远青
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/gogame" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			Game
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">软件构造-第五章-第三节-面向可维护性的构造技术</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0%E7%AC%94%E8%AE%B0/">
+                                <span class="chip bg-color">软件构造笔记</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0/" class="post-category">
+                                软件构造
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-05-10
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    2.9k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    10 分
+                </div>
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="软件构造第五章-第三节-面向可维护性的构造技术"><a href="#软件构造第五章-第三节-面向可维护性的构造技术" class="headerlink" title="软件构造第五章 第三节 面向可维护性的构造技术"></a>软件构造第五章 第三节 面向可维护性的构造技术</h1><!-- toc -->
+
+ <a id="more"></a>
+
+<h1 id="一、基于状态的构造技术"><a href="#一、基于状态的构造技术" class="headerlink" title="一、基于状态的构造技术"></a>一、基于状态的构造技术</h1><ol>
+<li>基于状态编程<ul>
+<li>使用有限状态机来定义程序的行为、使用状态来控制程序的执行</li>
+<li>根据当前状态，决定下一步要执行什么操作、执行操作之后要转移到什么新的状态</li>
+</ul>
+</li>
+</ol>
+<h2 id="1-1-基于自动机的编程"><a href="#1-1-基于自动机的编程" class="headerlink" title="1.1 基于自动机的编程"></a>1.1 基于自动机的编程</h2><ol>
+<li>定义：<br>基于自动机的编程是一种编程范例，其中该程序或程序的一部分被认为是有限状态机（FSM）或任何其他形式自动机的模型。<ul>
+<li>将程序视为有限自动机。</li>
+<li>每个自动机一次只能执行一个“步骤”，并且程序的执行分为多个步骤。</li>
+<li>这些步骤通过更改代表“状态”的变量的值相互通信。</li>
+<li>程序的控制流程由该变量的值确定。</li>
+</ul>
+</li>
+<li>应用程序设计方法应类似于控制系统（自动机系统）的设计。</li>
+<li>核心思想：<br> 将程序视为是一个有限状态自动机，侧重于对“状态”及“状态转换”的抽象和编程</li>
+<li>执行步骤：<br> 程序执行的时间段明显分为自动机的各个步骤。 程序的执行被分解为一组自动执行的步骤。<ul>
+<li>每个步骤实际上是一个代码段的执行（所有步骤相同），该代码段具有单个入口点。 这样的部分可以是函数或其他例程，也可以只是循环体。</li>
+<li>步骤之间的任何通信都只能通过显式记录的名为状态的变量集进行。 各步骤之间的通讯通过“状态变量”进行</li>
+<li>在任何两个步骤之间，程序都不能具有其状态的隐式组件，例如局部（堆栈）变量的值，返回地址，当前指令指针等。</li>
+<li>在进入自动机步骤的任何两个时刻获取的整个程序的状态只能在被视为自动机状态的变量值上有所不同。</li>
+</ul>
+</li>
+<li>使用方法：<ul>
+<li>程序执行就可看作是各自动步骤的不断循环</li>
+<li>使用枚举类型enum定义状态</li>
+<li>使用二维数组定义状态转换表</li>
+</ul>
+</li>
+</ol>
+<h2 id="1-2-状态模式-State-Pattern"><a href="#1-2-状态模式-State-Pattern" class="headerlink" title="1.2 状态模式(State Pattern)"></a>1.2 状态模式(State Pattern)</h2><ol>
+<li>意图：<br> 允许对象在内部状态发生改变时改变它的行为，对象看起来好像修改了它的类。</li>
+<li>主要解决：<br>对象的行为依赖于它的状态（属性），并且可以根据它的状态改变而改变它的相关行为。</li>
+<li>何时使用：<br>代码中包含大量与对象状态有关的条件语句。</li>
+<li>如何解决<br>将各种具体的状态类抽象出来。</li>
+<li>关键代码：<br>通常命令模式的接口中只有一个方法。而状态模式的接口中有一个或者多个方法。而且，状态模式的实现类的方法，一般返回值，或者是改变实例变量的值。也就是说，状态模式一般和对象的状态有关。实现类的方法有不同的功能，覆盖接口中的方法。状态模式和命令模式一样，也可以用于消除 if…else 等条件选择语句。</li>
+<li>应用实例：<ul>
+<li>打篮球的时候运动员可以有正常状态、不正常状态和超常状态。</li>
+<li>曾侯乙编钟中，’钟是抽象接口’,’钟A’等是具体状态，’曾侯乙编钟’是具体环境（Context）。</li>
+</ul>
+</li>
+<li>优点：<ul>
+<li>封装了转换规则。</li>
+<li>枚举可能的状态，在枚举状态之前需要确定状态种类。</li>
+<li>将所有与某个状态有关的行为放到一个类中，并且可以方便地增加新的状态，只需要改变对象状态即可改变对象的行为。</li>
+<li>允许状态转换逻辑与状态对象合成一体，而不是某一个巨大的条件语句块。</li>
+<li>可以让多个环境对象共享一个状态对象，从而减少系统中对象的个数。</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>状态模式的使用必然会增加系统类和对象的个数。</li>
+<li>状态模式的结构与实现都较为复杂，如果使用不当将导致程序结构和代码的混乱。</li>
+<li>状态模式对”开闭原则”的支持并不太好，对于可以切换状态的状态模式，增加新的状态类需要修改那些负责状态转换的源代码，否则无法切换到新增状态，而且修改某个状态类的行为也需修改对应类的源代码。</li>
+</ul>
+</li>
+<li>使用场景：<ul>
+<li>行为随状态改变而改变的场景。</li>
+<li>条件、分支语句的代替者。</li>
+</ul>
+</li>
+<li>注意事项：<br>在行为受状态约束的时候使用状态模式，而且状态不超过 5 个。</li>
+</ol>
+<h2 id="1-3-备忘录模式-Memento-Pattern"><a href="#1-3-备忘录模式-Memento-Pattern" class="headerlink" title="1.3 备忘录模式(Memento Pattern)"></a>1.3 备忘录模式(Memento Pattern)</h2><ol>
+<li>意图：<br>在不破坏封装性的前提下，捕获一个对象的内部状态，并在该对象之外保存这个状态。</li>
+<li>主要解决：<br>在不破坏封装的前提下，捕获一个对象的内部状态，并在该对象之外保存这个状态，这样可以在以后将对象恢复到原先保存的状态。</li>
+<li>何时使用：<br>很多时候我们总是需要记录一个对象的内部状态，这样做的目的就是为了允许用户取消不确定或者错误的操作，能够恢复到他原先的状态，使得他有”后悔药”可吃。</li>
+<li>如何解决：<br>通过一个备忘录类专门存储对象状态。</li>
+<li>关键代码：<br>客户不与备忘录类耦合，与备忘录管理类耦合。</li>
+<li>应用实例：<ul>
+<li>游戏的存档</li>
+<li>Windows 里的 ctri + z</li>
+<li>浏览器中的后退</li>
+<li>数据库的事务管理</li>
+</ul>
+</li>
+<li>优点：<ul>
+<li>给用户提供了一种可以恢复状态的机制，可以使用户能够比较方便地回到某个历史的状态</li>
+<li>实现了信息的封装，使得用户不需要关心状态的保存细节</li>
+</ul>
+</li>
+<li>缺点：<br>消耗资源。如果类的成员变量过多，势必会占用比较大的资源，而且每一次保存都会消耗一定的内存。</li>
+<li>使用场景：<ul>
+<li>需要保存/恢复数据的相关状态场景</li>
+<li>提供一个可回滚的操作</li>
+</ul>
+</li>
+<li>注意事项：<ul>
+<li>为了符合迪米特原则，还要增加一个管理备忘录的类</li>
+<li>为了节约内存，可使用原型模式+备忘录模式</li>
+</ul>
+</li>
+</ol>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200517172756482.png" width="80%" height="35%">
+<img src="https://img-blog.csdnimg.cn/20200517173004571.png" width="80%" height="35%">
+</center>
+<center>
+图1-1 备忘录模式
+</center>
+<br>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200517173131799.png" width="80%" heigth="35%">
+</center>
+<center>
+图1-2 备忘录模式客户端示例
+</center>
+
+<h1 id="二、语法驱动的构造"><a href="#二、语法驱动的构造" class="headerlink" title="二、语法驱动的构造"></a>二、语法驱动的构造</h1><ol>
+<li>基于I/O的输入流<br>应用需要从外部读取文本数据， 在应用中做进一步处理。 具体来说，读取的一个字节或字符序列可能是：<ul>
+<li>输入文件有特定格式，程序需读取文件并从中抽取正确的内容。</li>
+<li>从网络上传输过来的消息，遵循特定的协议。</li>
+<li>用户在命令行输入的指令，遵顼特定的格式。</li>
+<li>内存中存储的字符串，也有格式需要。</li>
+</ul>
+</li>
+<li>语法<ul>
+<li>使用grammar判断字符串是否合法，并解析成程序里使用的数据结构</li>
+<li>正则表达式</li>
+<li>通常是递归的数据结构</li>
+</ul>
+</li>
+</ol>
+<h2 id="2-1-语法的组成成分"><a href="#2-1-语法的组成成分" class="headerlink" title="2.1 语法的组成成分"></a>2.1 语法的组成成分</h2><ol>
+<li>终止节点：语法中的文字字符串<ul>
+<li>用语法定义一个“字符串”</li>
+<li>terminals 终止节点、叶节点</li>
+<li>nonterminal 非终止节点（遵循特定规则，利用操作符、终止节点和其他非终止节点，构造新的字符串）</li>
+</ul>
+</li>
+<li>语法中的产生式节点和非终止节点<ul>
+<li>语法是由一系列产生式节点组成，每一个产生式节点定义了一个非终止节点</li>
+<li>非终止节点就像代表一组字符串的变量，而产生式节点是根据其他变量（非终结符），运算符和常量（终结符）来定义该变量。 遵循特定规则，利用操作符，终止中断和其他非终止中断，构造新的字符串</li>
+<li>非终结符是树的内部节点，代表一个字符串。</li>
+</ul>
+</li>
+<li>语法中的产生式节点具有以下形式：<ul>
+<li>nonterminal :: =产生式节点、非终止节点和运算符的表达式</li>
+<li>语法的非终结符之一被指定为词根</li>
+<li>语法识别的字符串集是与根非终结符匹配的字符串</li>
+<li>该非终结符通常称为root或start</li>
+</ul>
+</li>
+</ol>
+<h2 id="2-2-语法中的操作符"><a href="#2-2-语法中的操作符" class="headerlink" title="2.2 语法中的操作符"></a>2.2 语法中的操作符</h2><ol>
+<li>三个基本语法的操作符<ul>
+<li>连接，不是通过一个符号，而是一个空间：<br>x ::= y z //x等价于y后跟一个z</li>
+<li>重复，以\<em>表示：<br>x ::= y\</em> // x等价于0个或更多个y</li>
+<li>联合，也称为交替，用|表示 ：<br>x ::= y | z //x等价于一个y或者一个z</li>
+</ul>
+</li>
+<li>三个基本操作符的组合：<ul>
+<li>可选（0或1次出现），由？表示：<br>x ::= y? //x等价于一个y或者一个空串</li>
+<li>出现1次或多次：以+表示：<br>x ::= y+ //x等价于一个或者更多个y， 等价于 x ::= y y*</li>
+<li>字符类[…]，表示长度的字符类，包含方括号中列出的任何字符的1个字符串：<br>x ::= [abc] //等价于 x ::= ‘a’ | ‘b’ | ‘c’</li>
+<li>否定的字符类[^…]，表示长度，包含未在括号中列出的任何字符的1个字符串：<br>x ::= [^abc] //等价于 x ::= ‘d’ | ‘e’ | ‘f’ | … (all other characters in Unicode)</li>
+</ul>
+</li>
+<li>例子：<br>x ::= (y z | a b)* //an x is zero or more y z or a b pairs<br>m ::= a (b|c) d //an m is a, followed by either b or c, followed by d</li>
+</ol>
+<h2 id="2-3-语法分析树"><a href="#2-3-语法分析树" class="headerlink" title="2.3 语法分析树"></a>2.3 语法分析树</h2><ol>
+<li>语法分析树：<br>将语法与字符串匹配可以生成一棵分析树，该树显示字符串的各个部分与语法的各个部分如何对应。<ul>
+<li>解析树的叶子用终端标记，表示已解析的字符串部分。</li>
+<li>没有孩子，无法继续扩大。</li>
+<li>如果将叶子串联在一起，则返回原始字符串。</li>
+</ul>
+</li>
+<li>解析URL示例：<br>url ::= protocol ‘\: //‘ hostname (‘:’port)? ‘/‘<br>protocol ::= (‘f’ | ‘ht’) ‘tp’ ‘s’?<br>hostname ::= word ‘.’ hostname |<br>word ‘.’ word<br>port ::= [0-9]+<br>word ::= [a-z]+</li>
+</ol>
+<h2 id="2-4-正则语法"><a href="#2-4-正则语法" class="headerlink" title="2.4 正则语法"></a>2.4 正则语法</h2><ol>
+<li>正则语法：<br>简化之后可以表达为一个产生式而不包含任何非终止节点。</li>
+<li>正则语法示例：<center>
+<img src="https://img-blog.csdnimg.cn/2020051719175740.png" width="80%" heigth="35%">
+</center>
+<center>
+图2-1 正则语法
+</center>
+
+</li>
+</ol>
+<h2 id="2-5-正则表达式"><a href="#2-5-正则表达式" class="headerlink" title="2.5 正则表达式"></a>2.5 正则表达式</h2><ol>
+<li>正则表达式：<br>可以用一种更紧凑的形式来编写简化的终端和运算符表达式。</li>
+<li>正则表达式消除了终端周围的引号以及终端和操作符之间的空格，因此它仅由终端字符，分组括号和操作符组成。 去除引号和空格，从而表达更简洁（更难懂），正则表达式也简称为regex。<ul>
+<li>正则表达式比原始语法的可读性差得多，因为它缺少记录每个子表达式含义的非终结符名称。</li>
+<li>但是正则表达式可以快速实现，并且许多编程语言中都有支持正则表达式的库。</li>
+</ul>
+</li>
+<li>正则表达式中的特殊字符</li>
+</ol>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200517192158160.png" width="80%" heigth="35%">
+</center>
+<center>
+图2-2 正则表达式中的特殊字符
+</center>
+
+<ol start="4">
+<li>上下文无关文法<br>与课程形式语言与自动机关联</li>
+</ol>
+<h2 id="2-6-JAVA中的正则表达式"><a href="#2-6-JAVA中的正则表达式" class="headerlink" title="2.6 JAVA中的正则表达式"></a>2.6 JAVA中的正则表达式</h2><ol>
+<li>适用场合：我们用正则表达式匹配字符串（例如 String.split , String.matches , java.util.regex.Pattern）<ul>
+<li>用一个空格代替所有的多个空格</li>
+<li>匹配一个URL：</li>
+<li>提取HTML标签的一部分</li>
+</ul>
+</li>
+</ol>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200517192536689.jpg" width="80%" heigth="35%">
+</center>
+<center>
+图2-3 JAVA中使用正则表达式示例
+</center>
+
+<ol start="2">
+<li>JAVA中的正则表达式语法<br><a href="https://docs.oracle.com/javase/tutorial/essential/regex/index.html" target="_blank" rel="noopener">JAVA中的正则表达式语法</a></li>
+</ol>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Demerzel Sun</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://demerzelsun12.github.io/2020/05/10/ruan-jian-gou-zao-di-wu-zhang-di-san-jie-mian-xiang-ke-wei-hu-xing-de-gou-zao-ji-zhu/">https://demerzelsun12.github.io/2020/05/10/ruan-jian-gou-zao-di-wu-zhang-di-san-jie-mian-xiang-ke-wei-hu-xing-de-gou-zao-ji-zhu/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Demerzel Sun</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0%E7%AC%94%E8%AE%B0/">
+                                    <span class="chip bg-color">软件构造笔记</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '76ccaf7feec7625ce708',
+        clientSecret: '1e6bfa1cee3945056abeff5f59d3c1c172e50e8e',
+        repo: 'DemerzelSun12.github.io',
+        owner: 'DemerzelSun12',
+        admin: "DemerzelSun12",
+        id: '2020-05-10T18-21-04',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2020/05/12/ruan-jian-gou-zao-di-liu-zhang-di-yi-jie-jian-zhuang-xing-yu-zheng-que-xing/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="软件构造-第六章-第一节-健壮性与正确性">
+                        
+                        <span class="card-title">软件构造-第六章-第一节-健壮性与正确性</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            软件构造第六章 第一节 健壮性与正确性
+
+ 
+
+一、健壮性与正确性1.1 健壮性
+定义：系统在不 正常输入或不正常外部环境下仍能够表现正常的程度
+面向健壮性编程：
+处理未期望的行为和错误终止
+即使终止执行，也要准确/无歧义的向用户展示全面的
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-05-12
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0/" class="post-category">
+                                    软件构造
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0%E7%AC%94%E8%AE%B0/">
+                        <span class="chip bg-color">软件构造笔记</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/05/07/he-wei-xian-cheng-chi/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="何为线程池">
+                        
+                        <span class="card-title">何为线程池</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            软件构造笔记-何为线程池
+
+ 
+
+一、什么是线程池线程池，顾名思义就是装线程的池子。其用途是为了帮我们重复管理线程，避免创建大量的线程增加开销，提高响应速度。
+二、为什么要使用线程池规格严格的哈工大学生，不会希望别人看到我们的代码就开始吐槽
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-07
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0/" class="post-category">
+                                    软件构造
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0%E7%AC%94%E8%AE%B0/">
+                        <span class="chip bg-color">软件构造笔记</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Demerzel&#39;s blog<br />'
+            + '文章作者: Demerzel Sun<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [
+                ['$', '$'],
+                ['\(', '\)']
+            ]
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        font-size: 15px;
+        color: #1E90FF;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="5143048440"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#1E90FF'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2019</span>
+            <a href="/about" target="_blank">Demerzel Sun</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">130.5k</span>&nbsp;字
+            
+            
+            
+            <!-- 
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+             -->
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link ">
+    <a href="https://github.com/DemerzelSun12" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:DemerzelSun@outlook.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+    <a href="https://twitter.com/Demerzel10" class="tooltipped" target="_blank" data-tooltip="关注我的Twitter: https://twitter.com/Demerzel10" data-position="top" data-delay="50">
+        <i class="fab fa-twitter"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1739779019" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1739779019" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
