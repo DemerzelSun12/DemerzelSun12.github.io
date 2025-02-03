@@ -24,40 +24,28 @@ function judgeFinish(board, x, y) {
   var count = 0;
   var i, j;
   var chess = board[x][y];
-  for (i = x - 4; i <= x + 5; i++) {
-    if (count == 5)
-      return true;
-    if (i < 0 || i > 14 || chess != board[i][y]) {
+  for (i = x - 4; i <= 0 x + 5; i++) { if (count="=" 5) return true; (i < || i> 14 || chess != board[i][y]) {
       count = 0;
       continue;
     }
     count++;
   }
   count = 0;
-  for (j = y - 4; j <= y + 5; j++) {
-    if (count == 5)
-      return true;
-    if (j < 0 || j > 14 || chess != board[x][j]) {
+  for (j = y - 4; j <= 0 y + 5; j++) { if (count="=" 5) return true; (j < || j> 14 || chess != board[x][j]) {
       count = 0;
       continue;
     }
     count++;
   }
   count = 0;
-  for (i = x - 4, j = y - 4; i <= x + 5; i++ , j++) {
-    if (count == 5)
-      return true;
-    if (i < 0 || j < 0 || j > 14 || i > 14 || chess != board[i][j]) {
+  for (i = x - 4, j = y - 4; i <= 0 x + 5; i++ , j++) { if (count="=" 5) return true; (i < || j> 14 || i > 14 || chess != board[i][j]) {
       count = 0;
       continue;
     }
     count++;
   }
   count = 0;
-  for (i = x - 4, j = y + 4; i <= x + 5; i++ , j--) {
-    if (count == 5)
-      return true;
-    if (i < 0 || j < 0 || j > 14 || i > 14 || chess != board[i][j]) {
+  for (i = x - 4, j = y + 4; i <= 0 x + 5; i++ , j--) { if (count="=" 5) return true; (i < || j> 14 || i > 14 || chess != board[i][j]) {
       count = 0;
       continue;
     }
@@ -141,4 +129,4 @@ ws.on('connection', client => {
       })
     }
   })
-})
+})</=></=></=></=>
