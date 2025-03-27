@@ -1,0 +1,1071 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="模型评估与选择, Demerzel Sun&#39;s blog">
+    <meta name="description" content="雨过枫山送远青">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>模型评估与选择 | Demerzel Sun&#39;s blog</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+    <script src="http://echarts.baidu.com/dist/echarts.common.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Demerzel Sun's blog" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Demerzel Sun&#39;s blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Demerzel Sun&#39;s blog</div>
+        <div class="logo-desc">
+            
+            雨过枫山送远青
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">模型评估与选择</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+                                <span class="chip bg-color">机器学习</span>
+                            </a>
+                        
+                            <a href="/tags/%E7%AE%97%E6%B3%95/">
+                                <span class="chip bg-color">算法</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                机器学习
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-08-03
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    2.3k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    8 分
+                </div>
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="一、经验误差与过拟合"><a href="#一、经验误差与过拟合" class="headerlink" title="一、经验误差与过拟合"></a>一、经验误差与过拟合</h2><h3 id="1-1-一些概念"><a href="#1-1-一些概念" class="headerlink" title="1.1 一些概念"></a>1.1 一些概念</h3><ol>
+<li><p>错误率：分类错误的样本数占样本总数的比例。如果在<em>m</em>个样本中有<em>a</em>个样本分类错误，则错误率为$E=\left. a \middle/ m \right.$ ；相应的，$1-\left. a\middle/ m \right.$ 称为“精度”。</p>
+</li>
+<li><p>误差：学习器的实际预测输出与样本的真实输出之间的差异；学习器在训练集上的误差称为“训练误差”或“经验误差”；在新样本上的误差称为“泛化误差”。</p>
+</li>
+</ol>
+<h3 id="1-2-过拟合与欠拟合"><a href="#1-2-过拟合与欠拟合" class="headerlink" title="1.2 过拟合与欠拟合"></a>1.2 过拟合与欠拟合</h3><h4 id="1-2-1-过拟合-overfitting-与欠拟合-underfitting"><a href="#1-2-1-过拟合-overfitting-与欠拟合-underfitting" class="headerlink" title="1.2.1 过拟合(overfitting)与欠拟合(underfitting)"></a>1.2.1 过拟合(overfitting)与欠拟合(underfitting)</h4><p>&emsp;&emsp;不用晦涩难懂的定义了，通俗解释一下。为了希望得到在新样本上表现很好的学习器，应该从训练样本中尽可能的学习适用于所有潜在样本的“普遍规律”。当把训练样本学得“太好了”的时候，很可能把训练样本自身的一些特点当做了所有潜在样本都会具有的性质，这样会导致泛化性能下降，这就是“过拟合”。<br>&emsp;&emsp;欠拟合正好相反，即训练样本的一般性质尚未学好。</p>
+<h4 id="1-2-2-解决办法"><a href="#1-2-2-解决办法" class="headerlink" title="1.2.2 解决办法"></a>1.2.2 解决办法</h4><ol>
+<li><p>欠拟合解决办法</p>
+<ul>
+<li>在决策树学习中扩展分支</li>
+<li>在神经网络中增加训练轮数</li>
+</ul>
+</li>
+<li><p>过拟合问题<br>&emsp;其实过拟合无法完全消除，只可进行“缓解”。因为机器学习面临的问题通常是<em>NP</em>难的问题，有效的学习算法必然是在多项式时间内运行完成。如果可以彻底避免过拟合，则通过经验误差最小化即可得到最优解，这就意味着构造性的证明了$P = NP$。因此，只要相信$P \ne NP$ ，过拟合就无法避免。</p>
+</li>
+</ol>
+<h2 id="二、评估方法"><a href="#二、评估方法" class="headerlink" title="二、评估方法"></a>二、评估方法</h2><p>&emsp;&emsp;需要选择“测试集”来测试学习器对新样本的判别能力，以测试集上的“测试误差”作为泛化误差的近似。通常假设测试样本是从样本的真实分布中独立同分布采样而得。但是，测试集应该尽可能与训练集互斥，让测试样本尽量不在训练集中出现、未在训练过程中使用过。<br>&emsp;&emsp;为了对数据集<em>D</em>做适当处理，得到训练集<em>S</em>和测试集<em>T</em>。下面介绍几种常见方法。</p>
+<h3 id="2-1-留出法"><a href="#2-1-留出法" class="headerlink" title="2.1 留出法"></a>2.1 留出法</h3><p>&emsp;&emsp;“留出法”(<em>hold-out</em>)直接将数据集<em>D</em>划分为两个互斥的集合，其中一个作为训练集<em>S</em>，一个作为测试集<em>T</em>，即$D=S \cup T$ , $S \cap T=\varnothing$，在S上训练模型，用T评估测试误差，作为对泛化误差的估计。</p>
+<p>注意要点：</p>
+<ol>
+<li>训练集/测试集的划分要尽可能保持数据分布的一致性，避免因为数据划分而引入的额外偏差对最终结果产生影响。例如可以采取“分层抽样”等一系列保留类别比例的抽样方法。</li>
+<li>不同的划分会导致不同的训练/测试集，相应的模型评估也有差别。因此，单次使用的留出法得到的结果往往不稳定可靠。所以在使用留出法时，一般采取若干次随机划分、重复实验评估取平均值作为留出法的评估结果。</li>
+<li>如果训练集<em>S</em>包含绝大多数样本，则训练出的模型可能更接近于用<em>D</em>训练出的模型，但是由于<em>T</em>较小，评估结果可能不够稳定准确；若令测试集T包含过多的样本，则<em>S</em>与<em>D</em>的差别更大了，被评价的模型与用<em>D</em>训练出的模型可能有较大差别。因此常见做法是：测试集至少包含30个测试用例，且数据集的大约$\left. 2 / 3 \right. \sim \left. 4 / 5 \right.$的样本用于训练，剩余样本用于测试。</li>
+</ol>
+<h3 id="2-2-交叉验证法"><a href="#2-2-交叉验证法" class="headerlink" title="2.2 交叉验证法"></a>2.2 交叉验证法</h3><p>&emsp;&emsp;“交叉验证法”(<em>cross&ensp;validation</em>)先将数据集<em>D</em>划分成<em>k</em>个大小相似的互斥子集，即$D=D_1\cup D_2\cup \cdots \cup D_k$，$D_i\cap D_j=\varnothing \left(i\ne j\right)$。每个子集$D_i$都尽可能保持数据分布的一致性。<br>&emsp;&emsp;每次使用$k-1$个子集的并集作为训练集，余下的子集作为测试集；这样可以得到<em>k</em>组训练/测试集，进行<em>k</em>次训练和测试，最终返回<em>k</em>次测试结果的均值。</p>
+<h3 id="2-3-自助法"><a href="#2-3-自助法" class="headerlink" title="2.3 自助法"></a>2.3 自助法</h3><p>&emsp;&emsp;我们希望评估的是用<em>D</em>训练出的模型，但是在以上两种方法中，由于必然会保留一部分样本用于测试，因此实际的训练模型所使用的训练集比<em>D</em>小。因此必然会引入因为训练样本规模不同而导致的估计偏差。</p>
+<p>&emsp;&emsp;“自助法”(<em>bootstrapping</em>)以自助采样阀为基础。给定包含<em>m</em>个样本的数据集<em>D</em>，采样产生数据集<em>D’</em>：每次随机从<em>D</em>中挑选一个样本，拷贝放入<em>D’</em>，再将样本放回初始数据集<em>D</em>中，使该样本在下次采样时仍有可能被取到；重复执行<em>m</em>次后，得到了包含<em>m</em>个样本的数据集<em>D’</em>。显然，<em>D</em>中的一部分样本会在<em>D’</em>中多次出现，而另一部分样本不出现。</p>
+<p>&emsp;&emsp;自助法在数据集小、难以有效划分训练、测试时有用；此外，自助法能从初始数据集中产生多个不同的训练集，对继承学习等方法有很大的好处。</p>
+<h2 id="三、性能度量"><a href="#三、性能度量" class="headerlink" title="三、性能度量"></a>三、性能度量</h2><p>&emsp;&emsp;对学习器的泛化性能进行评估，不仅需要有效可行的实验估计方法，还需要有衡量模型泛化能力的评价标准，即性能度量(<em>performance&ensp;measure</em>)。<br>&emsp;&emsp;下面介绍常用的性能度量。</p>
+<h3 id="3-1-均方误差"><a href="#3-1-均方误差" class="headerlink" title="3.1 均方误差"></a>3.1 均方误差</h3><p>&emsp;&emsp;回归任务最常用的性能度量是“均方误差”$$E\left( f;D \right) =\frac{1}{m}\sum_{i=1}^m{\left( f\left( \boldsymbol{x}_i \right) -y_i \right) ^2}$$</p>
+<p>&emsp;&emsp;更一般的，对于数据$\mathcal{D}$和概率密度函数$p\left(\cdot\right)$，均方差可描述为$$E\left(f;D\right)=\int_{\boldsymbol{x}\sim\mathcal{D}}{\left(f\left(\boldsymbol{x}\right)-y\right)^2p\left(\boldsymbol{x}\right)}\text{d}x$$</p>
+<h3 id="3-2-错误率与精度"><a href="#3-2-错误率与精度" class="headerlink" title="3.2 错误率与精度"></a>3.2 错误率与精度</h3><p>&emsp;&emsp;错误率与精度适用范围较广，既适用于二分类任务，也适用于多分类任务。</p>
+<ol>
+<li>错误率：分类错误的样本数占样本总数的比例。<ul>
+<li>对于样例集<em>D</em>，分类错误的定义为：$$E\left( f;D \right) =\frac{1}{m}\sum_{i=1}^m{\mathbb{I}\left( f\left( \boldsymbol{x}_i \right) \ne y_i \right)}$$</li>
+<li>对于数据分布$\mathcal{D}$，和概率密度$p\left(\cdot\right)$，错误率定义为$$E\left( f;D \right) =\int_{\boldsymbol{x}\sim \mathcal{D}}{\mathbb{I}\left( f\left( \boldsymbol{x} \right) \ne y \right) p\left( \boldsymbol{x} \right)}\text{d}x$$</li>
+</ul>
+</li>
+<li>精度：分类正确的样本数占样本总数的比例。<ul>
+<li>对于样例集<em>D</em>，精度的定义为：<br>$$<br>\begin{aligned}<br>  \text{acc}\left( f\ ;D \right) &amp;= \frac{1}{m}\sum_{i=1}^m{\mathbb{I}\left( f\left( \boldsymbol{x}_i \right) =y_i \right)} \<br>  &amp;= 1-E\left( f\ ;D \right)<br>\end{aligned}<br>$$</li>
+<li>对于数据分布$\mathcal{D}$，和概率密度$p\left(\cdot\right)$，精度为：<br>$$<br>\begin{aligned}<br> \text{acc}\left( f\ ;D \right) &amp;= \frac{1}{m}\sum_{i=1}^m{\mathbb{I}\left( f\left( \boldsymbol{x}_i \right) =y_i \right)} \<br>  &amp;= 1-E\left( f\ ;D \right)<br>\end{aligned}<br>$$</li>
+</ul>
+</li>
+</ol>
+<h3 id="3-3-查准率、查全率与-F-1"><a href="#3-3-查准率、查全率与-F-1" class="headerlink" title="3.3 查准率、查全率与$F_1$"></a>3.3 查准率、查全率与$F_1$</h3><p>&emsp;&emsp;在信息检索中，我们会关心“检索出的信息中有多少比例是用户感兴趣的”“用户感兴趣的检索出来了多少”。</p>
+<p>&emsp;&emsp;对于二分类问题，将样例根据其真实类别与学习器预测类别的组合划分为真正例(<em>true&ensp;positive</em>)、假正例(<em>false&ensp;positive</em>)、真反例(<em>true&ensp;negative</em>)、假反例(<em>false&ensp;negative</em>)。分类结果如表所示</p>
+<center>
+   <table class="tg" align="center">
+      <thead>
+         <tr>
+            <th class="tg-c3ow" rowspan="2">真实情况</th>
+            <th class="tg-c3ow" colspan="2">预测结果</th>
+         </tr>
+         <tr>
+            <td class="tg-0pky">正例</td>
+            <td class="tg-0pky">反例</td>
+         </tr>
+      </thead>
+      <tbody>
+         <tr>
+            <td class="tg-c3ow">正例</td>
+            <td class="tg-0pky">TP(真正例)</td>
+            <td class="tg-0pky">FN(假反例)</td>
+         </tr>
+         <tr>
+            <td class="tg-c3ow">反例</td>
+            <td class="tg-0pky">FP(假正例)</td>
+            <td class="tg-0pky">TN(真反例)</td>
+         </tr>
+      </tbody>
+   </table>
+</center>
+
+<p>&emsp;&emsp;查准率<em>P</em>与查全率<em>R</em>分别定义为$$P=\cfrac{TP}{TP+FP}$$ $$R=\cfrac{TP}{TP+FN}$$</p>
+<p>&emsp;&emsp;一般来说，查准率高，查全率往往偏低；查全率高，查准率往往偏低。通常只在一些简单的任务中，才能使得查全率和查准率都很高。平衡点(<em>Break-Even&ensp;Point</em>，简称<em>BEP</em>)，是“查准率=查全率”时的取值。</p>
+<p>&emsp;&emsp;$F_1$度量：$$F_1=\cfrac{2\times P\times R}{P+R}=\cfrac{2\times TP}{样例总数+TP-TN}$$</p>
+<p>&emsp;&emsp;$F_1$度量的一般形式为$F_\beta$，能表达出对查准率/查全率的不同偏好，定义为$$F_\beta=\cfrac{\left(1+\beta^2\right)\times P\times R}{\left(\beta^2\times P\right)+R}$$，其中$\beta&gt;0$度量了查全率对查准率的相关重要性，$\beta=1$退化为标准的$F_1$；$\beta&gt;1$时查全率有更大的影响；$\beta&lt;1$时查准率有更大的影响。</p>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Demerzel</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://demerzelsun12.github.io/mo-xing-ping-gu-yu-xuan-ze.html">https://demerzelsun12.github.io/mo-xing-ping-gu-yu-xuan-ze.html</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Demerzel</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+                                    <span class="chip bg-color">机器学习</span>
+                                </a>
+                            
+                                <a href="/tags/%E7%AE%97%E6%B3%95/">
+                                    <span class="chip bg-color">算法</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '76ccaf7feec7625ce708',
+        clientSecret: '1e6bfa1cee3945056abeff5f59d3c1c172e50e8e',
+        repo: 'DemerzelSun12.github.io',
+        owner: 'DemerzelSun12',
+        admin: "DemerzelSun12",
+        id: '2020-08-03T19-44-23',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/gan-zhi-ji.html">
+                    <div class="card-image">
+                        
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="感知机">
+                        
+                        <span class="card-title">感知机</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            感知机学习模型
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-08-09
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    机器学习
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">机器学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%AE%97%E6%B3%95/">
+                        <span class="chip bg-color">算法</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/jian-du-xue-xi-yu-wu-jian-du-xue-xi.html">
+                    <div class="card-image">
+                        
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="监督学习与无监督学习">
+                        
+                        <span class="card-title">监督学习与无监督学习</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            一、前言&emsp;&emsp;机器学习的算法有很多种，学习算法中主要的两种类型是监督学习和无监督学习。简单来说，监督学习就是教计算机如何完成任务，无监督学习使让计算机自行学习完成。&emsp;&emsp;简言之，机器学习就是让机器从大量的
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-31
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    机器学习
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">机器学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%AE%97%E6%B3%95/">
+                        <span class="chip bg-color">算法</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Demerzel Sun&#39;s blog<br />'
+            + '文章作者: Demerzel Sun<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [
+                ['$', '$'],
+                ['\(', '\)']
+            ]
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        font-size: 15px;
+        color: #1E90FF;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="5143048440"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#1E90FF'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2019</span>
+            <a href="/about" target="_blank">Demerzel Sun</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">131.3k</span>&nbsp;字
+            
+            
+            
+            <!-- 
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+             -->
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link ">
+    <a href="https://github.com/DemerzelSun12" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:DemerzelSun@outlook.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+    <a href="https://twitter.com/Demerzel10" class="tooltipped" target="_blank" data-tooltip="关注我的Twitter: https://twitter.com/Demerzel10" data-position="top" data-delay="50">
+        <i class="fab fa-twitter"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

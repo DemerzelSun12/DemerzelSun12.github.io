@@ -1,0 +1,1242 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="软件构造-第二章-第二节-软件构造的过程、系统和工具, Demerzel Sun&#39;s blog">
+    <meta name="description" content="雨过枫山送远青">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>软件构造-第二章-第二节-软件构造的过程、系统和工具 | Demerzel Sun&#39;s blog</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+    <script src="http://echarts.baidu.com/dist/echarts.common.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Demerzel Sun's blog" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Demerzel Sun&#39;s blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Demerzel Sun&#39;s blog</div>
+        <div class="logo-desc">
+            
+            雨过枫山送远青
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">软件构造-第二章-第二节-软件构造的过程、系统和工具</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0%E7%AC%94%E8%AE%B0/">
+                                <span class="chip bg-color">软件构造笔记</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0/" class="post-category">
+                                软件构造
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-03-21
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    2.8k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    10 分
+                </div>
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="软件构造第二章-第二节-软件构造的过程、系统和工具"><a href="#软件构造第二章-第二节-软件构造的过程、系统和工具" class="headerlink" title="软件构造第二章 第二节 软件构造的过程、系统和工具"></a>软件构造第二章 第二节 软件构造的过程、系统和工具</h1><!-- toc -->
+
+ <a id="more"></a>
+
+<h1 id="一、广义的软件构造过程"><a href="#一、广义的软件构造过程" class="headerlink" title="一、广义的软件构造过程"></a>一、广义的软件构造过程</h1><h2 id="1-1-编程-Programming"><a href="#1-1-编程-Programming" class="headerlink" title="1.1 编程(Programming)"></a>1.1 编程(Programming)</h2><center>
+<img src="https://img-blog.csdnimg.cn/20200328225435730.png" width="80%" height="35%">
+</center>
+<center>
+图1-1 常见软件构造过程
+</center>
+<br>
+
+<ol>
+<li><p>Construction languages</p>
+<ul>
+<li>用途上划分语言<ul>
+<li>Programming languages (e.g., C, C++, Java, Python) 编程语言</li>
+<li>Modeling languages (e.g., UML) 建模语言</li>
+<li>Configuration languages (e.g., XML) 配置语言</li>
+<li>Build languages (e.g., XML) 构建语言</li>
+</ul>
+</li>
+<li>从形态上划分<ul>
+<li>Linguistic-based 基于语言学的构造语言</li>
+<li>Mathematics-based (formal) 基于数学的形式化构造语言</li>
+<li>Graphics-based (visual) 基于图形的可视化构造语言<br>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Programming tools</p>
+<ul>
+<li>集成开发环境IDE</li>
+<li>IDE包括：<ul>
+<li>Source code editor with intelligent code completion, code refactoring tool 源代码编辑器、智能代码补全工具、代码重构工具</li>
+<li>File management tool 文件管理</li>
+<li>Library management tool 库管理</li>
+<li>Class browser, object browser, class hierarchy diagram 软件逻辑实体可视化</li>
+<li>Graphical User Interface (GUI) builder 图形化用户界面构造器</li>
+<li>Compiler, interpreter 编译器、解释器</li>
+<li>Build automation tools 自动化build工具</li>
+<li>Version control system 版本控制系统</li>
+<li>Extensible by more external third-party tools 外部的第三方工具<br>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Modeling languages 建模语言</p>
+<ul>
+<li>建模语言：<br>&emsp;建模语言是可以用来在由一致的规则集定义的结构中表达信息或知识或系统的任何人工语言，目的是可视化，推理，验证和传达系统的设计。</li>
+<li>UML语言:<center>
+<img src="https://img-blog.csdnimg.cn/20200328230951933.png" width="90%" height="35%">
+</center>
+<center>
+图1-2 UML图
+</center>
+<br>  
+<center>
+<img src="https://img-blog.csdnimg.cn/20200328231015347.png" width="80%" height="35%">
+</center>
+<center>
+图1-3 UML图示例
+</center>
+<br> 
+</li>
+</ul>
+</li>
+<li><p>Configuration languages 配置语言</p>
+<ul>
+<li>配置文件配置程序的参数和初始设置。</li>
+<li>应用程序应提供工具来创建，修改和验证其配置文件的语法；</li>
+<li>某些计算机程序仅在启动时读取其配置文件。其他人则定期检查配置文件中的更改。</li>
+<li>常见配置语言：XML, YAML, JSON</li>
+</ul>
+</li>
+</ol>
+<h2 id="1-2-静态代码分析-Review-and-static-code-analysis"><a href="#1-2-静态代码分析-Review-and-static-code-analysis" class="headerlink" title="1.2 静态代码分析(Review and static code analysis)"></a>1.2 静态代码分析(Review and static code analysis)</h2><ol>
+<li><p>代码评审</p>
+<ul>
+<li>代码审查是对源代码的系统检查（同级审查）。</li>
+<li>旨在发现在初始开发阶段被忽略的错误，从而提高整体质量。</li>
+<li>审核以各种形式进行，例如配对编程，非正式演练和正式检查。<br>
+</li>
+</ul>
+</li>
+<li><p>代码评审会议</p>
+<ul>
+<li>正式的代码审查（例如Fagan检查）涉及一个仔细且详细的过程，涉及多个参与者和多个阶段。</li>
+<li>正式代码审查是传统的审查方法，其中软件开发人员通常使用材料的印刷副本参加一系列会议并逐行审查代码。</li>
+<li>正式检查非常彻底，并且可以有效地发现所审查代码中的缺陷。<br>
+</li>
+</ul>
+</li>
+<li><p>轻量级的代码评审</p>
+<ul>
+<li>轻量级代码检查通常比正式代码检查需要更少的开销，尽管在正确完成后它同样有效。</li>
+<li>轻量级审核通常是正常开发过程的一部分：<ul>
+<li>过度负责 - 当开发人员浏览代码时，另一位开发人员同时进行审查。</li>
+<li>电子邮件传递 - 源代码管理系统在签入后自动将代码通过电子邮件发送给审阅者。</li>
+<li>配对编程 - 两位作者在同一工作站上一起开发代码，这在Extreme Programming中很常见。</li>
+<li>工具辅助的代码审阅 - 作者和审阅者使用软件工具，非正式工具（例如pastebins和IRC）或专门用于对等代码审阅的专用工具。<br>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>利用工具进行的静态代码分析</p>
+<ul>
+<li>静态代码分析是对没有实际执行程序的情况下执行的计算机软件的分析（对执行程序执行的分析称为动态分析）。</li>
+<li>该过程可以对代码结构有所了解，并可以帮助确保代码符合行业标准。</li>
+<li>自动化工具可以帮助程序员和开发人员进行静态分析。<br>
+</li>
+</ul>
+</li>
+<li><p>代码审查目的</p>
+<ul>
+<li>改进代码。 查找错误，预见可能的错误，检查代码的清晰度以及检查与项目样式标准的一致性。</li>
+<li>提升程序员水平。 代码审查是程序员彼此学习和教导的重要方式，涉及新的语言功能，项目设计或其编码标准的更改以及新技术。 特别是在开源项目中，在代码审查中可以学习很多新知识。</li>
+<li>注：<font color="red" size="5">测试也是提高代码质量手段，但分析和设计为提升代码质量的最重要方式。</font><br>
+
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="1-3-动态代码分析-Dynamic-code-analysis-profiling"><a href="#1-3-动态代码分析-Dynamic-code-analysis-profiling" class="headerlink" title="1.3 动态代码分析(Dynamic code analysis / profiling)"></a>1.3 动态代码分析(Dynamic code analysis / profiling)</h2><ol>
+<li>动态代码分析<ul>
+<li>动态程序分析是对通过执行程序执行的软件的分析。</li>
+<li>必须使用足够的测试输入来执行目标程序，以使软件产生正确的行为。即对代码的运行时状态和性能进行度量，发现代码中的潜在问题。</li>
+<li>使用软件测试措施（例如代码覆盖率）有助于确保已观察到程序的可能行为集中的适当部分。</li>
+<li>概要分析（“程序概要”，“软件概要”）是一种动态程序分析形式，用于测量程序的空间（内存）或时间复杂性，特定指令的使用情况或函数调用的频率和持续时间。<br>
+
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="1-4-调试与测试-Debugging-and-Testing"><a href="#1-4-调试与测试-Debugging-and-Testing" class="headerlink" title="1.4 调试与测试(Debugging and Testing)"></a>1.4 调试与测试(Debugging and Testing)</h2><ol>
+<li><p>什么是测试？</p>
+<ul>
+<li>软件测试是为了向利益相关者提供有关被测产品或服务质量的信息而进行的调查。</li>
+<li>测试技术包括执行程序或应用程序的过程，目的是发现软件错误（错误或其他缺陷），并验证软件产品是否适合使用。</li>
+<li>软件测试包括执行软件组件或系统组件以评估一个或多个相关属性。<br>
+</li>
+</ul>
+</li>
+<li><p>什么是调试？</p>
+<ul>
+<li>调试是识别错误的根本原因并进行纠正的过程。</li>
+<li>与测试相反（测试是最初检测错误的过程），调试是成功测试的结果。<ul>
+<li>在某些项目中，调试占用了总开发时间的50％。</li>
+<li>对于许多程序员而言，调试是编程中最困难的部分。</li>
+</ul>
+</li>
+<li>像测试一样，调试不是提高软件质量的方法，而是诊断缺陷的方法。<ul>
+<li>必须从一开始就内置软件质量。 制作高质量产品的最佳方法是仔细开发需求，进行良好的设计并使用高质量的编码实践。</li>
+<li>调试是不得已的方法。<br>
+
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="1-5-重构-Refactoring"><a href="#1-5-重构-Refactoring" class="headerlink" title="1.5 重构(Refactoring)"></a>1.5 重构(Refactoring)</h2><ol>
+<li><p>重构：</p>
+<ul>
+<li>重构是指以不改变代码的外部行为但改善其内部结构的方式更改软件系统的过程。<br>
+</li>
+</ul>
+</li>
+<li><p>重构的目的：</p>
+<ul>
+<li>产生短期时间/工作成本以获取长期利益，并为系统的整体质量进行长期投资。<br>
+</li>
+</ul>
+</li>
+<li><p>重构的方法：</p>
+<ul>
+<li>通过一系列小的保留语义的转换来重构（重新排列）代码，以使代码更易于维护和修改。</li>
+<li>重构不仅仅是对旧的结构重组，需要保持代码正常运行，保留语义的小步骤，进行单元测试以证明代码有效。<br>
+
+</li>
+</ul>
+</li>
+</ol>
+<h1 id="二、狭义的软件构造：build"><a href="#二、狭义的软件构造：build" class="headerlink" title="二、狭义的软件构造：build"></a>二、狭义的软件构造：build</h1><h2 id="2-1-build粗略理解"><a href="#2-1-build粗略理解" class="headerlink" title="2.1 build粗略理解"></a>2.1 build粗略理解</h2><p>&emsp;&emsp;粗略理解build：build-time $\rightarrow$ run-time. 借助于工具，将软件构造各阶段的活动“自动化”(编译、打包、静态分析、测试、生成文档、部署、…)，尽可能脱离“手工作业”，提高构造效率。</p>
+<h2 id="2-2-build场景综述"><a href="#2-2-build场景综述" class="headerlink" title="2.2 build场景综述"></a>2.2 build场景综述</h2><ol>
+<li>用传统编译语言(如C、C++、Java)编写软件（compilation）</li>
+<li>用解释型语言(如Perl、Python)编写软件的打包和测试(packaging and testing)</li>
+<li>用基于Web的应用程序进行编译和打包<ul>
+<li>使用静态HTML页面</li>
+<li>使用Java或C# 编写的源代码 </li>
+<li>使用JSP，ASP或PHP语法编写的混合文件以及多种类型的配置文件</li>
+</ul>
+</li>
+<li>执行单元测试代码的其余部分对软件进行隔离验证</li>
+<li>执行静态分析工具来是被程序源代码中的错误</li>
+<li>生成PDF或HTML文档</li>
+</ol>
+<h2 id="2-3-传统编译语言：C、C-、Java等"><a href="#2-3-传统编译语言：C、C-、Java等" class="headerlink" title="2.3 传统编译语言：C、C++、Java等"></a>2.3 传统编译语言：C、C++、Java等</h2><ol>
+<li>源文件被编译成目标文件，连接到代码库或可执行程序中<br>生成的文件被收集到可安装在目标机器上的发行包中</li>
+<li>版本控制工具</li>
+<li>源树和对象树：特定开发人员使用的源文件和编译对象文件集。</li>
+<li>构建机器：执行编译工具的计算设备</li>
+<li>发布打包和目标机器：打包软件，分发给最终用户，然后安装到目标机器上的方法</li>
+</ol>
+<h2 id="2-4-解释型语言：Perl、Python等"><a href="#2-4-解释型语言：Perl、Python等" class="headerlink" title="2.4 解释型语言：Perl、Python等"></a>2.4 解释型语言：Perl、Python等</h2><ol>
+<li>解释的源代码不会编译到目标代码中，不需要对象树，解释源文件本身被收集到一个发行包中被安排在目标机器上</li>
+<li>编译工具专注于转换源文件并将它们存储在发行包中</li>
+<li>不在程序构建时编译成机器码</li>
+</ol>
+<h2 id="2-5-基于Web应用程序的构建系统：编译代码，解释代码和配置或数据文件的混合"><a href="#2-5-基于Web应用程序的构建系统：编译代码，解释代码和配置或数据文件的混合" class="headerlink" title="2.5 基于Web应用程序的构建系统：编译代码，解释代码和配置或数据文件的混合"></a>2.5 基于Web应用程序的构建系统：编译代码，解释代码和配置或数据文件的混合</h2><ol>
+<li>静态HTML文件，只包含标记数据显示在Web浏览器中，直接复制到发行包</li>
+<li>包含代码的JavaScript文件将由最终用户浏览器解释，直接复制到发行包</li>
+<li>JSP，ASP或PHP页面，包含HTML和程序代码的混合，由Web应用程序服务器而不是构建系统编译和执行，复制到发布包，准备安装到Web服务器上</li>
+<li>构建系统在编译打包Java类文件之前执行转换。Java类在Web应用程序服务器上或浏览器内执行（使用小程序）</li>
+</ol>
+<h2 id="2-6-Build-process"><a href="#2-6-Build-process" class="headerlink" title="2.6 Build process"></a>2.6 Build process</h2><ol>
+<li>build process<br>&emsp;构建工具调用每个编译工具来完成工作，这是事件的端到端序列。</li>
+</ol>
+<center>
+<img src="https://img-blog.csdnimg.cn/2020032911281383.png" width="90%" height="35%">
+</center>
+<center>
+图2-1 build process
+</center>
+<br>  
+
+<ol start="2">
+<li>如何构建系统<ul>
+<li>开发人员构建：开发人员已检出VCS的源代码并正在专用工作区中构建软件，结果发布包将用于开发人员的私人开发。</li>
+<li>发布版本：为测试组提供一个完整的软件包供验证，软件的质量足够高时为客户提供相同的软件包。用于发布版本的源代码树只编译一次，永不修改。</li>
+<li>Sanity构建：与发布版本类似，但并非针对客户，可以每天发生多次，并且趋向于完全自动化。</li>
+</ul>
+</li>
+</ol>
+<h1 id="三、常见build工具"><a href="#三、常见build工具" class="headerlink" title="三、常见build工具"></a>三、常见build工具</h1><ol>
+<li>Java构造工具：Make、Ant、Maven、Gradle、Eclipse<br>.2 Maven将项目的生命周期大致分为9个，分别为：clean、validate、compile、test、package、verify、install、site、deploy <ul>
+<li>使用maven自动构建的方法：如mvn compile<ul>
+<li>validate - 验证项目是否正确，并提供所有必要的信息</li>
+<li>compile - 编译项目的源代码</li>
+<li>test - 使用单元测试框架测试已编译的源代码。这些测试不应该要求打包或部署代码</li>
+<li>package - 获取已编译的代码并将其打包为可分发的格式，例如JAR</li>
+<li>verify - 对集成测试结果进行任何检查，以确保符合质量标准</li>
+<li>install - 将软件包安装到本地存储库中，作为本地其他项目的依赖项</li>
+<li>deploy - 在构建环境中完成，将最终包复制到远程存储库，以便与其他开发人员和项目共享</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Demerzel Sun</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://demerzelsun12.github.io/ruan-jian-gou-zao-di-er-zhang-di-er-jie-ruan-jian-gou-zao-de-guo-cheng-xi-tong-he-gong-ju.html">https://demerzelsun12.github.io/ruan-jian-gou-zao-di-er-zhang-di-er-jie-ruan-jian-gou-zao-de-guo-cheng-xi-tong-he-gong-ju.html</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Demerzel Sun</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0%E7%AC%94%E8%AE%B0/">
+                                    <span class="chip bg-color">软件构造笔记</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '76ccaf7feec7625ce708',
+        clientSecret: '1e6bfa1cee3945056abeff5f59d3c1c172e50e8e',
+        repo: 'DemerzelSun12.github.io',
+        owner: 'DemerzelSun12',
+        admin: "DemerzelSun12",
+        id: '2020-03-21T21-40-57',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/ruan-jian-gou-zao-di-san-zhang-di-yi-jie-shu-ju-lei-xing-yu-lei-xing-jian-cha.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="软件构造-第三章-第一节-数据类型与类型检查">
+                        
+                        <span class="card-title">软件构造-第三章-第一节-数据类型与类型检查</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            软件构造第三章 第一节 数据类型与类型检查
+
+ 
+
+一、数据类型1.1 类型和变量
+数据类型：
+基本数据类型&emsp;int double long boolean double char
+面向对象的数据类型&emsp;String Bi
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-03-24
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0/" class="post-category">
+                                    软件构造
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0%E7%AC%94%E8%AE%B0/">
+                        <span class="chip bg-color">软件构造笔记</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/java-ji-chu-pian-string-he-stringbuffer-stringbuilder-de-qu-bie.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="Java基础—String 和 StringBuffer、StringBuilder 的区别">
+                        
+                        <span class="card-title">Java基础—String 和 StringBuffer、StringBuilder 的区别</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            软件构造笔记-Java基础—String 和 StringBuffer、StringBuilder 的区别
+
+ 
+
+一、三者简介1.1 StringString 表示的就是 Java 中的字符串，日常用到的使用 “” 双引号包围的数都是字符
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-21
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0/" class="post-category">
+                                    软件构造
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0%E7%AC%94%E8%AE%B0/">
+                        <span class="chip bg-color">软件构造笔记</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Demerzel Sun&#39;s blog<br />'
+            + '文章作者: Demerzel Sun<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [
+                ['$', '$'],
+                ['\(', '\)']
+            ]
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        font-size: 15px;
+        color: #1E90FF;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="5143048440"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#1E90FF'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2019</span>
+            <a href="/about" target="_blank">Demerzel Sun</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">131.3k</span>&nbsp;字
+            
+            
+            
+            <!-- 
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+             -->
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link ">
+    <a href="https://github.com/DemerzelSun12" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:DemerzelSun@outlook.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+    <a href="https://twitter.com/Demerzel10" class="tooltipped" target="_blank" data-tooltip="关注我的Twitter: https://twitter.com/Demerzel10" data-position="top" data-delay="50">
+        <i class="fab fa-twitter"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
