@@ -35,6 +35,9 @@ delimiters.block = [["\\[", "\\]"], ["$$", "$$"]]
 delimiters.inline = [["\\(", "\\)"], ["$", "$"]]
 
 
-
-
+# support rendering HTML language
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
 
