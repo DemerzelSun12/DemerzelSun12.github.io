@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mqtt on Demerzel&#39;s Blog</title>
+    <link>http://localhost:13926/tags/mqtt/</link>
+    <description>Recent content in Mqtt on Demerzel&#39;s Blog</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 08 Jan 2022 14:53:28 +0000</lastBuildDate>
+    <atom:link href="http://localhost:13926/tags/mqtt/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>mqtt协议学习记录</title>
+      <link>http://localhost:13926/post/mqtt%E5%8D%8F%E8%AE%AE%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Sat, 08 Jan 2022 14:53:28 +0000</pubDate>
+      <guid>http://localhost:13926/post/mqtt%E5%8D%8F%E8%AE%AE%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</guid>
+      <description>MQTT 协议学习记录</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,1770 @@
+<!doctype html>
+<html
+  lang="zh-cn" 
+  
+    data-theme-mode="auto"
+  
+>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=13926&amp;path=livereload" data-no-instant defer></script>
+    
+    <meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+
+
+
+
+
+  
+
+<title>
+  视听觉信号处理听觉复习笔记 | Demerzel
+</title>
+<meta
+  name="description"
+  content="浮沉在世 人事变迁"
+/>
+
+
+
+
+
+
+
+
+
+
+<script>
+  window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"clipboard\":{\"copyright\":{\"content\":\"本文版权：本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！\",\"count\":50,\"enable\":false},\"fail\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"success\":\"复制成功(*^▽^*)\"},\"code_block\":{\"expand\":true},\"icon_font\":\"4552607_0khxww3tj3q9\",\"outdate\":{\"daysago\":180,\"enable\":false,\"message\":\"本文最后更新于 {time}，请注意文中内容可能已经发生变化。\"}}");
+</script>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+    
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+  media="print"
+  onload="this.media='all'"
+/>
+
+
+
+
+
+
+
+  <link
+    rel="preload"
+    href="//at.alicdn.com/t/c/font_4552607_0khxww3tj3q9.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  />
+
+
+
+  
+
+
+
+
+
+
+ <link rel="stylesheet" href="/css/loader.css" />
+
+
+
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="视听觉信号处理听觉复习笔记 | Demerzel" />
+  <meta
+    property="og:description"
+    content="浮沉在世 人事变迁"
+  />
+  <meta property="og:url" content="http://localhost:13926/post/%E8%A7%86%E5%90%AC%E8%A7%89%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86%E5%90%AC%E8%A7%89%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/" />
+  <meta
+    property="og:site_name"
+    content="Demerzel&#39;s Blog"
+  />
+  <meta
+    property="og:image"
+    content="/images/featureimages/11.jpg"
+  />
+  <meta property="article:author" content="Demerzel" />
+  <meta property="article:published_time" content="2020-12-19T15:53:28&#43;00:00" />
+  <meta property="article:modified_time" content="2020-12-19T15:53:28&#43;00:00" />
+  
+    <meta property="article:tag" content="学长的火炬视听觉信号处理" />
+  
+  
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:image" content="/images/featureimages/11.jpg" />
+  
+  
+  
+  
+  
+
+
+
+
+<link rel="shortcut icon" href="/favicon.ico">
+
+
+
+
+
+
+
+ <link rel="stylesheet" href="/css/main.css" />
+
+
+
+
+
+  <link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css"
+    onload="this.onload=null;this.rel='stylesheet'"
+  />
+
+
+
+
+
+
+  <link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css"
+    onload="this.onload=null;this.rel='stylesheet'"
+  />
+
+
+
+
+
+
+
+
+  
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"
+    
+    
+    
+    
+    integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"
+  ></script>
+
+
+
+
+
+  
+
+
+  <link rel="stylesheet" href="https://npm.webcache.cn/@reimujs/aos@0.1.0/dist/aos.css" />
+
+
+
+
+
+    
+  </head>
+  <body>
+    
+    
+  <div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi rotate">
+        
+          <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+            <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="var(--red-1, #ff5252)" />
+            <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+          M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="var(--red-1, #ff5252)" />
+          </svg>
+        
+      </div>
+      <div class="loading-word">少女祈祷中...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    var startLoading = () => {
+      time = Date.now();
+      document.getElementById('loader').classList.remove("loading");
+    }
+    var endLoading = () => {
+      if (!time) {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loader').classList.add("loading");
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          document.body.style.overflow = 'auto';
+          document.getElementById('loader').classList.add("loading");
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    document.getElementById('loader').addEventListener('click', endLoading);
+  </script>
+
+
+<div id="copy-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+</div>
+
+
+    <div id="container">
+      <div id="wrap">
+        
+<div id="header-nav">
+  <nav id="main-nav">
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/">首页</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/archives">归档</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/about">关于</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/friend">友链</a>
+      </span>
+    
+    <a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav">
+    
+    
+  </nav>
+</div>
+<header id="header">
+  
+    <picture></picture>
+    <img  fetchpriority="high" src="/images/featureimages/11.jpg" alt="视听觉信号处理听觉复习笔记">
+  
+
+  <div id="header-outer">
+    <div id="header-title">
+      
+        
+        
+          
+        
+  
+        
+          <a href="/" id="logo">
+            <h1 data-aos="slide-up">视听觉信号处理听觉复习笔记</h1>
+          </a>
+        
+      
+  
+      
+        
+        
+        <h2 id="subtitle-wrap" data-aos="slide-down">
+          
+        </h2>
+      
+    </div>
+  </div>
+</header>
+        <div id="content"
+          
+          class="sidebar-right"  >
+          <aside id="sidebar">
+  
+  
+  
+  <div class="sidebar-wrapper wrap-sticky">
+    <div
+      class="sidebar-wrap"
+      data-aos="fade-up"
+    >
+      
+        
+          <div class="sidebar-toc-sidebar">
+            <div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#总述">总述</a></li>
+    <li><a href="#一语音的声学表示">一、语音的声学表示</a>
+      <ul>
+        <li><a href="#11-语音的声学特性">1.1 语音的声学特性</a></li>
+        <li><a href="#12-声波的基本物理量">1.2 声波的基本物理量</a></li>
+      </ul>
+    </li>
+    <li><a href="#二语音的数字信号表示">二、语音的数字信号表示</a>
+      <ul>
+        <li><a href="#21-数字信号处理">2.1 数字信号处理</a></li>
+      </ul>
+    </li>
+    <li><a href="#三语音的语言表示">三、语音的语言表示</a>
+      <ul>
+        <li><a href="#31-语音的语言表示">3.1 语音的语言表示</a></li>
+        <li><a href="#32-不同语言的语音表示">3.2 不同语言的语音表示</a></li>
+      </ul>
+    </li>
+    <li><a href="#四语音的时频域分析">四、语音的时频域分析</a>
+      <ul>
+        <li><a href="#41-特征的分析时长">4.1 特征的分析时长</a></li>
+        <li><a href="#42-特征的时域分析方法">4.2 特征的时域分析方法</a></li>
+      </ul>
+    </li>
+    <li><a href="#五语音编码">五、语音编码</a>
+      <ul>
+        <li><a href="#51-语音编码总述">5.1 语音编码总述</a></li>
+        <li><a href="#52-波形编码">5.2 波形编码</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+          </div>
+          <div class="sidebar-common-sidebar hidden">
+            
+<div class="sidebar-author">
+  <img
+    data-src="/images/avatar.jpg"
+    data-sizes="auto"
+    alt="Demerzel"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">Demerzel</div>
+  <div class="sidebar-description">浮沉在世 人事变迁</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    
+    <div class="sidebar-state-number">51</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      18
+    </div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">28</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a
+        href="mailto:demerzelsun@gmail.com"
+        itemprop="url"
+        target="_blank"
+        aria-label="email"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a
+        href="https://github.com/demerzelsun12"
+        itemprop="url"
+        target="_blank"
+        aria-label="github"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-linkedin sidebar-social-icon">
+      <a
+        href="https://www.linkedin.com/in/xiao-sun-52a2a21b0/"
+        itemprop="url"
+        target="_blank"
+        aria-label="linkedin"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">首页</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">归档</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">关于</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">友链</div>
+    </div>
+  
+</div>
+
+          </div>
+        
+      
+
+      
+        
+          <div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div>
+        
+      
+    </div>
+  </div>
+
+  <div class="sidebar-widget">
+    
+  </div>
+  
+</aside>
+
+          <section id="main">
+  <article
+  class="h-entry article"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div
+    class="article-inner"
+    data-aos="fade-up"
+  >
+    <div class="article-meta">
+      <div class="article-date">
+  <span
+    class="article-date-link"
+    data-aos="zoom-in"
+  >
+    <time datetime="2020-12-19 15:53:28 &#43;0000 UTC" itemprop="datePublished"
+      >2020-12-19</time
+    >
+    <time style="display: none;" id="post-update-time"
+      >2020-12-19</time
+    >
+  </span>
+</div>
+
+      <div class="article-category">
+  
+    <a
+      class="article-category-link"
+      href="/categories/%e8%a7%86%e5%90%ac%e8%a7%89%e4%bf%a1%e5%8f%b7%e5%a4%84%e7%90%86"
+      data-aos="zoom-in"
+      >视听觉信号处理</a
+    >
+  
+</div>
+
+    </div>
+    <div class="hr-line"></div>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+      
+        <h2 id="前言">
+<a class="header-anchor" href="#%e5%89%8d%e8%a8%80"></a>
+前言
+</h2><p>教务处的垃圾排课，非要单双周上课，结果听觉上完课的两天后就考试，就nm离谱，被迫现在开始复习。</p>
+<h2 id="总述">
+<a class="header-anchor" href="#%e6%80%bb%e8%bf%b0"></a>
+总述
+</h2><p>课程主要内容：</p>
+<ul>
+<li>语音识别(Speech Recognition)</li>
+<li>语音编码(Speech Coding)</li>
+</ul>
+<h2 id="一语音的声学表示">
+<a class="header-anchor" href="#%e4%b8%80%e8%af%ad%e9%9f%b3%e7%9a%84%e5%a3%b0%e5%ad%a6%e8%a1%a8%e7%a4%ba"></a>
+一、语音的声学表示
+</h2><h3 id="11-语音的声学特性">
+<a class="header-anchor" href="#11-%e8%af%ad%e9%9f%b3%e7%9a%84%e5%a3%b0%e5%ad%a6%e7%89%b9%e6%80%a7"></a>
+1.1 语音的声学特性
+</h3><p>  语音以声波的形式在空气中传播，声波是纵波，振动方向与传播方向一致。</p>
+<h3 id="12-声波的基本物理量">
+<a class="header-anchor" href="#12-%e5%a3%b0%e6%b3%a2%e7%9a%84%e5%9f%ba%e6%9c%ac%e7%89%a9%e7%90%86%e9%87%8f"></a>
+1.2 声波的基本物理量
+</h3><ol>
+<li>
+<p>频率：人耳对声波频率高低的感觉与实际频率近似成对数关系，即“分贝”的由来。<strong>基频：60Hz~500Hz</strong>。</p>
+</li>
+<li>
+<p>振幅:</p>
+</li>
+</ol>
+<ul>
+<li>用声压或声强表示声音的强度</li>
+<li>声压p用来度量由于声波的传播导致的气压的变化，单位帕斯卡</li>
+<li>声强 I 为单位时间内通过与声波传播方向垂直的某一单位面积上的声能的平均值，单位$\left.W /m^2 \right.$.</li>
+<li>最小声压：闻阈，约为$2\times 10^{-5}Pa$；</li>
+<li>最大声压：痛阈，约为$200Pa$.</li>
+</ul>
+<ol start="3">
+<li>分贝：</li>
+</ol>
+<ul>
+<li>以闻阈$P_0$为基准，单位dB，</li>
+<li>依照声压定义分贝：$L=20\log_{10}\left(P\left. / P_0\right.\right)\left(\mathrm{dB}\right)$</li>
+<li>依照声强定义分贝：$L=10\log_{10}\left(I\left. / I_0\right.\right)\left(\mathrm{dB}\right)$</li>
+<li>闻阈相当于 $0\mathrm{dB}$，痛阈相当于 $140\mathrm{dB}$，人讲话时，一米远处的声强大约为$60dB \sim80dB$。</li>
+</ul>
+<ol start="4">
+<li>共振和共振峰</li>
+</ol>
+<ul>
+<li>共振：物体受迫振动时，所加驱动频率等于物体固有频率时，物体以最大振幅振动。</li>
+<li>元音的音色和区别特征主要取决于声道的共振峰特性。</li>
+</ul>
+<h2 id="二语音的数字信号表示">
+<a class="header-anchor" href="#%e4%ba%8c%e8%af%ad%e9%9f%b3%e7%9a%84%e6%95%b0%e5%ad%97%e4%bf%a1%e5%8f%b7%e8%a1%a8%e7%a4%ba"></a>
+二、语音的数字信号表示
+</h2><h3 id="21-数字信号处理">
+<a class="header-anchor" href="#21-%e6%95%b0%e5%ad%97%e4%bf%a1%e5%8f%b7%e5%a4%84%e7%90%86"></a>
+2.1 数字信号处理
+</h3><p>就nm躲不过了呗。</p>
+<ol>
+<li>离散时间信号与系统</li>
+</ol>
+<ul>
+<li>在时间上离散，只在某些不连续的规定瞬间给出函数值。幅值连续—抽样信号，幅值离散—数字信号。</li>
+<li>通常函数值离散时刻之间的间隔是均匀的，以序列 $x\left(n\right)\; \left(n=0, \pm1,\pm2,\cdots\right)$表示。</li>
+</ul>
+<ol start="2">
+<li>离散信号序列的基本运算</li>
+</ol>
+<p>序列中同序号的数值逐项运算构成一个新序列。</p>
+<div style="text-align:center">
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center">运算</th>
+          <th style="text-align: center">规则</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">加</td>
+          <td style="text-align: center">$z\left(n\right) = x\left(n\right)+y\left(n\right)$</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">乘</td>
+          <td style="text-align: center">$z\left(n\right) = x\left(n\right)\cdot y\left(n\right)$</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">时延</td>
+          <td style="text-align: center">$z\left(n\right) = x\left(n-m\right)$</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">求能量</td>
+          <td style="text-align: center">$E = \sum\limits_{n=-\infty}^{\infty}\lvert x\left(n\right) \rvert^{2}$</td>
+      </tr>
+  </tbody>
+</table>
+</div>
+<ol start="3">
+<li>离散时间系统：系统的激励和相应都是离散信号序列。离散时间系统的数学模型是差分方程。</li>
+</ol>
+<ul>
+<li>常见为线性时不变系统，设$y_1\left(n\right)$和$y_2\left(n\right)$分别为激励$x_1\left(n\right)$和$x_2\left(n\right)$的响应，则线性系统有激励$\alpha x_1\left(n\right)+\beta x_2\left(n\right)$，响应为$\alpha y_1\left(n\right)+\beta y_2\left(n\right)$；时不变系统有激励$x\left(n-k\right)$，响应为$y\left(n-k\right)$。</li>
+</ul>
+<ol start="4">
+<li>
+<p>卷积、滤波、离散傅里叶变换（Discrete Fourier Transform）略过。</p>
+</li>
+<li>
+<p>Z变换：</p>
+</li>
+</ol>
+<ul>
+<li>将离散系统的数学模型（差分方程）转化为代数方程。</li>
+<li>Z变换定义：$X\left(z\right) = \sum\limits_{n=-\infty}^{\infty}x\left(n\right)z^{-n}$</li>
+<li>Z变换在其收敛域$R_1<\lvert z \rvert<R_2$内满足：$\sum_{n=-\infty}^{\infty}\lvert x\left(n\right) \rvert \lvert z \rvert^{-n} < \infty$</li>
+<li><strong>DFT为特殊的Z变换</strong>，取$z = \exp \left(j\left(\left.2\pi/N\right.\right)k\right)$即可得到DFT变换。在z平面的单位圆上，取辐角为$\omega = \left. 2\pi k/N \right.$计算其Z变换，得到了DFT的第k个样值点。<strong>有限长序列的DFT可以解释为其Z变换在单位圆上的均匀抽样</strong>。</li>
+<li>Z变换满足线性可加性，位移性$Z\left[x\left(n-m\right)\right] = z^{-m}X\left(z\right)$和时域的卷积定理$Z\left[x\left(n\right)\ast y\left(n\right)\right] = X\left(z\right)Y\left(z\right)$。</li>
+</ul>
+<ol start="6">
+<li>离散余弦变换（<strong>D</strong>iscrete <strong>C</strong>osine <strong>T</strong>ransform）：</li>
+</ol>
+<ul>
+<li>$C\left(k\right) = \sum\limits_{n=0}^{N-1}x\left(n\right)\cos\left(\pi k\left.\left(\left. n+1 /\right. 2\right) /\right. N\right)\quad \left(0\le k\le N-1\right)$</li>
+<li>$x\left(n\right) =  \left.\left[C\left(0\right)+2\sum\limits_{k=1}^{N-1}C\left(k\right)\cos\left(\pi k\left. \left(\left. n+1 / \right.2 \right)/ \right. N \right)\right] /\right.N \quad \left(0\le n\le N-1\right)$</li>
+<li>DCT优点是能量集中，相对于DFT，系数主要集中在维数较低的部分，可以用更少的系数逼近原来的信号。</li>
+</ul>
+<h2 id="三语音的语言表示">
+<a class="header-anchor" href="#%e4%b8%89%e8%af%ad%e9%9f%b3%e7%9a%84%e8%af%ad%e8%a8%80%e8%a1%a8%e7%a4%ba"></a>
+三、语音的语言表示
+</h2><h3 id="31-语音的语言表示">
+<a class="header-anchor" href="#31-%e8%af%ad%e9%9f%b3%e7%9a%84%e8%af%ad%e8%a8%80%e8%a1%a8%e7%a4%ba"></a>
+3.1 语音的语言表示
+</h3><ol>
+<li>句子$\Rightarrow$短语$\Rightarrow$词语$\Rightarrow$音节$\Rightarrow$音素。</li>
+<li>音素是语音的基本单位，分为元音（浊音）和辅音（清音）。</li>
+<li>还有半元音、双元音、半辅音等。</li>
+</ol>
+<h3 id="32-不同语言的语音表示">
+<a class="header-anchor" href="#32-%e4%b8%8d%e5%90%8c%e8%af%ad%e8%a8%80%e7%9a%84%e8%af%ad%e9%9f%b3%e8%a1%a8%e7%a4%ba"></a>
+3.2 不同语言的语音表示
+</h3><ol>
+<li>美国英语42个音素：元音12个；双元音6个；半元音4个；辅音20个。</li>
+<li>汉语音素为64个，分为辅音、单元音、复元音和复鼻元音。</li>
+</ol>
+<h2 id="四语音的时频域分析">
+<a class="header-anchor" href="#%e5%9b%9b%e8%af%ad%e9%9f%b3%e7%9a%84%e6%97%b6%e9%a2%91%e5%9f%9f%e5%88%86%e6%9e%90"></a>
+四、语音的时频域分析
+</h2><h3 id="41-特征的分析时长">
+<a class="header-anchor" href="#41-%e7%89%b9%e5%be%81%e7%9a%84%e5%88%86%e6%9e%90%e6%97%b6%e9%95%bf"></a>
+4.1 特征的分析时长
+</h3><h4 id="411-短时分析">
+<a class="header-anchor" href="#411-%e7%9f%ad%e6%97%b6%e5%88%86%e6%9e%90"></a>
+4.1.1 短时分析
+</h4><p>  语音信号是非平稳信号，但是在10ms~30ms内，认为语音信号为平稳信号。</p>
+<p>  短时分析的最基本手段是对语音信息加窗。
+</p>
+$$S_w\left(n\right) = s\left(m\right)w\left(n\right)$$<p>常见的窗函数：N为窗长。</p>
+<ul>
+<li>
+<p>方窗：$w\left(n\right) = \left\{ \begin{array}{l}
+	1\quad 0\le n\le N-1\\
+	0\quad 其它\\
+\end{array} \right. $</p>
+</li>
+<li>
+<p>哈明窗</p>
+</li>
+<li>
+<p>哈宁窗</p>
+</li>
+</ul>
+<h3 id="42-特征的时域分析方法">
+<a class="header-anchor" href="#42-%e7%89%b9%e5%be%81%e7%9a%84%e6%97%b6%e5%9f%9f%e5%88%86%e6%9e%90%e6%96%b9%e6%b3%95"></a>
+4.2 特征的时域分析方法
+</h3><ol>
+<li>短时能量：</li>
+</ol>
+<p>  短时能量可以用于<strong>清浊判断</strong>、<strong>有声段和无声段判定</strong>、<strong>声母韵母分界</strong>以及<strong>连字的分界</strong>，经常是识别系统中特征的一维。</p>
+<p>计算公式：
+</p>
+$$E_n = \sum\limits_{m=-\infty}^{\infty}\left[x\left(m\right)w\left(m\right)\right]^2$$<ol start="2">
+<li>短时平均幅度：</li>
+</ol>
+<p>  单位时间内过零发生的次数。</p>
+<p>公式：
+</p>
+$$Z_n = \sum_{m=-\infty}^{\infty}\lvert \text{sgn}\left[x\left(m\right)\right] - \text{sgn}\left[x\left(m-1\right)\right] \rvert w\left(m\right)$$<p>式中：
+</p>
+$$\text{sgn}\left[x\left(n\right)\right] = \left\{ \begin{array}{l}
+	1\quad x\left(n\right)\ge0\\
+	-1\quad x\left(n\right)<0\\
+\end{array} \right.,\quad
+w\left(n\right) = \left\{ \begin{array}{l}
+	\left.1/ \right.2N\quad 0\le n\le N-1\\
+	0\quad 其它\\
+\end{array} \right.
+$$<p>  短时平均过零率容易受到低频的干扰，因而提出了门限过零率的思想。</p>
+<p>计算公式：
+</p>
+$$Z_n = \sum_{m=-\infty}^{\infty}\left\{\lvert \text{sgn}\left[x\left(m\right)-T\right] - \text{sgn}\left[x\left(m-1\right)-T\right] \rvert +
+\lvert \text{sgn}\left[x\left(m\right)+T\right] - \text{sgn}\left[x\left(m-1\right)+T\right] \rvert\right\} w\left(m\right)
+$$<h4 id="421-端点检测">
+<a class="header-anchor" href="#421-%e7%ab%af%e7%82%b9%e6%a3%80%e6%b5%8b"></a>
+4.2.1 端点检测
+</h4><ol>
+<li>端点检测是对语音进行“浊音/清音/无音的判定”。</li>
+<li>浊音的能量高于清音，清音的过零率高于无声段。</li>
+<li>双门限法：</li>
+</ol>
+<ul>
+<li>用较高的短时门限能量门限$M_1$确保$A_1\thicksim A_2$肯定是浊音；</li>
+<li>从$A_1$和$A_2$开始向两端搜索，短时能量&gt;较低门限$M_1$的$B_1\thicksim B_2$还是语音段；</li>
+<li>从$B_1$开始向前搜索，短时过零率&lt;门限$Z_s$的为清音段。</li>
+</ul>
+<h4 id="422-短时自相关函数">
+<a class="header-anchor" href="#422-%e7%9f%ad%e6%97%b6%e8%87%aa%e7%9b%b8%e5%85%b3%e5%87%bd%e6%95%b0"></a>
+4.2.2 短时自相关函数
+</h4><ol>
+<li>自相关函数</li>
+</ol>
+<ul>
+<li>对于确定的离散信号$x\left(n\right)$，自相关函数定义为
+$$R\left(k\right) = \sum_{m=-\infty}^{+\infty}x\left(m\right)x\left(m+k\right)$$</li>
+<li>$R\left(k\right)$表示一个信号和延迟<em>k</em>点后</li>
+</ul>
+<h2 id="五语音编码">
+<a class="header-anchor" href="#%e4%ba%94%e8%af%ad%e9%9f%b3%e7%bc%96%e7%a0%81"></a>
+五、语音编码
+</h2><h3 id="51-语音编码总述">
+<a class="header-anchor" href="#51-%e8%af%ad%e9%9f%b3%e7%bc%96%e7%a0%81%e6%80%bb%e8%bf%b0"></a>
+5.1 语音编码总述
+</h3><ol>
+<li>语音数据大小:</li>
+</ol>
+<ul>
+<li>fs：每秒钟样本数（8k~44.1k）；</li>
+<li>c：每个样本的通道数（1或2）；</li>
+<li>b：每个样本点的位数（8或16）。</li>
+</ul>
+<ol start="2">
+<li>
+<p>比特率：
+</p>
+$$fs\times c \times b$$<p>
+单位 $\text{bit/s}$，或bps。</p>
+</li>
+<li>
+<p>为什么语音可以压缩：</p>
+</li>
+</ol>
+<ul>
+<li>语音存在冗余度
+<ul>
+<li>幅度非均匀分布</li>
+<li>语音信号样本间的相关性很强</li>
+<li>浊音具有准周期</li>
+<li>声道的形状及其变化缓慢</li>
+<li>语音间隙</li>
+</ul>
+</li>
+<li>人的听觉感知机理
+<ul>
+<li>人的听觉特性具有掩蔽效应</li>
+<li>人耳对不同频段声音的敏感程度不同</li>
+<li>人耳对语音相位不敏感</li>
+</ul>
+</li>
+</ul>
+<ol start="4">
+<li>编码类型：</li>
+</ol>
+<ul>
+<li>波形编码：根据语音信号的波形导出相应的数字编码的形式，目的是尽量保持波形不变，使接收端能再现原始语音。抗噪性强，语音质量好；但是需要较高的码率，一般为$16\sim64Kbps$。</li>
+<li>参数编码：通过对语音信号进行分析，提取参数，对参数进行编码。接收端能用解码后的参数重构语音信号，参数编码主要从听觉感知的角度重现语音，并不保证波形相同，参数编码对码率的要求比波形编码低得多。</li>
+<li>混合编码：上述两种方法的有机组合，既增加了语音的自然度，提高语音质量；也相对于波形编码实现较低的数码率指标。</li>
+</ul>
+<h3 id="52-波形编码">
+<a class="header-anchor" href="#52-%e6%b3%a2%e5%bd%a2%e7%bc%96%e7%a0%81"></a>
+5.2 波形编码
+</h3><h4 id="521-均匀量化pcm">
+<a class="header-anchor" href="#521-%e5%9d%87%e5%8c%80%e9%87%8f%e5%8c%96pcm"></a>
+5.2.1 均匀量化PCM
+</h4><p>  最直接的方法，采样量化的A/D转换。采样时，采样频率要高于信号最高频率的两倍，一般采样前还需要低通滤波控制信号的最高频率。量化时将采样得到的样本的幅度用均匀量化的方法表示成二进制数字信号，相当于用一组二进制脉冲序列表示各量化后采样值。这就是脉冲编码调制方法(PCM)。</p>
+<p>  量化过程不可避免会产生误差，量化误差$e\left(n\right)$定义为：
+</p>
+$$e\left(n\right) = \bar{x}\left(n\right) - x\left(n\right)$$<h4 id="522-非均匀量化pcm">
+<a class="header-anchor" href="#522-%e9%9d%9e%e5%9d%87%e5%8c%80%e9%87%8f%e5%8c%96pcm"></a>
+5.2.2 非均匀量化PCM
+</h4><p>  均匀量化PCM的主要问题是编码速率过高。为了防止幅度较大的信号因为超出量化范围而出现过载，必须使用较高的量化比特数。因此需要进行非均匀量化。对小幅度样本使用小的量化间隔，可以精确量化；对大幅度样本使用大的量化间隔，既可以成功地提高信噪比，又可避免大新号的过载。</p>
+<p>  最常用的非均匀量化为对数压扩方法。编码时，利用语音信号的幅度统计特性，对幅度按对数变换进行压缩，然后再进行均匀量化。解码时，进行逆向的扩张变换。有不同的变换方法，如$\mu$律变换、A律变换等。</p>
+<h4 id="523-自适应化pcm">
+<a class="header-anchor" href="#523-%e8%87%aa%e9%80%82%e5%ba%94%e5%8c%96pcm"></a>
+5.2.3 自适应化PCM
+</h4><p>  核心思想是对短时能量较大的信号，采用较大量化间隔进行量化；对短时能量较小的信号，采用较小的量化间隔进行量化，有助于减小量化噪声，提高量化后信号的信噪比。</p>
+<p>  除了采用量化间隔作为量化器的特性，还可以采用放大器增益来作为量化器特性，对能量较大的信号采用较小的放大增益，对能量较小的信号采用较大的放大增益。由以上可知，APCM除了发送量化结果之外，还需要发送自适应的调整参数作为边信息。</p>
+<h4 id="523-差分脉冲编码">
+<a class="header-anchor" href="#523-%e5%b7%ae%e5%88%86%e8%84%89%e5%86%b2%e7%bc%96%e7%a0%81"></a>
+5.2.3 差分脉冲编码
+</h4><p>  由于相邻采样值之间的差值远小于采样值本身，可以对差值进行编码，而不是对采样值本身进行编码，这就是差分脉冲编码DPCM。</p>
+<p>  产生差分信号：直接存储前一次的采样值，用本次的采样值计算差值，经过量化得到数字语音编码。解码端做相反处理，恢复原信号。</p>
+<p>  用Z变换考查各点信号的时域关系，有
+</p>
+$$C\left(z\right) = X\left(z\right)\left(1-z^{-1}\right) +E\left(z\right)$$<p>
+和
+</p>
+$$\overline{X}\left(z\right) = \frac{C\left(z\right)}{1-z^{-1}} = X\left(z\right) + \frac{E\left(z\right)}{1-z^{-1}}$$<p>
+式中，$E\left(z\right)$为量化器量化噪声$e\left(n\right)$的Z变换。</p>
+<p>  由于量化器的量化噪声被累积叠加到了输出信号中，即每次的量化噪声信号都被保存，叠加到下次的输出当中，如果量化噪声始终是同一方向，则输出信号会越来越偏离原信号。因此，<strong>编码器应采用前一次解码后的采样值代替前一次的输入采样值</strong>，以生成差分信号。</p>
+<p>则
+</p>
+$$\widetilde{X}\left(z\right) = \frac{C\left(z\right)z^{-1}}{1-z^{-1}}$$<p>
+编码结果为
+</p>
+$$C\left(z\right) = X\left(z\right) - \widetilde{X}\left(z\right)+E\left(z\right)$$<p>
+代入后有
+</p>
+$$C\left(z\right) = \left(X\left(z\right)+E\left(z\right)\right)\left(1-z^{-1}\right)$$<p>因此有
+</p>
+$$\overline{X}\left(z\right) = \frac{C\left(z\right)}{1-z^{-1}} = X\left(z\right) + E\left(z\right)$$<p>由此可见，已经消除了量化噪声的累积。</p>
+<p>  DPCM仅仅用到了两个采样值之间的相关性。然而，当前输入采样不仅与上一时刻的采样值相关，也与前面若干采样值相关，可以使用线性预测分析的方法实现一般形式的差分脉冲编码。根据线性预测分析的原理，可以用过去的一些采样值的线性组合来预测和推断当前的采样值，得到一组线性预测系数，且预测误差$e\left(n\right)$的动态范围和平均能量均比信号$x\left(n\right)$小得多，预测阶数越高，预测误差越小，相应的编码速率可以越低。</p>
+<h4 id="524-自适应差分脉冲编码adpcm">
+<a class="header-anchor" href="#524-%e8%87%aa%e9%80%82%e5%ba%94%e5%b7%ae%e5%88%86%e8%84%89%e5%86%b2%e7%bc%96%e7%a0%81adpcm"></a>
+5.2.4 自适应差分脉冲编码ADPCM
+</h4><p>  由于语音信号的不稳定，不能保证其总是最佳线性预测器，从而使得线性误差最小。一种较好的方法是，在编码过程中，采用自适应技术动态调整预测器系数。或者采用自适应量化技术对差分信号进行量化，也可以降低编码速率。</p>
+<p>  前馈型ADPCM的原理如图所示：</p>
+<p><img src="./2020%E7%A7%8B%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%9C%9F%E6%9C%AB%E8%AF%95%E9%A2%98/adpcm.png" alt="APPCM原理"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+      <ul class="article-tag-list" itemprop="keywords">
+  
+    <li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e5%ad%a6%e9%95%bf%e7%9a%84%e7%81%ab%e7%82%ac"
+        rel="tag"
+        >学长的火炬</a
+      >
+    </li>
+  
+    <li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e8%a7%86%e5%90%ac%e8%a7%89%e4%bf%a1%e5%8f%b7%e5%a4%84%e7%90%86"
+        rel="tag"
+        >视听觉信号处理</a
+      >
+    </li>
+  
+</ul>
+
+    </footer>
+  </div>
+  
+    
+  <nav
+    id="article-nav"
+    data-aos="fade-up"
+  >
+    
+      <div class="article-nav-link-wrap article-nav-link-left">
+        
+          <img
+            data-src="images/featureimages/10.jpg"
+            data-sizes="auto"
+            alt="2020秋机器学习期末试题"
+            class="lazyload"
+          />
+        
+        <a href="/post/2020%E7%A7%8B%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%9C%9F%E6%9C%AB%E8%AF%95%E9%A2%98/"></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">
+          
+            2020秋机器学习期末试题
+          
+        </h3>
+      </div>
+    
+
+    
+      <div class="article-nav-link-wrap article-nav-link-right">
+        
+          <img
+            data-src="images/featureimages/12.jpg"
+            data-sizes="auto"
+            alt="计算机组织与体系结构期末预习笔记"
+            class="lazyload"
+          />
+        
+        <a href="/post/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E7%BB%87%E4%B8%8E%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E6%9C%9F%E6%9C%AB%E9%A2%84%E4%B9%A0%E7%AC%94%E8%AE%B0/"></a>
+        <div class="article-nav-caption">后一篇</div>
+        <h3 class="article-nav-title">
+          
+            计算机组织与体系结构期末预习笔记
+          
+        </h3>
+      </div>
+    
+  </nav>
+
+
+  
+</article>
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+</section>
+        </div>
+        
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+
+
+<footer id="footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info">
+    
+    <div>
+      <span class="icon-copyright"></span>
+      
+        2020 -
+        2025
+      
+      <span class="footer-info-sep "></span>
+      Demerzel
+    </div>
+    
+      <div>
+        基于&nbsp;<a
+          href="https://gohugo.io/"
+          target="_blank"
+          >Hugo</a
+        >&nbsp; Theme.<a
+          href="https://github.com/D-Sketon/hugo-theme-reimu"
+          target="_blank"
+          >Reimu</a
+        >
+      </div>
+    
+    
+      <div>
+        <span class="icon-brush"
+          >&nbsp;
+            155.1k
+          </span
+        >
+        &nbsp;|&nbsp;
+        <span class="icon-coffee">&nbsp;
+          
+          
+
+          05:36
+        </span>
+      </div>
+    
+    
+    
+    
+  </div>
+</footer>
+
+        
+          <div class="sidebar-top">
+            <div class="sidebar-top-taichi "></div>
+            <div class="arrow-up"></div>
+          </div>
+        
+        <div id="mask" class="hide"></div>
+      </div>
+      <nav id="mobile-nav">
+  <div class="sidebar-wrap">
+    
+      
+        <div class="sidebar-toc-sidebar">
+          <div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#总述">总述</a></li>
+    <li><a href="#一语音的声学表示">一、语音的声学表示</a>
+      <ul>
+        <li><a href="#11-语音的声学特性">1.1 语音的声学特性</a></li>
+        <li><a href="#12-声波的基本物理量">1.2 声波的基本物理量</a></li>
+      </ul>
+    </li>
+    <li><a href="#二语音的数字信号表示">二、语音的数字信号表示</a>
+      <ul>
+        <li><a href="#21-数字信号处理">2.1 数字信号处理</a></li>
+      </ul>
+    </li>
+    <li><a href="#三语音的语言表示">三、语音的语言表示</a>
+      <ul>
+        <li><a href="#31-语音的语言表示">3.1 语音的语言表示</a></li>
+        <li><a href="#32-不同语言的语音表示">3.2 不同语言的语音表示</a></li>
+      </ul>
+    </li>
+    <li><a href="#四语音的时频域分析">四、语音的时频域分析</a>
+      <ul>
+        <li><a href="#41-特征的分析时长">4.1 特征的分析时长</a></li>
+        <li><a href="#42-特征的时域分析方法">4.2 特征的时域分析方法</a></li>
+      </ul>
+    </li>
+    <li><a href="#五语音编码">五、语音编码</a>
+      <ul>
+        <li><a href="#51-语音编码总述">5.1 语音编码总述</a></li>
+        <li><a href="#52-波形编码">5.2 波形编码</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+        </div>
+        <div class="sidebar-common-sidebar hidden">
+          
+<div class="sidebar-author">
+  <img
+    data-src="/images/avatar.jpg"
+    data-sizes="auto"
+    alt="Demerzel"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">Demerzel</div>
+  <div class="sidebar-description">浮沉在世 人事变迁</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    
+    <div class="sidebar-state-number">51</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      18
+    </div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">28</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a
+        href="mailto:demerzelsun@gmail.com"
+        itemprop="url"
+        target="_blank"
+        aria-label="email"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a
+        href="https://github.com/demerzelsun12"
+        itemprop="url"
+        target="_blank"
+        aria-label="github"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-linkedin sidebar-social-icon">
+      <a
+        href="https://www.linkedin.com/in/xiao-sun-52a2a21b0/"
+        itemprop="url"
+        target="_blank"
+        aria-label="linkedin"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">首页</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">归档</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">关于</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">友链</div>
+    </div>
+  
+</div>
+
+        </div>
+      
+    
+  </div>
+  
+    
+      <div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div>
+    
+  
+</nav>
+
+    </div>
+    
+    
+    
+    
+
+
+
+
+
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"
+    
+    
+    
+    
+    integrity="sha384-3gT/vsepWkfz/ff7PpWNUeMzeWoH3cDhm/A8jM7ouoAK0/fP/9bcHHR5kHq2nf&#43;e" crossorigin="anonymous"
+  ></script>
+
+
+
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"
+    
+    
+    
+    
+    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"
+  ></script>
+
+
+
+
+
+
+
+
+
+
+
+  
+      
+      <script src="/js/main.js" ></script>
+      
+
+
+
+  
+
+
+
+
+
+  
+      
+      <script src="/js/aos.js" ></script>
+      
+
+  <script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", aosInit);
+    } else {
+      aosInit();
+    }
+  </script>
+
+
+
+
+
+
+
+
+  
+      
+      <script src="/js/pjax_main.js" data-pjax></script>
+      
+
+
+
+
+
+  
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/mouse-firework@0.1.1/dist/index.umd.js"
+    
+    
+    
+    
+    integrity="sha384-8LyaidD9GPxQQgLJO/WRw/O2h3BoNq/ApI/ecpvM6RsrCz2qP2ppBXUKihP4V/2d" crossorigin="anonymous"
+  ></script>
+
+
+<script>
+  if (window.firework) {
+    const options = JSON.parse("{\"excludeelements\":[\"a\",\"button\"],\"particles\":[{\"colors\":[\"var(--red-1)\",\"var(--red-2)\",\"var(--red-3)\",\"var(--red-4)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"emit\"],\"number\":20,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.3,0.5],\"radius\":[16,32]}},{\"colors\":[\"var(--red-0)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"diffuse\"],\"number\":1,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.2,0.5],\"lineWidth\":6,\"radius\":20}}]}");
+    options.excludeElements = options.excludeelements;
+    delete options.excludeelements;
+    window.firework(options);
+  }
+</script>
+
+
+
+
+
+
+
+
+<div id="lazy-script">
+  <div>
+    
+      
+      
+        
+      
+      <script data-pjax>
+        window.REIMU_POST = {
+          author: "Demerzel",
+          title: "视听觉信号处理听觉复习笔记",
+          url: "http:\/\/localhost:13926\/post\/%E8%A7%86%E5%90%AC%E8%A7%89%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86%E5%90%AC%E8%A7%89%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0\/",
+          description: "2020秋季学期视听觉信号处理听觉复习笔记",
+          cover: "http:\/\/localhost:13926\/images\/featureimages\/11.jpg",
+        };
+      </script>
+    
+    
+    
+      
+
+
+
+
+
+  
+      
+      <script src="/js/insert_highlight.js" data-pjax></script>
+      
+
+      
+      
+      
+      
+      <script type="module" data-pjax>
+        
+        const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;
+        
+        const pswp = () => {
+          if (_$$('.article-entry a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-entry',
+              children: 'a.article-gallery-item',
+              
+              pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")
+              
+            }).init();
+          }
+          if(_$$('.article-gallery a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-gallery',
+              children: 'a.article-gallery-item',
+              
+              pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")
+              
+            }).init();
+          }
+          window.lightboxStatus = 'done';
+          window.removeEventListener('lightbox:ready', pswp);
+        }
+        if(window.lightboxStatus === 'ready') {
+          pswp()
+        } else {
+          window.addEventListener('lightbox:ready', pswp);
+        }
+      </script>
+      
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+      
+    
+    
+      
+      
+        <script data-pjax>
+          window.MathJax = JSON.parse("[{\"loader\":{\"load\":[\"input/asciimath\",\"[tex]/noerrors\"]},\"options\":{\"ignoreHtmlClass\":\"tex2jax_ignore\",\"processHtmlClass\":\"tex2jax_process\",\"skipHtmlTags\":[\"script\",\"noscript\",\"style\",\"textarea\",\"pre\",\"code\"]},\"tex\":{\"autoload\":{\"color\":[],\"colorv2\":[\"color\"]},\"displayMath\":[[\"$$\",\"$$\"],[\"\\\\\\\\[\",\"\\\\\\\\]\"]],\"inlineMath\":[[\"$\",\"$\"],[\"\\\\\\\\(\",\"\\\\\\\\)\"]],\"packages\":{\"[+]\":[\"noerrors\"]},\"processEnvironments\":true,\"processEscapes\":true,\"tags\":\"ams\",\"useLabelIds\":true}}]")[0];
+        </script>
+        
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/mathjax@3.2.2/es5/tex-mml-chtml.js"
+    defer
+    
+    data-pjax
+    
+    integrity="sha384-Wuix6BuhrWbjDBs24bXrjf4ZQ5aFeFWBuKkFekO2t8xFU0iNaLQfp2K6/1Nxveei" crossorigin="anonymous"
+  ></script>
+
+
+      
+    
+  </div>
+</div>
+
+
+
+
+
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+  </script>
+
+
+<script>
+  const reimuCopyright = String.raw`
+   ______     ______     __     __    __     __  __    
+  /\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+  \ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+   \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+    \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                    
+  `;
+  console.log(String.raw`%c ${reimuCopyright}`, "color: #ff5252;");
+  console.log(
+    "%c Theme.Reimu" + " %c https://github.com/D-Sketon/hugo-theme-reimu ",
+    "color: white; background: #ff5252; padding:5px 0;",
+    "padding:4px;border:1px solid #ff5252;",
+  );
+</script>
+
+
+
+
+
+
+    
+  </body>
+</html>

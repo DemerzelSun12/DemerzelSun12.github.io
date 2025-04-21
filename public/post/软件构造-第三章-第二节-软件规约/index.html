@@ -1,0 +1,1630 @@
+<!doctype html>
+<html
+  lang="zh-cn" 
+  
+    data-theme-mode="auto"
+  
+>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=13926&amp;path=livereload" data-no-instant defer></script>
+    
+    <meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+
+
+
+
+
+  
+
+<title>
+  软件构造-第三章-第二节-软件规约 | Demerzel
+</title>
+<meta
+  name="description"
+  content="浮沉在世 人事变迁"
+/>
+
+
+
+
+
+
+
+
+
+
+<script>
+  window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"clipboard\":{\"copyright\":{\"content\":\"本文版权：本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！\",\"count\":50,\"enable\":false},\"fail\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"success\":\"复制成功(*^▽^*)\"},\"code_block\":{\"expand\":true},\"icon_font\":\"4552607_0khxww3tj3q9\",\"outdate\":{\"daysago\":180,\"enable\":false,\"message\":\"本文最后更新于 {time}，请注意文中内容可能已经发生变化。\"}}");
+</script>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+    
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+  media="print"
+  onload="this.media='all'"
+/>
+
+
+
+
+
+
+
+  <link
+    rel="preload"
+    href="//at.alicdn.com/t/c/font_4552607_0khxww3tj3q9.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  />
+
+
+
+  
+
+
+
+
+
+
+ <link rel="stylesheet" href="/css/loader.css" />
+
+
+
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="软件构造-第三章-第二节-软件规约 | Demerzel" />
+  <meta
+    property="og:description"
+    content="浮沉在世 人事变迁"
+  />
+  <meta property="og:url" content="http://localhost:13926/post/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0-%E7%AC%AC%E4%B8%89%E7%AB%A0-%E7%AC%AC%E4%BA%8C%E8%8A%82-%E8%BD%AF%E4%BB%B6%E8%A7%84%E7%BA%A6/" />
+  <meta
+    property="og:site_name"
+    content="Demerzel&#39;s Blog"
+  />
+  <meta
+    property="og:image"
+    content="/images/featureimages/4.jpg"
+  />
+  <meta property="article:author" content="Demerzel" />
+  <meta property="article:published_time" content="2020-03-28T12:43:59&#43;00:00" />
+  <meta property="article:modified_time" content="2020-03-28T12:43:59&#43;00:00" />
+  
+    <meta property="article:tag" content="软件构造Java" />
+  
+  
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:image" content="/images/featureimages/4.jpg" />
+  
+  
+  
+  
+  
+
+
+
+
+<link rel="shortcut icon" href="/favicon.ico">
+
+
+
+
+
+
+
+ <link rel="stylesheet" href="/css/main.css" />
+
+
+
+
+
+  <link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css"
+    onload="this.onload=null;this.rel='stylesheet'"
+  />
+
+
+
+
+
+
+  <link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css"
+    onload="this.onload=null;this.rel='stylesheet'"
+  />
+
+
+
+
+
+
+
+
+  
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"
+    
+    
+    
+    
+    integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"
+  ></script>
+
+
+
+
+
+  
+
+
+  <link rel="stylesheet" href="https://npm.webcache.cn/@reimujs/aos@0.1.0/dist/aos.css" />
+
+
+
+
+
+    
+  </head>
+  <body>
+    
+    
+  <div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi rotate">
+        
+          <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+            <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="var(--red-1, #ff5252)" />
+            <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+          M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="var(--red-1, #ff5252)" />
+          </svg>
+        
+      </div>
+      <div class="loading-word">少女祈祷中...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    var startLoading = () => {
+      time = Date.now();
+      document.getElementById('loader').classList.remove("loading");
+    }
+    var endLoading = () => {
+      if (!time) {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loader').classList.add("loading");
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          document.body.style.overflow = 'auto';
+          document.getElementById('loader').classList.add("loading");
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    document.getElementById('loader').addEventListener('click', endLoading);
+  </script>
+
+
+<div id="copy-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+</div>
+
+
+    <div id="container">
+      <div id="wrap">
+        
+<div id="header-nav">
+  <nav id="main-nav">
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/">首页</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/archives">归档</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/about">关于</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/friend">友链</a>
+      </span>
+    
+    <a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav">
+    
+    
+  </nav>
+</div>
+<header id="header">
+  
+    <picture></picture>
+    <img  fetchpriority="high" src="/images/featureimages/4.jpg" alt="软件构造-第三章-第二节-软件规约">
+  
+
+  <div id="header-outer">
+    <div id="header-title">
+      
+        
+        
+          
+        
+  
+        
+          <a href="/" id="logo">
+            <h1 data-aos="slide-up">软件构造-第三章-第二节-软件规约</h1>
+          </a>
+        
+      
+  
+      
+        
+        
+        <h2 id="subtitle-wrap" data-aos="slide-down">
+          
+        </h2>
+      
+    </div>
+  </div>
+</header>
+        <div id="content"
+          
+          class="sidebar-right"  >
+          <aside id="sidebar">
+  
+  
+  
+  <div class="sidebar-wrapper wrap-sticky">
+    <div
+      class="sidebar-wrap"
+      data-aos="fade-up"
+    >
+      
+        
+          <div class="sidebar-toc-sidebar">
+            <div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#11-参数及返回值">1.1 参数及返回值</a></li>
+    <li><a href="#12-一个完整的方法">1.2 一个完整的方法</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#21-规约的重要性">2.1 规约的重要性</a></li>
+    <li><a href="#23-行为等价性">2.3 行为等价性</a></li>
+    <li><a href="#24-规约的前置条件与后置条件">2.4 规约的前置条件与后置条件</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#31-规约的评价">3.1 规约的评价</a></li>
+    <li><a href="#32-如何设计一个好的规约">3.2 如何设计一个好的规约</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+          </div>
+          <div class="sidebar-common-sidebar hidden">
+            
+<div class="sidebar-author">
+  <img
+    data-src="/images/avatar.jpg"
+    data-sizes="auto"
+    alt="Demerzel"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">Demerzel</div>
+  <div class="sidebar-description">浮沉在世 人事变迁</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    
+    <div class="sidebar-state-number">51</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      18
+    </div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">28</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a
+        href="mailto:demerzelsun@gmail.com"
+        itemprop="url"
+        target="_blank"
+        aria-label="email"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a
+        href="https://github.com/demerzelsun12"
+        itemprop="url"
+        target="_blank"
+        aria-label="github"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-linkedin sidebar-social-icon">
+      <a
+        href="https://www.linkedin.com/in/xiao-sun-52a2a21b0/"
+        itemprop="url"
+        target="_blank"
+        aria-label="linkedin"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">首页</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">归档</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">关于</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">友链</div>
+    </div>
+  
+</div>
+
+          </div>
+        
+      
+
+      
+        
+          <div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div>
+        
+      
+    </div>
+  </div>
+
+  <div class="sidebar-widget">
+    
+  </div>
+  
+</aside>
+
+          <section id="main">
+  <article
+  class="h-entry article"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div
+    class="article-inner"
+    data-aos="fade-up"
+  >
+    <div class="article-meta">
+      <div class="article-date">
+  <span
+    class="article-date-link"
+    data-aos="zoom-in"
+  >
+    <time datetime="2020-03-28 12:43:59 &#43;0000 UTC" itemprop="datePublished"
+      >2020-03-28</time
+    >
+    <time style="display: none;" id="post-update-time"
+      >2020-03-28</time
+    >
+  </span>
+</div>
+
+      <div class="article-category">
+  
+    <a
+      class="article-category-link"
+      href="/categories/%e8%bd%af%e4%bb%b6%e6%9e%84%e9%80%a0"
+      data-aos="zoom-in"
+      >软件构造</a
+    >
+  
+</div>
+
+    </div>
+    <div class="hr-line"></div>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+      
+        <h1 id="软件构造第三章-第二节-软件规约">
+<a class="header-anchor" href="#%e8%bd%af%e4%bb%b6%e6%9e%84%e9%80%a0%e7%ac%ac%e4%b8%89%e7%ab%a0-%e7%ac%ac%e4%ba%8c%e8%8a%82-%e8%bd%af%e4%bb%b6%e8%a7%84%e7%ba%a6"></a>
+软件构造第三章 第二节 软件规约
+</h1><!-- toc -->
+<h1 id="一方法">
+<a class="header-anchor" href="#%e4%b8%80%e6%96%b9%e6%b3%95"></a>
+一、方法
+</h1><h2 id="11-参数及返回值">
+<a class="header-anchor" href="#11-%e5%8f%82%e6%95%b0%e5%8f%8a%e8%bf%94%e5%9b%9e%e5%80%bc"></a>
+1.1 参数及返回值
+</h2><ol>
+<li>
+<p>参数
+ 参数类型是否匹配，在静态类型检查阶段完成</p>
+</li>
+<li>
+<p>返回值
+ 返回值类型是否匹配，也在静态类型检查阶段完成</p>
+</li>
+</ol>
+<h2 id="12-一个完整的方法">
+<a class="header-anchor" href="#12-%e4%b8%80%e4%b8%aa%e5%ae%8c%e6%95%b4%e7%9a%84%e6%96%b9%e6%b3%95"></a>
+1.2 一个完整的方法
+</h2><center>
+<img src="https://img-blog.csdnimg.cn/20200410191013704.png" width="80%" height="35%">
+</center>
+<center>
+图1-1 完整的方法
+</center>
+<br>
+<ul>
+<li>一个完整的方法包括规约spec和实现体implementation；</li>
+<li>&ldquo;方法&quot;是程序的积木，它可以被独立的开发、测试、复用；</li>
+<li>使用“方法”的客户端，无需了解方法内部如何工作，这就是抽象的概念；</li>
+<li>参数类型和返回值类型的检查都是在静态类型检查阶段完成的。</li>
+</ul>
+</br>
+<h1 id="二规约程序间的语言">
+<a class="header-anchor" href="#%e4%ba%8c%e8%a7%84%e7%ba%a6%e7%a8%8b%e5%ba%8f%e9%97%b4%e7%9a%84%e8%af%ad%e8%a8%80"></a>
+二、规约：程序间的“语言”
+</h1><h2 id="21-规约的重要性">
+<a class="header-anchor" href="#21-%e8%a7%84%e7%ba%a6%e7%9a%84%e9%87%8d%e8%a6%81%e6%80%a7"></a>
+2.1 规约的重要性
+</h2><ol>
+<li>
+<p>为什么要设计规约</p>
+<ul>
+<li>很多bug来自于双方之间的误解；没有规约，那么不同开发者的理解就可能不同</li>
+<li>代码惯例增加了软件包的可读性，使工程师们更快、更完整的理解软件</li>
+<li>可以帮助程序员养成良好的编程习惯，提高代码质量</li>
+<li>没有规约，难以定位错误</li>
+</ul>
+</li>
+<li>
+<p>规约的好处</p>
+<ul>
+<li>规约起到了契约的作用。代表着程序与客户端之间达成的一致；客户端无需阅读调用函数的代码，只需理解spec即可。</li>
+<li>精确的规约，有助于区分责任，给“供需双方”确定了责任，在调用的时候双方都要遵守。</li>
+</ul>
+</li>
+<li>
+<p>规约的示例</p>
+</li>
+</ol>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200410191859654.png" width="80%" height="35%">
+</center>
+<center>
+图2-1 java中Integer的add方法
+</center>
+<br>
+<ul>
+<li>规约可以隔离“变化”，无需通知客户端</li>
+<li>规约也可以提高代码效率</li>
+<li>规约扮演“防火墙”角色</li>
+</ul>
+<center>
+<img src="https://img-blog.csdnimg.cn/202004101938552.png" width="40%" height="25%">
+</center>
+<center>
+图2-2 规约起“防火墙的作用”
+</center>
+<br>
+<ol start="4">
+<li>标准规约
+<ul>
+<li>参考<a href="https://blog.csdn.net/qq_33689414/article/details/54969381">阿里Java开发手册之编程规约</a></li>
+</ul>
+</li>
+</ol>
+<h2 id="23-行为等价性">
+<a class="header-anchor" href="#23-%e8%a1%8c%e4%b8%ba%e7%ad%89%e4%bb%b7%e6%80%a7"></a>
+2.3 行为等价性
+</h2><ol>
+<li>行为等价性就是站在客户端的角度考量两个方法是否可以互换；</li>
+<li>根据规约判断是否行为等价注：规约与实现无关，规范无需讨论方法类的局部变量或方法类的私有字段。</li>
+</ol>
+<h2 id="24-规约的前置条件与后置条件">
+<a class="header-anchor" href="#24-%e8%a7%84%e7%ba%a6%e7%9a%84%e5%89%8d%e7%bd%ae%e6%9d%a1%e4%bb%b6%e4%b8%8e%e5%90%8e%e7%bd%ae%e6%9d%a1%e4%bb%b6"></a>
+2.4 规约的前置条件与后置条件
+</h2><ol>
+<li>
+<p>一个方法的规约常由以下几个短句组成契约：如果前置条件满足了，后置条件必须满足。如果没有满足，将产生不确定的异常行为</p>
+<ul>
+<li>前置条件(precondition)：对客户端的约束，在使用方法时必须满足的条件。由关键字 requires 表示；</li>
+<li>后置条件(postcondition)：对开发者的约束，方法结束时必须满足的条件。由关键字 effects 表示；</li>
+<li>异常行为(Exceptional behavior)</li>
+</ul>
+</li>
+<li>
+<p>规约前置条件与后置条件</p>
+</li>
+</ol>
+<center class="half">
+    <img src="https://img-blog.csdnimg.cn/20200410201555231.png" width="40%" height="25%"/><img src="https://img-blog.csdnimg.cn/20200410201731725.png" width="40%" height="25%"/>
+</center>
+<center>
+图2-3 规约前置条件与后置条件
+</center>
+<br>
+<ol start="3">
+<li>Java中的规约
+<ul>
+<li>静态类型声明是一种规约，可据此进行静态类型检查。</li>
+<li>方法前的注释也是一种规约，但需人工判定其是否满足。
+<ul>
+<li>参数由@param 描述</li>
+<li>子句和结果用 @return 和 @ throws子句 描述</li>
+<li>尽可能的将前置条件放在 @param 中</li>
+<li>尽可能的将后置条件放在 @return 和 @throws 中</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<center>
+<img src="https://images2018.cnblogs.com/blog/1336655/201806/1336655-20180602153320189-202980871.png" width="90%" height="25%">
+</center>
+<center>
+图2-4 规约示例
+</center>
+<br>
+<ol start="4">
+<li>可变方法的规约
+<ul>
+<li>除非在后置条件里声明过，否则方法内部不应该改变输入参数；</li>
+<li>应尽量遵循此规则，尽量不设计 mutating的spec，否则就容易引发bugs；</li>
+<li>程序员之间应达成的默契：除非spec必须如此，否则不应修改输入参数；</li>
+<li>尽量避免使用可变(mutable)的对象 。
+<ul>
+<li>对可变对象的多引用，需要程序维护一致性，此时合同不再是单纯的在用户和实现者之间维持，需要每一个引用者都有良好的习惯，这就使得简单的程序变得复杂；</li>
+<li>可变对象使得程序难以理解，也难以保证正确性；</li>
+<li>可变数据类型还会导致程序修改变得异常困难；</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h1 id="三设计规约">
+<a class="header-anchor" href="#%e4%b8%89%e8%ae%be%e8%ae%a1%e8%a7%84%e7%ba%a6"></a>
+三、设计规约
+</h1><h2 id="31-规约的评价">
+<a class="header-anchor" href="#31-%e8%a7%84%e7%ba%a6%e7%9a%84%e8%af%84%e4%bb%b7"></a>
+3.1 规约的评价
+</h2><ol>
+<li>
+<p>规约的确定性</p>
+<ul>
+<li>确定的规约：给定一个满足前置条件的输入，其输出是唯一的、明确的;</li>
+<li>欠定的规约：同一个输入可以有多个输出</li>
+<li>未确定的规约：同一个输入，多次执行时得到的输出可能不同；但为了避免分歧，我们通常将不是确定的spec统一定义为欠定的规约。
+<br></li>
+</ul>
+</li>
+<li>
+<p>规约的陈述性</p>
+<ul>
+<li>操作式规约（Operational specs）：伪代码 。</li>
+<li>声明式规约（Declarative specs）：没有内部实现的描述，只有 “初-终”状态 。</li>
+<li>声明式规约更有价值 ； 内部实现的细节不在规约里呈现，而放在代码实现体内部注释里呈现。
+<br></li>
+</ul>
+</li>
+<li>
+<p>规约的强度</p>
+<ul>
+<li>通过比较规约的强度来判断是否可以用一个规约替换另一个；</li>
+<li>如果规约的强度 S2&gt;=S1，就可以用S2代替S1，体现有二：一个更强的规约包括更轻松的前置条件和更严格的后置条件；越强的规约，意味着实现者(implementor)的自由度和责任越重，而客户(client)的责任越轻。
+<ul>
+<li>S2的前置条件更弱</li>
+<li>S2的后置条件更强</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="32-如何设计一个好的规约">
+<a class="header-anchor" href="#32-%e5%a6%82%e4%bd%95%e8%ae%be%e8%ae%a1%e4%b8%80%e4%b8%aa%e5%a5%bd%e7%9a%84%e8%a7%84%e7%ba%a6"></a>
+3.2 如何设计一个好的规约
+</h2><ol>
+<li>
+<p>设计规约</p>
+<ul>
+<li>规约应该是简洁的：整洁，具有良好的结构，易于理解。</li>
+<li>规约应该是内聚的：Spec描述的功能应单一、简单、易理解。</li>
+<li>规约应该是信息丰富的：不能让客户端产生理解的歧义。</li>
+<li>规约应该是强度足够的：需要满足客户端基本需求，也必须考虑特殊情况。</li>
+<li>规约的强度也不能太强：太强的spec，在很多特殊情况下难以达到。</li>
+<li>规约应该使用抽象类型：在规约里使用抽象类型，可以给方法的实现体与客户端更大的自由度
+<br></li>
+</ul>
+</li>
+<li>
+<p>是否使用前置条件</p>
+<ul>
+<li>是否使用前置条件取决于如果只在类的内部使用该方法(private)，那么可以不使用前置条件，在使用该方法的各个位置进行check——责任交给内部client。
+<ul>
+<li>check的代价；</li>
+<li>方法的使用范围；</li>
+</ul>
+</li>
+<li>如果在其他地方使用该方法(public)，那么必须要使用前置条件，若client端不满足则方法抛出异常。</li>
+</ul>
+</li>
+</ol>
+      
+    </div>
+    <footer class="article-footer">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+      <ul class="article-tag-list" itemprop="keywords">
+  
+    <li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e8%bd%af%e4%bb%b6%e6%9e%84%e9%80%a0"
+        rel="tag"
+        >软件构造</a
+      >
+    </li>
+  
+    <li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/java"
+        rel="tag"
+        >JAVA</a
+      >
+    </li>
+  
+</ul>
+
+    </footer>
+  </div>
+  
+    
+  <nav
+    id="article-nav"
+    data-aos="fade-up"
+  >
+    
+      <div class="article-nav-link-wrap article-nav-link-left">
+        
+          <img
+            data-src="images/featureimages/3.jpg"
+            data-sizes="auto"
+            alt="软件构造-第三章-第一节-数据类型与类型检查"
+            class="lazyload"
+          />
+        
+        <a href="/post/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0-%E7%AC%AC%E4%B8%89%E7%AB%A0-%E7%AC%AC%E4%B8%80%E8%8A%82-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B8%8E%E7%B1%BB%E5%9E%8B%E6%A3%80%E6%9F%A5/"></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">
+          
+            软件构造-第三章-第一节-数据类型与类型检查
+          
+        </h3>
+      </div>
+    
+
+    
+      <div class="article-nav-link-wrap article-nav-link-right">
+        
+          <img
+            data-src="images/featureimages/5.jpg"
+            data-sizes="auto"
+            alt="软件构造-第三章-第三节-抽象数据型"
+            class="lazyload"
+          />
+        
+        <a href="/post/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0-%E7%AC%AC%E4%B8%89%E7%AB%A0-%E7%AC%AC%E4%B8%89%E8%8A%82-%E6%8A%BD%E8%B1%A1%E6%95%B0%E6%8D%AE%E5%9E%8B/"></a>
+        <div class="article-nav-caption">后一篇</div>
+        <h3 class="article-nav-title">
+          
+            软件构造-第三章-第三节-抽象数据型
+          
+        </h3>
+      </div>
+    
+  </nav>
+
+
+  
+</article>
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+</section>
+        </div>
+        
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+
+
+<footer id="footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info">
+    
+    <div>
+      <span class="icon-copyright"></span>
+      
+        2020 -
+        2025
+      
+      <span class="footer-info-sep "></span>
+      Demerzel
+    </div>
+    
+      <div>
+        基于&nbsp;<a
+          href="https://gohugo.io/"
+          target="_blank"
+          >Hugo</a
+        >&nbsp; Theme.<a
+          href="https://github.com/D-Sketon/hugo-theme-reimu"
+          target="_blank"
+          >Reimu</a
+        >
+      </div>
+    
+    
+      <div>
+        <span class="icon-brush"
+          >&nbsp;
+            155.1k
+          </span
+        >
+        &nbsp;|&nbsp;
+        <span class="icon-coffee">&nbsp;
+          
+          
+
+          05:36
+        </span>
+      </div>
+    
+    
+    
+    
+  </div>
+</footer>
+
+        
+          <div class="sidebar-top">
+            <div class="sidebar-top-taichi "></div>
+            <div class="arrow-up"></div>
+          </div>
+        
+        <div id="mask" class="hide"></div>
+      </div>
+      <nav id="mobile-nav">
+  <div class="sidebar-wrap">
+    
+      
+        <div class="sidebar-toc-sidebar">
+          <div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#11-参数及返回值">1.1 参数及返回值</a></li>
+    <li><a href="#12-一个完整的方法">1.2 一个完整的方法</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#21-规约的重要性">2.1 规约的重要性</a></li>
+    <li><a href="#23-行为等价性">2.3 行为等价性</a></li>
+    <li><a href="#24-规约的前置条件与后置条件">2.4 规约的前置条件与后置条件</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#31-规约的评价">3.1 规约的评价</a></li>
+    <li><a href="#32-如何设计一个好的规约">3.2 如何设计一个好的规约</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+        </div>
+        <div class="sidebar-common-sidebar hidden">
+          
+<div class="sidebar-author">
+  <img
+    data-src="/images/avatar.jpg"
+    data-sizes="auto"
+    alt="Demerzel"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">Demerzel</div>
+  <div class="sidebar-description">浮沉在世 人事变迁</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    
+    <div class="sidebar-state-number">51</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      18
+    </div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">28</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a
+        href="mailto:demerzelsun@gmail.com"
+        itemprop="url"
+        target="_blank"
+        aria-label="email"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a
+        href="https://github.com/demerzelsun12"
+        itemprop="url"
+        target="_blank"
+        aria-label="github"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-linkedin sidebar-social-icon">
+      <a
+        href="https://www.linkedin.com/in/xiao-sun-52a2a21b0/"
+        itemprop="url"
+        target="_blank"
+        aria-label="linkedin"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">首页</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">归档</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">关于</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">友链</div>
+    </div>
+  
+</div>
+
+        </div>
+      
+    
+  </div>
+  
+    
+      <div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div>
+    
+  
+</nav>
+
+    </div>
+    
+    
+    
+    
+
+
+
+
+
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"
+    
+    
+    
+    
+    integrity="sha384-3gT/vsepWkfz/ff7PpWNUeMzeWoH3cDhm/A8jM7ouoAK0/fP/9bcHHR5kHq2nf&#43;e" crossorigin="anonymous"
+  ></script>
+
+
+
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"
+    
+    
+    
+    
+    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"
+  ></script>
+
+
+
+
+
+
+
+
+
+
+
+  
+      
+      <script src="/js/main.js" ></script>
+      
+
+
+
+  
+
+
+
+
+
+  
+      
+      <script src="/js/aos.js" ></script>
+      
+
+  <script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", aosInit);
+    } else {
+      aosInit();
+    }
+  </script>
+
+
+
+
+
+
+
+
+  
+      
+      <script src="/js/pjax_main.js" data-pjax></script>
+      
+
+
+
+
+
+  
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/mouse-firework@0.1.1/dist/index.umd.js"
+    
+    
+    
+    
+    integrity="sha384-8LyaidD9GPxQQgLJO/WRw/O2h3BoNq/ApI/ecpvM6RsrCz2qP2ppBXUKihP4V/2d" crossorigin="anonymous"
+  ></script>
+
+
+<script>
+  if (window.firework) {
+    const options = JSON.parse("{\"excludeelements\":[\"a\",\"button\"],\"particles\":[{\"colors\":[\"var(--red-1)\",\"var(--red-2)\",\"var(--red-3)\",\"var(--red-4)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"emit\"],\"number\":20,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.3,0.5],\"radius\":[16,32]}},{\"colors\":[\"var(--red-0)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"diffuse\"],\"number\":1,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.2,0.5],\"lineWidth\":6,\"radius\":20}}]}");
+    options.excludeElements = options.excludeelements;
+    delete options.excludeelements;
+    window.firework(options);
+  }
+</script>
+
+
+
+
+
+
+
+
+<div id="lazy-script">
+  <div>
+    
+      
+      
+        
+      
+      <script data-pjax>
+        window.REIMU_POST = {
+          author: "Demerzel",
+          title: "软件构造-第三章-第二节-软件规约",
+          url: "http:\/\/localhost:13926\/post\/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0-%E7%AC%AC%E4%B8%89%E7%AB%A0-%E7%AC%AC%E4%BA%8C%E8%8A%82-%E8%BD%AF%E4%BB%B6%E8%A7%84%E7%BA%A6\/",
+          description: "\r软件构造第三章 第二节 软件规约\r",
+          cover: "http:\/\/localhost:13926\/images\/featureimages\/4.jpg",
+        };
+      </script>
+    
+    
+    
+      
+
+
+
+
+
+  
+      
+      <script src="/js/insert_highlight.js" data-pjax></script>
+      
+
+      
+      
+      
+      
+      <script type="module" data-pjax>
+        
+        const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;
+        
+        const pswp = () => {
+          if (_$$('.article-entry a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-entry',
+              children: 'a.article-gallery-item',
+              
+              pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")
+              
+            }).init();
+          }
+          if(_$$('.article-gallery a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-gallery',
+              children: 'a.article-gallery-item',
+              
+              pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")
+              
+            }).init();
+          }
+          window.lightboxStatus = 'done';
+          window.removeEventListener('lightbox:ready', pswp);
+        }
+        if(window.lightboxStatus === 'ready') {
+          pswp()
+        } else {
+          window.addEventListener('lightbox:ready', pswp);
+        }
+      </script>
+      
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+      
+    
+    
+      
+      
+        <script data-pjax>
+          window.MathJax = JSON.parse("[{\"loader\":{\"load\":[\"input/asciimath\",\"[tex]/noerrors\"]},\"options\":{\"ignoreHtmlClass\":\"tex2jax_ignore\",\"processHtmlClass\":\"tex2jax_process\",\"skipHtmlTags\":[\"script\",\"noscript\",\"style\",\"textarea\",\"pre\",\"code\"]},\"tex\":{\"autoload\":{\"color\":[],\"colorv2\":[\"color\"]},\"displayMath\":[[\"$$\",\"$$\"],[\"\\\\\\\\[\",\"\\\\\\\\]\"]],\"inlineMath\":[[\"$\",\"$\"],[\"\\\\\\\\(\",\"\\\\\\\\)\"]],\"packages\":{\"[+]\":[\"noerrors\"]},\"processEnvironments\":true,\"processEscapes\":true,\"tags\":\"ams\",\"useLabelIds\":true}}]")[0];
+        </script>
+        
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/mathjax@3.2.2/es5/tex-mml-chtml.js"
+    defer
+    
+    data-pjax
+    
+    integrity="sha384-Wuix6BuhrWbjDBs24bXrjf4ZQ5aFeFWBuKkFekO2t8xFU0iNaLQfp2K6/1Nxveei" crossorigin="anonymous"
+  ></script>
+
+
+      
+    
+  </div>
+</div>
+
+
+
+
+
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+  </script>
+
+
+<script>
+  const reimuCopyright = String.raw`
+   ______     ______     __     __    __     __  __    
+  /\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+  \ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+   \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+    \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                    
+  `;
+  console.log(String.raw`%c ${reimuCopyright}`, "color: #ff5252;");
+  console.log(
+    "%c Theme.Reimu" + " %c https://github.com/D-Sketon/hugo-theme-reimu ",
+    "color: white; background: #ff5252; padding:5px 0;",
+    "padding:4px;border:1px solid #ff5252;",
+  );
+</script>
+
+
+
+
+
+
+    
+  </body>
+</html>

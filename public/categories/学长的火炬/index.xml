@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>学长的火炬 on Demerzel&#39;s Blog</title>
+    <link>http://localhost:13926/categories/%E5%AD%A6%E9%95%BF%E7%9A%84%E7%81%AB%E7%82%AC/</link>
+    <description>Recent content in 学长的火炬 on Demerzel&#39;s Blog</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 22 Nov 2020 22:01:42 +0000</lastBuildDate>
+    <atom:link href="http://localhost:13926/categories/%E5%AD%A6%E9%95%BF%E7%9A%84%E7%81%AB%E7%82%AC/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>2020秋机器学习期末试题</title>
+      <link>http://localhost:13926/post/2020%E7%A7%8B%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%9C%9F%E6%9C%AB%E8%AF%95%E9%A2%98/</link>
+      <pubDate>Sun, 22 Nov 2020 22:01:42 +0000</pubDate>
+      <guid>http://localhost:13926/post/2020%E7%A7%8B%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%9C%9F%E6%9C%AB%E8%AF%95%E9%A2%98/</guid>
+      <description>2020秋季学期机器学习期末试题</description>
+    </item>
+  </channel>
+</rss>

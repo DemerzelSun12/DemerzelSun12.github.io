@@ -1,10 +1,14 @@
 ---
 title: 南国纪行（二）
 draft: false
-math: false
+math: true
 date: 2021-06-03 20:09:42
 cover: images/featureimages/3.jpg
+summary: 深圳之行的第三篇纪
+tags: [深圳之行]
+categories: [深圳之行]
 ---
+
 
 ## 前言
 

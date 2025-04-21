@@ -1,0 +1,1567 @@
+<!doctype html>
+<html
+  lang="zh-cn" 
+  
+    data-theme-mode="auto"
+  
+>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=13926&amp;path=livereload" data-no-instant defer></script>
+    
+    <meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+
+
+
+
+
+  
+
+<title>
+  软件构造-第六章-第二节-错误与异常处理 | Demerzel
+</title>
+<meta
+  name="description"
+  content="浮沉在世 人事变迁"
+/>
+
+
+
+
+
+
+
+
+
+
+<script>
+  window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"clipboard\":{\"copyright\":{\"content\":\"本文版权：本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！\",\"count\":50,\"enable\":false},\"fail\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"success\":\"复制成功(*^▽^*)\"},\"code_block\":{\"expand\":true},\"icon_font\":\"4552607_0khxww3tj3q9\",\"outdate\":{\"daysago\":180,\"enable\":false,\"message\":\"本文最后更新于 {time}，请注意文中内容可能已经发生变化。\"}}");
+</script>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+    
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+  media="print"
+  onload="this.media='all'"
+/>
+
+
+
+
+
+
+
+  <link
+    rel="preload"
+    href="//at.alicdn.com/t/c/font_4552607_0khxww3tj3q9.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  />
+
+
+
+  
+
+
+
+
+
+
+ <link rel="stylesheet" href="/css/loader.css" />
+
+
+
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="软件构造-第六章-第二节-错误与异常处理 | Demerzel" />
+  <meta
+    property="og:description"
+    content="浮沉在世 人事变迁"
+  />
+  <meta property="og:url" content="http://localhost:13926/post/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0-%E7%AC%AC%E5%85%AD%E7%AB%A0-%E7%AC%AC%E4%BA%8C%E8%8A%82-%E9%94%99%E8%AF%AF%E4%B8%8E%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" />
+  <meta
+    property="og:site_name"
+    content="Demerzel&#39;s Blog"
+  />
+  <meta
+    property="og:image"
+    content="/images/featureimages/15.jpg"
+  />
+  <meta property="article:author" content="Demerzel" />
+  <meta property="article:published_time" content="2020-05-16T16:13:47&#43;00:00" />
+  <meta property="article:modified_time" content="2020-05-16T16:13:47&#43;00:00" />
+  
+    <meta property="article:tag" content="软件构造Java" />
+  
+  
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:image" content="/images/featureimages/15.jpg" />
+  
+  
+  
+  
+  
+
+
+
+
+<link rel="shortcut icon" href="/favicon.ico">
+
+
+
+
+
+
+
+ <link rel="stylesheet" href="/css/main.css" />
+
+
+
+
+
+  <link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css"
+    onload="this.onload=null;this.rel='stylesheet'"
+  />
+
+
+
+
+
+
+  <link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css"
+    onload="this.onload=null;this.rel='stylesheet'"
+  />
+
+
+
+
+
+
+
+
+  
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"
+    
+    
+    
+    
+    integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"
+  ></script>
+
+
+
+
+
+  
+
+
+  <link rel="stylesheet" href="https://npm.webcache.cn/@reimujs/aos@0.1.0/dist/aos.css" />
+
+
+
+
+
+    
+  </head>
+  <body>
+    
+    
+  <div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi rotate">
+        
+          <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+            <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="var(--red-1, #ff5252)" />
+            <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+          M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="var(--red-1, #ff5252)" />
+          </svg>
+        
+      </div>
+      <div class="loading-word">少女祈祷中...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    var startLoading = () => {
+      time = Date.now();
+      document.getElementById('loader').classList.remove("loading");
+    }
+    var endLoading = () => {
+      if (!time) {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loader').classList.add("loading");
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          document.body.style.overflow = 'auto';
+          document.getElementById('loader').classList.add("loading");
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    document.getElementById('loader').addEventListener('click', endLoading);
+  </script>
+
+
+<div id="copy-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+</div>
+
+
+    <div id="container">
+      <div id="wrap">
+        
+<div id="header-nav">
+  <nav id="main-nav">
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/">首页</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/archives">归档</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/about">关于</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/friend">友链</a>
+      </span>
+    
+    <a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav">
+    
+    
+  </nav>
+</div>
+<header id="header">
+  
+    <picture></picture>
+    <img  fetchpriority="high" src="/images/featureimages/15.jpg" alt="软件构造-第六章-第二节-错误与异常处理">
+  
+
+  <div id="header-outer">
+    <div id="header-title">
+      
+        
+        
+          
+        
+  
+        
+          <a href="/" id="logo">
+            <h1 data-aos="slide-up">软件构造-第六章-第二节-错误与异常处理</h1>
+          </a>
+        
+      
+  
+      
+        
+        
+        <h2 id="subtitle-wrap" data-aos="slide-down">
+          
+        </h2>
+      
+    </div>
+  </div>
+</header>
+        <div id="content"
+          
+          class="sidebar-right"  >
+          <aside id="sidebar">
+  
+  
+  
+  <div class="sidebar-wrapper wrap-sticky">
+    <div
+      class="sidebar-wrap"
+      data-aos="fade-up"
+    >
+      
+        
+          <div class="sidebar-toc-sidebar">
+            <div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#11-throwable">1.1 Throwable</a></li>
+    <li><a href="#12-error">1.2 Error</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#21-异常按结构层次的分类">2.1 异常按结构层次的分类</a></li>
+    <li><a href="#22-异常按处理机制角度的分类">2.2 异常按处理机制角度的分类</a>
+      <ul>
+        <li><a href="#221-checked-exception">2.2.1 Checked exception：</a></li>
+        <li><a href="#222-unchecked-exception">2.2.2 Unchecked exception:</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#31-异常中的lsp原则">3.1 异常中的LSP原则</a></li>
+    <li><a href="#32-利用throw抛出一个异常">3.2 利用throw抛出一个异常</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+          </div>
+          <div class="sidebar-common-sidebar hidden">
+            
+<div class="sidebar-author">
+  <img
+    data-src="/images/avatar.jpg"
+    data-sizes="auto"
+    alt="Demerzel"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">Demerzel</div>
+  <div class="sidebar-description">浮沉在世 人事变迁</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    
+    <div class="sidebar-state-number">51</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      18
+    </div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">28</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a
+        href="mailto:demerzelsun@gmail.com"
+        itemprop="url"
+        target="_blank"
+        aria-label="email"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a
+        href="https://github.com/demerzelsun12"
+        itemprop="url"
+        target="_blank"
+        aria-label="github"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-linkedin sidebar-social-icon">
+      <a
+        href="https://www.linkedin.com/in/xiao-sun-52a2a21b0/"
+        itemprop="url"
+        target="_blank"
+        aria-label="linkedin"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">首页</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">归档</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">关于</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">友链</div>
+    </div>
+  
+</div>
+
+          </div>
+        
+      
+
+      
+        
+          <div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div>
+        
+      
+    </div>
+  </div>
+
+  <div class="sidebar-widget">
+    
+  </div>
+  
+</aside>
+
+          <section id="main">
+  <article
+  class="h-entry article"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div
+    class="article-inner"
+    data-aos="fade-up"
+  >
+    <div class="article-meta">
+      <div class="article-date">
+  <span
+    class="article-date-link"
+    data-aos="zoom-in"
+  >
+    <time datetime="2020-05-16 16:13:47 &#43;0000 UTC" itemprop="datePublished"
+      >2020-05-16</time
+    >
+    <time style="display: none;" id="post-update-time"
+      >2020-05-16</time
+    >
+  </span>
+</div>
+
+      <div class="article-category">
+  
+    <a
+      class="article-category-link"
+      href="/categories/%e8%bd%af%e4%bb%b6%e6%9e%84%e9%80%a0"
+      data-aos="zoom-in"
+      >软件构造</a
+    >
+  
+</div>
+
+    </div>
+    <div class="hr-line"></div>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+      
+        <h1 id="软件构造第六章-第二节-错误与异常处理">
+<a class="header-anchor" href="#%e8%bd%af%e4%bb%b6%e6%9e%84%e9%80%a0%e7%ac%ac%e5%85%ad%e7%ab%a0-%e7%ac%ac%e4%ba%8c%e8%8a%82-%e9%94%99%e8%af%af%e4%b8%8e%e5%bc%82%e5%b8%b8%e5%a4%84%e7%90%86"></a>
+软件构造第六章 第二节 错误与异常处理
+</h1><!-- toc -->
+<h1 id="一java中的错误和异常">
+<a class="header-anchor" href="#%e4%b8%80java%e4%b8%ad%e7%9a%84%e9%94%99%e8%af%af%e5%92%8c%e5%bc%82%e5%b8%b8"></a>
+一、JAVA中的错误和异常
+</h1><h2 id="11-throwable">
+<a class="header-anchor" href="#11-throwable"></a>
+1.1 Throwable
+</h2><ol>
+<li>Throwable 类是 Java 语言中所有错误或异常的超类。</li>
+<li>继承的类：extends Object。</li>
+<li>实现的接口：implements Serializable。</li>
+<li>直接已知子类：Error, Exception（直接已知子类：IOException、RuntimeException）。</li>
+</ol>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200712194922867.png" width="70%" height="25%">
+</center>
+<center>
+图1-1 Throwable接口
+</center>
+<h2 id="12-error">
+<a class="header-anchor" href="#12-error"></a>
+1.2 Error
+</h2><ol>
+<li>Error类描述很少发生的Java运行时系统内部的系统错误和资源耗尽情况（例如，VirtualMachineError，LinkageError）。</li>
+<li>对于内部错误：程序员通常无能为力，一旦发生，想办法让程序优雅的结束</li>
+<li>Error的类型：
+<ul>
+<li>用户输入错误
+<ul>
+<li>例如：用户要求连接到语法错误的URL，网络层会投诉。</li>
+</ul>
+</li>
+<li>设备错误
+<ul>
+<li>硬件并不总是做你想做的。</li>
+<li>输出器被关闭</li>
+<li>物理限制</li>
+<li>磁盘可以填满</li>
+<li>可能耗尽了可用内存</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h1 id="二异常的处理">
+<a class="header-anchor" href="#%e4%ba%8c%e5%bc%82%e5%b8%b8%e7%9a%84%e5%a4%84%e7%90%86"></a>
+二、异常的处理
+</h1><h2 id="21-异常按结构层次的分类">
+<a class="header-anchor" href="#21-%e5%bc%82%e5%b8%b8%e6%8c%89%e7%bb%93%e6%9e%84%e5%b1%82%e6%ac%a1%e7%9a%84%e5%88%86%e7%b1%bb"></a>
+2.1 异常按结构层次的分类
+</h2><ol>
+<li>运行时异常：由程序员处理不当造成，如空指针、数组越界、类型转换</li>
+<li>其他异常：程序员无法完全控制的外在问题所导致的，通常为IOE异常，即找不到文件路径等</li>
+</ol>
+<h2 id="22-异常按处理机制角度的分类">
+<a class="header-anchor" href="#22-%e5%bc%82%e5%b8%b8%e6%8c%89%e5%a4%84%e7%90%86%e6%9c%ba%e5%88%b6%e8%a7%92%e5%ba%a6%e7%9a%84%e5%88%86%e7%b1%bb"></a>
+2.2 异常按处理机制角度的分类
+</h2><p>  区分checked 和 unchecked：编译器将检查是否为所有的已检查异常提供了异常处理机制，比如说我们使用Class.forName()来查找给定的字符串的class对象的时候，如果没有为这个方法提供异常处理，编译是无法通过的。</p>
+<h3 id="221-checked-exception">
+<a class="header-anchor" href="#221-checked-exception"></a>
+2.2.1 Checked exception：
+</h3><ol>
+<li>编译器可帮助检查你的程序是否已抛出或处理了可能的异常
+异常的向上抛出机制进行处理，如果子类可能产生A异常，那么在父类中也必须throws A异常。可能导致的问题：代码效率低，耦合度过高。
+checked exception是需要强制catch的异常，你在调用这个方法的时候，你如果不catch这个异常，那么编译器就会报错，比如说我们读写文件的时候会catch IOException，执行数据库操作会有SQLException等。</li>
+<li>对checked Exception处理机制　　　　
+<ul>
+<li>抛出：声明是throws，抛出时throw　　　　</li>
+<li>捕获（try/catch）：try出现异常，忽略后面代码直接进入catch；无异常不进入catch；若catch中没有匹配的异常处理，程序退出；若子类重写了父类方法，父类方法没有抛出异常，子类应自己处理全部异常而不再传播；子类从父类继承的方法不能增加或更改异常</li>
+<li>处理：不能代替简单的测试，尽量苛刻、不过分细化、将正常处理与异常处理分开、利用好层次结构、早抛出晚捕获、避免不必要的检查</li>
+<li>清理现场、释放资源（finally）：finally中语句不论有无异常都执行</li>
+</ul>
+</li>
+</ol>
+<h3 id="222-unchecked-exception">
+<a class="header-anchor" href="#222-unchecked-exception"></a>
+2.2.2 Unchecked exception:
+</h3><ol>
+<li>程序员对此不做任何事情，不得不重写你的代码（不需要在编译时使用try-catch等机制处理）</li>
+<li>这类异常都是RuntimeException的子类，它们不能通过client code来试图解决</li>
+<li>这种异常不是必须需要catch的，你是无法预料的，比如说你在调用一个 list.szie()的时候，如果这个list为null，那么就会报NUllPointerException，而这个异常就是 RuntimeException，也就是UnChecked Exception</li>
+<li>常见的unchecked exception：JVM抛出，如空指针、数组越界、数据格式、不合法的参数、不合法的状态、找不到类等</li>
+</ol>
+<h1 id="三checked异常的处理机制">
+<a class="header-anchor" href="#%e4%b8%89checked%e5%bc%82%e5%b8%b8%e7%9a%84%e5%a4%84%e7%90%86%e6%9c%ba%e5%88%b6"></a>
+三、checked异常的处理机制
+</h1><h2 id="31-异常中的lsp原则">
+<a class="header-anchor" href="#31-%e5%bc%82%e5%b8%b8%e4%b8%ad%e7%9a%84lsp%e5%8e%9f%e5%88%99"></a>
+3.1 异常中的LSP原则
+</h2><ol>
+<li>如果子类型中override了父类型中的函数，那么子类型中方法抛出的异常不能比父类型抛出的异常类型更广泛
+<ul>
+<li>子类型方法可以抛出更具体的异常，也可以不抛出任何异常</li>
+<li>如果父类型的方法未抛出异常，那么子类型的方法也不能抛出异常。</li>
+<li>其他的参考第五章第二节的LSP</li>
+</ul>
+</li>
+<li>利用throws进行声明
+<ul>
+<li>使用throws声明异常：此时需要告知你的client需要处理这些异常，如果client没有handler来处理被抛出的checked exception，程序就终止执行。</li>
+<li>程序员必须在方法的spec中明确写清本方法会抛出的所有checked exception，以便于调用该方法的client加以处理</li>
+<li>在使用throws时，方法要在定义和spec中明确声明所抛出的全部checked exception，没有抛出checked异常，编译出错，Unchecked异常和Error可以不用处理。</li>
+</ul>
+</li>
+</ol>
+<h2 id="32-利用throw抛出一个异常">
+<a class="header-anchor" href="#32-%e5%88%a9%e7%94%a8throw%e6%8a%9b%e5%87%ba%e4%b8%80%e4%b8%aa%e5%bc%82%e5%b8%b8"></a>
+3.2 利用throw抛出一个异常
+</h2><ol>
+<li>步骤：
+<ul>
+<li>找到一个能表达错误的Exception类/或者构造一个新的Exception类</li>
+<li>构造Exception类的实例，将错误信息写入抛出它</li>
+<li>一旦抛出异常，方法不会再将控制权返回给调用它的client，因此也无需考虑返回错误代码</li>
+</ul>
+</li>
+<li>try-catch语句</li>
+</ol>
+<ul>
+<li>使用 try 和 catch 关键字可以捕获异常。try/catch 代码块放在异常可能发生的地方。</li>
+<li>try/catch代码块中的代码称为保护代码，</li>
+<li>Catch 语句包含要捕获异常类型的声明。当保护代码块中发生一个异常时，try 后面的 catch 块就会被检查。</li>
+<li>如果发生的异常包含在 catch 块中，异常会被传递到该 catch 块，这和传递一个参数到方法是一样。</li>
+</ul>
+<ol start="3">
+<li>finally语句
+<ul>
+<li>场景：当异常抛出时，方法中正常执行的代码被终止；但如果异常发生前曾申请过某些资源，那么异常发生后这些资源要被恰当的清理，所以需要用finally语句。</li>
+<li>finally 关键字用来创建在 try 代码块后面执行的代码块。</li>
+<li>无论是否发生异常，finally 代码块中的代码总会被执行。</li>
+<li>在 finally 代码块中，可以运行清理类型等收尾善后性质的语句。</li>
+<li>finally 代码块出现在 catch 代码块最后：</li>
+</ul>
+</li>
+<li>注意下面事项：
+<ul>
+<li>catch 不能独立于 try 存在。</li>
+<li>在 try/catch 后面添加 finally 块并非强制性要求的。</li>
+<li>try 代码后不能既没 catch 块也没 finally 块。</li>
+<li>try, catch, finally 块之间不能添加任何代码。</li>
+</ul>
+</li>
+</ol>
+<h1 id="四自定义异常">
+<a class="header-anchor" href="#%e5%9b%9b%e8%87%aa%e5%ae%9a%e4%b9%89%e5%bc%82%e5%b8%b8"></a>
+四、自定义异常
+</h1><p>  如果JDK提供的exception类无法充分描述你的程序发生的错误，可以创建自己的异常类。</p>
+<ul>
+<li>如果想写一个检查性异常类，则需要继承 Exception 类。</li>
+<li>如果想写一个运行时异常类，那么需要继承 RuntimeException 类。</li>
+</ul>
+      
+    </div>
+    <footer class="article-footer">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+      <ul class="article-tag-list" itemprop="keywords">
+  
+    <li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e8%bd%af%e4%bb%b6%e6%9e%84%e9%80%a0"
+        rel="tag"
+        >软件构造</a
+      >
+    </li>
+  
+    <li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/java"
+        rel="tag"
+        >JAVA</a
+      >
+    </li>
+  
+</ul>
+
+    </footer>
+  </div>
+  
+    
+  <nav
+    id="article-nav"
+    data-aos="fade-up"
+  >
+    
+      <div class="article-nav-link-wrap article-nav-link-left">
+        
+          <img
+            data-src="images/featureimages/14.jpg"
+            data-sizes="auto"
+            alt="软件构造-第六章-第一节-健壮性与正确性"
+            class="lazyload"
+          />
+        
+        <a href="/post/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0-%E7%AC%AC%E5%85%AD%E7%AB%A0-%E7%AC%AC%E4%B8%80%E8%8A%82-%E5%81%A5%E5%A3%AE%E6%80%A7%E4%B8%8E%E6%AD%A3%E7%A1%AE%E6%80%A7/"></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">
+          
+            软件构造-第六章-第一节-健壮性与正确性
+          
+        </h3>
+      </div>
+    
+
+    
+      <div class="article-nav-link-wrap article-nav-link-right">
+        
+          <img
+            data-src="images/featureimages/17.jpg"
+            data-sizes="auto"
+            alt="volatile关键字到底是啥"
+            class="lazyload"
+          />
+        
+        <a href="/post/volatile%E5%85%B3%E9%94%AE%E5%AD%97%E5%88%B0%E5%BA%95%E6%98%AF%E5%95%A5/"></a>
+        <div class="article-nav-caption">后一篇</div>
+        <h3 class="article-nav-title">
+          
+            volatile关键字到底是啥
+          
+        </h3>
+      </div>
+    
+  </nav>
+
+
+  
+</article>
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+</section>
+        </div>
+        
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+
+
+<footer id="footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info">
+    
+    <div>
+      <span class="icon-copyright"></span>
+      
+        2020 -
+        2025
+      
+      <span class="footer-info-sep "></span>
+      Demerzel
+    </div>
+    
+      <div>
+        基于&nbsp;<a
+          href="https://gohugo.io/"
+          target="_blank"
+          >Hugo</a
+        >&nbsp; Theme.<a
+          href="https://github.com/D-Sketon/hugo-theme-reimu"
+          target="_blank"
+          >Reimu</a
+        >
+      </div>
+    
+    
+      <div>
+        <span class="icon-brush"
+          >&nbsp;
+            155.1k
+          </span
+        >
+        &nbsp;|&nbsp;
+        <span class="icon-coffee">&nbsp;
+          
+          
+
+          05:36
+        </span>
+      </div>
+    
+    
+    
+    
+  </div>
+</footer>
+
+        
+          <div class="sidebar-top">
+            <div class="sidebar-top-taichi "></div>
+            <div class="arrow-up"></div>
+          </div>
+        
+        <div id="mask" class="hide"></div>
+      </div>
+      <nav id="mobile-nav">
+  <div class="sidebar-wrap">
+    
+      
+        <div class="sidebar-toc-sidebar">
+          <div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#11-throwable">1.1 Throwable</a></li>
+    <li><a href="#12-error">1.2 Error</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#21-异常按结构层次的分类">2.1 异常按结构层次的分类</a></li>
+    <li><a href="#22-异常按处理机制角度的分类">2.2 异常按处理机制角度的分类</a>
+      <ul>
+        <li><a href="#221-checked-exception">2.2.1 Checked exception：</a></li>
+        <li><a href="#222-unchecked-exception">2.2.2 Unchecked exception:</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#31-异常中的lsp原则">3.1 异常中的LSP原则</a></li>
+    <li><a href="#32-利用throw抛出一个异常">3.2 利用throw抛出一个异常</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+        </div>
+        <div class="sidebar-common-sidebar hidden">
+          
+<div class="sidebar-author">
+  <img
+    data-src="/images/avatar.jpg"
+    data-sizes="auto"
+    alt="Demerzel"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">Demerzel</div>
+  <div class="sidebar-description">浮沉在世 人事变迁</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    
+    <div class="sidebar-state-number">51</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      18
+    </div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">28</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a
+        href="mailto:demerzelsun@gmail.com"
+        itemprop="url"
+        target="_blank"
+        aria-label="email"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a
+        href="https://github.com/demerzelsun12"
+        itemprop="url"
+        target="_blank"
+        aria-label="github"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-linkedin sidebar-social-icon">
+      <a
+        href="https://www.linkedin.com/in/xiao-sun-52a2a21b0/"
+        itemprop="url"
+        target="_blank"
+        aria-label="linkedin"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">首页</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">归档</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">关于</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">友链</div>
+    </div>
+  
+</div>
+
+        </div>
+      
+    
+  </div>
+  
+    
+      <div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div>
+    
+  
+</nav>
+
+    </div>
+    
+    
+    
+    
+
+
+
+
+
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"
+    
+    
+    
+    
+    integrity="sha384-3gT/vsepWkfz/ff7PpWNUeMzeWoH3cDhm/A8jM7ouoAK0/fP/9bcHHR5kHq2nf&#43;e" crossorigin="anonymous"
+  ></script>
+
+
+
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"
+    
+    
+    
+    
+    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"
+  ></script>
+
+
+
+
+
+
+
+
+
+
+
+  
+      
+      <script src="/js/main.js" ></script>
+      
+
+
+
+  
+
+
+
+
+
+  
+      
+      <script src="/js/aos.js" ></script>
+      
+
+  <script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", aosInit);
+    } else {
+      aosInit();
+    }
+  </script>
+
+
+
+
+
+
+
+
+  
+      
+      <script src="/js/pjax_main.js" data-pjax></script>
+      
+
+
+
+
+
+  
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/mouse-firework@0.1.1/dist/index.umd.js"
+    
+    
+    
+    
+    integrity="sha384-8LyaidD9GPxQQgLJO/WRw/O2h3BoNq/ApI/ecpvM6RsrCz2qP2ppBXUKihP4V/2d" crossorigin="anonymous"
+  ></script>
+
+
+<script>
+  if (window.firework) {
+    const options = JSON.parse("{\"excludeelements\":[\"a\",\"button\"],\"particles\":[{\"colors\":[\"var(--red-1)\",\"var(--red-2)\",\"var(--red-3)\",\"var(--red-4)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"emit\"],\"number\":20,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.3,0.5],\"radius\":[16,32]}},{\"colors\":[\"var(--red-0)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"diffuse\"],\"number\":1,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.2,0.5],\"lineWidth\":6,\"radius\":20}}]}");
+    options.excludeElements = options.excludeelements;
+    delete options.excludeelements;
+    window.firework(options);
+  }
+</script>
+
+
+
+
+
+
+
+
+<div id="lazy-script">
+  <div>
+    
+      
+      
+        
+      
+      <script data-pjax>
+        window.REIMU_POST = {
+          author: "Demerzel",
+          title: "软件构造-第六章-第二节-错误与异常处理",
+          url: "http:\/\/localhost:13926\/post\/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0-%E7%AC%AC%E5%85%AD%E7%AB%A0-%E7%AC%AC%E4%BA%8C%E8%8A%82-%E9%94%99%E8%AF%AF%E4%B8%8E%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86\/",
+          description: "\r软件构造第六章 第二节 错误与异常处理\r",
+          cover: "http:\/\/localhost:13926\/images\/featureimages\/15.jpg",
+        };
+      </script>
+    
+    
+    
+      
+
+
+
+
+
+  
+      
+      <script src="/js/insert_highlight.js" data-pjax></script>
+      
+
+      
+      
+      
+      
+      <script type="module" data-pjax>
+        
+        const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;
+        
+        const pswp = () => {
+          if (_$$('.article-entry a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-entry',
+              children: 'a.article-gallery-item',
+              
+              pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")
+              
+            }).init();
+          }
+          if(_$$('.article-gallery a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-gallery',
+              children: 'a.article-gallery-item',
+              
+              pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")
+              
+            }).init();
+          }
+          window.lightboxStatus = 'done';
+          window.removeEventListener('lightbox:ready', pswp);
+        }
+        if(window.lightboxStatus === 'ready') {
+          pswp()
+        } else {
+          window.addEventListener('lightbox:ready', pswp);
+        }
+      </script>
+      
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+      
+    
+    
+      
+      
+        <script data-pjax>
+          window.MathJax = JSON.parse("[{\"loader\":{\"load\":[\"input/asciimath\",\"[tex]/noerrors\"]},\"options\":{\"ignoreHtmlClass\":\"tex2jax_ignore\",\"processHtmlClass\":\"tex2jax_process\",\"skipHtmlTags\":[\"script\",\"noscript\",\"style\",\"textarea\",\"pre\",\"code\"]},\"tex\":{\"autoload\":{\"color\":[],\"colorv2\":[\"color\"]},\"displayMath\":[[\"$$\",\"$$\"],[\"\\\\\\\\[\",\"\\\\\\\\]\"]],\"inlineMath\":[[\"$\",\"$\"],[\"\\\\\\\\(\",\"\\\\\\\\)\"]],\"packages\":{\"[+]\":[\"noerrors\"]},\"processEnvironments\":true,\"processEscapes\":true,\"tags\":\"ams\",\"useLabelIds\":true}}]")[0];
+        </script>
+        
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/mathjax@3.2.2/es5/tex-mml-chtml.js"
+    defer
+    
+    data-pjax
+    
+    integrity="sha384-Wuix6BuhrWbjDBs24bXrjf4ZQ5aFeFWBuKkFekO2t8xFU0iNaLQfp2K6/1Nxveei" crossorigin="anonymous"
+  ></script>
+
+
+      
+    
+  </div>
+</div>
+
+
+
+
+
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+  </script>
+
+
+<script>
+  const reimuCopyright = String.raw`
+   ______     ______     __     __    __     __  __    
+  /\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+  \ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+   \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+    \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                    
+  `;
+  console.log(String.raw`%c ${reimuCopyright}`, "color: #ff5252;");
+  console.log(
+    "%c Theme.Reimu" + " %c https://github.com/D-Sketon/hugo-theme-reimu ",
+    "color: white; background: #ff5252; padding:5px 0;",
+    "padding:4px;border:1px solid #ff5252;",
+  );
+</script>
+
+
+
+
+
+
+    
+  </body>
+</html>

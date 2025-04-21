@@ -1,0 +1,1647 @@
+<!doctype html>
+<html
+  lang="zh-cn" 
+  
+    data-theme-mode="auto"
+  
+>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=13926&amp;path=livereload" data-no-instant defer></script>
+    
+    <meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+
+
+
+
+
+  
+
+<title>
+  软件构造第一章总结 | Demerzel
+</title>
+<meta
+  name="description"
+  content="浮沉在世 人事变迁"
+/>
+
+
+
+
+
+
+
+
+
+
+<script>
+  window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"clipboard\":{\"copyright\":{\"content\":\"本文版权：本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！\",\"count\":50,\"enable\":false},\"fail\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"success\":\"复制成功(*^▽^*)\"},\"code_block\":{\"expand\":true},\"icon_font\":\"4552607_0khxww3tj3q9\",\"outdate\":{\"daysago\":180,\"enable\":false,\"message\":\"本文最后更新于 {time}，请注意文中内容可能已经发生变化。\"}}");
+</script>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+    
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+  media="print"
+  onload="this.media='all'"
+/>
+
+
+
+
+
+
+
+  <link
+    rel="preload"
+    href="//at.alicdn.com/t/c/font_4552607_0khxww3tj3q9.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  />
+
+
+
+  
+
+
+
+
+
+
+ <link rel="stylesheet" href="/css/loader.css" />
+
+
+
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="软件构造第一章总结 | Demerzel" />
+  <meta
+    property="og:description"
+    content="浮沉在世 人事变迁"
+  />
+  <meta property="og:url" content="http://localhost:13926/post/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0-%E7%AC%AC%E4%B8%80%E7%AB%A0%E6%80%BB%E7%BB%93/" />
+  <meta
+    property="og:site_name"
+    content="Demerzel&#39;s Blog"
+  />
+  <meta
+    property="og:image"
+    content="/images/featureimages/0.jpg"
+  />
+  <meta property="article:author" content="Demerzel" />
+  <meta property="article:published_time" content="2020-03-08T15:27:38&#43;00:00" />
+  <meta property="article:modified_time" content="2020-03-08T15:27:38&#43;00:00" />
+  
+    <meta property="article:tag" content="软件构造Java" />
+  
+  
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:image" content="/images/featureimages/0.jpg" />
+  
+  
+  
+  
+  
+
+
+
+
+<link rel="shortcut icon" href="/favicon.ico">
+
+
+
+
+
+
+
+ <link rel="stylesheet" href="/css/main.css" />
+
+
+
+
+
+  <link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css"
+    onload="this.onload=null;this.rel='stylesheet'"
+  />
+
+
+
+
+
+
+  <link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css"
+    onload="this.onload=null;this.rel='stylesheet'"
+  />
+
+
+
+
+
+
+
+
+  
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"
+    
+    
+    
+    
+    integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"
+  ></script>
+
+
+
+
+
+  
+
+
+  <link rel="stylesheet" href="https://npm.webcache.cn/@reimujs/aos@0.1.0/dist/aos.css" />
+
+
+
+
+
+    
+  </head>
+  <body>
+    
+    
+  <div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi rotate">
+        
+          <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+            <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="var(--red-1, #ff5252)" />
+            <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+          M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="var(--red-1, #ff5252)" />
+          </svg>
+        
+      </div>
+      <div class="loading-word">少女祈祷中...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    var startLoading = () => {
+      time = Date.now();
+      document.getElementById('loader').classList.remove("loading");
+    }
+    var endLoading = () => {
+      if (!time) {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loader').classList.add("loading");
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          document.body.style.overflow = 'auto';
+          document.getElementById('loader').classList.add("loading");
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    document.getElementById('loader').addEventListener('click', endLoading);
+  </script>
+
+
+<div id="copy-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+</div>
+
+
+    <div id="container">
+      <div id="wrap">
+        
+<div id="header-nav">
+  <nav id="main-nav">
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/">首页</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/archives">归档</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/about">关于</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/friend">友链</a>
+      </span>
+    
+    <a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav">
+    
+    
+  </nav>
+</div>
+<header id="header">
+  
+    <picture></picture>
+    <img  fetchpriority="high" src="/images/featureimages/0.jpg" alt="软件构造第一章总结">
+  
+
+  <div id="header-outer">
+    <div id="header-title">
+      
+        
+        
+          
+        
+  
+        
+          <a href="/" id="logo">
+            <h1 data-aos="slide-up">软件构造第一章总结</h1>
+          </a>
+        
+      
+  
+      
+        
+        
+        <h2 id="subtitle-wrap" data-aos="slide-down">
+          
+        </h2>
+      
+    </div>
+  </div>
+</header>
+        <div id="content"
+          
+          class="sidebar-right"  >
+          <aside id="sidebar">
+  
+  
+  
+  <div class="sidebar-wrapper wrap-sticky">
+    <div
+      class="sidebar-wrap"
+      data-aos="fade-up"
+    >
+      
+        
+          <div class="sidebar-toc-sidebar">
+            <div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一软件构造多维度视图">一、软件构造多维度视图</a>
+      <ul>
+        <li><a href="#11-从三个维度看软件系统的构成">1.1 从三个维度看软件系统的构成</a></li>
+      </ul>
+    </li>
+    <li><a href="#二软件构造的阶段划分各阶段的构造活动">二、软件构造的阶段划分、各阶段的构造活动</a>
+      <ul>
+        <li><a href="#21-build-time">2.1. Build-time</a></li>
+        <li><a href="#22-run-time">2.2 Run-time</a></li>
+      </ul>
+    </li>
+    <li><a href="#三内部外部的质量指标">三、内部/外部的质量指标</a>
+      <ul>
+        <li><a href="#31-external-quality-factors外部质量因素">3.1 External quality factors（外部质量因素）</a></li>
+        <li><a href="#32-internal-quality-factors内部质量因素">3.2 Internal quality factors（内部质量因素）</a></li>
+        <li><a href="#33-trade-off-between-quality-properties质量折中">3.3 Trade-off between quality properties（质量折中）</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+          </div>
+          <div class="sidebar-common-sidebar hidden">
+            
+<div class="sidebar-author">
+  <img
+    data-src="/images/avatar.jpg"
+    data-sizes="auto"
+    alt="Demerzel"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">Demerzel</div>
+  <div class="sidebar-description">浮沉在世 人事变迁</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    
+    <div class="sidebar-state-number">51</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      18
+    </div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">28</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a
+        href="mailto:demerzelsun@gmail.com"
+        itemprop="url"
+        target="_blank"
+        aria-label="email"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a
+        href="https://github.com/demerzelsun12"
+        itemprop="url"
+        target="_blank"
+        aria-label="github"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-linkedin sidebar-social-icon">
+      <a
+        href="https://www.linkedin.com/in/xiao-sun-52a2a21b0/"
+        itemprop="url"
+        target="_blank"
+        aria-label="linkedin"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">首页</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">归档</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">关于</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">友链</div>
+    </div>
+  
+</div>
+
+          </div>
+        
+      
+
+      
+        
+          <div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div>
+        
+      
+    </div>
+  </div>
+
+  <div class="sidebar-widget">
+    
+  </div>
+  
+</aside>
+
+          <section id="main">
+  <article
+  class="h-entry article"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div
+    class="article-inner"
+    data-aos="fade-up"
+  >
+    <div class="article-meta">
+      <div class="article-date">
+  <span
+    class="article-date-link"
+    data-aos="zoom-in"
+  >
+    <time datetime="2020-03-08 15:27:38 &#43;0000 UTC" itemprop="datePublished"
+      >2020-03-08</time
+    >
+    <time style="display: none;" id="post-update-time"
+      >2020-03-08</time
+    >
+  </span>
+</div>
+
+      <div class="article-category">
+  
+    <a
+      class="article-category-link"
+      href="/categories/%e8%bd%af%e4%bb%b6%e6%9e%84%e9%80%a0"
+      data-aos="zoom-in"
+      >软件构造</a
+    >
+  
+</div>
+
+    </div>
+    <div class="hr-line"></div>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+      
+        <h1 id="软件构造第一章总结">
+<a class="header-anchor" href="#%e8%bd%af%e4%bb%b6%e6%9e%84%e9%80%a0%e7%ac%ac%e4%b8%80%e7%ab%a0%e6%80%bb%e7%bb%93"></a>
+软件构造第一章总结
+</h1><!-- toc -->
+<h2 id="一软件构造多维度视图">
+<a class="header-anchor" href="#%e4%b8%80%e8%bd%af%e4%bb%b6%e6%9e%84%e9%80%a0%e5%a4%9a%e7%bb%b4%e5%ba%a6%e8%a7%86%e5%9b%be"></a>
+一、软件构造多维度视图
+</h2><h3 id="11-从三个维度看软件系统的构成">
+<a class="header-anchor" href="#11-%e4%bb%8e%e4%b8%89%e4%b8%aa%e7%bb%b4%e5%ba%a6%e7%9c%8b%e8%bd%af%e4%bb%b6%e7%b3%bb%e7%bb%9f%e7%9a%84%e6%9e%84%e6%88%90"></a>
+1.1 从三个维度看软件系统的构成
+</h3><ol>
+<li>按阶段划分：build-time（构造阶段）和run-time（运行阶段）</li>
+<li>按动态划分：moment（时刻）和period（时期）</li>
+<li>按层次划分：code（代码层面）和component（组件，文件层面）</li>
+</ol>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200313184621493.jpg" width="70%" height="25%">
+</center>
+<center>
+图1-1 软件构造多维度视图
+</center>
+<h2 id="二软件构造的阶段划分各阶段的构造活动">
+<a class="header-anchor" href="#%e4%ba%8c%e8%bd%af%e4%bb%b6%e6%9e%84%e9%80%a0%e7%9a%84%e9%98%b6%e6%ae%b5%e5%88%92%e5%88%86%e5%90%84%e9%98%b6%e6%ae%b5%e7%9a%84%e6%9e%84%e9%80%a0%e6%b4%bb%e5%8a%a8"></a>
+二、软件构造的阶段划分、各阶段的构造活动
+</h2><h3 id="21-build-time">
+<a class="header-anchor" href="#21-build-time"></a>
+2.1. Build-time
+</h3><p>  想法⇒\Rightarrow⇒需求⇒\Rightarrow⇒设计⇒\Rightarrow⇒代码⇒\Rightarrow⇒可安装并执行的包
+  Code-level view：代码的逻辑组织（函数、类、方法、接口······）
+  Component-level view：代码的物理组织（文件、目录、包、程序库······）
+  Moment view：特定时刻的软件形态
+  Period view：软件形态随时间的变化</p>
+<p><strong>1. build-time; moment; code-level</strong>
+三种相互关联的形式</p>
+<p>面向词法：半结构化源代码
+面向词法：（AST抽象语法树）半结构化的源代码变成语法树（编译器能够处理）
+面向词法：UML视图（通常是图形化或形式化的）</p>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200313193130236.png" width="70%" height="25%">
+</center>
+<center>
+图2-1 UML图
+</center>
+<p><strong>2. build-time; period; code-level</strong>
+Code churn（代码变化）</p>
+<p><strong>3. build-time; moment; component-level</strong>
+源代码如何组织成文件——通过类库
+文件被压缩进package，逻辑上进入components（组件）and sub-systems（子系统）</p>
+<p><strong>链接技术（动态 / 静态）</strong>
+Library</p>
+<ol>
+<li>操作系统提供的库</li>
+<li>编程语言提供的库</li>
+<li>第三方公司提供的库</li>
+<li>自己编写的库</li>
+</ol>
+<p>链接：编程时和build时，需告诉IDE和JVM在哪里寻找某些库。</p>
+<p>静态链接</p>
+<p>库被拷贝进入代码形成整体，执行的时候无需提供库文件。
+静态链接发生在构造阶段。</p>
+<p><strong>4. build-time; period; component-level</strong>
+SCI 配置项的更改
+VCS 版本控制系统
+各项软件实体随时间如何变化
+软件随时间变化的版本
+版本控制（通过Git，SVN等等）</p>
+<h3 id="22-run-time">
+<a class="header-anchor" href="#22-run-time"></a>
+2.2 Run-time
+</h3><p>程序被载入目标机器，开始执行。</p>
+<p>Code-level view：逻辑实体在内存中的呈现方式
+Component-level view：物理实体在物理硬件环境中的呈现方式</p>
+<p>Moment view：在内存/硬件环境中特定时刻的形态
+Period view：硬件环境中的形态随时间的变化</p>
+<p>动态链接</p>
+<p>库文件不会在build阶段被加入可执行软件，仅仅做出标记。
+程序运行时，根据标记装载库至内存。
+发布软件时，记得将程序所依赖的所有动态库都复制给用户。
+分布式程序</p>
+<p>需要多个运行程序，分别部署于多个计算机物理环境。
+需要多端口或者多线程。</p>
+<p><strong>5. run-time; moment; code-level</strong>
+Code SnapShot（代码快照）
+描述程序运行时内存里变量层面的状态，即某一时间点内存中对象及对象的值。</p>
+<p>Memory dump（内存信息转储）
+常发生在异常退出时，把内存中信息写到文件中（常用来调试）。</p>
+<p><strong>6. run-time, period and code-level view</strong>
+UML运行时图，描述程序运行时间各个种类间的依赖关系。
+Execution tracing（执行跟踪）
+用日志方式记录程序执行的调用次序。</p>
+<p><strong>7. run-time; moment; component-level</strong>
+UML部署图</p>
+<p>执行跟踪：根据跟踪日志里的信息进行调试或诊断软件问题。</p>
+<p><strong>8. run-time; period; component-level</strong>
+事件日志（系统层面）</p>
+<table>
+  <thead>
+      <tr>
+          <th>Event logging</th>
+          <th>Software tracing</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Consumed primarily by system administrators</td>
+          <td>Consumed primarily by developers</td>
+      </tr>
+      <tr>
+          <td>Logs &ldquo;high level&rdquo; information (e.g. failed installation of a program)</td>
+          <td>Logs &ldquo;low level&rdquo; information (e.g. a thrown exception)</td>
+      </tr>
+      <tr>
+          <td>Must not be too &ldquo;noisy&rdquo; (contain many duplicate events or information not helpful to its intended audience)</td>
+          <td>Can be noisy</td>
+      </tr>
+      <tr>
+          <td>A standards-based output format is often desirable, sometimes even required</td>
+          <td>Few limitations on output format</td>
+      </tr>
+      <tr>
+          <td>Event log messages are often localized</td>
+          <td>Localization is rarely a concern</td>
+      </tr>
+      <tr>
+          <td>Addition of new types of events, as well as new event messages, need not be agile</td>
+          <td>Addition of new tracing messages must be agile</td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>9. 相互联系</strong></p>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200313195306526.png
+" width="70%" height="25%">
+</center>
+<center>
+图2-2 各视图之间联系
+</center>
+<h2 id="三内部外部的质量指标">
+<a class="header-anchor" href="#%e4%b8%89%e5%86%85%e9%83%a8%e5%a4%96%e9%83%a8%e7%9a%84%e8%b4%a8%e9%87%8f%e6%8c%87%e6%a0%87"></a>
+三、内部/外部的质量指标
+</h2><p>外部质量因素影响用户
+内部质量因素影响软件本身和它的开发者
+外部质量取决于内部质量</p>
+<h3 id="31-external-quality-factors外部质量因素">
+<a class="header-anchor" href="#31-external-quality-factors%e5%a4%96%e9%83%a8%e8%b4%a8%e9%87%8f%e5%9b%a0%e7%b4%a0"></a>
+3.1 External quality factors（外部质量因素）
+</h3><p><strong>1. Correctness（正确性）</strong>
+按照预先定义的“规约”执行
+正确性是至高无上的质量指标
+每一层保证自己的正确性，同时假设其下层是正确的
+测试和调试：发现不正确、消除不正确
+防御式编程：在写程序的时候就确保正确性
+形式化方法：通过形式化验证发现问题</p>
+<p><strong>2.Robustness（健壮性）</strong>
+针对异常情况的处理
+– 健壮性是对正确性的补充
+– 正确性：软件的行为要严格的符合规约中定义的行为
+– 出现规约定义之外的情形的时候，软件要做出恰当的反应
+出现异常时不要“崩溃”
+健壮性是主观而非客观
+– 未被specification覆盖的情况即为“异常情况”
+– 所谓的“异常”，取决于spec的范畴</p>
+<p><strong>3. Extendibility（可扩展性）</strong>
+定义：对软件的规约进行修改，是否足够容易的程度。
+规模越大，扩展起来越不容易。
+目的是为了变化。
+两个准则（为了可扩展性）：简约主义设计，分离主义设计</p>
+<p><strong>4. Reusability（可复用性）</strong>
+一次开发，多次使用
+找到不同问题之间的共性</p>
+<p><strong>5. Compatibility（兼容性）</strong>
+不同的软件系统之间相互可容易的集成
+兼容性很重要因为开发设计不在真空中，所以需要相互联系
+方法：保持设计的同构性并标准化</p>
+<p><strong>6. Efficiency（性能）</strong>
+性能包括很多内容，最常见的就是时间复杂度和空间复杂度。
+性能毫无意义，除非有足够的正确性。
+– 对性能的关注要与其他质量属性进行折中
+– 过度的优化导致软件不再适应变化和复用
+过早优化是万恶之源</p>
+<p><strong>7. Portability（可移植性）</strong>
+软件可方便的在不同的技术环境之间移植
+硬件、操作系统中的移植</p>
+<p><strong>8. Ease of use（易用性）</strong>
+容易学、安装、操作、监控
+给用户提供详细的指南</p>
+<p><strong>9. Functionality（功能性）</strong>
+每增加一小点功能，都确保其他质量属性不受到损失。
+程序设计中一种不适宜的趋势，即软件开发者增加越来越多的功能，企图跟上竞争，其结果是程序极为复杂、不灵活、占用过多的磁盘空间。</p>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200313200344559.png
+" width="70%" height="25%">
+</center>
+<center>
+图3-1 功能性与其他属性的关系
+</center>
+<p><strong>10. Timeliness（及时性）</strong>
+当用户需要的时候，要能及时地设计出来。</p>
+<p><strong>11. Other qualities</strong>
+Verifiability（可验证性）
+Integrity（完整性）
+Repair ability（可修复性）
+Economy（经济性）</p>
+<h3 id="32-internal-quality-factors内部质量因素">
+<a class="header-anchor" href="#32-internal-quality-factors%e5%86%85%e9%83%a8%e8%b4%a8%e9%87%8f%e5%9b%a0%e7%b4%a0"></a>
+3.2 Internal quality factors（内部质量因素）
+</h3><p>Source code related factors such as Lines of Code (LOC), Cyclomatic Complexity（圈复杂度）, etc
+Architecture-related factors such as coupling（耦合度）, cohesion（内聚度）, etc
+Read ability（可读性）
+Understand ability（可理解性）
+Clearness（清晰性）
+Size（大小）</p>
+<h3 id="33-trade-off-between-quality-properties质量折中">
+<a class="header-anchor" href="#33-trade-off-between-quality-properties%e8%b4%a8%e9%87%8f%e6%8a%98%e4%b8%ad"></a>
+3.3 Trade-off between quality properties（质量折中）
+</h3><p>正确的软件开发过程中，开发者应该将不同质量因素之间如何做出折中的设计决策和标准明确的写下来。
+虽然需要折中，但“正确性”绝不能与其他质量因素折中。
+最重要的几个质量因素</p>
+<p>Correctness and robustness: reliability（可靠性）
+Extendibility and reusability: modularity（可延展性和可复用性）
+OOP（面向对象编程）提高质量的方法
+Correctness: encapsulation（封装）, decentralization（分权）
+Robustness: encapsulation, error handling（异常处理）
+Extendibility: encapsulation, information hiding
+Reusability: modularity, component, models, patterns
+Compatibility: standardized module and interface
+Portability: information hiding, abstraction
+Ease of use: GUI components, framework
+Efficiency: reusable components
+Timeliness: modeling, reuse
+Economy: reuse
+Functionality: extendibility</p>
+      
+    </div>
+    <footer class="article-footer">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+      <ul class="article-tag-list" itemprop="keywords">
+  
+    <li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e8%bd%af%e4%bb%b6%e6%9e%84%e9%80%a0"
+        rel="tag"
+        >软件构造</a
+      >
+    </li>
+  
+    <li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/java"
+        rel="tag"
+        >JAVA</a
+      >
+    </li>
+  
+</ul>
+
+    </footer>
+  </div>
+  
+    
+  <nav
+    id="article-nav"
+    data-aos="fade-up"
+  >
+    
+      <div class="article-nav-link-wrap article-nav-link-left">
+        
+          <img
+            data-src="images/featureimages/18.jpg"
+            data-sizes="auto"
+            alt="算法设计与分析第二次作业"
+            class="lazyload"
+          />
+        
+        <a href="/post/%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%88%86%E6%9E%90%E7%AC%AC%E4%BA%8C%E6%AC%A1%E4%BD%9C%E4%B8%9A/"></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">
+          
+            算法设计与分析第二次作业
+          
+        </h3>
+      </div>
+    
+
+    
+      <div class="article-nav-link-wrap article-nav-link-right">
+        
+          <img
+            data-src="images/featureimages/16.jpg"
+            data-sizes="auto"
+            alt="软件构造-第六章-第五节-软件测试与测试优先编程"
+            class="lazyload"
+          />
+        
+        <a href="/post/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0-%E7%AC%AC%E5%85%AD%E7%AB%A0-%E7%AC%AC%E4%BA%94%E8%8A%82-%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E4%B8%8E%E6%B5%8B%E8%AF%95%E4%BC%98%E5%85%88%E7%BC%96%E7%A8%8B/"></a>
+        <div class="article-nav-caption">后一篇</div>
+        <h3 class="article-nav-title">
+          
+            软件构造-第六章-第五节-软件测试与测试优先编程
+          
+        </h3>
+      </div>
+    
+  </nav>
+
+
+  
+</article>
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+</section>
+        </div>
+        
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+
+
+<footer id="footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info">
+    
+    <div>
+      <span class="icon-copyright"></span>
+      
+        2020 -
+        2025
+      
+      <span class="footer-info-sep "></span>
+      Demerzel
+    </div>
+    
+      <div>
+        基于&nbsp;<a
+          href="https://gohugo.io/"
+          target="_blank"
+          >Hugo</a
+        >&nbsp; Theme.<a
+          href="https://github.com/D-Sketon/hugo-theme-reimu"
+          target="_blank"
+          >Reimu</a
+        >
+      </div>
+    
+    
+      <div>
+        <span class="icon-brush"
+          >&nbsp;
+            155.1k
+          </span
+        >
+        &nbsp;|&nbsp;
+        <span class="icon-coffee">&nbsp;
+          
+          
+
+          05:36
+        </span>
+      </div>
+    
+    
+    
+    
+  </div>
+</footer>
+
+        
+          <div class="sidebar-top">
+            <div class="sidebar-top-taichi "></div>
+            <div class="arrow-up"></div>
+          </div>
+        
+        <div id="mask" class="hide"></div>
+      </div>
+      <nav id="mobile-nav">
+  <div class="sidebar-wrap">
+    
+      
+        <div class="sidebar-toc-sidebar">
+          <div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一软件构造多维度视图">一、软件构造多维度视图</a>
+      <ul>
+        <li><a href="#11-从三个维度看软件系统的构成">1.1 从三个维度看软件系统的构成</a></li>
+      </ul>
+    </li>
+    <li><a href="#二软件构造的阶段划分各阶段的构造活动">二、软件构造的阶段划分、各阶段的构造活动</a>
+      <ul>
+        <li><a href="#21-build-time">2.1. Build-time</a></li>
+        <li><a href="#22-run-time">2.2 Run-time</a></li>
+      </ul>
+    </li>
+    <li><a href="#三内部外部的质量指标">三、内部/外部的质量指标</a>
+      <ul>
+        <li><a href="#31-external-quality-factors外部质量因素">3.1 External quality factors（外部质量因素）</a></li>
+        <li><a href="#32-internal-quality-factors内部质量因素">3.2 Internal quality factors（内部质量因素）</a></li>
+        <li><a href="#33-trade-off-between-quality-properties质量折中">3.3 Trade-off between quality properties（质量折中）</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+        </div>
+        <div class="sidebar-common-sidebar hidden">
+          
+<div class="sidebar-author">
+  <img
+    data-src="/images/avatar.jpg"
+    data-sizes="auto"
+    alt="Demerzel"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">Demerzel</div>
+  <div class="sidebar-description">浮沉在世 人事变迁</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    
+    <div class="sidebar-state-number">51</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      18
+    </div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">28</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a
+        href="mailto:demerzelsun@gmail.com"
+        itemprop="url"
+        target="_blank"
+        aria-label="email"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a
+        href="https://github.com/demerzelsun12"
+        itemprop="url"
+        target="_blank"
+        aria-label="github"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-linkedin sidebar-social-icon">
+      <a
+        href="https://www.linkedin.com/in/xiao-sun-52a2a21b0/"
+        itemprop="url"
+        target="_blank"
+        aria-label="linkedin"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">首页</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">归档</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">关于</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">友链</div>
+    </div>
+  
+</div>
+
+        </div>
+      
+    
+  </div>
+  
+    
+      <div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div>
+    
+  
+</nav>
+
+    </div>
+    
+    
+    
+    
+
+
+
+
+
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"
+    
+    
+    
+    
+    integrity="sha384-3gT/vsepWkfz/ff7PpWNUeMzeWoH3cDhm/A8jM7ouoAK0/fP/9bcHHR5kHq2nf&#43;e" crossorigin="anonymous"
+  ></script>
+
+
+
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"
+    
+    
+    
+    
+    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"
+  ></script>
+
+
+
+
+
+
+
+
+
+
+
+  
+      
+      <script src="/js/main.js" ></script>
+      
+
+
+
+  
+
+
+
+
+
+  
+      
+      <script src="/js/aos.js" ></script>
+      
+
+  <script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", aosInit);
+    } else {
+      aosInit();
+    }
+  </script>
+
+
+
+
+
+
+
+
+  
+      
+      <script src="/js/pjax_main.js" data-pjax></script>
+      
+
+
+
+
+
+  
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/mouse-firework@0.1.1/dist/index.umd.js"
+    
+    
+    
+    
+    integrity="sha384-8LyaidD9GPxQQgLJO/WRw/O2h3BoNq/ApI/ecpvM6RsrCz2qP2ppBXUKihP4V/2d" crossorigin="anonymous"
+  ></script>
+
+
+<script>
+  if (window.firework) {
+    const options = JSON.parse("{\"excludeelements\":[\"a\",\"button\"],\"particles\":[{\"colors\":[\"var(--red-1)\",\"var(--red-2)\",\"var(--red-3)\",\"var(--red-4)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"emit\"],\"number\":20,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.3,0.5],\"radius\":[16,32]}},{\"colors\":[\"var(--red-0)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"diffuse\"],\"number\":1,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.2,0.5],\"lineWidth\":6,\"radius\":20}}]}");
+    options.excludeElements = options.excludeelements;
+    delete options.excludeelements;
+    window.firework(options);
+  }
+</script>
+
+
+
+
+
+
+
+
+<div id="lazy-script">
+  <div>
+    
+      
+      
+        
+      
+      <script data-pjax>
+        window.REIMU_POST = {
+          author: "Demerzel",
+          title: "软件构造第一章总结",
+          url: "http:\/\/localhost:13926\/post\/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0-%E7%AC%AC%E4%B8%80%E7%AB%A0%E6%80%BB%E7%BB%93\/",
+          description: "\r软件构造第一章总结\r一、软件构造多维度视图\r1.1 从三个维度看软件系统的构成\r按阶段划分：build-time（构造阶段）和run-time（运行阶段） 按动态划分：moment（时刻）和period（时期） 按层次划分：code（代码层面）和component（组件，文件层面） 图1-1 软件构造多维度视图 ",
+          cover: "http:\/\/localhost:13926\/images\/featureimages\/0.jpg",
+        };
+      </script>
+    
+    
+    
+      
+
+
+
+
+
+  
+      
+      <script src="/js/insert_highlight.js" data-pjax></script>
+      
+
+      
+      
+      
+      
+      <script type="module" data-pjax>
+        
+        const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;
+        
+        const pswp = () => {
+          if (_$$('.article-entry a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-entry',
+              children: 'a.article-gallery-item',
+              
+              pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")
+              
+            }).init();
+          }
+          if(_$$('.article-gallery a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-gallery',
+              children: 'a.article-gallery-item',
+              
+              pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")
+              
+            }).init();
+          }
+          window.lightboxStatus = 'done';
+          window.removeEventListener('lightbox:ready', pswp);
+        }
+        if(window.lightboxStatus === 'ready') {
+          pswp()
+        } else {
+          window.addEventListener('lightbox:ready', pswp);
+        }
+      </script>
+      
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+      
+    
+    
+      
+      
+        <script data-pjax>
+          window.MathJax = JSON.parse("[{\"loader\":{\"load\":[\"input/asciimath\",\"[tex]/noerrors\"]},\"options\":{\"ignoreHtmlClass\":\"tex2jax_ignore\",\"processHtmlClass\":\"tex2jax_process\",\"skipHtmlTags\":[\"script\",\"noscript\",\"style\",\"textarea\",\"pre\",\"code\"]},\"tex\":{\"autoload\":{\"color\":[],\"colorv2\":[\"color\"]},\"displayMath\":[[\"$$\",\"$$\"],[\"\\\\\\\\[\",\"\\\\\\\\]\"]],\"inlineMath\":[[\"$\",\"$\"],[\"\\\\\\\\(\",\"\\\\\\\\)\"]],\"packages\":{\"[+]\":[\"noerrors\"]},\"processEnvironments\":true,\"processEscapes\":true,\"tags\":\"ams\",\"useLabelIds\":true}}]")[0];
+        </script>
+        
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/mathjax@3.2.2/es5/tex-mml-chtml.js"
+    defer
+    
+    data-pjax
+    
+    integrity="sha384-Wuix6BuhrWbjDBs24bXrjf4ZQ5aFeFWBuKkFekO2t8xFU0iNaLQfp2K6/1Nxveei" crossorigin="anonymous"
+  ></script>
+
+
+      
+    
+  </div>
+</div>
+
+
+
+
+
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+  </script>
+
+
+<script>
+  const reimuCopyright = String.raw`
+   ______     ______     __     __    __     __  __    
+  /\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+  \ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+   \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+    \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                    
+  `;
+  console.log(String.raw`%c ${reimuCopyright}`, "color: #ff5252;");
+  console.log(
+    "%c Theme.Reimu" + " %c https://github.com/D-Sketon/hugo-theme-reimu ",
+    "color: white; background: #ff5252; padding:5px 0;",
+    "padding:4px;border:1px solid #ff5252;",
+  );
+</script>
+
+
+
+
+
+
+    
+  </body>
+</html>

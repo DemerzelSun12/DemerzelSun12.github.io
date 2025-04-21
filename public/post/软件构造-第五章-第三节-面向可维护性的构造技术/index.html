@@ -1,0 +1,1711 @@
+<!doctype html>
+<html
+  lang="zh-cn" 
+  
+    data-theme-mode="auto"
+  
+>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=13926&amp;path=livereload" data-no-instant defer></script>
+    
+    <meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+
+
+
+
+
+  
+
+<title>
+  软件构造-第五章-第三节-面向可维护性的构造技术 | Demerzel
+</title>
+<meta
+  name="description"
+  content="浮沉在世 人事变迁"
+/>
+
+
+
+
+
+
+
+
+
+
+<script>
+  window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"clipboard\":{\"copyright\":{\"content\":\"本文版权：本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！\",\"count\":50,\"enable\":false},\"fail\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"success\":\"复制成功(*^▽^*)\"},\"code_block\":{\"expand\":true},\"icon_font\":\"4552607_0khxww3tj3q9\",\"outdate\":{\"daysago\":180,\"enable\":false,\"message\":\"本文最后更新于 {time}，请注意文中内容可能已经发生变化。\"}}");
+</script>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+    
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+  media="print"
+  onload="this.media='all'"
+/>
+
+
+
+
+
+
+
+  <link
+    rel="preload"
+    href="//at.alicdn.com/t/c/font_4552607_0khxww3tj3q9.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  />
+
+
+
+  
+
+
+
+
+
+
+ <link rel="stylesheet" href="/css/loader.css" />
+
+
+
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="软件构造-第五章-第三节-面向可维护性的构造技术 | Demerzel" />
+  <meta
+    property="og:description"
+    content="浮沉在世 人事变迁"
+  />
+  <meta property="og:url" content="http://localhost:13926/post/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0-%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%AC%AC%E4%B8%89%E8%8A%82-%E9%9D%A2%E5%90%91%E5%8F%AF%E7%BB%B4%E6%8A%A4%E6%80%A7%E7%9A%84%E6%9E%84%E9%80%A0%E6%8A%80%E6%9C%AF/" />
+  <meta
+    property="og:site_name"
+    content="Demerzel&#39;s Blog"
+  />
+  <meta
+    property="og:image"
+    content="/images/featureimages/13.jpg"
+  />
+  <meta property="article:author" content="Demerzel" />
+  <meta property="article:published_time" content="2020-05-10T18:21:04&#43;00:00" />
+  <meta property="article:modified_time" content="2020-05-10T18:21:04&#43;00:00" />
+  
+    <meta property="article:tag" content="软件构造Java" />
+  
+  
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:image" content="/images/featureimages/13.jpg" />
+  
+  
+  
+  
+  
+
+
+
+
+<link rel="shortcut icon" href="/favicon.ico">
+
+
+
+
+
+
+
+ <link rel="stylesheet" href="/css/main.css" />
+
+
+
+
+
+  <link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css"
+    onload="this.onload=null;this.rel='stylesheet'"
+  />
+
+
+
+
+
+
+  <link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css"
+    onload="this.onload=null;this.rel='stylesheet'"
+  />
+
+
+
+
+
+
+
+
+  
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"
+    
+    
+    
+    
+    integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"
+  ></script>
+
+
+
+
+
+  
+
+
+  <link rel="stylesheet" href="https://npm.webcache.cn/@reimujs/aos@0.1.0/dist/aos.css" />
+
+
+
+
+
+    
+  </head>
+  <body>
+    
+    
+  <div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi rotate">
+        
+          <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+            <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="var(--red-1, #ff5252)" />
+            <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+          M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="var(--red-1, #ff5252)" />
+          </svg>
+        
+      </div>
+      <div class="loading-word">少女祈祷中...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    var startLoading = () => {
+      time = Date.now();
+      document.getElementById('loader').classList.remove("loading");
+    }
+    var endLoading = () => {
+      if (!time) {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loader').classList.add("loading");
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          document.body.style.overflow = 'auto';
+          document.getElementById('loader').classList.add("loading");
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    document.getElementById('loader').addEventListener('click', endLoading);
+  </script>
+
+
+<div id="copy-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+</div>
+
+
+    <div id="container">
+      <div id="wrap">
+        
+<div id="header-nav">
+  <nav id="main-nav">
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/">首页</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/archives">归档</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/about">关于</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/friend">友链</a>
+      </span>
+    
+    <a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav">
+    
+    
+  </nav>
+</div>
+<header id="header">
+  
+    <picture></picture>
+    <img  fetchpriority="high" src="/images/featureimages/13.jpg" alt="软件构造-第五章-第三节-面向可维护性的构造技术">
+  
+
+  <div id="header-outer">
+    <div id="header-title">
+      
+        
+        
+          
+        
+  
+        
+          <a href="/" id="logo">
+            <h1 data-aos="slide-up">软件构造-第五章-第三节-面向可维护性的构造技术</h1>
+          </a>
+        
+      
+  
+      
+        
+        
+        <h2 id="subtitle-wrap" data-aos="slide-down">
+          
+        </h2>
+      
+    </div>
+  </div>
+</header>
+        <div id="content"
+          
+          class="sidebar-right"  >
+          <aside id="sidebar">
+  
+  
+  
+  <div class="sidebar-wrapper wrap-sticky">
+    <div
+      class="sidebar-wrap"
+      data-aos="fade-up"
+    >
+      
+        
+          <div class="sidebar-toc-sidebar">
+            <div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#11-基于自动机的编程">1.1 基于自动机的编程</a></li>
+    <li><a href="#12-状态模式state-pattern">1.2 状态模式(State Pattern)</a></li>
+    <li><a href="#13-备忘录模式memento-pattern">1.3 备忘录模式(Memento Pattern)</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#21-语法的组成成分">2.1 语法的组成成分</a></li>
+    <li><a href="#22-语法中的操作符">2.2 语法中的操作符</a></li>
+    <li><a href="#23-语法分析树">2.3 语法分析树</a></li>
+    <li><a href="#24-正则语法">2.4 正则语法</a></li>
+    <li><a href="#25-正则表达式">2.5 正则表达式</a></li>
+    <li><a href="#26-java中的正则表达式">2.6 JAVA中的正则表达式</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+          </div>
+          <div class="sidebar-common-sidebar hidden">
+            
+<div class="sidebar-author">
+  <img
+    data-src="/images/avatar.jpg"
+    data-sizes="auto"
+    alt="Demerzel"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">Demerzel</div>
+  <div class="sidebar-description">浮沉在世 人事变迁</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    
+    <div class="sidebar-state-number">51</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      18
+    </div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">28</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a
+        href="mailto:demerzelsun@gmail.com"
+        itemprop="url"
+        target="_blank"
+        aria-label="email"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a
+        href="https://github.com/demerzelsun12"
+        itemprop="url"
+        target="_blank"
+        aria-label="github"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-linkedin sidebar-social-icon">
+      <a
+        href="https://www.linkedin.com/in/xiao-sun-52a2a21b0/"
+        itemprop="url"
+        target="_blank"
+        aria-label="linkedin"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">首页</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">归档</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">关于</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">友链</div>
+    </div>
+  
+</div>
+
+          </div>
+        
+      
+
+      
+        
+          <div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div>
+        
+      
+    </div>
+  </div>
+
+  <div class="sidebar-widget">
+    
+  </div>
+  
+</aside>
+
+          <section id="main">
+  <article
+  class="h-entry article"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div
+    class="article-inner"
+    data-aos="fade-up"
+  >
+    <div class="article-meta">
+      <div class="article-date">
+  <span
+    class="article-date-link"
+    data-aos="zoom-in"
+  >
+    <time datetime="2020-05-10 18:21:04 &#43;0000 UTC" itemprop="datePublished"
+      >2020-05-10</time
+    >
+    <time style="display: none;" id="post-update-time"
+      >2020-05-10</time
+    >
+  </span>
+</div>
+
+      <div class="article-category">
+  
+    <a
+      class="article-category-link"
+      href="/categories/%e8%bd%af%e4%bb%b6%e6%9e%84%e9%80%a0"
+      data-aos="zoom-in"
+      >软件构造</a
+    >
+  
+</div>
+
+    </div>
+    <div class="hr-line"></div>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+      
+        <h1 id="软件构造第五章-第三节-面向可维护性的构造技术">
+<a class="header-anchor" href="#%e8%bd%af%e4%bb%b6%e6%9e%84%e9%80%a0%e7%ac%ac%e4%ba%94%e7%ab%a0-%e7%ac%ac%e4%b8%89%e8%8a%82-%e9%9d%a2%e5%90%91%e5%8f%af%e7%bb%b4%e6%8a%a4%e6%80%a7%e7%9a%84%e6%9e%84%e9%80%a0%e6%8a%80%e6%9c%af"></a>
+软件构造第五章 第三节 面向可维护性的构造技术
+</h1><!-- toc -->
+<h1 id="一基于状态的构造技术">
+<a class="header-anchor" href="#%e4%b8%80%e5%9f%ba%e4%ba%8e%e7%8a%b6%e6%80%81%e7%9a%84%e6%9e%84%e9%80%a0%e6%8a%80%e6%9c%af"></a>
+一、基于状态的构造技术
+</h1><ol>
+<li>基于状态编程
+<ul>
+<li>使用有限状态机来定义程序的行为、使用状态来控制程序的执行</li>
+<li>根据当前状态，决定下一步要执行什么操作、执行操作之后要转移到什么新的状态</li>
+</ul>
+</li>
+</ol>
+<h2 id="11-基于自动机的编程">
+<a class="header-anchor" href="#11-%e5%9f%ba%e4%ba%8e%e8%87%aa%e5%8a%a8%e6%9c%ba%e7%9a%84%e7%bc%96%e7%a8%8b"></a>
+1.1 基于自动机的编程
+</h2><ol>
+<li>定义：
+基于自动机的编程是一种编程范例，其中该程序或程序的一部分被认为是有限状态机（FSM）或任何其他形式自动机的模型。
+<ul>
+<li>将程序视为有限自动机。</li>
+<li>每个自动机一次只能执行一个“步骤”，并且程序的执行分为多个步骤。</li>
+<li>这些步骤通过更改代表“状态”的变量的值相互通信。</li>
+<li>程序的控制流程由该变量的值确定。</li>
+</ul>
+</li>
+<li>应用程序设计方法应类似于控制系统（自动机系统）的设计。</li>
+<li>核心思想：
+将程序视为是一个有限状态自动机，侧重于对“状态”及“状态转换”的抽象和编程</li>
+<li>执行步骤：
+程序执行的时间段明显分为自动机的各个步骤。 程序的执行被分解为一组自动执行的步骤。
+<ul>
+<li>每个步骤实际上是一个代码段的执行（所有步骤相同），该代码段具有单个入口点。 这样的部分可以是函数或其他例程，也可以只是循环体。</li>
+<li>步骤之间的任何通信都只能通过显式记录的名为状态的变量集进行。 各步骤之间的通讯通过“状态变量”进行</li>
+<li>在任何两个步骤之间，程序都不能具有其状态的隐式组件，例如局部（堆栈）变量的值，返回地址，当前指令指针等。</li>
+<li>在进入自动机步骤的任何两个时刻获取的整个程序的状态只能在被视为自动机状态的变量值上有所不同。</li>
+</ul>
+</li>
+<li>使用方法：
+<ul>
+<li>程序执行就可看作是各自动步骤的不断循环</li>
+<li>使用枚举类型enum定义状态</li>
+<li>使用二维数组定义状态转换表</li>
+</ul>
+</li>
+</ol>
+<h2 id="12-状态模式state-pattern">
+<a class="header-anchor" href="#12-%e7%8a%b6%e6%80%81%e6%a8%a1%e5%bc%8fstate-pattern"></a>
+1.2 状态模式(State Pattern)
+</h2><ol>
+<li>意图：
+允许对象在内部状态发生改变时改变它的行为，对象看起来好像修改了它的类。</li>
+<li>主要解决：
+对象的行为依赖于它的状态（属性），并且可以根据它的状态改变而改变它的相关行为。</li>
+<li>何时使用：
+代码中包含大量与对象状态有关的条件语句。</li>
+<li>如何解决
+将各种具体的状态类抽象出来。</li>
+<li>关键代码：
+通常命令模式的接口中只有一个方法。而状态模式的接口中有一个或者多个方法。而且，状态模式的实现类的方法，一般返回值，或者是改变实例变量的值。也就是说，状态模式一般和对象的状态有关。实现类的方法有不同的功能，覆盖接口中的方法。状态模式和命令模式一样，也可以用于消除 if&hellip;else 等条件选择语句。</li>
+<li>应用实例：
+<ul>
+<li>打篮球的时候运动员可以有正常状态、不正常状态和超常状态。</li>
+<li>曾侯乙编钟中，&lsquo;钟是抽象接口&rsquo;,&lsquo;钟A&rsquo;等是具体状态，&lsquo;曾侯乙编钟&rsquo;是具体环境（Context）。</li>
+</ul>
+</li>
+<li>优点：
+<ul>
+<li>封装了转换规则。</li>
+<li>枚举可能的状态，在枚举状态之前需要确定状态种类。</li>
+<li>将所有与某个状态有关的行为放到一个类中，并且可以方便地增加新的状态，只需要改变对象状态即可改变对象的行为。</li>
+<li>允许状态转换逻辑与状态对象合成一体，而不是某一个巨大的条件语句块。</li>
+<li>可以让多个环境对象共享一个状态对象，从而减少系统中对象的个数。</li>
+</ul>
+</li>
+<li>缺点：
+<ul>
+<li>状态模式的使用必然会增加系统类和对象的个数。</li>
+<li>状态模式的结构与实现都较为复杂，如果使用不当将导致程序结构和代码的混乱。</li>
+<li>状态模式对&quot;开闭原则&quot;的支持并不太好，对于可以切换状态的状态模式，增加新的状态类需要修改那些负责状态转换的源代码，否则无法切换到新增状态，而且修改某个状态类的行为也需修改对应类的源代码。</li>
+</ul>
+</li>
+<li>使用场景：
+<ul>
+<li>行为随状态改变而改变的场景。</li>
+<li>条件、分支语句的代替者。</li>
+</ul>
+</li>
+<li>注意事项：
+在行为受状态约束的时候使用状态模式，而且状态不超过 5 个。</li>
+</ol>
+<h2 id="13-备忘录模式memento-pattern">
+<a class="header-anchor" href="#13-%e5%a4%87%e5%bf%98%e5%bd%95%e6%a8%a1%e5%bc%8fmemento-pattern"></a>
+1.3 备忘录模式(Memento Pattern)
+</h2><ol>
+<li>意图：
+在不破坏封装性的前提下，捕获一个对象的内部状态，并在该对象之外保存这个状态。</li>
+<li>主要解决：
+在不破坏封装的前提下，捕获一个对象的内部状态，并在该对象之外保存这个状态，这样可以在以后将对象恢复到原先保存的状态。</li>
+<li>何时使用：
+很多时候我们总是需要记录一个对象的内部状态，这样做的目的就是为了允许用户取消不确定或者错误的操作，能够恢复到他原先的状态，使得他有&quot;后悔药&quot;可吃。</li>
+<li>如何解决：
+通过一个备忘录类专门存储对象状态。</li>
+<li>关键代码：
+客户不与备忘录类耦合，与备忘录管理类耦合。</li>
+<li>应用实例：
+<ul>
+<li>游戏的存档</li>
+<li>Windows 里的 ctri + z</li>
+<li>浏览器中的后退</li>
+<li>数据库的事务管理</li>
+</ul>
+</li>
+<li>优点：
+<ul>
+<li>给用户提供了一种可以恢复状态的机制，可以使用户能够比较方便地回到某个历史的状态</li>
+<li>实现了信息的封装，使得用户不需要关心状态的保存细节</li>
+</ul>
+</li>
+<li>缺点：
+消耗资源。如果类的成员变量过多，势必会占用比较大的资源，而且每一次保存都会消耗一定的内存。</li>
+<li>使用场景：
+<ul>
+<li>需要保存/恢复数据的相关状态场景</li>
+<li>提供一个可回滚的操作</li>
+</ul>
+</li>
+<li>注意事项：
+<ul>
+<li>为了符合迪米特原则，还要增加一个管理备忘录的类</li>
+<li>为了节约内存，可使用原型模式+备忘录模式</li>
+</ul>
+</li>
+</ol>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200517172756482.png" width="80%" height="35%">
+<img src="https://img-blog.csdnimg.cn/20200517173004571.png" width="80%" height="35%">
+</center>
+<center>
+图1-1 备忘录模式
+</center>
+<br>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200517173131799.png" width="80%" heigth="35%">
+</center>
+<center>
+图1-2 备忘录模式客户端示例
+</center>
+<h1 id="二语法驱动的构造">
+<a class="header-anchor" href="#%e4%ba%8c%e8%af%ad%e6%b3%95%e9%a9%b1%e5%8a%a8%e7%9a%84%e6%9e%84%e9%80%a0"></a>
+二、语法驱动的构造
+</h1><ol>
+<li>基于I/O的输入流
+应用需要从外部读取文本数据， 在应用中做进一步处理。 具体来说，读取的一个字节或字符序列可能是：
+<ul>
+<li>输入文件有特定格式，程序需读取文件并从中抽取正确的内容。</li>
+<li>从网络上传输过来的消息，遵循特定的协议。</li>
+<li>用户在命令行输入的指令，遵顼特定的格式。</li>
+<li>内存中存储的字符串，也有格式需要。</li>
+</ul>
+</li>
+<li>语法
+<ul>
+<li>使用grammar判断字符串是否合法，并解析成程序里使用的数据结构</li>
+<li>正则表达式</li>
+<li>通常是递归的数据结构</li>
+</ul>
+</li>
+</ol>
+<h2 id="21-语法的组成成分">
+<a class="header-anchor" href="#21-%e8%af%ad%e6%b3%95%e7%9a%84%e7%bb%84%e6%88%90%e6%88%90%e5%88%86"></a>
+2.1 语法的组成成分
+</h2><ol>
+<li>终止节点：语法中的文字字符串
+<ul>
+<li>用语法定义一个“字符串”</li>
+<li>terminals 终止节点、叶节点</li>
+<li>nonterminal 非终止节点（遵循特定规则，利用操作符、终止节点和其他非终止节点，构造新的字符串）</li>
+</ul>
+</li>
+<li>语法中的产生式节点和非终止节点
+<ul>
+<li>语法是由一系列产生式节点组成，每一个产生式节点定义了一个非终止节点</li>
+<li>非终止节点就像代表一组字符串的变量，而产生式节点是根据其他变量（非终结符），运算符和常量（终结符）来定义该变量。 遵循特定规则，利用操作符，终止中断和其他非终止中断，构造新的字符串</li>
+<li>非终结符是树的内部节点，代表一个字符串。</li>
+</ul>
+</li>
+<li>语法中的产生式节点具有以下形式：
+<ul>
+<li>nonterminal :: =产生式节点、非终止节点和运算符的表达式</li>
+<li>语法的非终结符之一被指定为词根</li>
+<li>语法识别的字符串集是与根非终结符匹配的字符串</li>
+<li>该非终结符通常称为root或start</li>
+</ul>
+</li>
+</ol>
+<h2 id="22-语法中的操作符">
+<a class="header-anchor" href="#22-%e8%af%ad%e6%b3%95%e4%b8%ad%e7%9a%84%e6%93%8d%e4%bd%9c%e7%ac%a6"></a>
+2.2 语法中的操作符
+</h2><ol>
+<li>三个基本语法的操作符
+<ul>
+<li>连接，不是通过一个符号，而是一个空间：
+x ::= y z //x等价于y后跟一个z</li>
+<li>重复，以*表示：
+x ::= y* // x等价于0个或更多个y</li>
+<li>联合，也称为交替，用|表示 ：
+x ::= y | z //x等价于一个y或者一个z</li>
+</ul>
+</li>
+<li>三个基本操作符的组合：
+<ul>
+<li>可选（0或1次出现），由？表示：
+x ::= y? //x等价于一个y或者一个空串</li>
+<li>出现1次或多次：以+表示：       <br>
+x ::= y+ //x等价于一个或者更多个y， 等价于 x ::= y y*</li>
+<li>字符类[…]，表示长度的字符类，包含方括号中列出的任何字符的1个字符串：
+x ::= [abc] //等价于 x ::= &lsquo;a&rsquo; | &lsquo;b&rsquo; | &lsquo;c&rsquo;</li>
+<li>否定的字符类[^…]，表示长度，包含未在括号中列出的任何字符的1个字符串：
+x ::= [^abc] //等价于 x ::= &rsquo;d&rsquo; | &rsquo;e&rsquo; | &lsquo;f&rsquo; | &hellip; (all other characters in Unicode)</li>
+</ul>
+</li>
+<li>例子：
+x ::= (y z | a b)* //an x is zero or more y z or a b pairs
+m ::= a (b|c) d //an m is a, followed by either b or c, followed by d</li>
+</ol>
+<h2 id="23-语法分析树">
+<a class="header-anchor" href="#23-%e8%af%ad%e6%b3%95%e5%88%86%e6%9e%90%e6%a0%91"></a>
+2.3 语法分析树
+</h2><ol>
+<li>语法分析树：
+将语法与字符串匹配可以生成一棵分析树，该树显示字符串的各个部分与语法的各个部分如何对应。
+<ul>
+<li>解析树的叶子用终端标记，表示已解析的字符串部分。</li>
+<li>没有孩子，无法继续扩大。</li>
+<li>如果将叶子串联在一起，则返回原始字符串。</li>
+</ul>
+</li>
+<li>解析URL示例：
+url ::= protocol &lsquo;: //&rsquo; hostname (&rsquo;:&lsquo;port)? &lsquo;/&rsquo;
+protocol ::= (&lsquo;f&rsquo; | &lsquo;ht&rsquo;) &rsquo;tp&rsquo; &rsquo;s&rsquo;?
+hostname ::= word &lsquo;.&rsquo; hostname |
+word &lsquo;.&rsquo; word
+port ::= [0-9]+
+word ::= [a-z]+</li>
+</ol>
+<h2 id="24-正则语法">
+<a class="header-anchor" href="#24-%e6%ad%a3%e5%88%99%e8%af%ad%e6%b3%95"></a>
+2.4 正则语法
+</h2><ol>
+<li>正则语法：
+简化之后可以表达为一个产生式而不包含任何非终止节点。</li>
+<li>正则语法示例：</li>
+</ol>
+<center>
+<img src="https://img-blog.csdnimg.cn/2020051719175740.png" width="80%" heigth="35%">
+</center>
+<center>
+图2-1 正则语法
+</center>
+<h2 id="25-正则表达式">
+<a class="header-anchor" href="#25-%e6%ad%a3%e5%88%99%e8%a1%a8%e8%be%be%e5%bc%8f"></a>
+2.5 正则表达式
+</h2><ol>
+<li>正则表达式：
+可以用一种更紧凑的形式来编写简化的终端和运算符表达式。</li>
+<li>正则表达式消除了终端周围的引号以及终端和操作符之间的空格，因此它仅由终端字符，分组括号和操作符组成。 去除引号和空格，从而表达更简洁（更难懂），正则表达式也简称为regex。
+<ul>
+<li>正则表达式比原始语法的可读性差得多，因为它缺少记录每个子表达式含义的非终结符名称。</li>
+<li>但是正则表达式可以快速实现，并且许多编程语言中都有支持正则表达式的库。</li>
+</ul>
+</li>
+<li>正则表达式中的特殊字符</li>
+</ol>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200517192158160.png" width="80%" heigth="35%">
+</center>
+<center>
+图2-2 正则表达式中的特殊字符
+</center>
+<ol start="4">
+<li>上下文无关文法
+与课程形式语言与自动机关联</li>
+</ol>
+<h2 id="26-java中的正则表达式">
+<a class="header-anchor" href="#26-java%e4%b8%ad%e7%9a%84%e6%ad%a3%e5%88%99%e8%a1%a8%e8%be%be%e5%bc%8f"></a>
+2.6 JAVA中的正则表达式
+</h2><ol>
+<li>适用场合：我们用正则表达式匹配字符串（例如 String.split , String.matches , java.util.regex.Pattern）
+<ul>
+<li>用一个空格代替所有的多个空格</li>
+<li>匹配一个URL：</li>
+<li>提取HTML标签的一部分</li>
+</ul>
+</li>
+</ol>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200517192536689.jpg" width="80%" heigth="35%">
+</center>
+<center>
+图2-3 JAVA中使用正则表达式示例
+</center>
+<ol start="2">
+<li>JAVA中的正则表达式语法
+<a href="https://docs.oracle.com/javase/tutorial/essential/regex/index.html">JAVA中的正则表达式语法</a></li>
+</ol>
+      
+    </div>
+    <footer class="article-footer">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+      <ul class="article-tag-list" itemprop="keywords">
+  
+    <li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e8%bd%af%e4%bb%b6%e6%9e%84%e9%80%a0"
+        rel="tag"
+        >软件构造</a
+      >
+    </li>
+  
+    <li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/java"
+        rel="tag"
+        >JAVA</a
+      >
+    </li>
+  
+</ul>
+
+    </footer>
+  </div>
+  
+    
+  <nav
+    id="article-nav"
+    data-aos="fade-up"
+  >
+    
+      <div class="article-nav-link-wrap article-nav-link-left">
+        
+          <img
+            data-src="images/featureimages/10.jpg"
+            data-sizes="auto"
+            alt="何为线程池"
+            class="lazyload"
+          />
+        
+        <a href="/post/%E4%BD%95%E4%B8%BA%E7%BA%BF%E7%A8%8B%E6%B1%A0/"></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">
+          
+            何为线程池
+          
+        </h3>
+      </div>
+    
+
+    
+      <div class="article-nav-link-wrap article-nav-link-right">
+        
+          <img
+            data-src="images/featureimages/14.jpg"
+            data-sizes="auto"
+            alt="软件构造-第六章-第一节-健壮性与正确性"
+            class="lazyload"
+          />
+        
+        <a href="/post/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0-%E7%AC%AC%E5%85%AD%E7%AB%A0-%E7%AC%AC%E4%B8%80%E8%8A%82-%E5%81%A5%E5%A3%AE%E6%80%A7%E4%B8%8E%E6%AD%A3%E7%A1%AE%E6%80%A7/"></a>
+        <div class="article-nav-caption">后一篇</div>
+        <h3 class="article-nav-title">
+          
+            软件构造-第六章-第一节-健壮性与正确性
+          
+        </h3>
+      </div>
+    
+  </nav>
+
+
+  
+</article>
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+</section>
+        </div>
+        
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+
+
+<footer id="footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info">
+    
+    <div>
+      <span class="icon-copyright"></span>
+      
+        2020 -
+        2025
+      
+      <span class="footer-info-sep "></span>
+      Demerzel
+    </div>
+    
+      <div>
+        基于&nbsp;<a
+          href="https://gohugo.io/"
+          target="_blank"
+          >Hugo</a
+        >&nbsp; Theme.<a
+          href="https://github.com/D-Sketon/hugo-theme-reimu"
+          target="_blank"
+          >Reimu</a
+        >
+      </div>
+    
+    
+      <div>
+        <span class="icon-brush"
+          >&nbsp;
+            155.1k
+          </span
+        >
+        &nbsp;|&nbsp;
+        <span class="icon-coffee">&nbsp;
+          
+          
+
+          05:36
+        </span>
+      </div>
+    
+    
+    
+    
+  </div>
+</footer>
+
+        
+          <div class="sidebar-top">
+            <div class="sidebar-top-taichi "></div>
+            <div class="arrow-up"></div>
+          </div>
+        
+        <div id="mask" class="hide"></div>
+      </div>
+      <nav id="mobile-nav">
+  <div class="sidebar-wrap">
+    
+      
+        <div class="sidebar-toc-sidebar">
+          <div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#11-基于自动机的编程">1.1 基于自动机的编程</a></li>
+    <li><a href="#12-状态模式state-pattern">1.2 状态模式(State Pattern)</a></li>
+    <li><a href="#13-备忘录模式memento-pattern">1.3 备忘录模式(Memento Pattern)</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#21-语法的组成成分">2.1 语法的组成成分</a></li>
+    <li><a href="#22-语法中的操作符">2.2 语法中的操作符</a></li>
+    <li><a href="#23-语法分析树">2.3 语法分析树</a></li>
+    <li><a href="#24-正则语法">2.4 正则语法</a></li>
+    <li><a href="#25-正则表达式">2.5 正则表达式</a></li>
+    <li><a href="#26-java中的正则表达式">2.6 JAVA中的正则表达式</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+        </div>
+        <div class="sidebar-common-sidebar hidden">
+          
+<div class="sidebar-author">
+  <img
+    data-src="/images/avatar.jpg"
+    data-sizes="auto"
+    alt="Demerzel"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">Demerzel</div>
+  <div class="sidebar-description">浮沉在世 人事变迁</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    
+    <div class="sidebar-state-number">51</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      18
+    </div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">28</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a
+        href="mailto:demerzelsun@gmail.com"
+        itemprop="url"
+        target="_blank"
+        aria-label="email"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a
+        href="https://github.com/demerzelsun12"
+        itemprop="url"
+        target="_blank"
+        aria-label="github"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-linkedin sidebar-social-icon">
+      <a
+        href="https://www.linkedin.com/in/xiao-sun-52a2a21b0/"
+        itemprop="url"
+        target="_blank"
+        aria-label="linkedin"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">首页</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">归档</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">关于</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">友链</div>
+    </div>
+  
+</div>
+
+        </div>
+      
+    
+  </div>
+  
+    
+      <div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div>
+    
+  
+</nav>
+
+    </div>
+    
+    
+    
+    
+
+
+
+
+
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"
+    
+    
+    
+    
+    integrity="sha384-3gT/vsepWkfz/ff7PpWNUeMzeWoH3cDhm/A8jM7ouoAK0/fP/9bcHHR5kHq2nf&#43;e" crossorigin="anonymous"
+  ></script>
+
+
+
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"
+    
+    
+    
+    
+    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"
+  ></script>
+
+
+
+
+
+
+
+
+
+
+
+  
+      
+      <script src="/js/main.js" ></script>
+      
+
+
+
+  
+
+
+
+
+
+  
+      
+      <script src="/js/aos.js" ></script>
+      
+
+  <script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", aosInit);
+    } else {
+      aosInit();
+    }
+  </script>
+
+
+
+
+
+
+
+
+  
+      
+      <script src="/js/pjax_main.js" data-pjax></script>
+      
+
+
+
+
+
+  
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/mouse-firework@0.1.1/dist/index.umd.js"
+    
+    
+    
+    
+    integrity="sha384-8LyaidD9GPxQQgLJO/WRw/O2h3BoNq/ApI/ecpvM6RsrCz2qP2ppBXUKihP4V/2d" crossorigin="anonymous"
+  ></script>
+
+
+<script>
+  if (window.firework) {
+    const options = JSON.parse("{\"excludeelements\":[\"a\",\"button\"],\"particles\":[{\"colors\":[\"var(--red-1)\",\"var(--red-2)\",\"var(--red-3)\",\"var(--red-4)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"emit\"],\"number\":20,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.3,0.5],\"radius\":[16,32]}},{\"colors\":[\"var(--red-0)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"diffuse\"],\"number\":1,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.2,0.5],\"lineWidth\":6,\"radius\":20}}]}");
+    options.excludeElements = options.excludeelements;
+    delete options.excludeelements;
+    window.firework(options);
+  }
+</script>
+
+
+
+
+
+
+
+
+<div id="lazy-script">
+  <div>
+    
+      
+      
+        
+      
+      <script data-pjax>
+        window.REIMU_POST = {
+          author: "Demerzel",
+          title: "软件构造-第五章-第三节-面向可维护性的构造技术",
+          url: "http:\/\/localhost:13926\/post\/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0-%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%AC%AC%E4%B8%89%E8%8A%82-%E9%9D%A2%E5%90%91%E5%8F%AF%E7%BB%B4%E6%8A%A4%E6%80%A7%E7%9A%84%E6%9E%84%E9%80%A0%E6%8A%80%E6%9C%AF\/",
+          description: "\r软件构造第五章 第三节 面向可维护性的构造技术\r",
+          cover: "http:\/\/localhost:13926\/images\/featureimages\/13.jpg",
+        };
+      </script>
+    
+    
+    
+      
+
+
+
+
+
+  
+      
+      <script src="/js/insert_highlight.js" data-pjax></script>
+      
+
+      
+      
+      
+      
+      <script type="module" data-pjax>
+        
+        const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;
+        
+        const pswp = () => {
+          if (_$$('.article-entry a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-entry',
+              children: 'a.article-gallery-item',
+              
+              pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")
+              
+            }).init();
+          }
+          if(_$$('.article-gallery a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-gallery',
+              children: 'a.article-gallery-item',
+              
+              pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")
+              
+            }).init();
+          }
+          window.lightboxStatus = 'done';
+          window.removeEventListener('lightbox:ready', pswp);
+        }
+        if(window.lightboxStatus === 'ready') {
+          pswp()
+        } else {
+          window.addEventListener('lightbox:ready', pswp);
+        }
+      </script>
+      
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+      
+    
+    
+      
+      
+        <script data-pjax>
+          window.MathJax = JSON.parse("[{\"loader\":{\"load\":[\"input/asciimath\",\"[tex]/noerrors\"]},\"options\":{\"ignoreHtmlClass\":\"tex2jax_ignore\",\"processHtmlClass\":\"tex2jax_process\",\"skipHtmlTags\":[\"script\",\"noscript\",\"style\",\"textarea\",\"pre\",\"code\"]},\"tex\":{\"autoload\":{\"color\":[],\"colorv2\":[\"color\"]},\"displayMath\":[[\"$$\",\"$$\"],[\"\\\\\\\\[\",\"\\\\\\\\]\"]],\"inlineMath\":[[\"$\",\"$\"],[\"\\\\\\\\(\",\"\\\\\\\\)\"]],\"packages\":{\"[+]\":[\"noerrors\"]},\"processEnvironments\":true,\"processEscapes\":true,\"tags\":\"ams\",\"useLabelIds\":true}}]")[0];
+        </script>
+        
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/mathjax@3.2.2/es5/tex-mml-chtml.js"
+    defer
+    
+    data-pjax
+    
+    integrity="sha384-Wuix6BuhrWbjDBs24bXrjf4ZQ5aFeFWBuKkFekO2t8xFU0iNaLQfp2K6/1Nxveei" crossorigin="anonymous"
+  ></script>
+
+
+      
+    
+  </div>
+</div>
+
+
+
+
+
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+  </script>
+
+
+<script>
+  const reimuCopyright = String.raw`
+   ______     ______     __     __    __     __  __    
+  /\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+  \ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+   \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+    \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                    
+  `;
+  console.log(String.raw`%c ${reimuCopyright}`, "color: #ff5252;");
+  console.log(
+    "%c Theme.Reimu" + " %c https://github.com/D-Sketon/hugo-theme-reimu ",
+    "color: white; background: #ff5252; padding:5px 0;",
+    "padding:4px;border:1px solid #ff5252;",
+  );
+</script>
+
+
+
+
+
+
+    
+  </body>
+</html>

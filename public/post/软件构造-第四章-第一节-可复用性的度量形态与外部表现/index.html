@@ -1,0 +1,1651 @@
+<!doctype html>
+<html
+  lang="zh-cn" 
+  
+    data-theme-mode="auto"
+  
+>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=13926&amp;path=livereload" data-no-instant defer></script>
+    
+    <meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+
+
+
+
+
+  
+
+<title>
+  软件构造-第四章-第一节-可复用性的度量、形态与外部表现 | Demerzel
+</title>
+<meta
+  name="description"
+  content="浮沉在世 人事变迁"
+/>
+
+
+
+
+
+
+
+
+
+
+<script>
+  window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"clipboard\":{\"copyright\":{\"content\":\"本文版权：本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！\",\"count\":50,\"enable\":false},\"fail\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"success\":\"复制成功(*^▽^*)\"},\"code_block\":{\"expand\":true},\"icon_font\":\"4552607_0khxww3tj3q9\",\"outdate\":{\"daysago\":180,\"enable\":false,\"message\":\"本文最后更新于 {time}，请注意文中内容可能已经发生变化。\"}}");
+</script>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+    
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+  media="print"
+  onload="this.media='all'"
+/>
+
+
+
+
+
+
+
+  <link
+    rel="preload"
+    href="//at.alicdn.com/t/c/font_4552607_0khxww3tj3q9.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  />
+
+
+
+  
+
+
+
+
+
+
+ <link rel="stylesheet" href="/css/loader.css" />
+
+
+
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="软件构造-第四章-第一节-可复用性的度量、形态与外部表现 | Demerzel" />
+  <meta
+    property="og:description"
+    content="浮沉在世 人事变迁"
+  />
+  <meta property="og:url" content="http://localhost:13926/post/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0-%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E7%AC%AC%E4%B8%80%E8%8A%82-%E5%8F%AF%E5%A4%8D%E7%94%A8%E6%80%A7%E7%9A%84%E5%BA%A6%E9%87%8F%E5%BD%A2%E6%80%81%E4%B8%8E%E5%A4%96%E9%83%A8%E8%A1%A8%E7%8E%B0/" />
+  <meta
+    property="og:site_name"
+    content="Demerzel&#39;s Blog"
+  />
+  <meta
+    property="og:image"
+    content="/images/featureimages/8.jpg"
+  />
+  <meta property="article:author" content="Demerzel" />
+  <meta property="article:published_time" content="2020-04-14T20:54:42&#43;00:00" />
+  <meta property="article:modified_time" content="2020-04-14T20:54:42&#43;00:00" />
+  
+    <meta property="article:tag" content="软件构造Java" />
+  
+  
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:image" content="/images/featureimages/8.jpg" />
+  
+  
+  
+  
+  
+
+
+
+
+<link rel="shortcut icon" href="/favicon.ico">
+
+
+
+
+
+
+
+ <link rel="stylesheet" href="/css/main.css" />
+
+
+
+
+
+  <link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css"
+    onload="this.onload=null;this.rel='stylesheet'"
+  />
+
+
+
+
+
+
+  <link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css"
+    onload="this.onload=null;this.rel='stylesheet'"
+  />
+
+
+
+
+
+
+
+
+  
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"
+    
+    
+    
+    
+    integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"
+  ></script>
+
+
+
+
+
+  
+
+
+  <link rel="stylesheet" href="https://npm.webcache.cn/@reimujs/aos@0.1.0/dist/aos.css" />
+
+
+
+
+
+    
+  </head>
+  <body>
+    
+    
+  <div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi rotate">
+        
+          <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+            <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="var(--red-1, #ff5252)" />
+            <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+          M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="var(--red-1, #ff5252)" />
+          </svg>
+        
+      </div>
+      <div class="loading-word">少女祈祷中...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    var startLoading = () => {
+      time = Date.now();
+      document.getElementById('loader').classList.remove("loading");
+    }
+    var endLoading = () => {
+      if (!time) {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loader').classList.add("loading");
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          document.body.style.overflow = 'auto';
+          document.getElementById('loader').classList.add("loading");
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    document.getElementById('loader').addEventListener('click', endLoading);
+  </script>
+
+
+<div id="copy-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+</div>
+
+
+    <div id="container">
+      <div id="wrap">
+        
+<div id="header-nav">
+  <nav id="main-nav">
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/">首页</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/archives">归档</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/about">关于</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/friend">友链</a>
+      </span>
+    
+    <a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav">
+    
+    
+  </nav>
+</div>
+<header id="header">
+  
+    <picture></picture>
+    <img  fetchpriority="high" src="/images/featureimages/8.jpg" alt="软件构造-第四章-第一节-可复用性的度量、形态与外部表现">
+  
+
+  <div id="header-outer">
+    <div id="header-title">
+      
+        
+        
+          
+        
+  
+        
+          <a href="/" id="logo">
+            <h1 data-aos="slide-up">软件构造-第四章-第一节-可复用性的度量、形态与外部表现</h1>
+          </a>
+        
+      
+  
+      
+        
+        
+        <h2 id="subtitle-wrap" data-aos="slide-down">
+          
+        </h2>
+      
+    </div>
+  </div>
+</header>
+        <div id="content"
+          
+          class="sidebar-right"  >
+          <aside id="sidebar">
+  
+  
+  
+  <div class="sidebar-wrapper wrap-sticky">
+    <div
+      class="sidebar-wrap"
+      data-aos="fade-up"
+    >
+      
+        
+          <div class="sidebar-toc-sidebar">
+            <div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#11-软件复用">1.1 软件复用</a></li>
+    <li><a href="#12-代码复用的类型">1.2 代码复用的类型：</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#21-源代码级别的复用">2.1 源代码级别的复用</a></li>
+    <li><a href="#22-模块级别的复用类抽象类接口">2.2 模块级别的复用：类、抽象类、接口</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#31-type-variation--类型可变">3.1 Type Variation  类型可变</a></li>
+    <li><a href="#32-implementation-variation-实现可变">3.2 Implementation Variation 实现可变</a></li>
+    <li><a href="#33-routine-grouping-功能分组">3.3 Routine Grouping 功能分组</a></li>
+    <li><a href="#34-representation-independence-表示独立">3.4 Representation Independence 表示独立</a></li>
+    <li><a href="#35-factoring-out-common-behaviors-共性抽取">3.5 Factoring Out Common Behaviors 共性抽取</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#41-白盒框架">4.1 白盒框架：</a></li>
+    <li><a href="#42-黑盒框架">4.2 黑盒框架：</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+          </div>
+          <div class="sidebar-common-sidebar hidden">
+            
+<div class="sidebar-author">
+  <img
+    data-src="/images/avatar.jpg"
+    data-sizes="auto"
+    alt="Demerzel"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">Demerzel</div>
+  <div class="sidebar-description">浮沉在世 人事变迁</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    
+    <div class="sidebar-state-number">51</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      18
+    </div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">28</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a
+        href="mailto:demerzelsun@gmail.com"
+        itemprop="url"
+        target="_blank"
+        aria-label="email"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a
+        href="https://github.com/demerzelsun12"
+        itemprop="url"
+        target="_blank"
+        aria-label="github"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-linkedin sidebar-social-icon">
+      <a
+        href="https://www.linkedin.com/in/xiao-sun-52a2a21b0/"
+        itemprop="url"
+        target="_blank"
+        aria-label="linkedin"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">首页</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">归档</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">关于</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">友链</div>
+    </div>
+  
+</div>
+
+          </div>
+        
+      
+
+      
+        
+          <div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div>
+        
+      
+    </div>
+  </div>
+
+  <div class="sidebar-widget">
+    
+  </div>
+  
+</aside>
+
+          <section id="main">
+  <article
+  class="h-entry article"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div
+    class="article-inner"
+    data-aos="fade-up"
+  >
+    <div class="article-meta">
+      <div class="article-date">
+  <span
+    class="article-date-link"
+    data-aos="zoom-in"
+  >
+    <time datetime="2020-04-14 20:54:42 &#43;0000 UTC" itemprop="datePublished"
+      >2020-04-14</time
+    >
+    <time style="display: none;" id="post-update-time"
+      >2020-04-14</time
+    >
+  </span>
+</div>
+
+      <div class="article-category">
+  
+    <a
+      class="article-category-link"
+      href="/categories/%e8%bd%af%e4%bb%b6%e6%9e%84%e9%80%a0"
+      data-aos="zoom-in"
+      >软件构造</a
+    >
+  
+</div>
+
+    </div>
+    <div class="hr-line"></div>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+      
+        <h1 id="软件构造第四章-第一节-可复用性的度量形态与外部表现">
+<a class="header-anchor" href="#%e8%bd%af%e4%bb%b6%e6%9e%84%e9%80%a0%e7%ac%ac%e5%9b%9b%e7%ab%a0-%e7%ac%ac%e4%b8%80%e8%8a%82-%e5%8f%af%e5%a4%8d%e7%94%a8%e6%80%a7%e7%9a%84%e5%ba%a6%e9%87%8f%e5%bd%a2%e6%80%81%e4%b8%8e%e5%a4%96%e9%83%a8%e8%a1%a8%e7%8e%b0"></a>
+软件构造第四章 第一节 可复用性的度量、形态与外部表现
+</h1><!-- toc -->
+<h1 id="一什么是软件复用">
+<a class="header-anchor" href="#%e4%b8%80%e4%bb%80%e4%b9%88%e6%98%af%e8%bd%af%e4%bb%b6%e5%a4%8d%e7%94%a8"></a>
+一、什么是软件复用
+</h1><h2 id="11-软件复用">
+<a class="header-anchor" href="#11-%e8%bd%af%e4%bb%b6%e5%a4%8d%e7%94%a8"></a>
+1.1 软件复用
+</h2><ol>
+<li>
+<p>软件复用是使用现有软件组件实施或更新软件系统的过程。</p>
+</li>
+<li>
+<p>软件复用的两个观点：</p>
+<ul>
+<li>面向复用编程(programming for reuse)：开发出可复用的软件
+<ul>
+<li>开发成本高于一般软件的成本：要有足够高的适应性</li>
+<li>性能差些： 针对更普适场景，缺少足够的针对性</li>
+</ul>
+</li>
+<li>基于复用编程(programming with reuse)：利用已有的可复用软件搭建应用系统
+<ul>
+<li>可复用软件库，对其进行有效的管理</li>
+<li>往往无法拿来就用，需要适配</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>为什么需要复用：</p>
+<ul>
+<li>复用降低成本和开发时间</li>
+<li>复用的代码经过充分测试，可靠、稳定</li>
+<li>产出标准化，在不同应用中保持一致</li>
+</ul>
+</li>
+<li>
+<p>软件复用的代价：</p>
+<ul>
+<li>软件可复用的部分需要设计在如下的标准上：明确的定义、开放的方法、简洁的交互规范、可理解的文档，并着眼于未来。</li>
+<li>不仅program for reuse代价高，program with reuse代价也高</li>
+</ul>
+</li>
+</ol>
+<h2 id="12-代码复用的类型">
+<a class="header-anchor" href="#12-%e4%bb%a3%e7%a0%81%e5%a4%8d%e7%94%a8%e7%9a%84%e7%b1%bb%e5%9e%8b"></a>
+1.2 代码复用的类型：
+</h2><ol>
+<li>
+<p>白盒复用：源代码可见，可修改和扩展</p>
+<ul>
+<li>含义：复制已有代码到正在开发的系统，进行修改</li>
+<li>优点：可订制化程度高</li>
+<li>缺点：对其修改增加了软件的复杂度，且需要对其内部充分的了解</li>
+</ul>
+</li>
+<li>
+<p>黑盒复用：源代码不可见，不能修改</p>
+<ul>
+<li>含义：只能通过过API接口来使用，无法修改代码</li>
+<li>优点：清晰、简单</li>
+<li>缺点：适用性差</li>
+</ul>
+</li>
+<li>
+<p>高复用性的软件应具有如下特性：</p>
+<ul>
+<li>小、简单</li>
+<li>与标准兼容</li>
+<li>灵活可变</li>
+<li>可扩展</li>
+<li>泛型、参数化</li>
+<li>模块化</li>
+<li>变化的局部性</li>
+<li>稳定</li>
+<li>丰富的文档和帮助</li>
+</ul>
+</li>
+<li>
+<p>举例说明：JDK中可复用的库和API</p>
+</li>
+</ol>
+<h1 id="二可复用实现的级别">
+<a class="header-anchor" href="#%e4%ba%8c%e5%8f%af%e5%a4%8d%e7%94%a8%e5%ae%9e%e7%8e%b0%e7%9a%84%e7%ba%a7%e5%88%ab"></a>
+二、可复用实现的级别
+</h1><h2 id="21-源代码级别的复用">
+<a class="header-anchor" href="#21-%e6%ba%90%e4%bb%a3%e7%a0%81%e7%ba%a7%e5%88%ab%e7%9a%84%e5%a4%8d%e7%94%a8"></a>
+2.1 源代码级别的复用
+</h2><ol>
+<li>相关研究：如何从互联网上快速找到需要的代码片段？</li>
+<li>反向研究：如何从源代码中检测出克隆代码(clone code)？
+ 我们可以在如github, grepcode, searchcode等网站上搜索代码，实现复用。</li>
+</ol>
+<h2 id="22-模块级别的复用类抽象类接口">
+<a class="header-anchor" href="#22-%e6%a8%a1%e5%9d%97%e7%ba%a7%e5%88%ab%e7%9a%84%e5%a4%8d%e7%94%a8%e7%b1%bb%e6%8a%bd%e8%b1%a1%e7%b1%bb%e6%8e%a5%e5%8f%a3"></a>
+2.2 模块级别的复用：类、抽象类、接口
+</h2><ol>
+<li>
+<p>复用类：</p>
+<ul>
+<li>源码并非是必要的，可能只需要类文件或jar</li>
+<li>只需要将这个类加入到类路径</li>
+<li>可以使用工具javap获得一个类的public方法</li>
+<li>复用类的注意事项：
+<ul>
+<li>文档十分重要</li>
+<li>压缩会有助于复用</li>
+<li>管理更少的代码</li>
+<li>版本兼容性</li>
+<li>需要和类相关的包</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>复用类的方法：继承和委派</p>
+<ul>
+<li>继承（Inheritance）：
+<ul>
+<li>类扩展了现有类的属性/行为；</li>
+<li>另外，Override父类中所有方法；</li>
+<li>通常需要在实施之前设计继承层次结构；</li>
+</ul>
+</li>
+<li>委派（Delegation）：
+<ul>
+<li>根本没有父子关系的类中使用继承是不合理的，可以用委派的方式来代替。</li>
+<li>委托是简单的将一个对象连接到另一个对象上，使另一个对象获得这个对象方法的子集（一个实体将某个事物传递给另一个实体）。</li>
+<li>显式委托：显式地将需要传的对象传到目标对象上</li>
+<li>隐式委托：一种共享代码数据的低级别机制</li>
+<li>委派的类型：
+<ul>
+<li>Use（A uses B）</li>
+<li>Composition/aggregation (A owns B)</li>
+<li>Association (A has B)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>库级别的复用：API/包</p>
+<ul>
+<li>library：
+<ul>
+<li>库定义：一组提供可重用功能的类和方法（API）</li>
+<li>开发者构造可运行软件实体，其中涉及到对可复用库的调用</li>
+<li>Java中有很多的库可以复用，例如Guava：Google的Java核心库；Apache Commons等</li>
+</ul>
+</li>
+<li>framework：
+<ul>
+<li>框架定义：一组具体类、抽象类、及其之间的连接关系</li>
+<li>作为主程序加以执行，执行过程中调用开发者所写的程序</li>
+<li>开发者根据 framework的规约，填充自己的代码进去，形成完整系统</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>系统级别的复用：框架</p>
+<ul>
+<li>将framework看作是更大规模的API复用，除了提供可复用的API，还将这些模块之间的关系都确定下来，形成了整体应用的领域复用。开发者的任务就是增加新代码、对抽象类进行具体化。展开来说就是以下几点：
+<ul>
+<li>通常通过选择性覆盖来扩展框架; 或者程序员可以添加专门的用户代码来提供特定的功能—定义继承了抽象类祖先操作的具体类</li>
+<li>设计模式(Hook方法)，它被应用程序覆盖以扩展框架。 Hook方法系统地将应用程序域的接口和行为与应用程序在特定上下文中所需的变体解耦。</li>
+<li>控制反转，由第三方的容器来控制对象之间的依赖关系，而非传统实现中由代码直接操控。由第三方的容器来控制对象之间的依赖关系，而非传统实现中由代码直接操控。</li>
+<li>不可修改的框架代码：在接受用户实现的扩展时，框架代码不应该被修改。 换句话说，用户可以扩展框架，但不应修改其代码。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h1 id="三对可复用性的外部观察">
+<a class="header-anchor" href="#%e4%b8%89%e5%af%b9%e5%8f%af%e5%a4%8d%e7%94%a8%e6%80%a7%e7%9a%84%e5%a4%96%e9%83%a8%e8%a7%82%e5%af%9f"></a>
+三、对可复用性的外部观察
+</h1><h2 id="31-type-variation--类型可变">
+<a class="header-anchor" href="#31-type-variation--%e7%b1%bb%e5%9e%8b%e5%8f%af%e5%8f%98"></a>
+3.1 Type Variation  类型可变
+</h2><ol>
+<li>能够复用的部分应该类型参数化，以适应不同的数据类型</li>
+<li>复用的部分应该一般化，即适用于一般性类型，无需开发人员对文本进行手动更改。</li>
+<li>需要描述类型参数化模块，也简称为通用模块。</li>
+<li>适应不同的类型，且满足LSP。</li>
+</ol>
+<h2 id="32-implementation-variation-实现可变">
+<a class="header-anchor" href="#32-implementation-variation-%e5%ae%9e%e7%8e%b0%e5%8f%af%e5%8f%98"></a>
+3.2 Implementation Variation 实现可变
+</h2><ol>
+<li>ADT 有多种不同的实现，提供不同的representations 和abstract function ，但具有同样的specification (pre-condition, post-condition, invariants) ，从而可以适应不同的应用场景。</li>
+</ol>
+<h2 id="33-routine-grouping-功能分组">
+<a class="header-anchor" href="#33-routine-grouping-%e5%8a%9f%e8%83%bd%e5%88%86%e7%bb%84"></a>
+3.3 Routine Grouping 功能分组
+</h2><ol>
+<li>提供完备的细粒度操作，保证功能的完整性，不同场景下复用不同的操作( 及其组合)</li>
+</ol>
+<h2 id="34-representation-independence-表示独立">
+<a class="header-anchor" href="#34-representation-independence-%e8%a1%a8%e7%a4%ba%e7%8b%ac%e7%ab%8b"></a>
+3.4 Representation Independence 表示独立
+</h2><ol>
+<li>内部实现可能会经常变化，但客户端不应受到影响。</li>
+<li>可重用模块的一般形式应使客户端能够在不知道其实现方式的情况下指定操作。</li>
+<li>表示独立性是信息隐藏规则的扩展，对于大型系统的平稳开发必不可少：实施决策将经常更改，并且客户应受到保护。</li>
+</ol>
+<h2 id="35-factoring-out-common-behaviors-共性抽取">
+<a class="header-anchor" href="#35-factoring-out-common-behaviors-%e5%85%b1%e6%80%a7%e6%8a%bd%e5%8f%96"></a>
+3.5 Factoring Out Common Behaviors 共性抽取
+</h2><p>将共同的行为（共性）抽象出来，形成可复用实体</p>
+<h1 id="四白盒框架和黑盒框架">
+<a class="header-anchor" href="#%e5%9b%9b%e7%99%bd%e7%9b%92%e6%a1%86%e6%9e%b6%e5%92%8c%e9%bb%91%e7%9b%92%e6%a1%86%e6%9e%b6"></a>
+四、白盒框架和黑盒框架
+</h1><h2 id="41-白盒框架">
+<a class="header-anchor" href="#41-%e7%99%bd%e7%9b%92%e6%a1%86%e6%9e%b6"></a>
+4.1 白盒框架：
+</h2><ol>
+<li>通过继承和动态绑定实现可扩展性。</li>
+<li>通过继承框架基类并重写预定义的hook方法来扩展现有功能。</li>
+<li>通常使用模板方法模式等设计模式来覆盖hook方法。</li>
+</ol>
+<h2 id="42-黑盒框架">
+<a class="header-anchor" href="#42-%e9%bb%91%e7%9b%92%e6%a1%86%e6%9e%b6"></a>
+4.2 黑盒框架：
+</h2><ol>
+<li>通过为可插入框架的组件定义接口来实现可扩展性。</li>
+<li>通过定义符合特定接口的组件来复用现有功能。</li>
+<li>这些组件通过委派（Delegation）与框架集成。</li>
+</ol>
+      
+    </div>
+    <footer class="article-footer">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+      <ul class="article-tag-list" itemprop="keywords">
+  
+    <li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e8%bd%af%e4%bb%b6%e6%9e%84%e9%80%a0"
+        rel="tag"
+        >软件构造</a
+      >
+    </li>
+  
+    <li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/java"
+        rel="tag"
+        >JAVA</a
+      >
+    </li>
+  
+</ul>
+
+    </footer>
+  </div>
+  
+    
+  <nav
+    id="article-nav"
+    data-aos="fade-up"
+  >
+    
+      <div class="article-nav-link-wrap article-nav-link-left">
+        
+          <img
+            data-src="images/featureimages/7.jpg"
+            data-sizes="auto"
+            alt="软件构造-第三章-第五节-ADT和OOP中的“等价性”"
+            class="lazyload"
+          />
+        
+        <a href="/post/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0-%E7%AC%AC%E4%B8%89%E7%AB%A0-%E7%AC%AC%E4%BA%94%E8%8A%82-adt%E5%92%8Coop%E4%B8%AD%E7%9A%84%E7%AD%89%E4%BB%B7%E6%80%A7/"></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">
+          
+            软件构造-第三章-第五节-ADT和OOP中的“等价性”
+          
+        </h3>
+      </div>
+    
+
+    
+      <div class="article-nav-link-wrap article-nav-link-right">
+        
+          <img
+            data-src="images/featureimages/9.jpg"
+            data-sizes="auto"
+            alt="软件构造-第四章-第二节-面向复用的软件构造技术"
+            class="lazyload"
+          />
+        
+        <a href="/post/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0-%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E7%AC%AC%E4%BA%8C%E8%8A%82-%E9%9D%A2%E5%90%91%E5%A4%8D%E7%94%A8%E7%9A%84%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0%E6%8A%80%E6%9C%AF/"></a>
+        <div class="article-nav-caption">后一篇</div>
+        <h3 class="article-nav-title">
+          
+            软件构造-第四章-第二节-面向复用的软件构造技术
+          
+        </h3>
+      </div>
+    
+  </nav>
+
+
+  
+</article>
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+</section>
+        </div>
+        
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+
+
+<footer id="footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info">
+    
+    <div>
+      <span class="icon-copyright"></span>
+      
+        2020 -
+        2025
+      
+      <span class="footer-info-sep "></span>
+      Demerzel
+    </div>
+    
+      <div>
+        基于&nbsp;<a
+          href="https://gohugo.io/"
+          target="_blank"
+          >Hugo</a
+        >&nbsp; Theme.<a
+          href="https://github.com/D-Sketon/hugo-theme-reimu"
+          target="_blank"
+          >Reimu</a
+        >
+      </div>
+    
+    
+      <div>
+        <span class="icon-brush"
+          >&nbsp;
+            155.1k
+          </span
+        >
+        &nbsp;|&nbsp;
+        <span class="icon-coffee">&nbsp;
+          
+          
+
+          05:36
+        </span>
+      </div>
+    
+    
+    
+    
+  </div>
+</footer>
+
+        
+          <div class="sidebar-top">
+            <div class="sidebar-top-taichi "></div>
+            <div class="arrow-up"></div>
+          </div>
+        
+        <div id="mask" class="hide"></div>
+      </div>
+      <nav id="mobile-nav">
+  <div class="sidebar-wrap">
+    
+      
+        <div class="sidebar-toc-sidebar">
+          <div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#11-软件复用">1.1 软件复用</a></li>
+    <li><a href="#12-代码复用的类型">1.2 代码复用的类型：</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#21-源代码级别的复用">2.1 源代码级别的复用</a></li>
+    <li><a href="#22-模块级别的复用类抽象类接口">2.2 模块级别的复用：类、抽象类、接口</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#31-type-variation--类型可变">3.1 Type Variation  类型可变</a></li>
+    <li><a href="#32-implementation-variation-实现可变">3.2 Implementation Variation 实现可变</a></li>
+    <li><a href="#33-routine-grouping-功能分组">3.3 Routine Grouping 功能分组</a></li>
+    <li><a href="#34-representation-independence-表示独立">3.4 Representation Independence 表示独立</a></li>
+    <li><a href="#35-factoring-out-common-behaviors-共性抽取">3.5 Factoring Out Common Behaviors 共性抽取</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#41-白盒框架">4.1 白盒框架：</a></li>
+    <li><a href="#42-黑盒框架">4.2 黑盒框架：</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+        </div>
+        <div class="sidebar-common-sidebar hidden">
+          
+<div class="sidebar-author">
+  <img
+    data-src="/images/avatar.jpg"
+    data-sizes="auto"
+    alt="Demerzel"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">Demerzel</div>
+  <div class="sidebar-description">浮沉在世 人事变迁</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    
+    <div class="sidebar-state-number">51</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      18
+    </div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">28</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a
+        href="mailto:demerzelsun@gmail.com"
+        itemprop="url"
+        target="_blank"
+        aria-label="email"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a
+        href="https://github.com/demerzelsun12"
+        itemprop="url"
+        target="_blank"
+        aria-label="github"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-linkedin sidebar-social-icon">
+      <a
+        href="https://www.linkedin.com/in/xiao-sun-52a2a21b0/"
+        itemprop="url"
+        target="_blank"
+        aria-label="linkedin"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">首页</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">归档</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">关于</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">友链</div>
+    </div>
+  
+</div>
+
+        </div>
+      
+    
+  </div>
+  
+    
+      <div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div>
+    
+  
+</nav>
+
+    </div>
+    
+    
+    
+    
+
+
+
+
+
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"
+    
+    
+    
+    
+    integrity="sha384-3gT/vsepWkfz/ff7PpWNUeMzeWoH3cDhm/A8jM7ouoAK0/fP/9bcHHR5kHq2nf&#43;e" crossorigin="anonymous"
+  ></script>
+
+
+
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"
+    
+    
+    
+    
+    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"
+  ></script>
+
+
+
+
+
+
+
+
+
+
+
+  
+      
+      <script src="/js/main.js" ></script>
+      
+
+
+
+  
+
+
+
+
+
+  
+      
+      <script src="/js/aos.js" ></script>
+      
+
+  <script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", aosInit);
+    } else {
+      aosInit();
+    }
+  </script>
+
+
+
+
+
+
+
+
+  
+      
+      <script src="/js/pjax_main.js" data-pjax></script>
+      
+
+
+
+
+
+  
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/mouse-firework@0.1.1/dist/index.umd.js"
+    
+    
+    
+    
+    integrity="sha384-8LyaidD9GPxQQgLJO/WRw/O2h3BoNq/ApI/ecpvM6RsrCz2qP2ppBXUKihP4V/2d" crossorigin="anonymous"
+  ></script>
+
+
+<script>
+  if (window.firework) {
+    const options = JSON.parse("{\"excludeelements\":[\"a\",\"button\"],\"particles\":[{\"colors\":[\"var(--red-1)\",\"var(--red-2)\",\"var(--red-3)\",\"var(--red-4)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"emit\"],\"number\":20,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.3,0.5],\"radius\":[16,32]}},{\"colors\":[\"var(--red-0)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"diffuse\"],\"number\":1,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.2,0.5],\"lineWidth\":6,\"radius\":20}}]}");
+    options.excludeElements = options.excludeelements;
+    delete options.excludeelements;
+    window.firework(options);
+  }
+</script>
+
+
+
+
+
+
+
+
+<div id="lazy-script">
+  <div>
+    
+      
+      
+        
+      
+      <script data-pjax>
+        window.REIMU_POST = {
+          author: "Demerzel",
+          title: "软件构造-第四章-第一节-可复用性的度量、形态与外部表现",
+          url: "http:\/\/localhost:13926\/post\/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0-%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E7%AC%AC%E4%B8%80%E8%8A%82-%E5%8F%AF%E5%A4%8D%E7%94%A8%E6%80%A7%E7%9A%84%E5%BA%A6%E9%87%8F%E5%BD%A2%E6%80%81%E4%B8%8E%E5%A4%96%E9%83%A8%E8%A1%A8%E7%8E%B0\/",
+          description: "\r软件构造第四章 第一节 可复用性的度量、形态与外部表现\r",
+          cover: "http:\/\/localhost:13926\/images\/featureimages\/8.jpg",
+        };
+      </script>
+    
+    
+    
+      
+
+
+
+
+
+  
+      
+      <script src="/js/insert_highlight.js" data-pjax></script>
+      
+
+      
+      
+      
+      
+      <script type="module" data-pjax>
+        
+        const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;
+        
+        const pswp = () => {
+          if (_$$('.article-entry a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-entry',
+              children: 'a.article-gallery-item',
+              
+              pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")
+              
+            }).init();
+          }
+          if(_$$('.article-gallery a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-gallery',
+              children: 'a.article-gallery-item',
+              
+              pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")
+              
+            }).init();
+          }
+          window.lightboxStatus = 'done';
+          window.removeEventListener('lightbox:ready', pswp);
+        }
+        if(window.lightboxStatus === 'ready') {
+          pswp()
+        } else {
+          window.addEventListener('lightbox:ready', pswp);
+        }
+      </script>
+      
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+      
+    
+    
+      
+      
+        <script data-pjax>
+          window.MathJax = JSON.parse("[{\"loader\":{\"load\":[\"input/asciimath\",\"[tex]/noerrors\"]},\"options\":{\"ignoreHtmlClass\":\"tex2jax_ignore\",\"processHtmlClass\":\"tex2jax_process\",\"skipHtmlTags\":[\"script\",\"noscript\",\"style\",\"textarea\",\"pre\",\"code\"]},\"tex\":{\"autoload\":{\"color\":[],\"colorv2\":[\"color\"]},\"displayMath\":[[\"$$\",\"$$\"],[\"\\\\\\\\[\",\"\\\\\\\\]\"]],\"inlineMath\":[[\"$\",\"$\"],[\"\\\\\\\\(\",\"\\\\\\\\)\"]],\"packages\":{\"[+]\":[\"noerrors\"]},\"processEnvironments\":true,\"processEscapes\":true,\"tags\":\"ams\",\"useLabelIds\":true}}]")[0];
+        </script>
+        
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/mathjax@3.2.2/es5/tex-mml-chtml.js"
+    defer
+    
+    data-pjax
+    
+    integrity="sha384-Wuix6BuhrWbjDBs24bXrjf4ZQ5aFeFWBuKkFekO2t8xFU0iNaLQfp2K6/1Nxveei" crossorigin="anonymous"
+  ></script>
+
+
+      
+    
+  </div>
+</div>
+
+
+
+
+
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+  </script>
+
+
+<script>
+  const reimuCopyright = String.raw`
+   ______     ______     __     __    __     __  __    
+  /\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+  \ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+   \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+    \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                    
+  `;
+  console.log(String.raw`%c ${reimuCopyright}`, "color: #ff5252;");
+  console.log(
+    "%c Theme.Reimu" + " %c https://github.com/D-Sketon/hugo-theme-reimu ",
+    "color: white; background: #ff5252; padding:5px 0;",
+    "padding:4px;border:1px solid #ff5252;",
+  );
+</script>
+
+
+
+
+
+
+    
+  </body>
+</html>

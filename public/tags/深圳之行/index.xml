@@ -2,18 +2,53 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>深圳之行 on Demerzel&#39;s Blog</title>
-    <link>http://localhost:11133/tags/%E6%B7%B1%E5%9C%B3%E4%B9%8B%E8%A1%8C/</link>
+    <link>http://localhost:13926/tags/%E6%B7%B1%E5%9C%B3%E4%B9%8B%E8%A1%8C/</link>
     <description>Recent content in 深圳之行 on Demerzel&#39;s Blog</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 03 Jun 2021 20:09:42 +0000</lastBuildDate>
-    <atom:link href="http://localhost:11133/tags/%E6%B7%B1%E5%9C%B3%E4%B9%8B%E8%A1%8C/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 12 Jun 2021 16:13:48 +0000</lastBuildDate>
+    <atom:link href="http://localhost:13926/tags/%E6%B7%B1%E5%9C%B3%E4%B9%8B%E8%A1%8C/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>南国纪行（三）</title>
+      <link>http://localhost:13926/post/%E5%8D%97%E5%9B%BD%E7%BA%AA%E8%A1%8C%E4%B8%89/</link>
+      <pubDate>Sat, 12 Jun 2021 16:13:48 +0000</pubDate>
+      <guid>http://localhost:13926/post/%E5%8D%97%E5%9B%BD%E7%BA%AA%E8%A1%8C%E4%B8%89/</guid>
+      <description>深圳之行的第三篇纪</description>
+    </item>
+    <item>
+      <title>南国纪行（二）</title>
+      <link>http://localhost:13926/post/%E5%8D%97%E5%9B%BD%E7%BA%AA%E8%A1%8C%E4%BA%8C/</link>
+      <pubDate>Thu, 03 Jun 2021 20:09:42 +0000</pubDate>
+      <guid>http://localhost:13926/post/%E5%8D%97%E5%9B%BD%E7%BA%AA%E8%A1%8C%E4%BA%8C/</guid>
+      <description>深圳之行的第三篇纪</description>
+    </item>
     <item>
       <title>数据库笔记</title>
-      <link>http://localhost:11133/post/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%94%E8%AE%B0/</link>
+      <link>http://localhost:13926/post/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%94%E8%AE%B0/</link>
       <pubDate>Thu, 03 Jun 2021 20:09:42 +0000</pubDate>
-      <guid>http://localhost:11133/post/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%94%E8%AE%B0/</guid>
+      <guid>http://localhost:13926/post/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%94%E8%AE%B0/</guid>
       <description>数据库系统课程笔记</description>
+    </item>
+    <item>
+      <title>分布式系统复习笔记</title>
+      <link>http://localhost:13926/post/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Wed, 21 Apr 2021 14:53:28 +0000</pubDate>
+      <guid>http://localhost:13926/post/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+      <description>深圳校区分布式系统课程复习笔记</description>
+    </item>
+    <item>
+      <title>curl使用指南</title>
+      <link>http://localhost:13926/post/curl%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</link>
+      <pubDate>Sun, 28 Feb 2021 19:13:28 +0000</pubDate>
+      <guid>http://localhost:13926/post/curl%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</guid>
+      <description>curl指令使用的方法</description>
+    </item>
+    <item>
+      <title>南国纪行（一）</title>
+      <link>http://localhost:13926/post/%E5%8D%97%E5%9B%BD%E7%BA%AA%E8%A1%8C%E4%B8%80/</link>
+      <pubDate>Sun, 21 Feb 2021 20:59:28 +0000</pubDate>
+      <guid>http://localhost:13926/post/%E5%8D%97%E5%9B%BD%E7%BA%AA%E8%A1%8C%E4%B8%80/</guid>
+      <description>深圳之行的第一篇纪</description>
     </item>
   </channel>
 </rss>

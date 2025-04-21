@@ -1,0 +1,1794 @@
+<!doctype html>
+<html
+  lang="zh-cn" 
+  
+    data-theme-mode="auto"
+  
+>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=13926&amp;path=livereload" data-no-instant defer></script>
+    
+    <meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+
+
+
+
+
+  
+
+<title>
+  软件构造-第三章-第四节-面向对象编程 | Demerzel
+</title>
+<meta
+  name="description"
+  content="浮沉在世 人事变迁"
+/>
+
+
+
+
+
+
+
+
+
+
+<script>
+  window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"clipboard\":{\"copyright\":{\"content\":\"本文版权：本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！\",\"count\":50,\"enable\":false},\"fail\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"success\":\"复制成功(*^▽^*)\"},\"code_block\":{\"expand\":true},\"icon_font\":\"4552607_0khxww3tj3q9\",\"outdate\":{\"daysago\":180,\"enable\":false,\"message\":\"本文最后更新于 {time}，请注意文中内容可能已经发生变化。\"}}");
+</script>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+    
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+  media="print"
+  onload="this.media='all'"
+/>
+
+
+
+
+
+
+
+  <link
+    rel="preload"
+    href="//at.alicdn.com/t/c/font_4552607_0khxww3tj3q9.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  />
+
+
+
+  
+
+
+
+
+
+
+ <link rel="stylesheet" href="/css/loader.css" />
+
+
+
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="软件构造-第三章-第四节-面向对象编程 | Demerzel" />
+  <meta
+    property="og:description"
+    content="浮沉在世 人事变迁"
+  />
+  <meta property="og:url" content="http://localhost:13926/post/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0-%E7%AC%AC%E4%B8%89%E7%AB%A0-%E7%AC%AC%E5%9B%9B%E8%8A%82-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/" />
+  <meta
+    property="og:site_name"
+    content="Demerzel&#39;s Blog"
+  />
+  <meta
+    property="og:image"
+    content="/images/featureimages/6.jpg"
+  />
+  <meta property="article:author" content="Demerzel" />
+  <meta property="article:published_time" content="2020-04-03T15:32:29&#43;00:00" />
+  <meta property="article:modified_time" content="2020-04-03T15:32:29&#43;00:00" />
+  
+    <meta property="article:tag" content="软件构造Java" />
+  
+  
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:image" content="/images/featureimages/6.jpg" />
+  
+  
+  
+  
+  
+
+
+
+
+<link rel="shortcut icon" href="/favicon.ico">
+
+
+
+
+
+
+
+ <link rel="stylesheet" href="/css/main.css" />
+
+
+
+
+
+  <link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css"
+    onload="this.onload=null;this.rel='stylesheet'"
+  />
+
+
+
+
+
+
+  <link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css"
+    onload="this.onload=null;this.rel='stylesheet'"
+  />
+
+
+
+
+
+
+
+
+  
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"
+    
+    
+    
+    
+    integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"
+  ></script>
+
+
+
+
+
+  
+
+
+  <link rel="stylesheet" href="https://npm.webcache.cn/@reimujs/aos@0.1.0/dist/aos.css" />
+
+
+
+
+
+    
+  </head>
+  <body>
+    
+    
+  <div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi rotate">
+        
+          <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+            <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="var(--red-1, #ff5252)" />
+            <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+          M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="var(--red-1, #ff5252)" />
+          </svg>
+        
+      </div>
+      <div class="loading-word">少女祈祷中...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    var startLoading = () => {
+      time = Date.now();
+      document.getElementById('loader').classList.remove("loading");
+    }
+    var endLoading = () => {
+      if (!time) {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loader').classList.add("loading");
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          document.body.style.overflow = 'auto';
+          document.getElementById('loader').classList.add("loading");
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    document.getElementById('loader').addEventListener('click', endLoading);
+  </script>
+
+
+<div id="copy-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+</div>
+
+
+    <div id="container">
+      <div id="wrap">
+        
+<div id="header-nav">
+  <nav id="main-nav">
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/">首页</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/archives">归档</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/about">关于</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/friend">友链</a>
+      </span>
+    
+    <a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav">
+    
+    
+  </nav>
+</div>
+<header id="header">
+  
+    <picture></picture>
+    <img  fetchpriority="high" src="/images/featureimages/6.jpg" alt="软件构造-第三章-第四节-面向对象编程">
+  
+
+  <div id="header-outer">
+    <div id="header-title">
+      
+        
+        
+          
+        
+  
+        
+          <a href="/" id="logo">
+            <h1 data-aos="slide-up">软件构造-第三章-第四节-面向对象编程</h1>
+          </a>
+        
+      
+  
+      
+        
+        
+        <h2 id="subtitle-wrap" data-aos="slide-down">
+          
+        </h2>
+      
+    </div>
+  </div>
+</header>
+        <div id="content"
+          
+          class="sidebar-right"  >
+          <aside id="sidebar">
+  
+  
+  
+  <div class="sidebar-wrapper wrap-sticky">
+    <div
+      class="sidebar-wrap"
+      data-aos="fade-up"
+    >
+      
+        
+          <div class="sidebar-toc-sidebar">
+            <div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#11-对象">1.1 对象</a></li>
+    <li><a href="#12-类">1.2 类</a></li>
+    <li><a href="#13-接口">1.3 接口</a></li>
+    <li><a href="#14-抽象类">1.4 抽象类</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#21-封装encapsulation">2.1 封装(encapsulation)</a></li>
+    <li><a href="#22-继承与重写">2.2 继承与重写</a></li>
+    <li><a href="#23-多态与重载">2.3 多态与重载</a></li>
+    <li><a href="#24-重写与重载的区别">2.4 重写与重载的区别</a></li>
+    <li><a href="#25-泛型参数多态">2.5 泛型（参数多态）</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#31-好的类具有的特点">3.1 好的类具有的特点</a></li>
+    <li><a href="#32-如何编写一个不可变的类">3.2 如何编写一个不可变的类</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+          </div>
+          <div class="sidebar-common-sidebar hidden">
+            
+<div class="sidebar-author">
+  <img
+    data-src="/images/avatar.jpg"
+    data-sizes="auto"
+    alt="Demerzel"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">Demerzel</div>
+  <div class="sidebar-description">浮沉在世 人事变迁</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    
+    <div class="sidebar-state-number">51</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      18
+    </div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">28</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a
+        href="mailto:demerzelsun@gmail.com"
+        itemprop="url"
+        target="_blank"
+        aria-label="email"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a
+        href="https://github.com/demerzelsun12"
+        itemprop="url"
+        target="_blank"
+        aria-label="github"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-linkedin sidebar-social-icon">
+      <a
+        href="https://www.linkedin.com/in/xiao-sun-52a2a21b0/"
+        itemprop="url"
+        target="_blank"
+        aria-label="linkedin"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">首页</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">归档</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">关于</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">友链</div>
+    </div>
+  
+</div>
+
+          </div>
+        
+      
+
+      
+        
+          <div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div>
+        
+      
+    </div>
+  </div>
+
+  <div class="sidebar-widget">
+    
+  </div>
+  
+</aside>
+
+          <section id="main">
+  <article
+  class="h-entry article"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div
+    class="article-inner"
+    data-aos="fade-up"
+  >
+    <div class="article-meta">
+      <div class="article-date">
+  <span
+    class="article-date-link"
+    data-aos="zoom-in"
+  >
+    <time datetime="2020-04-03 15:32:29 &#43;0000 UTC" itemprop="datePublished"
+      >2020-04-03</time
+    >
+    <time style="display: none;" id="post-update-time"
+      >2020-04-03</time
+    >
+  </span>
+</div>
+
+      <div class="article-category">
+  
+    <a
+      class="article-category-link"
+      href="/categories/%e8%bd%af%e4%bb%b6%e6%9e%84%e9%80%a0"
+      data-aos="zoom-in"
+      >软件构造</a
+    >
+  
+</div>
+
+    </div>
+    <div class="hr-line"></div>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+      
+        <h1 id="软件构造第三章-第四节-面向对象编程">
+<a class="header-anchor" href="#%e8%bd%af%e4%bb%b6%e6%9e%84%e9%80%a0%e7%ac%ac%e4%b8%89%e7%ab%a0-%e7%ac%ac%e5%9b%9b%e8%8a%82-%e9%9d%a2%e5%90%91%e5%af%b9%e8%b1%a1%e7%bc%96%e7%a8%8b"></a>
+软件构造第三章 第四节 面向对象编程
+</h1><!-- toc -->
+<h1 id="一面向对象编程基本概念">
+<a class="header-anchor" href="#%e4%b8%80%e9%9d%a2%e5%90%91%e5%af%b9%e8%b1%a1%e7%bc%96%e7%a8%8b%e5%9f%ba%e6%9c%ac%e6%a6%82%e5%bf%b5"></a>
+一、面向对象编程基本概念
+</h1><h2 id="11-对象">
+<a class="header-anchor" href="#11-%e5%af%b9%e8%b1%a1"></a>
+1.1 对象
+</h2><ol>
+<li>对象是类的一个实例，有状态和行为。</li>
+<li>例如，一条狗是一个对象，它的状态有：颜色、名字、品种；行为有：摇尾巴、叫、吃等。</li>
+<li>概念：一个对象是一堆状态和行为的集合。
+<ul>
+<li>状态是包含在对象中的数据，在Java中，它们是对象的fields。</li>
+<li>行为是对象支持的操作，在Java中，它们称为methods。</li>
+</ul>
+</li>
+</ol>
+<h2 id="12-类">
+<a class="header-anchor" href="#12-%e7%b1%bb"></a>
+1.2 类
+</h2><ol>
+<li>类是一个模板，它描述一类对象的行为和状态。</li>
+<li>每个对象都有一个类</li>
+<li>类定义了属性类型（type）和行为实现（implementation）</li>
+<li>简单地说，类的方法是它的应用程序编程接口（API）。</li>
+<li>类成员变量(class variable)又叫静态变量；类方法(class method)又叫静态方法：</li>
+<li>实例变量(instance variable)和实例方法(instance method)是不用static形容的实例和方法；</li>
+<li>二者有以下的区别：
+<ul>
+<li>类方法是属于整个类，而不属于某个对象。</li>
+<li>类方法只能访问类成员变量（方法），不能访问实例变量（方法），而实例方法可以访问类成员变量（方法）和实例变量（方法）。</li>
+<li>类方法的调用可以通过类名.类方法和对象类方法，而实例方法只能通过对象实例方法访问。</li>
+<li>类方法不能被覆盖，实例方法可以被覆盖。</li>
+<li>当类的字节码文件被加载到内存时，类的实例方法不会被分配入口地址 当该类创建对象后，类中的实例方法才分配入口地址， 从而实例方法可以被类创建的任何对象调用执行。</li>
+<li>类方法在该类被加载到内存时，就分配了相应的入口地址。 从而类方法不仅可以被类创建的任何对象调用执行，也可以直接通过类名调用。 类方法的入口地址直到程序退出时才被取消。</li>
+</ul>
+</li>
+<li>注意：
+<ul>
+<li>当我们创建第一个对象时，类中的实例方法就分配了入口地址，当再创建对象时，不再分配入口地址。</li>
+<li>也就是说，方法的入口地址被所有的对象共享，当所有的对象都不存在时，方法的入口地址才被取消。</li>
+</ul>
+</li>
+<li>总结：
+<ul>
+<li>类变量和类方法与类相关联，并且每个类都会出现一次。 使用它们不需要创建对象。</li>
+<li>实例方法和变量会在每个类的实例中出现一次。</li>
+</ul>
+</li>
+<li>举例：</li>
+</ol>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200411203959453.png" width="80%" height="35%">
+</center>
+<center>
+图1-1 实例方法与类方法
+</center>
+<br>
+<h2 id="13-接口">
+<a class="header-anchor" href="#13-%e6%8e%a5%e5%8f%a3"></a>
+1.3 接口
+</h2><ol>
+<li>概念：接口在JAVA编程语言中是一个抽象类型，用于设计和表达ADT的语言机制，其是抽象方法的集合，接口通常以interface来声明。</li>
+<li>一个类通过继承接口的方式，从而来继承接口的抽象方法。
+接口并不是类，编写接口的方式和类很相似，但是它们属于不同的概念。类描述对象的属性和方法。接口则包含类要实现的方法。</li>
+<li>一个接口可以扩展其他接口，一个类可以实现多个接口；一个接口也可以有多重实现</li>
+<li>除非实现接口的类是抽象类，否则该类要定义接口中的所有方法。</li>
+<li>接口无法被实例化，但是可以被实现。一个实现接口的类，必须实现接口内所描述的所有方法，否则就必须声明为抽象类。另外，在 Java 中，接口类型可用来声明一个变量，他们可以成为一个空指针，或是被绑定在一个以此接口实现的对象。</li>
+</ol>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200411210144481.png" width="100%" height="100%">
+</center>
+<center>
+图1-2 接口示例
+</center>
+<br>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200411210149377.png" width="100%" height="35%">
+</center>
+<center>
+图1-3 接口实现
+</center>
+<br>
+<ol start="6">
+<li>client使用此ADT：</li>
+</ol>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200411211442923.png" width="100%" height="35%">
+</center>
+<center>
+图1-4 client使用此ADT
+</center>
+<br>
+<p>  但其中有问题，这么实现接口打破了抽象边界，接口定义中没有包含constructor，也无法保证所有实现类中都包含了同样名字的constructor。 故而，客户端需要知道该接口的某个具体实现类的名字。因为Java中的接口不能包含构造函数，所以它们必须直接调用其中一个具体类的构造函数。该构造函数的规范不会出现在接口的任何地方，所以没有任何静态的保证，即不同的实现甚至会提供相同的构造函数。
+  在Java 8中，我们可以用valueof的静态工厂方法 代替构造器。</p>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200411211455858.png" width="100%" height="35%">
+</center>
+<center>
+图1-5 valueof静态工厂方法
+</center>
+<br>
+<p>  此时用户调用ADT不会破坏抽象边界。</p>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200411212602253.png
+" width="100%" height="35%">
+</center>
+<center>
+图1-6 调用MyString类
+</center>
+<br>
+<ol start="7">
+<li>总结：接口的好处
+<ul>
+<li>Safe from bugs
+<ul>
+<li>ADT是由其操作定义的，接口就是这样做的。</li>
+<li>当客户端使用接口类型时，静态检查确保他们只使用由接口定义的方法。</li>
+<li>如果实现类公开其他方法，或者更糟糕的是，具有可见的表示，客户端不会意外地看到或依赖它们。</li>
+<li>当我们有一个数据类型的多个实现时，接口提供方法签名的静态检查。</li>
+</ul>
+</li>
+<li>Easy to understand
+<ul>
+<li>客户和维护人员确切知道在哪里查找ADT的规约。</li>
+<li>由于接口不包含实例字段或实例方法的实现，因此更容易将实现的细节保留在规范之外。</li>
+</ul>
+</li>
+<li>Ready for change
+<ul>
+<li>通过添加实现接口的类，我们可以轻松地添加新类型的实现。</li>
+<li>如果我们避免使用静态工厂方法的构造函数，客户端将只能看到该接口。</li>
+<li>这意味着我们可以切换客户端正在使用的实现类，而无需更改其代码。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="14-抽象类">
+<a class="header-anchor" href="#14-%e6%8a%bd%e8%b1%a1%e7%b1%bb"></a>
+1.4 抽象类
+</h2><ol>
+<li>抽象类除了不能实例化对象之外，类的其它功能依然存在，成员变量、成员方法和构造方法的访问方式和普通类一样。</li>
+<li>由于抽象类不能实例化对象，所以抽象类必须被继承，才能被使用。</li>
+<li>父类包含了子类集合的常见的方法，但是由于父类本身是抽象的，所以不能使用这些方法。</li>
+<li>在Java中抽象类表示的是一种继承关系，一个类只能继承一个抽象类，而一个类却可以实现多个接口。</li>
+<li>如果一个类包含抽象方法，那么该类必须是抽象类。</li>
+<li>任何子类必须重写父类的抽象方法，或者声明自身为抽象类。</li>
+<li>构造方法，类方法（用static修饰的方法）不能声明为抽象方法。</li>
+</ol>
+<h1 id="二面向对象编程的不同特征">
+<a class="header-anchor" href="#%e4%ba%8c%e9%9d%a2%e5%90%91%e5%af%b9%e8%b1%a1%e7%bc%96%e7%a8%8b%e7%9a%84%e4%b8%8d%e5%90%8c%e7%89%b9%e5%be%81"></a>
+二、面向对象编程的不同特征
+</h1><h2 id="21-封装encapsulation">
+<a class="header-anchor" href="#21-%e5%b0%81%e8%a3%85encapsulation"></a>
+2.1 封装(encapsulation)
+</h2><ol>
+<li>封装是指一种将抽象性函式接口的实现细节部份包装、隐藏起来的方法。</li>
+<li>设计良好的代码隐藏了所有的实现细节
+<ul>
+<li>干净地将API与实施分开</li>
+<li>模块只能通过API进行通信</li>
+<li>对彼此的内在运作不了解</li>
+</ul>
+</li>
+<li>信息封装的好处
+<ul>
+<li>将构成系统的类分开，减少耦合</li>
+<li>加快系统开发速度</li>
+<li>减轻了维护的负担</li>
+<li>启用有效的性能调整</li>
+<li>增加软件复用</li>
+</ul>
+</li>
+<li>信息隐藏接口
+<ul>
+<li>使用接口类型声明变量</li>
+<li>客户端仅使用接口中定义的方法</li>
+<li>客户端代码无法直接访问属性</li>
+</ul>
+</li>
+<li>实现封装的方法
+<ul>
+<li>修改属性的可见性来限制对属性的访问（一般限制为private)</li>
+<li>对每个值属性提供对外的公共方法访问，也就是创建一对赋取值方法，用于对私有属性的访问。采用 this 关键字解决类实例变量和局部变量（set方法传入的变量）之间发生的同名的冲突。</li>
+</ul>
+</li>
+</ol>
+<h2 id="22-继承与重写">
+<a class="header-anchor" href="#22-%e7%bb%a7%e6%89%bf%e4%b8%8e%e9%87%8d%e5%86%99"></a>
+2.2 继承与重写
+</h2><ol>
+<li>继承：继承就是子类继承父类的特征和行为，使得子类对象（实例）具有父类的实例域和方法，或子类从父类继承方法，使得子类具有父类相同的行为。</li>
+<li>重写：重写是子类对父类的允许访问的方法的实现过程进行重新编写, 返回值和形参都不能改变。即外壳不变，核心重写！</li>
+<li>重写的好处在于子类可以根据需要，定义特定于自己的行为。 也就是说子类能够根据需要实现父类的方法。</li>
+<li>实际执行时调用那种方法，在运行时决定</li>
+<li>重写方法不能抛出新的检查异常或者比被重写方法申明更加宽泛的异常。</li>
+<li>子类只能添加新方法，无法重写超类中的方法。</li>
+<li>当子类包含一个覆盖超类方法的方法时，它也可以使用关键字super调用超类方法。示例及输出如下：</li>
+</ol>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200411220302603.png" width="80%" height="35%">
+</center>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200411220348480.png" width="60%" height="35%">
+</center>
+<center>
+图2-1 super关键字使用示例
+</center>
+<br>
+<ol start="8">
+<li>方法重写的规则
+<ul>
+<li>参数列表必须完全与被重写方法的相同；</li>
+<li>返回类型必须完全与被重写方法的返回类型相同；</li>
+<li>访问权限不能比父类中被重写的方法的访问权限更低。例如：如果父类的一个方法被声明为public，那么在子类中重写该方法就不能声明为protected。</li>
+<li>父类的成员方法只能被它的子类重写。</li>
+<li>声明为final的方法不能被重写。</li>
+<li>声明为static的方法不能被重写，但是能够被再次声明。</li>
+<li>子类和父类在同一个包中，那么子类可以重写父类所有方法，除了声明为private和final的方法。</li>
+<li>子类和父类不在同一个包中，那么子类只能够重写父类的声明为public和protected的非final方法。</li>
+<li>重写的方法能够抛出任何非强制异常，无论被重写的方法是否抛出异常。但是，重写的方法不能抛出新的强制性异常，或者比被重写方法声明的更广泛的强制性异常，反之则可以。</li>
+<li>构造方法不能被重写。</li>
+<li>如果不能继承一个方法，则不能重写这个方法。</li>
+</ul>
+</li>
+</ol>
+<h2 id="23-多态与重载">
+<a class="header-anchor" href="#23-%e5%a4%9a%e6%80%81%e4%b8%8e%e9%87%8d%e8%bd%bd"></a>
+2.3 多态与重载
+</h2><ol>
+<li>多态是同一行为具有多种不同表现形式或形态的能力</li>
+<li>三种类型的多态
+<ul>
+<li>Ad hoc polymorphism (特殊多态)：功能重载，一个函数可以有多个同名的实现。</li>
+<li>Parametric polymorphism (参数多态): 泛型或泛型编程，一个类型名字可以代表多个类型</li>
+<li>Subtyping (also called subtype polymorphism or inclusion polymorphism 子类型多态、包含多态):当一个名称表示许多不同的类与一些常见的超类相关的实例。</li>
+</ul>
+</li>
+</ol>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200411220905477.png" width="100%" height="35%">
+</center>
+<center>
+图2-2 特殊多态
+</center>
+<br>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200411221346738.png" width="100%" height="35%">
+</center>
+<center>
+图2-3 参数多态性和泛型编程
+</center>
+<br>
+<ol start="3">
+<li>重载(overloading) 是在一个类里面，方法名字相同，而参数不同，返回类型可以相同也可以不同。</li>
+<li>每个重载的方法（或构造函数）都必须有一个独一无二的参数类型列表。</li>
+<li>价值：方便client调用，client可用不同的参数列表，调用同样的函数。</li>
+<li>重载是静态多态，根据参数列表进行最佳匹配。在编译阶段时决定要具体执行哪个方法 (static type checking) ，与之相反，重构方法则是在run-time进行dynamic checking！</li>
+<li>重载规则
+<ul>
+<li>被重载的方法必须改变参数列表(参数个数或类型不一样)；</li>
+<li>被重载的方法可以改变返回类型；</li>
+<li>被重载的方法可以改变访问修饰符；</li>
+<li>被重载的方法可以声明新的或更广的检查异常；</li>
+<li>方法能够在同一个类中或者在一个子类中被重载。</li>
+<li>无法以返回值类型作为重载函数的区分标准。</li>
+</ul>
+</li>
+</ol>
+<h2 id="24-重写与重载的区别">
+<a class="header-anchor" href="#24-%e9%87%8d%e5%86%99%e4%b8%8e%e9%87%8d%e8%bd%bd%e7%9a%84%e5%8c%ba%e5%88%ab"></a>
+2.4 重写与重载的区别
+</h2><table>
+  <thead>
+      <tr>
+          <th>区别点</th>
+          <th>重载方法</th>
+          <th>重写方法</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>参数列表</td>
+          <td>必须修改</td>
+          <td>一定不能修改</td>
+      </tr>
+      <tr>
+          <td>返回类型</td>
+          <td>可以修改</td>
+          <td>一定不能修改</td>
+      </tr>
+      <tr>
+          <td>异常</td>
+          <td>可以修改</td>
+          <td>可以减少或删除，一定不能抛出新的或者更广的异常</td>
+      </tr>
+      <tr>
+          <td>访问</td>
+          <td>可以修改</td>
+          <td>一定不能做更严格的限制（可以降低限制）</td>
+      </tr>
+      <tr>
+          <td>调用情况</td>
+          <td>引用类型决定选择哪个重载版本（基于声明的参数类型）。 在编译时发生。</td>
+          <td>对象类型（换句话说，堆上实际实例的类型）决定选择哪种方法在运行时发生。</td>
+      </tr>
+  </tbody>
+</table>
+<ol>
+<li>
+<p>方法的重写(Overriding)和重载(Overloading)是java多态性的不同表现，重写是父类与子类之间多态性的一种表现，重载可以理解成多态的具体表现形式。</p>
+</li>
+<li>
+<p>方法重载是一个类中定义了多个方法名相同,而他们的参数的数量不同或数量相同而类型和次序不同,则称为方法的重载(Overloading)。</p>
+</li>
+<li>
+<p>方法重写是在子类存在方法与父类的方法的名字相同,而且参数的个数与类型一样,返回值也一样的方法,就称为重写(Overriding)。</p>
+</li>
+<li>
+<p>方法重载是一个类的多态性表现,而方法重写是子类与父类的一种多态性表现。</p>
+</li>
+</ol>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200411222011727.png" width="100%" height="35%">
+</center>
+<center>
+图2-4 重写与重载对比
+</center>
+<br>
+<h2 id="25-泛型参数多态">
+<a class="header-anchor" href="#25-%e6%b3%9b%e5%9e%8b%e5%8f%82%e6%95%b0%e5%a4%9a%e6%80%81"></a>
+2.5 泛型（参数多态）
+</h2><ol>
+<li>泛型的本质是参数化类型，也就是说所操作的数据类型被指定为一个参数。</li>
+<li>可以写一个泛型方法，该方法在调用时可以接收不同类型的参数。根据传递给泛型方法的参数类型，编译器适当地处理每一个方法调用。</li>
+<li>定义泛型方法的规则：
+<ul>
+<li>所有泛型方法声明都有一个类型参数声明部分（由尖括号分隔），该类型参数声明部分在方法返回类型之前（在下面例子中的&lt;E&gt;）。</li>
+<li>每一个类型参数声明部分包含一个或多个类型参数，参数间用逗号隔开。一个泛型参数，也被称为一个类型变量，是用于指定一个泛型类型名称的标识符。</li>
+<li>类型参数能被用来声明返回值类型，并且能作为泛型方法得到的实际参数类型的占位符。</li>
+<li>泛型方法体的声明和其他方法一样。注意类型参数只能代表引用型类型，不能是原始类型（像int,double,char的等）。</li>
+</ul>
+</li>
+<li>一些细节：
+<ul>
+<li>可以有多个类型参数：例如Map&lt;E, F&gt;, Map&lt;String, Integer&gt;</li>
+<li>通配符，只在使用泛型的时候出现，不能在定义中出现，例：List<?> list = new ArrayList&lt;String&gt;();</li>
+<li>泛型类型信息被删除</li>
+<li>Cannot use instanceof() to check generic type 运行时泛型消失了！</li>
+<li>无法创建通用数组</li>
+</ul>
+</li>
+</ol>
+<h1 id="三设计好的类">
+<a class="header-anchor" href="#%e4%b8%89%e8%ae%be%e8%ae%a1%e5%a5%bd%e7%9a%84%e7%b1%bb"></a>
+三、设计好的类
+</h1><h2 id="31-好的类具有的特点">
+<a class="header-anchor" href="#31-%e5%a5%bd%e7%9a%84%e7%b1%bb%e5%85%b7%e6%9c%89%e7%9a%84%e7%89%b9%e7%82%b9"></a>
+3.1 好的类具有的特点
+</h2><ol>
+<li>简单</li>
+<li>本质上是线程安全的</li>
+<li>可以自由分享</li>
+<li>不需要防御式拷贝</li>
+<li>优秀的building blocks</li>
+</ol>
+<h2 id="32-如何编写一个不可变的类">
+<a class="header-anchor" href="#32-%e5%a6%82%e4%bd%95%e7%bc%96%e5%86%99%e4%b8%80%e4%b8%aa%e4%b8%8d%e5%8f%af%e5%8f%98%e7%9a%84%e7%b1%bb"></a>
+3.2 如何编写一个不可变的类
+</h2><ol>
+<li>不要提供任何mutators</li>
+<li>确保没有方法可能被覆盖</li>
+<li>使所有的fields有final修饰</li>
+<li>使所有的fields有private修饰</li>
+<li>确保任何可变组件的安全性（避免表示泄露）</li>
+<li>实现toString(), hashCode(), clone(), equals()等。</li>
+</ol>
+      
+    </div>
+    <footer class="article-footer">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+      <ul class="article-tag-list" itemprop="keywords">
+  
+    <li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e8%bd%af%e4%bb%b6%e6%9e%84%e9%80%a0"
+        rel="tag"
+        >软件构造</a
+      >
+    </li>
+  
+    <li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/java"
+        rel="tag"
+        >JAVA</a
+      >
+    </li>
+  
+</ul>
+
+    </footer>
+  </div>
+  
+    
+  <nav
+    id="article-nav"
+    data-aos="fade-up"
+  >
+    
+      <div class="article-nav-link-wrap article-nav-link-left">
+        
+          <img
+            data-src="images/featureimages/5.jpg"
+            data-sizes="auto"
+            alt="软件构造-第三章-第三节-抽象数据型"
+            class="lazyload"
+          />
+        
+        <a href="/post/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0-%E7%AC%AC%E4%B8%89%E7%AB%A0-%E7%AC%AC%E4%B8%89%E8%8A%82-%E6%8A%BD%E8%B1%A1%E6%95%B0%E6%8D%AE%E5%9E%8B/"></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">
+          
+            软件构造-第三章-第三节-抽象数据型
+          
+        </h3>
+      </div>
+    
+
+    
+      <div class="article-nav-link-wrap article-nav-link-right">
+        
+          <img
+            data-src="images/featureimages/21.jpg"
+            data-sizes="auto"
+            alt="Java 中的 Comparator 和 Comparable"
+            class="lazyload"
+          />
+        
+        <a href="/post/java-%E4%B8%AD%E7%9A%84-comparator-%E5%92%8C-comparable/"></a>
+        <div class="article-nav-caption">后一篇</div>
+        <h3 class="article-nav-title">
+          
+            Java 中的 Comparator 和 Comparable
+          
+        </h3>
+      </div>
+    
+  </nav>
+
+
+  
+</article>
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+</section>
+        </div>
+        
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+
+
+<footer id="footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info">
+    
+    <div>
+      <span class="icon-copyright"></span>
+      
+        2020 -
+        2025
+      
+      <span class="footer-info-sep "></span>
+      Demerzel
+    </div>
+    
+      <div>
+        基于&nbsp;<a
+          href="https://gohugo.io/"
+          target="_blank"
+          >Hugo</a
+        >&nbsp; Theme.<a
+          href="https://github.com/D-Sketon/hugo-theme-reimu"
+          target="_blank"
+          >Reimu</a
+        >
+      </div>
+    
+    
+      <div>
+        <span class="icon-brush"
+          >&nbsp;
+            155.1k
+          </span
+        >
+        &nbsp;|&nbsp;
+        <span class="icon-coffee">&nbsp;
+          
+          
+
+          05:36
+        </span>
+      </div>
+    
+    
+    
+    
+  </div>
+</footer>
+
+        
+          <div class="sidebar-top">
+            <div class="sidebar-top-taichi "></div>
+            <div class="arrow-up"></div>
+          </div>
+        
+        <div id="mask" class="hide"></div>
+      </div>
+      <nav id="mobile-nav">
+  <div class="sidebar-wrap">
+    
+      
+        <div class="sidebar-toc-sidebar">
+          <div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#11-对象">1.1 对象</a></li>
+    <li><a href="#12-类">1.2 类</a></li>
+    <li><a href="#13-接口">1.3 接口</a></li>
+    <li><a href="#14-抽象类">1.4 抽象类</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#21-封装encapsulation">2.1 封装(encapsulation)</a></li>
+    <li><a href="#22-继承与重写">2.2 继承与重写</a></li>
+    <li><a href="#23-多态与重载">2.3 多态与重载</a></li>
+    <li><a href="#24-重写与重载的区别">2.4 重写与重载的区别</a></li>
+    <li><a href="#25-泛型参数多态">2.5 泛型（参数多态）</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#31-好的类具有的特点">3.1 好的类具有的特点</a></li>
+    <li><a href="#32-如何编写一个不可变的类">3.2 如何编写一个不可变的类</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+        </div>
+        <div class="sidebar-common-sidebar hidden">
+          
+<div class="sidebar-author">
+  <img
+    data-src="/images/avatar.jpg"
+    data-sizes="auto"
+    alt="Demerzel"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">Demerzel</div>
+  <div class="sidebar-description">浮沉在世 人事变迁</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    
+    <div class="sidebar-state-number">51</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      18
+    </div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">28</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a
+        href="mailto:demerzelsun@gmail.com"
+        itemprop="url"
+        target="_blank"
+        aria-label="email"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a
+        href="https://github.com/demerzelsun12"
+        itemprop="url"
+        target="_blank"
+        aria-label="github"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-linkedin sidebar-social-icon">
+      <a
+        href="https://www.linkedin.com/in/xiao-sun-52a2a21b0/"
+        itemprop="url"
+        target="_blank"
+        aria-label="linkedin"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">首页</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">归档</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">关于</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">友链</div>
+    </div>
+  
+</div>
+
+        </div>
+      
+    
+  </div>
+  
+    
+      <div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div>
+    
+  
+</nav>
+
+    </div>
+    
+    
+    
+    
+
+
+
+
+
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"
+    
+    
+    
+    
+    integrity="sha384-3gT/vsepWkfz/ff7PpWNUeMzeWoH3cDhm/A8jM7ouoAK0/fP/9bcHHR5kHq2nf&#43;e" crossorigin="anonymous"
+  ></script>
+
+
+
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"
+    
+    
+    
+    
+    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"
+  ></script>
+
+
+
+
+
+
+
+
+
+
+
+  
+      
+      <script src="/js/main.js" ></script>
+      
+
+
+
+  
+
+
+
+
+
+  
+      
+      <script src="/js/aos.js" ></script>
+      
+
+  <script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", aosInit);
+    } else {
+      aosInit();
+    }
+  </script>
+
+
+
+
+
+
+
+
+  
+      
+      <script src="/js/pjax_main.js" data-pjax></script>
+      
+
+
+
+
+
+  
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/mouse-firework@0.1.1/dist/index.umd.js"
+    
+    
+    
+    
+    integrity="sha384-8LyaidD9GPxQQgLJO/WRw/O2h3BoNq/ApI/ecpvM6RsrCz2qP2ppBXUKihP4V/2d" crossorigin="anonymous"
+  ></script>
+
+
+<script>
+  if (window.firework) {
+    const options = JSON.parse("{\"excludeelements\":[\"a\",\"button\"],\"particles\":[{\"colors\":[\"var(--red-1)\",\"var(--red-2)\",\"var(--red-3)\",\"var(--red-4)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"emit\"],\"number\":20,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.3,0.5],\"radius\":[16,32]}},{\"colors\":[\"var(--red-0)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"diffuse\"],\"number\":1,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.2,0.5],\"lineWidth\":6,\"radius\":20}}]}");
+    options.excludeElements = options.excludeelements;
+    delete options.excludeelements;
+    window.firework(options);
+  }
+</script>
+
+
+
+
+
+
+
+
+<div id="lazy-script">
+  <div>
+    
+      
+      
+        
+      
+      <script data-pjax>
+        window.REIMU_POST = {
+          author: "Demerzel",
+          title: "软件构造-第三章-第四节-面向对象编程",
+          url: "http:\/\/localhost:13926\/post\/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0-%E7%AC%AC%E4%B8%89%E7%AB%A0-%E7%AC%AC%E5%9B%9B%E8%8A%82-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B\/",
+          description: "\r软件构造第三章 第四节 面向对象编程\r",
+          cover: "http:\/\/localhost:13926\/images\/featureimages\/6.jpg",
+        };
+      </script>
+    
+    
+    
+      
+
+
+
+
+
+  
+      
+      <script src="/js/insert_highlight.js" data-pjax></script>
+      
+
+      
+      
+      
+      
+      <script type="module" data-pjax>
+        
+        const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;
+        
+        const pswp = () => {
+          if (_$$('.article-entry a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-entry',
+              children: 'a.article-gallery-item',
+              
+              pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")
+              
+            }).init();
+          }
+          if(_$$('.article-gallery a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-gallery',
+              children: 'a.article-gallery-item',
+              
+              pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")
+              
+            }).init();
+          }
+          window.lightboxStatus = 'done';
+          window.removeEventListener('lightbox:ready', pswp);
+        }
+        if(window.lightboxStatus === 'ready') {
+          pswp()
+        } else {
+          window.addEventListener('lightbox:ready', pswp);
+        }
+      </script>
+      
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+      
+    
+    
+      
+      
+        <script data-pjax>
+          window.MathJax = JSON.parse("[{\"loader\":{\"load\":[\"input/asciimath\",\"[tex]/noerrors\"]},\"options\":{\"ignoreHtmlClass\":\"tex2jax_ignore\",\"processHtmlClass\":\"tex2jax_process\",\"skipHtmlTags\":[\"script\",\"noscript\",\"style\",\"textarea\",\"pre\",\"code\"]},\"tex\":{\"autoload\":{\"color\":[],\"colorv2\":[\"color\"]},\"displayMath\":[[\"$$\",\"$$\"],[\"\\\\\\\\[\",\"\\\\\\\\]\"]],\"inlineMath\":[[\"$\",\"$\"],[\"\\\\\\\\(\",\"\\\\\\\\)\"]],\"packages\":{\"[+]\":[\"noerrors\"]},\"processEnvironments\":true,\"processEscapes\":true,\"tags\":\"ams\",\"useLabelIds\":true}}]")[0];
+        </script>
+        
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/mathjax@3.2.2/es5/tex-mml-chtml.js"
+    defer
+    
+    data-pjax
+    
+    integrity="sha384-Wuix6BuhrWbjDBs24bXrjf4ZQ5aFeFWBuKkFekO2t8xFU0iNaLQfp2K6/1Nxveei" crossorigin="anonymous"
+  ></script>
+
+
+      
+    
+  </div>
+</div>
+
+
+
+
+
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+  </script>
+
+
+<script>
+  const reimuCopyright = String.raw`
+   ______     ______     __     __    __     __  __    
+  /\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+  \ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+   \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+    \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                    
+  `;
+  console.log(String.raw`%c ${reimuCopyright}`, "color: #ff5252;");
+  console.log(
+    "%c Theme.Reimu" + " %c https://github.com/D-Sketon/hugo-theme-reimu ",
+    "color: white; background: #ff5252; padding:5px 0;",
+    "padding:4px;border:1px solid #ff5252;",
+  );
+</script>
+
+
+
+
+
+
+    
+  </body>
+</html>

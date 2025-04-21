@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>分布式系统 on Demerzel&#39;s Blog</title>
+    <link>http://localhost:13926/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/</link>
+    <description>Recent content in 分布式系统 on Demerzel&#39;s Blog</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 21 Apr 2021 14:53:28 +0000</lastBuildDate>
+    <atom:link href="http://localhost:13926/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>分布式系统复习笔记</title>
+      <link>http://localhost:13926/post/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Wed, 21 Apr 2021 14:53:28 +0000</pubDate>
+      <guid>http://localhost:13926/post/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+      <description>深圳校区分布式系统课程复习笔记</description>
+    </item>
+    <item>
+      <title>《分布式系统概念与设计》阅读笔记</title>
+      <link>http://localhost:13926/post/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5%E4%B8%8E%E8%AE%BE%E8%AE%A1%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Wed, 03 Mar 2021 14:53:28 +0000</pubDate>
+      <guid>http://localhost:13926/post/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5%E4%B8%8E%E8%AE%BE%E8%AE%A1%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/</guid>
+      <description>阅读《分布式系统：概念与设计》的笔记</description>
+    </item>
+    <item>
+      <title>GlusterFS分布式文件系统原理</title>
+      <link>http://localhost:13926/post/glusterfs%E5%88%86%E5%B8%83%E5%BC%8F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Mon, 01 Mar 2021 21:13:28 +0000</pubDate>
+      <guid>http://localhost:13926/post/glusterfs%E5%88%86%E5%B8%83%E5%BC%8F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/</guid>
+      <description>GlusterFS分布式文件系统原理简介</description>
+    </item>
+  </channel>
+</rss>

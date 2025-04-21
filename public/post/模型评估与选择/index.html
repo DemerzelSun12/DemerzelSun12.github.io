@@ -1,0 +1,1561 @@
+<!doctype html>
+<html
+  lang="zh-cn" 
+  
+    data-theme-mode="auto"
+  
+>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=13926&amp;path=livereload" data-no-instant defer></script>
+    
+    <meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+
+
+
+
+
+  
+
+<title>
+  模型评估与选择 | Demerzel
+</title>
+<meta
+  name="description"
+  content="浮沉在世 人事变迁"
+/>
+
+
+
+
+
+
+
+
+
+
+<script>
+  window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"clipboard\":{\"copyright\":{\"content\":\"本文版权：本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！\",\"count\":50,\"enable\":false},\"fail\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"success\":\"复制成功(*^▽^*)\"},\"code_block\":{\"expand\":true},\"icon_font\":\"4552607_0khxww3tj3q9\",\"outdate\":{\"daysago\":180,\"enable\":false,\"message\":\"本文最后更新于 {time}，请注意文中内容可能已经发生变化。\"}}");
+</script>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+    
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+  media="print"
+  onload="this.media='all'"
+/>
+
+
+
+
+
+
+
+  <link
+    rel="preload"
+    href="//at.alicdn.com/t/c/font_4552607_0khxww3tj3q9.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  />
+
+
+
+  
+
+
+
+
+
+
+ <link rel="stylesheet" href="/css/loader.css" />
+
+
+
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="模型评估与选择 | Demerzel" />
+  <meta
+    property="og:description"
+    content="浮沉在世 人事变迁"
+  />
+  <meta property="og:url" content="http://localhost:13926/post/%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E4%B8%8E%E9%80%89%E6%8B%A9/" />
+  <meta
+    property="og:site_name"
+    content="Demerzel&#39;s Blog"
+  />
+  <meta
+    property="og:image"
+    content="/images/featureimages/2.jpg"
+  />
+  <meta property="article:author" content="Demerzel" />
+  <meta property="article:published_time" content="2020-08-03T19:44:23&#43;00:00" />
+  <meta property="article:modified_time" content="2020-08-03T19:44:23&#43;00:00" />
+  
+    <meta property="article:tag" content="算法机器学习" />
+  
+  
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:image" content="/images/featureimages/2.jpg" />
+  
+  
+  
+  
+  
+
+
+
+
+<link rel="shortcut icon" href="/favicon.ico">
+
+
+
+
+
+
+
+ <link rel="stylesheet" href="/css/main.css" />
+
+
+
+
+
+  <link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css"
+    onload="this.onload=null;this.rel='stylesheet'"
+  />
+
+
+
+
+
+
+  <link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css"
+    onload="this.onload=null;this.rel='stylesheet'"
+  />
+
+
+
+
+
+
+
+
+  
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"
+    
+    
+    
+    
+    integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"
+  ></script>
+
+
+
+
+
+  
+
+
+  <link rel="stylesheet" href="https://npm.webcache.cn/@reimujs/aos@0.1.0/dist/aos.css" />
+
+
+
+
+
+    
+  </head>
+  <body>
+    
+    
+  <div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi rotate">
+        
+          <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+            <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="var(--red-1, #ff5252)" />
+            <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+          M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="var(--red-1, #ff5252)" />
+          </svg>
+        
+      </div>
+      <div class="loading-word">少女祈祷中...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    var startLoading = () => {
+      time = Date.now();
+      document.getElementById('loader').classList.remove("loading");
+    }
+    var endLoading = () => {
+      if (!time) {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loader').classList.add("loading");
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          document.body.style.overflow = 'auto';
+          document.getElementById('loader').classList.add("loading");
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    document.getElementById('loader').addEventListener('click', endLoading);
+  </script>
+
+
+<div id="copy-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+</div>
+
+
+    <div id="container">
+      <div id="wrap">
+        
+<div id="header-nav">
+  <nav id="main-nav">
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/">首页</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/archives">归档</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/about">关于</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/friend">友链</a>
+      </span>
+    
+    <a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav">
+    
+    
+  </nav>
+</div>
+<header id="header">
+  
+    <picture></picture>
+    <img  fetchpriority="high" src="/images/featureimages/2.jpg" alt="模型评估与选择">
+  
+
+  <div id="header-outer">
+    <div id="header-title">
+      
+        
+        
+          
+        
+  
+        
+          <a href="/" id="logo">
+            <h1 data-aos="slide-up">模型评估与选择</h1>
+          </a>
+        
+      
+  
+      
+        
+        
+        <h2 id="subtitle-wrap" data-aos="slide-down">
+          
+        </h2>
+      
+    </div>
+  </div>
+</header>
+        <div id="content"
+          
+          class="sidebar-right"  >
+          <aside id="sidebar">
+  
+  
+  
+  <div class="sidebar-wrapper wrap-sticky">
+    <div
+      class="sidebar-wrap"
+      data-aos="fade-up"
+    >
+      
+        
+          <div class="sidebar-toc-sidebar">
+            <div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一经验误差与过拟合">一、经验误差与过拟合</a>
+      <ul>
+        <li><a href="#11-一些概念">1.1 一些概念</a></li>
+        <li><a href="#12-过拟合与欠拟合">1.2 过拟合与欠拟合</a></li>
+      </ul>
+    </li>
+    <li><a href="#二评估方法">二、评估方法</a>
+      <ul>
+        <li><a href="#21-留出法">2.1 留出法</a></li>
+        <li><a href="#22-交叉验证法">2.2 交叉验证法</a></li>
+        <li><a href="#23-自助法">2.3 自助法</a></li>
+      </ul>
+    </li>
+    <li><a href="#三性能度量">三、性能度量</a>
+      <ul>
+        <li><a href="#31-均方误差">3.1 均方误差</a></li>
+        <li><a href="#32-错误率与精度">3.2 错误率与精度</a></li>
+        <li><a href="#33-查准率查全率与">3.3 查准率、查全率与</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+          </div>
+          <div class="sidebar-common-sidebar hidden">
+            
+<div class="sidebar-author">
+  <img
+    data-src="/images/avatar.jpg"
+    data-sizes="auto"
+    alt="Demerzel"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">Demerzel</div>
+  <div class="sidebar-description">浮沉在世 人事变迁</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    
+    <div class="sidebar-state-number">51</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      18
+    </div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">28</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a
+        href="mailto:demerzelsun@gmail.com"
+        itemprop="url"
+        target="_blank"
+        aria-label="email"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a
+        href="https://github.com/demerzelsun12"
+        itemprop="url"
+        target="_blank"
+        aria-label="github"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-linkedin sidebar-social-icon">
+      <a
+        href="https://www.linkedin.com/in/xiao-sun-52a2a21b0/"
+        itemprop="url"
+        target="_blank"
+        aria-label="linkedin"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">首页</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">归档</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">关于</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">友链</div>
+    </div>
+  
+</div>
+
+          </div>
+        
+      
+
+      
+        
+          <div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div>
+        
+      
+    </div>
+  </div>
+
+  <div class="sidebar-widget">
+    
+  </div>
+  
+</aside>
+
+          <section id="main">
+  <article
+  class="h-entry article"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div
+    class="article-inner"
+    data-aos="fade-up"
+  >
+    <div class="article-meta">
+      <div class="article-date">
+  <span
+    class="article-date-link"
+    data-aos="zoom-in"
+  >
+    <time datetime="2020-08-03 19:44:23 &#43;0000 UTC" itemprop="datePublished"
+      >2020-08-03</time
+    >
+    <time style="display: none;" id="post-update-time"
+      >2020-08-03</time
+    >
+  </span>
+</div>
+
+      <div class="article-category">
+  
+    <a
+      class="article-category-link"
+      href="/categories/%e6%9c%ba%e5%99%a8%e5%ad%a6%e4%b9%a0"
+      data-aos="zoom-in"
+      >机器学习</a
+    >
+  
+</div>
+
+    </div>
+    <div class="hr-line"></div>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+      
+        <h2 id="一经验误差与过拟合">
+<a class="header-anchor" href="#%e4%b8%80%e7%bb%8f%e9%aa%8c%e8%af%af%e5%b7%ae%e4%b8%8e%e8%bf%87%e6%8b%9f%e5%90%88"></a>
+一、经验误差与过拟合
+</h2><h3 id="11-一些概念">
+<a class="header-anchor" href="#11-%e4%b8%80%e4%ba%9b%e6%a6%82%e5%bf%b5"></a>
+1.1 一些概念
+</h3><ol>
+<li>
+<p>错误率：分类错误的样本数占样本总数的比例。如果在<em>m</em>个样本中有<em>a</em>个样本分类错误，则错误率为$E=\left. a \middle/ m \right.$ ；相应的，$1-\left. a\middle/ m \right.$ 称为“精度”。</p>
+</li>
+<li>
+<p>误差：学习器的实际预测输出与样本的真实输出之间的差异；学习器在训练集上的误差称为“训练误差”或“经验误差”；在新样本上的误差称为“泛化误差”。</p>
+</li>
+</ol>
+<h3 id="12-过拟合与欠拟合">
+<a class="header-anchor" href="#12-%e8%bf%87%e6%8b%9f%e5%90%88%e4%b8%8e%e6%ac%a0%e6%8b%9f%e5%90%88"></a>
+1.2 过拟合与欠拟合
+</h3><h4 id="121-过拟合overfitting与欠拟合underfitting">
+<a class="header-anchor" href="#121-%e8%bf%87%e6%8b%9f%e5%90%88overfitting%e4%b8%8e%e6%ac%a0%e6%8b%9f%e5%90%88underfitting"></a>
+1.2.1 过拟合(overfitting)与欠拟合(underfitting)
+</h4><p>  不用晦涩难懂的定义了，通俗解释一下。为了希望得到在新样本上表现很好的学习器，应该从训练样本中尽可能的学习适用于所有潜在样本的“普遍规律”。当把训练样本学得“太好了”的时候，很可能把训练样本自身的一些特点当做了所有潜在样本都会具有的性质，这样会导致泛化性能下降，这就是“过拟合”。
+  欠拟合正好相反，即训练样本的一般性质尚未学好。</p>
+<h4 id="122-解决办法">
+<a class="header-anchor" href="#122-%e8%a7%a3%e5%86%b3%e5%8a%9e%e6%b3%95"></a>
+1.2.2 解决办法
+</h4><ol>
+<li>
+<p>欠拟合解决办法</p>
+<ul>
+<li>在决策树学习中扩展分支</li>
+<li>在神经网络中增加训练轮数</li>
+</ul>
+</li>
+<li>
+<p>过拟合问题
+ 其实过拟合无法完全消除，只可进行“缓解”。因为机器学习面临的问题通常是<em>NP</em>难的问题，有效的学习算法必然是在多项式时间内运行完成。如果可以彻底避免过拟合，则通过经验误差最小化即可得到最优解，这就意味着构造性的证明了$P = NP$。因此，只要相信$P \ne NP$ ，过拟合就无法避免。</p>
+</li>
+</ol>
+<h2 id="二评估方法">
+<a class="header-anchor" href="#%e4%ba%8c%e8%af%84%e4%bc%b0%e6%96%b9%e6%b3%95"></a>
+二、评估方法
+</h2><p>  需要选择“测试集”来测试学习器对新样本的判别能力，以测试集上的“测试误差”作为泛化误差的近似。通常假设测试样本是从样本的真实分布中独立同分布采样而得。但是，测试集应该尽可能与训练集互斥，让测试样本尽量不在训练集中出现、未在训练过程中使用过。
+  为了对数据集<em>D</em>做适当处理，得到训练集<em>S</em>和测试集<em>T</em>。下面介绍几种常见方法。</p>
+<h3 id="21-留出法">
+<a class="header-anchor" href="#21-%e7%95%99%e5%87%ba%e6%b3%95"></a>
+2.1 留出法
+</h3><p>  “留出法”(<em>hold-out</em>)直接将数据集<em>D</em>划分为两个互斥的集合，其中一个作为训练集<em>S</em>，一个作为测试集<em>T</em>，即$D=S \cup T$ , $S \cap T=\varnothing$，在S上训练模型，用T评估测试误差，作为对泛化误差的估计。</p>
+<p>注意要点：</p>
+<ol>
+<li>训练集/测试集的划分要尽可能保持数据分布的一致性，避免因为数据划分而引入的额外偏差对最终结果产生影响。例如可以采取“分层抽样”等一系列保留类别比例的抽样方法。</li>
+<li>不同的划分会导致不同的训练/测试集，相应的模型评估也有差别。因此，单次使用的留出法得到的结果往往不稳定可靠。所以在使用留出法时，一般采取若干次随机划分、重复实验评估取平均值作为留出法的评估结果。</li>
+<li>如果训练集<em>S</em>包含绝大多数样本，则训练出的模型可能更接近于用<em>D</em>训练出的模型，但是由于<em>T</em>较小，评估结果可能不够稳定准确；若令测试集T包含过多的样本，则<em>S</em>与<em>D</em>的差别更大了，被评价的模型与用<em>D</em>训练出的模型可能有较大差别。因此常见做法是：测试集至少包含30个测试用例，且数据集的大约$\left. 2 / 3 \right. \sim \left. 4 / 5 \right.$的样本用于训练，剩余样本用于测试。</li>
+</ol>
+<h3 id="22-交叉验证法">
+<a class="header-anchor" href="#22-%e4%ba%a4%e5%8f%89%e9%aa%8c%e8%af%81%e6%b3%95"></a>
+2.2 交叉验证法
+</h3><p>  “交叉验证法”(<em>cross validation</em>)先将数据集<em>D</em>划分成<em>k</em>个大小相似的互斥子集，即$D=D_1\cup D_2\cup \cdots \cup D_k$，$D_i\cap D_j=\varnothing \left(i\ne j\right)$。每个子集$D_i$都尽可能保持数据分布的一致性。
+  每次使用$k-1$个子集的并集作为训练集，余下的子集作为测试集；这样可以得到<em>k</em>组训练/测试集，进行<em>k</em>次训练和测试，最终返回<em>k</em>次测试结果的均值。</p>
+<h3 id="23-自助法">
+<a class="header-anchor" href="#23-%e8%87%aa%e5%8a%a9%e6%b3%95"></a>
+2.3 自助法
+</h3><p>  我们希望评估的是用<em>D</em>训练出的模型，但是在以上两种方法中，由于必然会保留一部分样本用于测试，因此实际的训练模型所使用的训练集比<em>D</em>小。因此必然会引入因为训练样本规模不同而导致的估计偏差。</p>
+<p>  “自助法”(<em>bootstrapping</em>)以自助采样阀为基础。给定包含<em>m</em>个样本的数据集<em>D</em>，采样产生数据集<em>D&rsquo;</em>：每次随机从<em>D</em>中挑选一个样本，拷贝放入<em>D&rsquo;</em>，再将样本放回初始数据集<em>D</em>中，使该样本在下次采样时仍有可能被取到；重复执行<em>m</em>次后，得到了包含<em>m</em>个样本的数据集<em>D&rsquo;</em>。显然，<em>D</em>中的一部分样本会在*D&rsquo;*中多次出现，而另一部分样本不出现。</p>
+<p>  自助法在数据集小、难以有效划分训练、测试时有用；此外，自助法能从初始数据集中产生多个不同的训练集，对继承学习等方法有很大的好处。</p>
+<h2 id="三性能度量">
+<a class="header-anchor" href="#%e4%b8%89%e6%80%a7%e8%83%bd%e5%ba%a6%e9%87%8f"></a>
+三、性能度量
+</h2><p>  对学习器的泛化性能进行评估，不仅需要有效可行的实验估计方法，还需要有衡量模型泛化能力的评价标准，即性能度量(<em>performance measure</em>)。
+  下面介绍常用的性能度量。</p>
+<h3 id="31-均方误差">
+<a class="header-anchor" href="#31-%e5%9d%87%e6%96%b9%e8%af%af%e5%b7%ae"></a>
+3.1 均方误差
+</h3><p>  回归任务最常用的性能度量是“均方误差”</p>
+$$E\left( f;D \right) =\frac{1}{m}\sum_{i=1}^m{\left( f\left( \boldsymbol{x}_i \right) -y_i \right) ^2}$$<p>  更一般的，对于数据$\mathcal{D}$和概率密度函数$p\left(\cdot\right)$，均方差可描述为</p>
+$$E\left(f;D\right)=\int_{\boldsymbol{x}\sim\mathcal{D}}{\left(f\left(\boldsymbol{x}\right)-y\right)^2p\left(\boldsymbol{x}\right)}\text{d}x$$<h3 id="32-错误率与精度">
+<a class="header-anchor" href="#32-%e9%94%99%e8%af%af%e7%8e%87%e4%b8%8e%e7%b2%be%e5%ba%a6"></a>
+3.2 错误率与精度
+</h3><p>  错误率与精度适用范围较广，既适用于二分类任务，也适用于多分类任务。</p>
+<ol>
+<li>错误率：分类错误的样本数占样本总数的比例。
+<ul>
+<li>对于样例集<em>D</em>，分类错误的定义为：$$E\left( f;D \right) =\frac{1}{m}\sum_{i=1}^m{\mathbb{I}\left( f\left( \boldsymbol{x}_i \right) \ne y_i \right)}$$</li>
+<li>对于数据分布$\mathcal{D}$，和概率密度$p\left(\cdot\right)$，错误率定义为$$E\left( f;D \right) =\int_{\boldsymbol{x}\sim \mathcal{D}}{\mathbb{I}\left( f\left( \boldsymbol{x} \right) \ne y \right) p\left( \boldsymbol{x} \right)}\text{d}x$$</li>
+</ul>
+</li>
+<li>精度：分类正确的样本数占样本总数的比例。
+<ul>
+<li>对于样例集<em>D</em>，精度的定义为：
+$$
+   \begin{aligned}
+       \text{acc}\left( f\ ;D \right) &= \frac{1}{m}\sum_{i=1}^m{\mathbb{I}\left( f\left( \boldsymbol{x}_i \right) =y_i \right)} \\
+       &= 1-E\left( f\ ;D \right)
+   \end{aligned}
+   $$</li>
+<li>对于数据分布$\mathcal{D}$，和概率密度$p\left(\cdot\right)$，精度为：
+$$
+   \begin{aligned}
+      \text{acc}\left( f\ ;D \right) &= \frac{1}{m}\sum_{i=1}^m{\mathbb{I}\left( f\left( \boldsymbol{x}_i \right) =y_i \right)} \\
+       &= 1-E\left( f\ ;D \right)
+   \end{aligned}
+   $$</li>
+</ul>
+</li>
+</ol>
+<h3 id="33-查准率查全率与">
+<a class="header-anchor" href="#33-%e6%9f%a5%e5%87%86%e7%8e%87%e6%9f%a5%e5%85%a8%e7%8e%87%e4%b8%8e"></a>
+3.3 查准率、查全率与$F_1$
+</h3><p>  在信息检索中，我们会关心“检索出的信息中有多少比例是用户感兴趣的”“用户感兴趣的检索出来了多少”。</p>
+<p>  对于二分类问题，将样例根据其真实类别与学习器预测类别的组合划分为真正例(<em>true positive</em>)、假正例(<em>false positive</em>)、真反例(<em>true negative</em>)、假反例(<em>false negative</em>)。分类结果如表所示</p>
+<center>
+   <table class="tg" align="center">
+      <thead>
+         <tr>
+            <th class="tg-c3ow" rowspan="2">真实情况</th>
+            <th class="tg-c3ow" colspan="2">预测结果</th>
+         </tr>
+         <tr>
+            <td class="tg-0pky">正例</td>
+            <td class="tg-0pky">反例</td>
+         </tr>
+      </thead>
+      <tbody>
+         <tr>
+            <td class="tg-c3ow">正例</td>
+            <td class="tg-0pky">TP(真正例)</td>
+            <td class="tg-0pky">FN(假反例)</td>
+         </tr>
+         <tr>
+            <td class="tg-c3ow">反例</td>
+            <td class="tg-0pky">FP(假正例)</td>
+            <td class="tg-0pky">TN(真反例)</td>
+         </tr>
+      </tbody>
+   </table>
+</center>
+<p>  查准率<em>P</em>与查全率<em>R</em>分别定义为</p>
+$$P=\cfrac{TP}{TP+FP}$$<p> </p>
+$$R=\cfrac{TP}{TP+FN}$$<p>  一般来说，查准率高，查全率往往偏低；查全率高，查准率往往偏低。通常只在一些简单的任务中，才能使得查全率和查准率都很高。平衡点(<em>Break-Even Point</em>，简称<em>BEP</em>)，是“查准率=查全率”时的取值。</p>
+<p>  $F_1$度量：</p>
+$$F_1=\cfrac{2\times P\times R}{P+R}=\cfrac{2\times TP}{样例总数+TP-TN}$$<p>  $F_1$度量的一般形式为$F_\beta$，能表达出对查准率/查全率的不同偏好，定义为</p>
+$$F_\beta=\cfrac{\left(1+\beta^2\right)\times P\times R}{\left(\beta^2\times P\right)+R}$$<p>，其中$\beta>0$度量了查全率对查准率的相关重要性，$\beta=1$退化为标准的$F_1$；$\beta>1$时查全率有更大的影响；$\beta<1$时查准率有更大的影响。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+      <ul class="article-tag-list" itemprop="keywords">
+  
+    <li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e7%ae%97%e6%b3%95"
+        rel="tag"
+        >算法</a
+      >
+    </li>
+  
+    <li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e6%9c%ba%e5%99%a8%e5%ad%a6%e4%b9%a0"
+        rel="tag"
+        >机器学习</a
+      >
+    </li>
+  
+</ul>
+
+    </footer>
+  </div>
+  
+    
+  <nav
+    id="article-nav"
+    data-aos="fade-up"
+  >
+    
+      <div class="article-nav-link-wrap article-nav-link-left">
+        
+          <img
+            data-src="images/featureimages/1.jpg"
+            data-sizes="auto"
+            alt="监督学习与无监督学习"
+            class="lazyload"
+          />
+        
+        <a href="/post/%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/"></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">
+          
+            监督学习与无监督学习
+          
+        </h3>
+      </div>
+    
+
+    
+      <div class="article-nav-link-wrap article-nav-link-right">
+        
+          <img
+            data-src="images/featureimages/3.jpg"
+            data-sizes="auto"
+            alt="感知机"
+            class="lazyload"
+          />
+        
+        <a href="/post/%E6%84%9F%E7%9F%A5%E6%9C%BA/"></a>
+        <div class="article-nav-caption">后一篇</div>
+        <h3 class="article-nav-title">
+          
+            感知机
+          
+        </h3>
+      </div>
+    
+  </nav>
+
+
+  
+</article>
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+</section>
+        </div>
+        
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+
+
+<footer id="footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info">
+    
+    <div>
+      <span class="icon-copyright"></span>
+      
+        2020 -
+        2025
+      
+      <span class="footer-info-sep "></span>
+      Demerzel
+    </div>
+    
+      <div>
+        基于&nbsp;<a
+          href="https://gohugo.io/"
+          target="_blank"
+          >Hugo</a
+        >&nbsp; Theme.<a
+          href="https://github.com/D-Sketon/hugo-theme-reimu"
+          target="_blank"
+          >Reimu</a
+        >
+      </div>
+    
+    
+      <div>
+        <span class="icon-brush"
+          >&nbsp;
+            155.1k
+          </span
+        >
+        &nbsp;|&nbsp;
+        <span class="icon-coffee">&nbsp;
+          
+          
+
+          05:36
+        </span>
+      </div>
+    
+    
+    
+    
+  </div>
+</footer>
+
+        
+          <div class="sidebar-top">
+            <div class="sidebar-top-taichi "></div>
+            <div class="arrow-up"></div>
+          </div>
+        
+        <div id="mask" class="hide"></div>
+      </div>
+      <nav id="mobile-nav">
+  <div class="sidebar-wrap">
+    
+      
+        <div class="sidebar-toc-sidebar">
+          <div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一经验误差与过拟合">一、经验误差与过拟合</a>
+      <ul>
+        <li><a href="#11-一些概念">1.1 一些概念</a></li>
+        <li><a href="#12-过拟合与欠拟合">1.2 过拟合与欠拟合</a></li>
+      </ul>
+    </li>
+    <li><a href="#二评估方法">二、评估方法</a>
+      <ul>
+        <li><a href="#21-留出法">2.1 留出法</a></li>
+        <li><a href="#22-交叉验证法">2.2 交叉验证法</a></li>
+        <li><a href="#23-自助法">2.3 自助法</a></li>
+      </ul>
+    </li>
+    <li><a href="#三性能度量">三、性能度量</a>
+      <ul>
+        <li><a href="#31-均方误差">3.1 均方误差</a></li>
+        <li><a href="#32-错误率与精度">3.2 错误率与精度</a></li>
+        <li><a href="#33-查准率查全率与">3.3 查准率、查全率与</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+        </div>
+        <div class="sidebar-common-sidebar hidden">
+          
+<div class="sidebar-author">
+  <img
+    data-src="/images/avatar.jpg"
+    data-sizes="auto"
+    alt="Demerzel"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">Demerzel</div>
+  <div class="sidebar-description">浮沉在世 人事变迁</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    
+    <div class="sidebar-state-number">51</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      18
+    </div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">28</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a
+        href="mailto:demerzelsun@gmail.com"
+        itemprop="url"
+        target="_blank"
+        aria-label="email"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a
+        href="https://github.com/demerzelsun12"
+        itemprop="url"
+        target="_blank"
+        aria-label="github"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-linkedin sidebar-social-icon">
+      <a
+        href="https://www.linkedin.com/in/xiao-sun-52a2a21b0/"
+        itemprop="url"
+        target="_blank"
+        aria-label="linkedin"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">首页</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">归档</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">关于</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">友链</div>
+    </div>
+  
+</div>
+
+        </div>
+      
+    
+  </div>
+  
+    
+      <div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div>
+    
+  
+</nav>
+
+    </div>
+    
+    
+    
+    
+
+
+
+
+
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"
+    
+    
+    
+    
+    integrity="sha384-3gT/vsepWkfz/ff7PpWNUeMzeWoH3cDhm/A8jM7ouoAK0/fP/9bcHHR5kHq2nf&#43;e" crossorigin="anonymous"
+  ></script>
+
+
+
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"
+    
+    
+    
+    
+    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"
+  ></script>
+
+
+
+
+
+
+
+
+
+
+
+  
+      
+      <script src="/js/main.js" ></script>
+      
+
+
+
+  
+
+
+
+
+
+  
+      
+      <script src="/js/aos.js" ></script>
+      
+
+  <script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", aosInit);
+    } else {
+      aosInit();
+    }
+  </script>
+
+
+
+
+
+
+
+
+  
+      
+      <script src="/js/pjax_main.js" data-pjax></script>
+      
+
+
+
+
+
+  
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/mouse-firework@0.1.1/dist/index.umd.js"
+    
+    
+    
+    
+    integrity="sha384-8LyaidD9GPxQQgLJO/WRw/O2h3BoNq/ApI/ecpvM6RsrCz2qP2ppBXUKihP4V/2d" crossorigin="anonymous"
+  ></script>
+
+
+<script>
+  if (window.firework) {
+    const options = JSON.parse("{\"excludeelements\":[\"a\",\"button\"],\"particles\":[{\"colors\":[\"var(--red-1)\",\"var(--red-2)\",\"var(--red-3)\",\"var(--red-4)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"emit\"],\"number\":20,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.3,0.5],\"radius\":[16,32]}},{\"colors\":[\"var(--red-0)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"diffuse\"],\"number\":1,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.2,0.5],\"lineWidth\":6,\"radius\":20}}]}");
+    options.excludeElements = options.excludeelements;
+    delete options.excludeelements;
+    window.firework(options);
+  }
+</script>
+
+
+
+
+
+
+
+
+<div id="lazy-script">
+  <div>
+    
+      
+      
+        
+      
+      <script data-pjax>
+        window.REIMU_POST = {
+          author: "Demerzel",
+          title: "模型评估与选择",
+          url: "http:\/\/localhost:13926\/post\/%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E4%B8%8E%E9%80%89%E6%8B%A9\/",
+          description: "关于机器学习中模型评估以及选择的总结",
+          cover: "http:\/\/localhost:13926\/images\/featureimages\/2.jpg",
+        };
+      </script>
+    
+    
+    
+      
+
+
+
+
+
+  
+      
+      <script src="/js/insert_highlight.js" data-pjax></script>
+      
+
+      
+      
+      
+      
+      <script type="module" data-pjax>
+        
+        const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;
+        
+        const pswp = () => {
+          if (_$$('.article-entry a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-entry',
+              children: 'a.article-gallery-item',
+              
+              pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")
+              
+            }).init();
+          }
+          if(_$$('.article-gallery a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-gallery',
+              children: 'a.article-gallery-item',
+              
+              pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")
+              
+            }).init();
+          }
+          window.lightboxStatus = 'done';
+          window.removeEventListener('lightbox:ready', pswp);
+        }
+        if(window.lightboxStatus === 'ready') {
+          pswp()
+        } else {
+          window.addEventListener('lightbox:ready', pswp);
+        }
+      </script>
+      
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+      
+    
+    
+      
+      
+        <script data-pjax>
+          window.MathJax = JSON.parse("[{\"loader\":{\"load\":[\"input/asciimath\",\"[tex]/noerrors\"]},\"options\":{\"ignoreHtmlClass\":\"tex2jax_ignore\",\"processHtmlClass\":\"tex2jax_process\",\"skipHtmlTags\":[\"script\",\"noscript\",\"style\",\"textarea\",\"pre\",\"code\"]},\"tex\":{\"autoload\":{\"color\":[],\"colorv2\":[\"color\"]},\"displayMath\":[[\"$$\",\"$$\"],[\"\\\\\\\\[\",\"\\\\\\\\]\"]],\"inlineMath\":[[\"$\",\"$\"],[\"\\\\\\\\(\",\"\\\\\\\\)\"]],\"packages\":{\"[+]\":[\"noerrors\"]},\"processEnvironments\":true,\"processEscapes\":true,\"tags\":\"ams\",\"useLabelIds\":true}}]")[0];
+        </script>
+        
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/mathjax@3.2.2/es5/tex-mml-chtml.js"
+    defer
+    
+    data-pjax
+    
+    integrity="sha384-Wuix6BuhrWbjDBs24bXrjf4ZQ5aFeFWBuKkFekO2t8xFU0iNaLQfp2K6/1Nxveei" crossorigin="anonymous"
+  ></script>
+
+
+      
+    
+  </div>
+</div>
+
+
+
+
+
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+  </script>
+
+
+<script>
+  const reimuCopyright = String.raw`
+   ______     ______     __     __    __     __  __    
+  /\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+  \ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+   \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+    \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                    
+  `;
+  console.log(String.raw`%c ${reimuCopyright}`, "color: #ff5252;");
+  console.log(
+    "%c Theme.Reimu" + " %c https://github.com/D-Sketon/hugo-theme-reimu ",
+    "color: white; background: #ff5252; padding:5px 0;",
+    "padding:4px;border:1px solid #ff5252;",
+  );
+</script>
+
+
+
+
+
+
+    
+  </body>
+</html>

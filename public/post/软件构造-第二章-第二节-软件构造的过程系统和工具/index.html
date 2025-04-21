@@ -1,0 +1,1725 @@
+<!doctype html>
+<html
+  lang="zh-cn" 
+  
+    data-theme-mode="auto"
+  
+>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=13926&amp;path=livereload" data-no-instant defer></script>
+    
+    <meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+
+
+
+
+
+  
+
+<title>
+  软件构造-第二章-第二节-软件构造的过程、系统和工具 | Demerzel
+</title>
+<meta
+  name="description"
+  content="浮沉在世 人事变迁"
+/>
+
+
+
+
+
+
+
+
+
+
+<script>
+  window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"clipboard\":{\"copyright\":{\"content\":\"本文版权：本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！\",\"count\":50,\"enable\":false},\"fail\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"success\":\"复制成功(*^▽^*)\"},\"code_block\":{\"expand\":true},\"icon_font\":\"4552607_0khxww3tj3q9\",\"outdate\":{\"daysago\":180,\"enable\":false,\"message\":\"本文最后更新于 {time}，请注意文中内容可能已经发生变化。\"}}");
+</script>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+    
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+  media="print"
+  onload="this.media='all'"
+/>
+
+
+
+
+
+
+
+  <link
+    rel="preload"
+    href="//at.alicdn.com/t/c/font_4552607_0khxww3tj3q9.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  />
+
+
+
+  
+
+
+
+
+
+
+ <link rel="stylesheet" href="/css/loader.css" />
+
+
+
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="软件构造-第二章-第二节-软件构造的过程、系统和工具 | Demerzel" />
+  <meta
+    property="og:description"
+    content="浮沉在世 人事变迁"
+  />
+  <meta property="og:url" content="http://localhost:13926/post/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0-%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E7%AC%AC%E4%BA%8C%E8%8A%82-%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0%E7%9A%84%E8%BF%87%E7%A8%8B%E7%B3%BB%E7%BB%9F%E5%92%8C%E5%B7%A5%E5%85%B7/" />
+  <meta
+    property="og:site_name"
+    content="Demerzel&#39;s Blog"
+  />
+  <meta
+    property="og:image"
+    content="/images/featureimages/2.jpg"
+  />
+  <meta property="article:author" content="Demerzel" />
+  <meta property="article:published_time" content="2020-03-21T21:40:57&#43;00:00" />
+  <meta property="article:modified_time" content="2020-03-21T21:40:57&#43;00:00" />
+  
+    <meta property="article:tag" content="软件构造Java" />
+  
+  
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:image" content="/images/featureimages/2.jpg" />
+  
+  
+  
+  
+  
+
+
+
+
+<link rel="shortcut icon" href="/favicon.ico">
+
+
+
+
+
+
+
+ <link rel="stylesheet" href="/css/main.css" />
+
+
+
+
+
+  <link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css"
+    onload="this.onload=null;this.rel='stylesheet'"
+  />
+
+
+
+
+
+
+  <link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css"
+    onload="this.onload=null;this.rel='stylesheet'"
+  />
+
+
+
+
+
+
+
+
+  
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"
+    
+    
+    
+    
+    integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"
+  ></script>
+
+
+
+
+
+  
+
+
+  <link rel="stylesheet" href="https://npm.webcache.cn/@reimujs/aos@0.1.0/dist/aos.css" />
+
+
+
+
+
+    
+  </head>
+  <body>
+    
+    
+  <div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi rotate">
+        
+          <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+            <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="var(--red-1, #ff5252)" />
+            <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+          M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="var(--red-1, #ff5252)" />
+          </svg>
+        
+      </div>
+      <div class="loading-word">少女祈祷中...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    var startLoading = () => {
+      time = Date.now();
+      document.getElementById('loader').classList.remove("loading");
+    }
+    var endLoading = () => {
+      if (!time) {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loader').classList.add("loading");
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          document.body.style.overflow = 'auto';
+          document.getElementById('loader').classList.add("loading");
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    document.getElementById('loader').addEventListener('click', endLoading);
+  </script>
+
+
+<div id="copy-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+</div>
+
+
+    <div id="container">
+      <div id="wrap">
+        
+<div id="header-nav">
+  <nav id="main-nav">
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/">首页</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/archives">归档</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/about">关于</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/friend">友链</a>
+      </span>
+    
+    <a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav">
+    
+    
+  </nav>
+</div>
+<header id="header">
+  
+    <picture></picture>
+    <img  fetchpriority="high" src="/images/featureimages/2.jpg" alt="软件构造-第二章-第二节-软件构造的过程、系统和工具">
+  
+
+  <div id="header-outer">
+    <div id="header-title">
+      
+        
+        
+          
+        
+  
+        
+          <a href="/" id="logo">
+            <h1 data-aos="slide-up">软件构造-第二章-第二节-软件构造的过程、系统和工具</h1>
+          </a>
+        
+      
+  
+      
+        
+        
+        <h2 id="subtitle-wrap" data-aos="slide-down">
+          
+        </h2>
+      
+    </div>
+  </div>
+</header>
+        <div id="content"
+          
+          class="sidebar-right"  >
+          <aside id="sidebar">
+  
+  
+  
+  <div class="sidebar-wrapper wrap-sticky">
+    <div
+      class="sidebar-wrap"
+      data-aos="fade-up"
+    >
+      
+        
+          <div class="sidebar-toc-sidebar">
+            <div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#11-编程programming">1.1 编程(Programming)</a></li>
+    <li><a href="#12-静态代码分析review-and-static-code-analysis">1.2 静态代码分析(Review and static code analysis)</a></li>
+    <li><a href="#13-动态代码分析dynamic-code-analysis--profiling">1.3 动态代码分析(Dynamic code analysis / profiling)</a></li>
+    <li><a href="#14-调试与测试debugging-and-testing">1.4 调试与测试(Debugging and Testing)</a></li>
+    <li><a href="#15-重构refactoring">1.5 重构(Refactoring)</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#21-build粗略理解">2.1 build粗略理解</a></li>
+    <li><a href="#22-build场景综述">2.2 build场景综述</a></li>
+    <li><a href="#23-传统编译语言ccjava等">2.3 传统编译语言：C、C++、Java等</a></li>
+    <li><a href="#24-解释型语言perlpython等">2.4 解释型语言：Perl、Python等</a></li>
+    <li><a href="#25-基于web应用程序的构建系统编译代码解释代码和配置或数据文件的混合">2.5 基于Web应用程序的构建系统：编译代码，解释代码和配置或数据文件的混合</a></li>
+    <li><a href="#26-build-process">2.6 Build process</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+          </div>
+          <div class="sidebar-common-sidebar hidden">
+            
+<div class="sidebar-author">
+  <img
+    data-src="/images/avatar.jpg"
+    data-sizes="auto"
+    alt="Demerzel"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">Demerzel</div>
+  <div class="sidebar-description">浮沉在世 人事变迁</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    
+    <div class="sidebar-state-number">51</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      18
+    </div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">28</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a
+        href="mailto:demerzelsun@gmail.com"
+        itemprop="url"
+        target="_blank"
+        aria-label="email"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a
+        href="https://github.com/demerzelsun12"
+        itemprop="url"
+        target="_blank"
+        aria-label="github"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-linkedin sidebar-social-icon">
+      <a
+        href="https://www.linkedin.com/in/xiao-sun-52a2a21b0/"
+        itemprop="url"
+        target="_blank"
+        aria-label="linkedin"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">首页</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">归档</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">关于</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">友链</div>
+    </div>
+  
+</div>
+
+          </div>
+        
+      
+
+      
+        
+          <div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div>
+        
+      
+    </div>
+  </div>
+
+  <div class="sidebar-widget">
+    
+  </div>
+  
+</aside>
+
+          <section id="main">
+  <article
+  class="h-entry article"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div
+    class="article-inner"
+    data-aos="fade-up"
+  >
+    <div class="article-meta">
+      <div class="article-date">
+  <span
+    class="article-date-link"
+    data-aos="zoom-in"
+  >
+    <time datetime="2020-03-21 21:40:57 &#43;0000 UTC" itemprop="datePublished"
+      >2020-03-21</time
+    >
+    <time style="display: none;" id="post-update-time"
+      >2020-03-21</time
+    >
+  </span>
+</div>
+
+      <div class="article-category">
+  
+    <a
+      class="article-category-link"
+      href="/categories/%e8%bd%af%e4%bb%b6%e6%9e%84%e9%80%a0"
+      data-aos="zoom-in"
+      >软件构造</a
+    >
+  
+</div>
+
+    </div>
+    <div class="hr-line"></div>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+      
+        <h1 id="软件构造第二章-第二节-软件构造的过程系统和工具">
+<a class="header-anchor" href="#%e8%bd%af%e4%bb%b6%e6%9e%84%e9%80%a0%e7%ac%ac%e4%ba%8c%e7%ab%a0-%e7%ac%ac%e4%ba%8c%e8%8a%82-%e8%bd%af%e4%bb%b6%e6%9e%84%e9%80%a0%e7%9a%84%e8%bf%87%e7%a8%8b%e7%b3%bb%e7%bb%9f%e5%92%8c%e5%b7%a5%e5%85%b7"></a>
+软件构造第二章 第二节 软件构造的过程、系统和工具
+</h1><!-- toc -->
+<h1 id="一广义的软件构造过程">
+<a class="header-anchor" href="#%e4%b8%80%e5%b9%bf%e4%b9%89%e7%9a%84%e8%bd%af%e4%bb%b6%e6%9e%84%e9%80%a0%e8%bf%87%e7%a8%8b"></a>
+一、广义的软件构造过程
+</h1><h2 id="11-编程programming">
+<a class="header-anchor" href="#11-%e7%bc%96%e7%a8%8bprogramming"></a>
+1.1 编程(Programming)
+</h2><center>
+<img src="https://img-blog.csdnimg.cn/20200328225435730.png" width="80%" height="35%">
+</center>
+<center>
+图1-1 常见软件构造过程
+</center>
+<br>
+<ol>
+<li>
+<p>Construction languages</p>
+<ul>
+<li>用途上划分语言
+<ul>
+<li>Programming languages (e.g., C, C++, Java, Python) 编程语言</li>
+<li>Modeling languages (e.g., UML) 建模语言</li>
+<li>Configuration languages (e.g., XML) 配置语言</li>
+<li>Build languages (e.g., XML) 构建语言</li>
+</ul>
+</li>
+<li>从形态上划分
+<ul>
+<li>Linguistic-based 基于语言学的构造语言</li>
+<li>Mathematics-based (formal) 基于数学的形式化构造语言</li>
+<li>Graphics-based (visual) 基于图形的可视化构造语言
+<br></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Programming tools</p>
+<ul>
+<li>集成开发环境IDE</li>
+<li>IDE包括：
+<ul>
+<li>Source code editor with intelligent code completion, code refactoring tool 源代码编辑器、智能代码补全工具、代码重构工具</li>
+<li>File management tool 文件管理</li>
+<li>Library management tool 库管理</li>
+<li>Class browser, object browser, class hierarchy diagram 软件逻辑实体可视化</li>
+<li>Graphical User Interface (GUI) builder 图形化用户界面构造器</li>
+<li>Compiler, interpreter 编译器、解释器</li>
+<li>Build automation tools 自动化build工具</li>
+<li>Version control system 版本控制系统</li>
+<li>Extensible by more external third-party tools 外部的第三方工具
+<br></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Modeling languages 建模语言</p>
+<ul>
+<li>建模语言：
+ 建模语言是可以用来在由一致的规则集定义的结构中表达信息或知识或系统的任何人工语言，目的是可视化，推理，验证和传达系统的设计。</li>
+<li>UML语言:</li>
+</ul>
+</li>
+</ol>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200328230951933.png" width="90%" height="35%">
+</center>
+<center>
+图1-2 UML图
+</center>
+<br>  
+<center>
+<img src="https://img-blog.csdnimg.cn/20200328231015347.png" width="80%" height="35%">
+</center>
+<center>
+图1-3 UML图示例
+</center>
+<br> 
+<ol start="4">
+<li>Configuration languages 配置语言
+<ul>
+<li>配置文件配置程序的参数和初始设置。</li>
+<li>应用程序应提供工具来创建，修改和验证其配置文件的语法；</li>
+<li>某些计算机程序仅在启动时读取其配置文件。其他人则定期检查配置文件中的更改。</li>
+<li>常见配置语言：XML, YAML, JSON</li>
+</ul>
+</li>
+</ol>
+<h2 id="12-静态代码分析review-and-static-code-analysis">
+<a class="header-anchor" href="#12-%e9%9d%99%e6%80%81%e4%bb%a3%e7%a0%81%e5%88%86%e6%9e%90review-and-static-code-analysis"></a>
+1.2 静态代码分析(Review and static code analysis)
+</h2><ol>
+<li>
+<p>代码评审</p>
+<ul>
+<li>代码审查是对源代码的系统检查（同级审查）。</li>
+<li>旨在发现在初始开发阶段被忽略的错误，从而提高整体质量。</li>
+<li>审核以各种形式进行，例如配对编程，非正式演练和正式检查。
+<br></li>
+</ul>
+</li>
+<li>
+<p>代码评审会议</p>
+<ul>
+<li>正式的代码审查（例如Fagan检查）涉及一个仔细且详细的过程，涉及多个参与者和多个阶段。</li>
+<li>正式代码审查是传统的审查方法，其中软件开发人员通常使用材料的印刷副本参加一系列会议并逐行审查代码。</li>
+<li>正式检查非常彻底，并且可以有效地发现所审查代码中的缺陷。
+<br></li>
+</ul>
+</li>
+<li>
+<p>轻量级的代码评审</p>
+<ul>
+<li>轻量级代码检查通常比正式代码检查需要更少的开销，尽管在正确完成后它同样有效。</li>
+<li>轻量级审核通常是正常开发过程的一部分：
+<ul>
+<li>过度负责 - 当开发人员浏览代码时，另一位开发人员同时进行审查。</li>
+<li>电子邮件传递 - 源代码管理系统在签入后自动将代码通过电子邮件发送给审阅者。</li>
+<li>配对编程 - 两位作者在同一工作站上一起开发代码，这在Extreme Programming中很常见。</li>
+<li>工具辅助的代码审阅 - 作者和审阅者使用软件工具，非正式工具（例如pastebins和IRC）或专门用于对等代码审阅的专用工具。
+<br></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>利用工具进行的静态代码分析</p>
+<ul>
+<li>静态代码分析是对没有实际执行程序的情况下执行的计算机软件的分析（对执行程序执行的分析称为动态分析）。</li>
+<li>该过程可以对代码结构有所了解，并可以帮助确保代码符合行业标准。</li>
+<li>自动化工具可以帮助程序员和开发人员进行静态分析。
+<br></li>
+</ul>
+</li>
+<li>
+<p>代码审查目的</p>
+<ul>
+<li>改进代码。 查找错误，预见可能的错误，检查代码的清晰度以及检查与项目样式标准的一致性。</li>
+<li>提升程序员水平。 代码审查是程序员彼此学习和教导的重要方式，涉及新的语言功能，项目设计或其编码标准的更改以及新技术。 特别是在开源项目中，在代码审查中可以学习很多新知识。</li>
+<li>注：<font color=red size=5>测试也是提高代码质量手段，但分析和设计为提升代码质量的最重要方式。</font>
+<br></li>
+</ul>
+</li>
+</ol>
+<h2 id="13-动态代码分析dynamic-code-analysis--profiling">
+<a class="header-anchor" href="#13-%e5%8a%a8%e6%80%81%e4%bb%a3%e7%a0%81%e5%88%86%e6%9e%90dynamic-code-analysis--profiling"></a>
+1.3 动态代码分析(Dynamic code analysis / profiling)
+</h2><ol>
+<li>动态代码分析
+<ul>
+<li>动态程序分析是对通过执行程序执行的软件的分析。</li>
+<li>必须使用足够的测试输入来执行目标程序，以使软件产生正确的行为。即对代码的运行时状态和性能进行度量，发现代码中的潜在问题。</li>
+<li>使用软件测试措施（例如代码覆盖率）有助于确保已观察到程序的可能行为集中的适当部分。</li>
+<li>概要分析（“程序概要”，“软件概要”）是一种动态程序分析形式，用于测量程序的空间（内存）或时间复杂性，特定指令的使用情况或函数调用的频率和持续时间。
+<br></li>
+</ul>
+</li>
+</ol>
+<h2 id="14-调试与测试debugging-and-testing">
+<a class="header-anchor" href="#14-%e8%b0%83%e8%af%95%e4%b8%8e%e6%b5%8b%e8%af%95debugging-and-testing"></a>
+1.4 调试与测试(Debugging and Testing)
+</h2><ol>
+<li>
+<p>什么是测试？</p>
+<ul>
+<li>软件测试是为了向利益相关者提供有关被测产品或服务质量的信息而进行的调查。</li>
+<li>测试技术包括执行程序或应用程序的过程，目的是发现软件错误（错误或其他缺陷），并验证软件产品是否适合使用。</li>
+<li>软件测试包括执行软件组件或系统组件以评估一个或多个相关属性。
+<br></li>
+</ul>
+</li>
+<li>
+<p>什么是调试？</p>
+<ul>
+<li>调试是识别错误的根本原因并进行纠正的过程。</li>
+<li>与测试相反（测试是最初检测错误的过程），调试是成功测试的结果。
+<ul>
+<li>在某些项目中，调试占用了总开发时间的50％。</li>
+<li>对于许多程序员而言，调试是编程中最困难的部分。</li>
+</ul>
+</li>
+<li>像测试一样，调试不是提高软件质量的方法，而是诊断缺陷的方法。
+<ul>
+<li>必须从一开始就内置软件质量。 制作高质量产品的最佳方法是仔细开发需求，进行良好的设计并使用高质量的编码实践。</li>
+<li>调试是不得已的方法。
+<br></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="15-重构refactoring">
+<a class="header-anchor" href="#15-%e9%87%8d%e6%9e%84refactoring"></a>
+1.5 重构(Refactoring)
+</h2><ol>
+<li>
+<p>重构：</p>
+<ul>
+<li>重构是指以不改变代码的外部行为但改善其内部结构的方式更改软件系统的过程。
+<br></li>
+</ul>
+</li>
+<li>
+<p>重构的目的：</p>
+<ul>
+<li>产生短期时间/工作成本以获取长期利益，并为系统的整体质量进行长期投资。
+<br></li>
+</ul>
+</li>
+<li>
+<p>重构的方法：</p>
+<ul>
+<li>通过一系列小的保留语义的转换来重构（重新排列）代码，以使代码更易于维护和修改。</li>
+<li>重构不仅仅是对旧的结构重组，需要保持代码正常运行，保留语义的小步骤，进行单元测试以证明代码有效。
+<br></li>
+</ul>
+</li>
+</ol>
+<h1 id="二狭义的软件构造build">
+<a class="header-anchor" href="#%e4%ba%8c%e7%8b%ad%e4%b9%89%e7%9a%84%e8%bd%af%e4%bb%b6%e6%9e%84%e9%80%a0build"></a>
+二、狭义的软件构造：build
+</h1><h2 id="21-build粗略理解">
+<a class="header-anchor" href="#21-build%e7%b2%97%e7%95%a5%e7%90%86%e8%a7%a3"></a>
+2.1 build粗略理解
+</h2><p>  粗略理解build：build-time $\rightarrow$ run-time. 借助于工具，将软件构造各阶段的活动“自动化”(编译、打包、静态分析、测试、生成文档、部署、…)，尽可能脱离“手工作业”，提高构造效率。</p>
+<h2 id="22-build场景综述">
+<a class="header-anchor" href="#22-build%e5%9c%ba%e6%99%af%e7%bb%bc%e8%bf%b0"></a>
+2.2 build场景综述
+</h2><ol>
+<li>用传统编译语言(如C、C++、Java)编写软件（compilation）</li>
+<li>用解释型语言(如Perl、Python)编写软件的打包和测试(packaging and testing)</li>
+<li>用基于Web的应用程序进行编译和打包
+<ul>
+<li>使用静态HTML页面</li>
+<li>使用Java或C# 编写的源代码</li>
+<li>使用JSP，ASP或PHP语法编写的混合文件以及多种类型的配置文件</li>
+</ul>
+</li>
+<li>执行单元测试代码的其余部分对软件进行隔离验证</li>
+<li>执行静态分析工具来是被程序源代码中的错误</li>
+<li>生成PDF或HTML文档</li>
+</ol>
+<h2 id="23-传统编译语言ccjava等">
+<a class="header-anchor" href="#23-%e4%bc%a0%e7%bb%9f%e7%bc%96%e8%af%91%e8%af%ad%e8%a8%80ccjava%e7%ad%89"></a>
+2.3 传统编译语言：C、C++、Java等
+</h2><ol>
+<li>源文件被编译成目标文件，连接到代码库或可执行程序中
+生成的文件被收集到可安装在目标机器上的发行包中</li>
+<li>版本控制工具</li>
+<li>源树和对象树：特定开发人员使用的源文件和编译对象文件集。</li>
+<li>构建机器：执行编译工具的计算设备</li>
+<li>发布打包和目标机器：打包软件，分发给最终用户，然后安装到目标机器上的方法</li>
+</ol>
+<h2 id="24-解释型语言perlpython等">
+<a class="header-anchor" href="#24-%e8%a7%a3%e9%87%8a%e5%9e%8b%e8%af%ad%e8%a8%80perlpython%e7%ad%89"></a>
+2.4 解释型语言：Perl、Python等
+</h2><ol>
+<li>解释的源代码不会编译到目标代码中，不需要对象树，解释源文件本身被收集到一个发行包中被安排在目标机器上</li>
+<li>编译工具专注于转换源文件并将它们存储在发行包中</li>
+<li>不在程序构建时编译成机器码</li>
+</ol>
+<h2 id="25-基于web应用程序的构建系统编译代码解释代码和配置或数据文件的混合">
+<a class="header-anchor" href="#25-%e5%9f%ba%e4%ba%8eweb%e5%ba%94%e7%94%a8%e7%a8%8b%e5%ba%8f%e7%9a%84%e6%9e%84%e5%bb%ba%e7%b3%bb%e7%bb%9f%e7%bc%96%e8%af%91%e4%bb%a3%e7%a0%81%e8%a7%a3%e9%87%8a%e4%bb%a3%e7%a0%81%e5%92%8c%e9%85%8d%e7%bd%ae%e6%88%96%e6%95%b0%e6%8d%ae%e6%96%87%e4%bb%b6%e7%9a%84%e6%b7%b7%e5%90%88"></a>
+2.5 基于Web应用程序的构建系统：编译代码，解释代码和配置或数据文件的混合
+</h2><ol>
+<li>静态HTML文件，只包含标记数据显示在Web浏览器中，直接复制到发行包</li>
+<li>包含代码的JavaScript文件将由最终用户浏览器解释，直接复制到发行包</li>
+<li>JSP，ASP或PHP页面，包含HTML和程序代码的混合，由Web应用程序服务器而不是构建系统编译和执行，复制到发布包，准备安装到Web服务器上</li>
+<li>构建系统在编译打包Java类文件之前执行转换。Java类在Web应用程序服务器上或浏览器内执行（使用小程序）</li>
+</ol>
+<h2 id="26-build-process">
+<a class="header-anchor" href="#26-build-process"></a>
+2.6 Build process
+</h2><ol>
+<li>build process
+ 构建工具调用每个编译工具来完成工作，这是事件的端到端序列。</li>
+</ol>
+<center>
+<img src="https://img-blog.csdnimg.cn/2020032911281383.png" width="90%" height="35%">
+</center>
+<center>
+图2-1 build process
+</center>
+<br>  
+<ol start="2">
+<li>如何构建系统
+<ul>
+<li>开发人员构建：开发人员已检出VCS的源代码并正在专用工作区中构建软件，结果发布包将用于开发人员的私人开发。</li>
+<li>发布版本：为测试组提供一个完整的软件包供验证，软件的质量足够高时为客户提供相同的软件包。用于发布版本的源代码树只编译一次，永不修改。</li>
+<li>Sanity构建：与发布版本类似，但并非针对客户，可以每天发生多次，并且趋向于完全自动化。</li>
+</ul>
+</li>
+</ol>
+<h1 id="三常见build工具">
+<a class="header-anchor" href="#%e4%b8%89%e5%b8%b8%e8%a7%81build%e5%b7%a5%e5%85%b7"></a>
+三、常见build工具
+</h1><ol>
+<li>Java构造工具：Make、Ant、Maven、Gradle、Eclipse
+.2 Maven将项目的生命周期大致分为9个，分别为：clean、validate、compile、test、package、verify、install、site、deploy
+<ul>
+<li>使用maven自动构建的方法：如mvn compile
+<ul>
+<li>validate - 验证项目是否正确，并提供所有必要的信息</li>
+<li>compile - 编译项目的源代码</li>
+<li>test - 使用单元测试框架测试已编译的源代码。这些测试不应该要求打包或部署代码</li>
+<li>package - 获取已编译的代码并将其打包为可分发的格式，例如JAR</li>
+<li>verify - 对集成测试结果进行任何检查，以确保符合质量标准</li>
+<li>install - 将软件包安装到本地存储库中，作为本地其他项目的依赖项</li>
+<li>deploy - 在构建环境中完成，将最终包复制到远程存储库，以便与其他开发人员和项目共享</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+      
+    </div>
+    <footer class="article-footer">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+      <ul class="article-tag-list" itemprop="keywords">
+  
+    <li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e8%bd%af%e4%bb%b6%e6%9e%84%e9%80%a0"
+        rel="tag"
+        >软件构造</a
+      >
+    </li>
+  
+    <li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/java"
+        rel="tag"
+        >JAVA</a
+      >
+    </li>
+  
+</ul>
+
+    </footer>
+  </div>
+  
+    
+  <nav
+    id="article-nav"
+    data-aos="fade-up"
+  >
+    
+      <div class="article-nav-link-wrap article-nav-link-left">
+        
+          <img
+            data-src="images/featureimages/18.jpg"
+            data-sizes="auto"
+            alt="Java基础—String 和 StringBuffer、StringBuilder 的区别"
+            class="lazyload"
+          />
+        
+        <a href="/post/java%E5%9F%BA%E7%A1%80%E7%AF%87string-%E5%92%8C-stringbufferstringbuilder-%E7%9A%84%E5%8C%BA%E5%88%AB/"></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">
+          
+            Java基础—String 和 StringBuffer、StringBuilder 的区别
+          
+        </h3>
+      </div>
+    
+
+    
+      <div class="article-nav-link-wrap article-nav-link-right">
+        
+          <img
+            data-src="images/featureimages/3.jpg"
+            data-sizes="auto"
+            alt="软件构造-第三章-第一节-数据类型与类型检查"
+            class="lazyload"
+          />
+        
+        <a href="/post/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0-%E7%AC%AC%E4%B8%89%E7%AB%A0-%E7%AC%AC%E4%B8%80%E8%8A%82-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B8%8E%E7%B1%BB%E5%9E%8B%E6%A3%80%E6%9F%A5/"></a>
+        <div class="article-nav-caption">后一篇</div>
+        <h3 class="article-nav-title">
+          
+            软件构造-第三章-第一节-数据类型与类型检查
+          
+        </h3>
+      </div>
+    
+  </nav>
+
+
+  
+</article>
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+</section>
+        </div>
+        
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+
+
+<footer id="footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info">
+    
+    <div>
+      <span class="icon-copyright"></span>
+      
+        2020 -
+        2025
+      
+      <span class="footer-info-sep "></span>
+      Demerzel
+    </div>
+    
+      <div>
+        基于&nbsp;<a
+          href="https://gohugo.io/"
+          target="_blank"
+          >Hugo</a
+        >&nbsp; Theme.<a
+          href="https://github.com/D-Sketon/hugo-theme-reimu"
+          target="_blank"
+          >Reimu</a
+        >
+      </div>
+    
+    
+      <div>
+        <span class="icon-brush"
+          >&nbsp;
+            155.1k
+          </span
+        >
+        &nbsp;|&nbsp;
+        <span class="icon-coffee">&nbsp;
+          
+          
+
+          05:36
+        </span>
+      </div>
+    
+    
+    
+    
+  </div>
+</footer>
+
+        
+          <div class="sidebar-top">
+            <div class="sidebar-top-taichi "></div>
+            <div class="arrow-up"></div>
+          </div>
+        
+        <div id="mask" class="hide"></div>
+      </div>
+      <nav id="mobile-nav">
+  <div class="sidebar-wrap">
+    
+      
+        <div class="sidebar-toc-sidebar">
+          <div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#11-编程programming">1.1 编程(Programming)</a></li>
+    <li><a href="#12-静态代码分析review-and-static-code-analysis">1.2 静态代码分析(Review and static code analysis)</a></li>
+    <li><a href="#13-动态代码分析dynamic-code-analysis--profiling">1.3 动态代码分析(Dynamic code analysis / profiling)</a></li>
+    <li><a href="#14-调试与测试debugging-and-testing">1.4 调试与测试(Debugging and Testing)</a></li>
+    <li><a href="#15-重构refactoring">1.5 重构(Refactoring)</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#21-build粗略理解">2.1 build粗略理解</a></li>
+    <li><a href="#22-build场景综述">2.2 build场景综述</a></li>
+    <li><a href="#23-传统编译语言ccjava等">2.3 传统编译语言：C、C++、Java等</a></li>
+    <li><a href="#24-解释型语言perlpython等">2.4 解释型语言：Perl、Python等</a></li>
+    <li><a href="#25-基于web应用程序的构建系统编译代码解释代码和配置或数据文件的混合">2.5 基于Web应用程序的构建系统：编译代码，解释代码和配置或数据文件的混合</a></li>
+    <li><a href="#26-build-process">2.6 Build process</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+        </div>
+        <div class="sidebar-common-sidebar hidden">
+          
+<div class="sidebar-author">
+  <img
+    data-src="/images/avatar.jpg"
+    data-sizes="auto"
+    alt="Demerzel"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">Demerzel</div>
+  <div class="sidebar-description">浮沉在世 人事变迁</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    
+    <div class="sidebar-state-number">51</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      18
+    </div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">28</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a
+        href="mailto:demerzelsun@gmail.com"
+        itemprop="url"
+        target="_blank"
+        aria-label="email"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a
+        href="https://github.com/demerzelsun12"
+        itemprop="url"
+        target="_blank"
+        aria-label="github"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-linkedin sidebar-social-icon">
+      <a
+        href="https://www.linkedin.com/in/xiao-sun-52a2a21b0/"
+        itemprop="url"
+        target="_blank"
+        aria-label="linkedin"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">首页</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">归档</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">关于</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">友链</div>
+    </div>
+  
+</div>
+
+        </div>
+      
+    
+  </div>
+  
+    
+      <div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div>
+    
+  
+</nav>
+
+    </div>
+    
+    
+    
+    
+
+
+
+
+
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"
+    
+    
+    
+    
+    integrity="sha384-3gT/vsepWkfz/ff7PpWNUeMzeWoH3cDhm/A8jM7ouoAK0/fP/9bcHHR5kHq2nf&#43;e" crossorigin="anonymous"
+  ></script>
+
+
+
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"
+    
+    
+    
+    
+    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"
+  ></script>
+
+
+
+
+
+
+
+
+
+
+
+  
+      
+      <script src="/js/main.js" ></script>
+      
+
+
+
+  
+
+
+
+
+
+  
+      
+      <script src="/js/aos.js" ></script>
+      
+
+  <script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", aosInit);
+    } else {
+      aosInit();
+    }
+  </script>
+
+
+
+
+
+
+
+
+  
+      
+      <script src="/js/pjax_main.js" data-pjax></script>
+      
+
+
+
+
+
+  
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/mouse-firework@0.1.1/dist/index.umd.js"
+    
+    
+    
+    
+    integrity="sha384-8LyaidD9GPxQQgLJO/WRw/O2h3BoNq/ApI/ecpvM6RsrCz2qP2ppBXUKihP4V/2d" crossorigin="anonymous"
+  ></script>
+
+
+<script>
+  if (window.firework) {
+    const options = JSON.parse("{\"excludeelements\":[\"a\",\"button\"],\"particles\":[{\"colors\":[\"var(--red-1)\",\"var(--red-2)\",\"var(--red-3)\",\"var(--red-4)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"emit\"],\"number\":20,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.3,0.5],\"radius\":[16,32]}},{\"colors\":[\"var(--red-0)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"diffuse\"],\"number\":1,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.2,0.5],\"lineWidth\":6,\"radius\":20}}]}");
+    options.excludeElements = options.excludeelements;
+    delete options.excludeelements;
+    window.firework(options);
+  }
+</script>
+
+
+
+
+
+
+
+
+<div id="lazy-script">
+  <div>
+    
+      
+      
+        
+      
+      <script data-pjax>
+        window.REIMU_POST = {
+          author: "Demerzel",
+          title: "软件构造-第二章-第二节-软件构造的过程、系统和工具",
+          url: "http:\/\/localhost:13926\/post\/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0-%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E7%AC%AC%E4%BA%8C%E8%8A%82-%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0%E7%9A%84%E8%BF%87%E7%A8%8B%E7%B3%BB%E7%BB%9F%E5%92%8C%E5%B7%A5%E5%85%B7\/",
+          description: "\r软件构造第二章 第二节 软件构造的过程、系统和工具\r",
+          cover: "http:\/\/localhost:13926\/images\/featureimages\/2.jpg",
+        };
+      </script>
+    
+    
+    
+      
+
+
+
+
+
+  
+      
+      <script src="/js/insert_highlight.js" data-pjax></script>
+      
+
+      
+      
+      
+      
+      <script type="module" data-pjax>
+        
+        const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;
+        
+        const pswp = () => {
+          if (_$$('.article-entry a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-entry',
+              children: 'a.article-gallery-item',
+              
+              pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")
+              
+            }).init();
+          }
+          if(_$$('.article-gallery a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-gallery',
+              children: 'a.article-gallery-item',
+              
+              pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")
+              
+            }).init();
+          }
+          window.lightboxStatus = 'done';
+          window.removeEventListener('lightbox:ready', pswp);
+        }
+        if(window.lightboxStatus === 'ready') {
+          pswp()
+        } else {
+          window.addEventListener('lightbox:ready', pswp);
+        }
+      </script>
+      
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+      
+    
+    
+      
+      
+        <script data-pjax>
+          window.MathJax = JSON.parse("[{\"loader\":{\"load\":[\"input/asciimath\",\"[tex]/noerrors\"]},\"options\":{\"ignoreHtmlClass\":\"tex2jax_ignore\",\"processHtmlClass\":\"tex2jax_process\",\"skipHtmlTags\":[\"script\",\"noscript\",\"style\",\"textarea\",\"pre\",\"code\"]},\"tex\":{\"autoload\":{\"color\":[],\"colorv2\":[\"color\"]},\"displayMath\":[[\"$$\",\"$$\"],[\"\\\\\\\\[\",\"\\\\\\\\]\"]],\"inlineMath\":[[\"$\",\"$\"],[\"\\\\\\\\(\",\"\\\\\\\\)\"]],\"packages\":{\"[+]\":[\"noerrors\"]},\"processEnvironments\":true,\"processEscapes\":true,\"tags\":\"ams\",\"useLabelIds\":true}}]")[0];
+        </script>
+        
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/mathjax@3.2.2/es5/tex-mml-chtml.js"
+    defer
+    
+    data-pjax
+    
+    integrity="sha384-Wuix6BuhrWbjDBs24bXrjf4ZQ5aFeFWBuKkFekO2t8xFU0iNaLQfp2K6/1Nxveei" crossorigin="anonymous"
+  ></script>
+
+
+      
+    
+  </div>
+</div>
+
+
+
+
+
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+  </script>
+
+
+<script>
+  const reimuCopyright = String.raw`
+   ______     ______     __     __    __     __  __    
+  /\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+  \ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+   \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+    \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                    
+  `;
+  console.log(String.raw`%c ${reimuCopyright}`, "color: #ff5252;");
+  console.log(
+    "%c Theme.Reimu" + " %c https://github.com/D-Sketon/hugo-theme-reimu ",
+    "color: white; background: #ff5252; padding:5px 0;",
+    "padding:4px;border:1px solid #ff5252;",
+  );
+</script>
+
+
+
+
+
+
+    
+  </body>
+</html>

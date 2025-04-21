@@ -3,9 +3,9 @@
   --footer-icon: url(../images/taichi.png);
   --top-icon: url(../images/top.jpg);
   --sponsor-icon: url(../images/taichi.png);
-  --cursor-default: url(../images/cursor/keqing-cursor-default.apng), auto;
-  --cursor-pointer: url(../images/cursor/keqing-cursor-pointer.apng), pointer;
-  --cursor-text: url(../images/cursor/keqing-cursor-text.apng), text;
+  --cursor-default: auto;
+  --cursor-pointer: pointer;
+  --cursor-text: text;
 }
 
 :root {

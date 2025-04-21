@@ -1,0 +1,1616 @@
+<!doctype html>
+<html
+  lang="zh-cn" 
+  
+    data-theme-mode="auto"
+  
+>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=13926&amp;path=livereload" data-no-instant defer></script>
+    
+    <meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+
+
+
+
+
+  
+
+<title>
+  软件构造-第三章-第三节-抽象数据型 | Demerzel
+</title>
+<meta
+  name="description"
+  content="浮沉在世 人事变迁"
+/>
+
+
+
+
+
+
+
+
+
+
+<script>
+  window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"clipboard\":{\"copyright\":{\"content\":\"本文版权：本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！\",\"count\":50,\"enable\":false},\"fail\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"success\":\"复制成功(*^▽^*)\"},\"code_block\":{\"expand\":true},\"icon_font\":\"4552607_0khxww3tj3q9\",\"outdate\":{\"daysago\":180,\"enable\":false,\"message\":\"本文最后更新于 {time}，请注意文中内容可能已经发生变化。\"}}");
+</script>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+    
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+  media="print"
+  onload="this.media='all'"
+/>
+
+
+
+
+
+
+
+  <link
+    rel="preload"
+    href="//at.alicdn.com/t/c/font_4552607_0khxww3tj3q9.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  />
+
+
+
+  
+
+
+
+
+
+
+ <link rel="stylesheet" href="/css/loader.css" />
+
+
+
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="软件构造-第三章-第三节-抽象数据型 | Demerzel" />
+  <meta
+    property="og:description"
+    content="浮沉在世 人事变迁"
+  />
+  <meta property="og:url" content="http://localhost:13926/post/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0-%E7%AC%AC%E4%B8%89%E7%AB%A0-%E7%AC%AC%E4%B8%89%E8%8A%82-%E6%8A%BD%E8%B1%A1%E6%95%B0%E6%8D%AE%E5%9E%8B/" />
+  <meta
+    property="og:site_name"
+    content="Demerzel&#39;s Blog"
+  />
+  <meta
+    property="og:image"
+    content="/images/featureimages/5.jpg"
+  />
+  <meta property="article:author" content="Demerzel" />
+  <meta property="article:published_time" content="2020-03-31T18:13:26&#43;00:00" />
+  <meta property="article:modified_time" content="2020-03-31T18:13:26&#43;00:00" />
+  
+    <meta property="article:tag" content="软件构造Java" />
+  
+  
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:image" content="/images/featureimages/5.jpg" />
+  
+  
+  
+  
+  
+
+
+
+
+<link rel="shortcut icon" href="/favicon.ico">
+
+
+
+
+
+
+
+ <link rel="stylesheet" href="/css/main.css" />
+
+
+
+
+
+  <link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css"
+    onload="this.onload=null;this.rel='stylesheet'"
+  />
+
+
+
+
+
+
+  <link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css"
+    onload="this.onload=null;this.rel='stylesheet'"
+  />
+
+
+
+
+
+
+
+
+  
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"
+    
+    
+    
+    
+    integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"
+  ></script>
+
+
+
+
+
+  
+
+
+  <link rel="stylesheet" href="https://npm.webcache.cn/@reimujs/aos@0.1.0/dist/aos.css" />
+
+
+
+
+
+    
+  </head>
+  <body>
+    
+    
+  <div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi rotate">
+        
+          <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+            <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="var(--red-1, #ff5252)" />
+            <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+          M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="var(--red-1, #ff5252)" />
+          </svg>
+        
+      </div>
+      <div class="loading-word">少女祈祷中...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    var startLoading = () => {
+      time = Date.now();
+      document.getElementById('loader').classList.remove("loading");
+    }
+    var endLoading = () => {
+      if (!time) {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loader').classList.add("loading");
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          document.body.style.overflow = 'auto';
+          document.getElementById('loader').classList.add("loading");
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    document.getElementById('loader').addEventListener('click', endLoading);
+  </script>
+
+
+<div id="copy-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+</div>
+
+
+    <div id="container">
+      <div id="wrap">
+        
+<div id="header-nav">
+  <nav id="main-nav">
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/">首页</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/archives">归档</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/about">关于</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/friend">友链</a>
+      </span>
+    
+    <a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav">
+    
+    
+  </nav>
+</div>
+<header id="header">
+  
+    <picture></picture>
+    <img  fetchpriority="high" src="/images/featureimages/5.jpg" alt="软件构造-第三章-第三节-抽象数据型">
+  
+
+  <div id="header-outer">
+    <div id="header-title">
+      
+        
+        
+          
+        
+  
+        
+          <a href="/" id="logo">
+            <h1 data-aos="slide-up">软件构造-第三章-第三节-抽象数据型</h1>
+          </a>
+        
+      
+  
+      
+        
+        
+        <h2 id="subtitle-wrap" data-aos="slide-down">
+          
+        </h2>
+      
+    </div>
+  </div>
+</header>
+        <div id="content"
+          
+          class="sidebar-right"  >
+          <aside id="sidebar">
+  
+  
+  
+  <div class="sidebar-wrapper wrap-sticky">
+    <div
+      class="sidebar-wrap"
+      data-aos="fade-up"
+    >
+      
+        
+          <div class="sidebar-toc-sidebar">
+            <div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#11-adt的基本概念">1.1 ADT的基本概念</a></li>
+    <li><a href="#12-adt的四种类型">1.2 ADT的四种类型</a></li>
+    <li><a href="#13-示例">1.3 示例：</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#21-设计adt">2.1 设计ADT</a></li>
+    <li><a href="#22-测试adt">2.2 测试ADT</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#51-af与ri">5.1 AF与RI</a></li>
+    <li><a href="#52-用注释写af和ri">5.2 用注释写AF和RI</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+          </div>
+          <div class="sidebar-common-sidebar hidden">
+            
+<div class="sidebar-author">
+  <img
+    data-src="/images/avatar.jpg"
+    data-sizes="auto"
+    alt="Demerzel"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">Demerzel</div>
+  <div class="sidebar-description">浮沉在世 人事变迁</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    
+    <div class="sidebar-state-number">51</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      18
+    </div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">28</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a
+        href="mailto:demerzelsun@gmail.com"
+        itemprop="url"
+        target="_blank"
+        aria-label="email"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a
+        href="https://github.com/demerzelsun12"
+        itemprop="url"
+        target="_blank"
+        aria-label="github"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-linkedin sidebar-social-icon">
+      <a
+        href="https://www.linkedin.com/in/xiao-sun-52a2a21b0/"
+        itemprop="url"
+        target="_blank"
+        aria-label="linkedin"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">首页</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">归档</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">关于</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">友链</div>
+    </div>
+  
+</div>
+
+          </div>
+        
+      
+
+      
+        
+          <div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div>
+        
+      
+    </div>
+  </div>
+
+  <div class="sidebar-widget">
+    
+  </div>
+  
+</aside>
+
+          <section id="main">
+  <article
+  class="h-entry article"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div
+    class="article-inner"
+    data-aos="fade-up"
+  >
+    <div class="article-meta">
+      <div class="article-date">
+  <span
+    class="article-date-link"
+    data-aos="zoom-in"
+  >
+    <time datetime="2020-03-31 18:13:26 &#43;0000 UTC" itemprop="datePublished"
+      >2020-03-31</time
+    >
+    <time style="display: none;" id="post-update-time"
+      >2020-03-31</time
+    >
+  </span>
+</div>
+
+      <div class="article-category">
+  
+    <a
+      class="article-category-link"
+      href="/categories/%e8%bd%af%e4%bb%b6%e6%9e%84%e9%80%a0"
+      data-aos="zoom-in"
+      >软件构造</a
+    >
+  
+</div>
+
+    </div>
+    <div class="hr-line"></div>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+      
+        <h1 id="软件构造第三章-第三节-抽象数据型">
+<a class="header-anchor" href="#%e8%bd%af%e4%bb%b6%e6%9e%84%e9%80%a0%e7%ac%ac%e4%b8%89%e7%ab%a0-%e7%ac%ac%e4%b8%89%e8%8a%82-%e6%8a%bd%e8%b1%a1%e6%95%b0%e6%8d%ae%e5%9e%8b"></a>
+软件构造第三章 第三节 抽象数据型
+</h1><!-- toc -->
+<h1 id="一adt及其四种类型">
+<a class="header-anchor" href="#%e4%b8%80adt%e5%8f%8a%e5%85%b6%e5%9b%9b%e7%a7%8d%e7%b1%bb%e5%9e%8b"></a>
+一、ADT及其四种类型
+</h1><h2 id="11-adt的基本概念">
+<a class="header-anchor" href="#11-adt%e7%9a%84%e5%9f%ba%e6%9c%ac%e6%a6%82%e5%bf%b5"></a>
+1.1 ADT的基本概念
+</h2><ol>
+<li>抽象数据类型（Abstract Data Type，ADT）是是指一个数学模型以及定义在该模型上的一组操作；即包括数据数据元素，数据关系以及相关的操作。</li>
+<li>ADT具有以下几个能表达抽象思想的词：
+<ul>
+<li>抽象化：用更简单、更高级的思想省略或隐藏低级细节。</li>
+<li>模块化： 将系统划分为组件或模块，每个组件可以设计，实施，测试，推理和重用，与系统其余部分分开使用。</li>
+<li>封装：围绕模块构建墙，以便模块负责自身的内部行为，并且系统其他部分的错误不会损坏其完整性。</li>
+<li>信息隐藏： 从系统其余部分隐藏模块实现的细节，以便稍后可以更改这些细节，而无需更改系统的其他部分。</li>
+<li>关注点分离： 一个功能只是单个模块的责任，而不跨越多个模块。</li>
+</ul>
+</li>
+</ol>
+<h2 id="12-adt的四种类型">
+<a class="header-anchor" href="#12-adt%e7%9a%84%e5%9b%9b%e7%a7%8d%e7%b1%bb%e5%9e%8b"></a>
+1.2 ADT的四种类型
+</h2><ul>
+<li>前置定义：mutable and immutable types
+<ul>
+<li>可变类型的对象：提供了可改变其内部数据的值的操作。Date</li>
+<li>不变数据类型： 其操作不改变内部值，而是构造新的对象。String</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>Creators（构造器）：
+<ul>
+<li>创建某个类型的新对象，⼀个创建者可能会接受⼀个对象作为参数，但是这个对象的类型不能是它创建对象对应的类型。可能实现为构造函数或静态函数。（通常称为工厂方法）</li>
+<li>t* -&gt;  T</li>
+<li>例：Integer.valueOf( )</li>
+</ul>
+</li>
+<li>Producers（生产器）：
+<ul>
+<li>通过接受同类型的对象创建新的对象。</li>
+<li>T+ , t* -&gt; T</li>
+<li>例：String.concat( )</li>
+</ul>
+</li>
+<li>Observers（观察器）：
+<ul>
+<li>获取抽象类型的对象然后返回一个不同类型的对象/值。</li>
+<li>T+ , t* -&gt; t</li>
+<li>例：List.size( ) ；</li>
+</ul>
+</li>
+<li>Mutators（变值器）：
+<ul>
+<li>改变对象属性的方法 ，</li>
+<li>变值器通常返回void，若为void，则必然意味着它改变了对象的某些内部状态；当然，也可能返回非空类型</li>
+<li>T+ , t* -&gt; t || T || void</li>
+<li>例：List.add( )</li>
+<li>解释：T是ADT本身；t是其他类型；+ 表示这个类型可能出现一次或多次；* 表示可能出现0次或多次。</li>
+</ul>
+</li>
+</ol>
+<h2 id="13-示例">
+<a class="header-anchor" href="#13-%e7%a4%ba%e4%be%8b"></a>
+1.3 示例：
+</h2><center>
+<img src="https://img-blog.csdnimg.cn/2020041023054586.png" width="80%" height="35%">
+</center>
+<center>
+图1-1 immutable类型示例
+</center>
+<br>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200410230551671.png" width="80%" height="35%">
+</center>
+<center>
+图1-2 mutable类型示例
+</center>
+<br>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200410230600330.png" width="80%" height="35%">
+</center>
+<center>
+图1-3 方法类型
+</center>
+<br>
+<h1 id="二设计与测试adt">
+<a class="header-anchor" href="#%e4%ba%8c%e8%ae%be%e8%ae%a1%e4%b8%8e%e6%b5%8b%e8%af%95adt"></a>
+二、设计与测试ADT
+</h1><h2 id="21-设计adt">
+<a class="header-anchor" href="#21-%e8%ae%be%e8%ae%a1adt"></a>
+2.1 设计ADT
+</h2><p>  设计好的ADT，靠“经验法则”，提供一组操作，设计其行为规约 spec</p>
+<ul>
+<li>原则 1：设计简洁、一致的操作。
+<ul>
+<li>最好有一些简单的操作，它们可以以强大的方式组合，而不是很多复杂的操作。</li>
+<li>每个操作应该有明确的目的，并且应该有一致的行为而不是一连串的特殊情况。</li>
+</ul>
+</li>
+<li>原则 2：要足以支持用户对数据所做的所有操作需要，且用操作满足用户需要的难度要低。
+<ul>
+<li>提供get()操作以获得list内部数据</li>
+<li>提供size()操作获取list的长度</li>
+</ul>
+</li>
+<li>原则 3：要么抽象、要么具体，不要混合 —— 要么针对抽象设计，要么针对具体应用的设计。</li>
+</ul>
+<h2 id="22-测试adt">
+<a class="header-anchor" href="#22-%e6%b5%8b%e8%af%95adt"></a>
+2.2 测试ADT
+</h2><ol>
+<li>测试creators, producers, and mutators：调用observers来观察这些 operations 的结果是否满足spec；</li>
+<li>测试observers： 调用creators, producers, and mutators等方法产生或改变对象，来看结果是否正确。</li>
+</ol>
+<h1 id="三表示独立性">
+<a class="header-anchor" href="#%e4%b8%89%e8%a1%a8%e7%a4%ba%e7%8b%ac%e7%ab%8b%e6%80%a7"></a>
+三、表示独立性
+</h1><p>  表示独立性：client使用ADT时无需考虑其内部如何实现，ADT内部表示的变化不应影响外部spec和客户端。
+  除非ADT的操作指明了具体的前置条件/后置条件，否则不能改变ADT的内部表示——spec规定了 client和implementer之间的契约。</p>
+<h1 id="四不变量invariants与表示泄露">
+<a class="header-anchor" href="#%e5%9b%9b%e4%b8%8d%e5%8f%98%e9%87%8finvariants%e4%b8%8e%e8%a1%a8%e7%a4%ba%e6%b3%84%e9%9c%b2"></a>
+四、不变量（Invariants）与表示泄露
+</h1><p>  一个好的抽象数据类型的最重要的属性是它保持不变量。一旦一个不变类型的对象被创建，它总是代表一个不变的值。当一个ADT能够确保它内部的不变量恒定不变（不受使用者/外部影响），我们就说这个ADT保护/保留自己的不变量。
+  在private和public关键字表明哪些字段和方法可访问时，只在类内部还是可以从类外部访问。所述final关键字还保证该变量的索引不会被更改，对于不可变的类型来说，就是确保了变量的值不可变。
+  可以通过使用防御性拷贝来修补这种风险：制作可变对象的副本以避免泄漏对代表的引用。
+  可变类型通常具有一个专门用来复制的构造函数，它允许创建一个复制现有实例值的新实例。在这种情况下，Date的复制构造函数就接受了一个timestamp值，然后产生一个新的对象。
+  复制可变对象的另一种方法是clone()，某些类型但不是全部类型支持该方法。然而clone()在Java中的工作方式存在问题，具体在以后分析。
+  通常来说，要特别注意ADT操作中的参数和返回值。如果它们之中有可变类型的对象，确保你的代码没有直接使⽤索引或者直接返回索引。</p>
+<h1 id="五抽象函数af与表示不变量ri">
+<a class="header-anchor" href="#%e4%ba%94%e6%8a%bd%e8%b1%a1%e5%87%bd%e6%95%b0af%e4%b8%8e%e8%a1%a8%e7%a4%ba%e4%b8%8d%e5%8f%98%e9%87%8fri"></a>
+五、抽象函数AF与表示不变量RI
+</h1><h2 id="51-af与ri">
+<a class="header-anchor" href="#51-af%e4%b8%8eri"></a>
+5.1 AF与RI
+</h2><center>
+<img src="https://img-blog.csdnimg.cn/20200411155851943.png
+" width="80%" height="35%">
+</center>
+<center>
+图5-1 表示域与抽象域
+</center>
+<br>
+<ol>
+<li>
+<p>在研究抽象类型的时候，先思考一下两个值域之间的关系：</p>
+<ul>
+<li>表示域（rep values）里面包含的是值具体的实现实体。一般情况下ADT的表示比较简单，有些时候需要复杂表示。</li>
+<li>抽象域（A）里面包含的则是类型设计时支持使用的值。这些值是由表示域“抽象/想象”出来的，也是使用者关注的。</li>
+</ul>
+</li>
+<li>
+<p>ADT实现者关注表示空间R，用户关注抽象空间A 。</p>
+</li>
+<li>
+<p>R-&gt;A的映射特点：</p>
+<ul>
+<li>每一个抽象值都是由表示值映射而来 ，即满射：每个抽象值被映射到一些rep值</li>
+<li>一些抽象值是被多个表示值映射而来的，即未必单射：一些抽象值被映射到多个rep值</li>
+<li>不是所有的表示值都能映射到抽象域中，即未必双射：并非所有的rep值都被映射。</li>
+</ul>
+</li>
+<li>
+<p>抽象函数（AF）：R和A之间映射关系的函数
+  AF : R → A</p>
+</li>
+<li>
+<p>表示不变量（RI）：将rep值映射到布尔值
+  RI : R → boolean　　</p>
+<ul>
+<li>对于表示值r，当且仅当r被AF映射到了A，RI(r)为真。</li>
+<li>表示不变性RI：某个具体的“表示”是否是“合法的”</li>
+<li>也可将RI看作：所有表示值的一个子集，包含了所有合法的表示值</li>
+<li>也可将RI看作：一个条件，描述了什么是“合法”的表示值</li>
+<li>在下图中，绿色表示的就是RI(r)为真的部分，AF只在这个子集上有定义。</li>
+<li>AF与RI都不会展示给用户。</li>
+</ul>
+</li>
+</ol>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200411162334975.png" width="80%" height="35%">
+</center>
+<center>
+图5-2 AF与RI
+</center>
+<br>
+<h2 id="52-用注释写af和ri">
+<a class="header-anchor" href="#52-%e7%94%a8%e6%b3%a8%e9%87%8a%e5%86%99af%e5%92%8cri"></a>
+5.2 用注释写AF和RI
+</h2><ol>
+<li>在抽象类型（私有的）表示声明后写上对于抽象函数和表示不变量的注解，这是一个好的实践要求。我们在上面的例子中也是这么做的。</li>
+<li>在描述抽象函数和表示不变量的时候，注意要清晰明确：
+<ul>
+<li>对于RI（表示不变量），仅仅宽泛的说什么区域是合法的并不够，你还应该说明是什么使得它合法/不合法。</li>
+<li>对于AF（抽象函数）来说，仅仅宽泛的说抽象域表示了什么并不够。抽象函数的作用是规定合法的表示值会如何被解释到抽象域。作为一个函数，我们应该清晰的知道从一个输入到一个输入是怎么对应的。</li>
+</ul>
+</li>
+<li>本门课程还要求你将表示暴露的安全性注释出来。这种注释应该说明表示的每一部分，它们为什么不会发生表示暴露，特别是处理的表示的参数输入和返回部分（这也是表示暴露发生的位置）。</li>
+<li>下面是一个Tweet类的例子，它将表示不变量和抽象函数以及表示暴露的安全性注释了出来：</li>
+</ol>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200411164919764.png" width="80%" height="35%">
+</center>
+<center>
+图5-3 Tweet示例
+</center>
+<br>
+&emsp;&emsp;注意到我们并没有对 timestamp 的表示不变量进行要求（除了之前说过的默认 timestamp!=null）。但是我们依然需要对timestamp 的表示暴露的安全性进行说明，因为整个类型的不变性依赖于所有的成员变量的不变性。
+      
+    </div>
+    <footer class="article-footer">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+      <ul class="article-tag-list" itemprop="keywords">
+  
+    <li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e8%bd%af%e4%bb%b6%e6%9e%84%e9%80%a0"
+        rel="tag"
+        >软件构造</a
+      >
+    </li>
+  
+    <li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/java"
+        rel="tag"
+        >JAVA</a
+      >
+    </li>
+  
+</ul>
+
+    </footer>
+  </div>
+  
+    
+  <nav
+    id="article-nav"
+    data-aos="fade-up"
+  >
+    
+      <div class="article-nav-link-wrap article-nav-link-left">
+        
+          <img
+            data-src="images/featureimages/4.jpg"
+            data-sizes="auto"
+            alt="软件构造-第三章-第二节-软件规约"
+            class="lazyload"
+          />
+        
+        <a href="/post/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0-%E7%AC%AC%E4%B8%89%E7%AB%A0-%E7%AC%AC%E4%BA%8C%E8%8A%82-%E8%BD%AF%E4%BB%B6%E8%A7%84%E7%BA%A6/"></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">
+          
+            软件构造-第三章-第二节-软件规约
+          
+        </h3>
+      </div>
+    
+
+    
+      <div class="article-nav-link-wrap article-nav-link-right">
+        
+          <img
+            data-src="images/featureimages/6.jpg"
+            data-sizes="auto"
+            alt="软件构造-第三章-第四节-面向对象编程"
+            class="lazyload"
+          />
+        
+        <a href="/post/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0-%E7%AC%AC%E4%B8%89%E7%AB%A0-%E7%AC%AC%E5%9B%9B%E8%8A%82-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/"></a>
+        <div class="article-nav-caption">后一篇</div>
+        <h3 class="article-nav-title">
+          
+            软件构造-第三章-第四节-面向对象编程
+          
+        </h3>
+      </div>
+    
+  </nav>
+
+
+  
+</article>
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+</section>
+        </div>
+        
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+
+
+<footer id="footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info">
+    
+    <div>
+      <span class="icon-copyright"></span>
+      
+        2020 -
+        2025
+      
+      <span class="footer-info-sep "></span>
+      Demerzel
+    </div>
+    
+      <div>
+        基于&nbsp;<a
+          href="https://gohugo.io/"
+          target="_blank"
+          >Hugo</a
+        >&nbsp; Theme.<a
+          href="https://github.com/D-Sketon/hugo-theme-reimu"
+          target="_blank"
+          >Reimu</a
+        >
+      </div>
+    
+    
+      <div>
+        <span class="icon-brush"
+          >&nbsp;
+            155.1k
+          </span
+        >
+        &nbsp;|&nbsp;
+        <span class="icon-coffee">&nbsp;
+          
+          
+
+          05:36
+        </span>
+      </div>
+    
+    
+    
+    
+  </div>
+</footer>
+
+        
+          <div class="sidebar-top">
+            <div class="sidebar-top-taichi "></div>
+            <div class="arrow-up"></div>
+          </div>
+        
+        <div id="mask" class="hide"></div>
+      </div>
+      <nav id="mobile-nav">
+  <div class="sidebar-wrap">
+    
+      
+        <div class="sidebar-toc-sidebar">
+          <div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#11-adt的基本概念">1.1 ADT的基本概念</a></li>
+    <li><a href="#12-adt的四种类型">1.2 ADT的四种类型</a></li>
+    <li><a href="#13-示例">1.3 示例：</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#21-设计adt">2.1 设计ADT</a></li>
+    <li><a href="#22-测试adt">2.2 测试ADT</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#51-af与ri">5.1 AF与RI</a></li>
+    <li><a href="#52-用注释写af和ri">5.2 用注释写AF和RI</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+        </div>
+        <div class="sidebar-common-sidebar hidden">
+          
+<div class="sidebar-author">
+  <img
+    data-src="/images/avatar.jpg"
+    data-sizes="auto"
+    alt="Demerzel"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">Demerzel</div>
+  <div class="sidebar-description">浮沉在世 人事变迁</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    
+    <div class="sidebar-state-number">51</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      18
+    </div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">28</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a
+        href="mailto:demerzelsun@gmail.com"
+        itemprop="url"
+        target="_blank"
+        aria-label="email"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a
+        href="https://github.com/demerzelsun12"
+        itemprop="url"
+        target="_blank"
+        aria-label="github"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-linkedin sidebar-social-icon">
+      <a
+        href="https://www.linkedin.com/in/xiao-sun-52a2a21b0/"
+        itemprop="url"
+        target="_blank"
+        aria-label="linkedin"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">首页</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">归档</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">关于</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">友链</div>
+    </div>
+  
+</div>
+
+        </div>
+      
+    
+  </div>
+  
+    
+      <div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div>
+    
+  
+</nav>
+
+    </div>
+    
+    
+    
+    
+
+
+
+
+
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"
+    
+    
+    
+    
+    integrity="sha384-3gT/vsepWkfz/ff7PpWNUeMzeWoH3cDhm/A8jM7ouoAK0/fP/9bcHHR5kHq2nf&#43;e" crossorigin="anonymous"
+  ></script>
+
+
+
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"
+    
+    
+    
+    
+    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"
+  ></script>
+
+
+
+
+
+
+
+
+
+
+
+  
+      
+      <script src="/js/main.js" ></script>
+      
+
+
+
+  
+
+
+
+
+
+  
+      
+      <script src="/js/aos.js" ></script>
+      
+
+  <script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", aosInit);
+    } else {
+      aosInit();
+    }
+  </script>
+
+
+
+
+
+
+
+
+  
+      
+      <script src="/js/pjax_main.js" data-pjax></script>
+      
+
+
+
+
+
+  
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/mouse-firework@0.1.1/dist/index.umd.js"
+    
+    
+    
+    
+    integrity="sha384-8LyaidD9GPxQQgLJO/WRw/O2h3BoNq/ApI/ecpvM6RsrCz2qP2ppBXUKihP4V/2d" crossorigin="anonymous"
+  ></script>
+
+
+<script>
+  if (window.firework) {
+    const options = JSON.parse("{\"excludeelements\":[\"a\",\"button\"],\"particles\":[{\"colors\":[\"var(--red-1)\",\"var(--red-2)\",\"var(--red-3)\",\"var(--red-4)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"emit\"],\"number\":20,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.3,0.5],\"radius\":[16,32]}},{\"colors\":[\"var(--red-0)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"diffuse\"],\"number\":1,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.2,0.5],\"lineWidth\":6,\"radius\":20}}]}");
+    options.excludeElements = options.excludeelements;
+    delete options.excludeelements;
+    window.firework(options);
+  }
+</script>
+
+
+
+
+
+
+
+
+<div id="lazy-script">
+  <div>
+    
+      
+      
+        
+      
+      <script data-pjax>
+        window.REIMU_POST = {
+          author: "Demerzel",
+          title: "软件构造-第三章-第三节-抽象数据型",
+          url: "http:\/\/localhost:13926\/post\/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0-%E7%AC%AC%E4%B8%89%E7%AB%A0-%E7%AC%AC%E4%B8%89%E8%8A%82-%E6%8A%BD%E8%B1%A1%E6%95%B0%E6%8D%AE%E5%9E%8B\/",
+          description: "\r软件构造第三章 第三节 抽象数据型\r",
+          cover: "http:\/\/localhost:13926\/images\/featureimages\/5.jpg",
+        };
+      </script>
+    
+    
+    
+      
+
+
+
+
+
+  
+      
+      <script src="/js/insert_highlight.js" data-pjax></script>
+      
+
+      
+      
+      
+      
+      <script type="module" data-pjax>
+        
+        const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;
+        
+        const pswp = () => {
+          if (_$$('.article-entry a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-entry',
+              children: 'a.article-gallery-item',
+              
+              pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")
+              
+            }).init();
+          }
+          if(_$$('.article-gallery a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-gallery',
+              children: 'a.article-gallery-item',
+              
+              pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")
+              
+            }).init();
+          }
+          window.lightboxStatus = 'done';
+          window.removeEventListener('lightbox:ready', pswp);
+        }
+        if(window.lightboxStatus === 'ready') {
+          pswp()
+        } else {
+          window.addEventListener('lightbox:ready', pswp);
+        }
+      </script>
+      
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+      
+    
+    
+      
+      
+        <script data-pjax>
+          window.MathJax = JSON.parse("[{\"loader\":{\"load\":[\"input/asciimath\",\"[tex]/noerrors\"]},\"options\":{\"ignoreHtmlClass\":\"tex2jax_ignore\",\"processHtmlClass\":\"tex2jax_process\",\"skipHtmlTags\":[\"script\",\"noscript\",\"style\",\"textarea\",\"pre\",\"code\"]},\"tex\":{\"autoload\":{\"color\":[],\"colorv2\":[\"color\"]},\"displayMath\":[[\"$$\",\"$$\"],[\"\\\\\\\\[\",\"\\\\\\\\]\"]],\"inlineMath\":[[\"$\",\"$\"],[\"\\\\\\\\(\",\"\\\\\\\\)\"]],\"packages\":{\"[+]\":[\"noerrors\"]},\"processEnvironments\":true,\"processEscapes\":true,\"tags\":\"ams\",\"useLabelIds\":true}}]")[0];
+        </script>
+        
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/mathjax@3.2.2/es5/tex-mml-chtml.js"
+    defer
+    
+    data-pjax
+    
+    integrity="sha384-Wuix6BuhrWbjDBs24bXrjf4ZQ5aFeFWBuKkFekO2t8xFU0iNaLQfp2K6/1Nxveei" crossorigin="anonymous"
+  ></script>
+
+
+      
+    
+  </div>
+</div>
+
+
+
+
+
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+  </script>
+
+
+<script>
+  const reimuCopyright = String.raw`
+   ______     ______     __     __    __     __  __    
+  /\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+  \ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+   \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+    \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                    
+  `;
+  console.log(String.raw`%c ${reimuCopyright}`, "color: #ff5252;");
+  console.log(
+    "%c Theme.Reimu" + " %c https://github.com/D-Sketon/hugo-theme-reimu ",
+    "color: white; background: #ff5252; padding:5px 0;",
+    "padding:4px;border:1px solid #ff5252;",
+  );
+</script>
+
+
+
+
+
+
+    
+  </body>
+</html>

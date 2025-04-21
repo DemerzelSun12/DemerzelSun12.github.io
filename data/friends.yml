@@ -1,12 +1,16 @@
 - name: 泊远
   url: https://ferdinandsu.github.io/
   desc: 非淡泊无以明志，非宁静无以致远
-  image: https://d-sketon.github.io/avatar/avatar.webp
+  image: ../images/friends/avatarFer.jpg
 - name: Keuin
   url: https://keuin.cc/
   desc: A Minecraft-er loves coding
-  image: https://d-sketon.github.io/avatar/avatar.webp
+  image: ../images/friends/Keuin.jpg
 - name: 魔法少女HCG
   url: https://hcg.today/
   desc: 吃水不忘挖井人
-  image: https://d-sketon.github.io/avatar/avatar.webp
+  image: ../images/friends/avatarHCG.png
+- name: 
+  url: 
+  desc: 
+  image: 

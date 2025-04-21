@@ -1,0 +1,1660 @@
+<!doctype html>
+<html
+  lang="zh-cn" 
+  
+    data-theme-mode="auto"
+  
+>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=13926&amp;path=livereload" data-no-instant defer></script>
+    
+    <meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+
+
+
+
+
+  
+
+<title>
+  UNIX环境高级编程阅读笔记 | Demerzel
+</title>
+<meta
+  name="description"
+  content="浮沉在世 人事变迁"
+/>
+
+
+
+
+
+
+
+
+
+
+<script>
+  window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"clipboard\":{\"copyright\":{\"content\":\"本文版权：本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！\",\"count\":50,\"enable\":false},\"fail\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"success\":\"复制成功(*^▽^*)\"},\"code_block\":{\"expand\":true},\"icon_font\":\"4552607_0khxww3tj3q9\",\"outdate\":{\"daysago\":180,\"enable\":false,\"message\":\"本文最后更新于 {time}，请注意文中内容可能已经发生变化。\"}}");
+</script>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+    
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+  media="print"
+  onload="this.media='all'"
+/>
+
+
+
+
+
+
+
+  <link
+    rel="preload"
+    href="//at.alicdn.com/t/c/font_4552607_0khxww3tj3q9.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  />
+
+
+
+  
+
+
+
+
+
+
+ <link rel="stylesheet" href="/css/loader.css" />
+
+
+
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="UNIX环境高级编程阅读笔记 | Demerzel" />
+  <meta
+    property="og:description"
+    content="浮沉在世 人事变迁"
+  />
+  <meta property="og:url" content="http://localhost:13926/post/unix%E7%8E%AF%E5%A2%83%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" />
+  <meta
+    property="og:site_name"
+    content="Demerzel&#39;s Blog"
+  />
+  <meta
+    property="og:image"
+    content="/images/featureimages/16.jpg"
+  />
+  <meta property="article:author" content="Demerzel" />
+  <meta property="article:published_time" content="2021-05-13T14:53:28&#43;00:00" />
+  <meta property="article:modified_time" content="2021-05-13T14:53:28&#43;00:00" />
+  
+    <meta property="article:tag" content="UNIX基础准备" />
+  
+  
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:image" content="/images/featureimages/16.jpg" />
+  
+  
+  
+  
+  
+
+
+
+
+<link rel="shortcut icon" href="/favicon.ico">
+
+
+
+
+
+
+
+ <link rel="stylesheet" href="/css/main.css" />
+
+
+
+
+
+  <link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css"
+    onload="this.onload=null;this.rel='stylesheet'"
+  />
+
+
+
+
+
+
+  <link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css"
+    onload="this.onload=null;this.rel='stylesheet'"
+  />
+
+
+
+
+
+
+
+
+  
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"
+    
+    
+    
+    
+    integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"
+  ></script>
+
+
+
+
+
+  
+
+
+  <link rel="stylesheet" href="https://npm.webcache.cn/@reimujs/aos@0.1.0/dist/aos.css" />
+
+
+
+
+
+    
+  </head>
+  <body>
+    
+    
+  <div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi rotate">
+        
+          <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+            <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="var(--red-1, #ff5252)" />
+            <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+          M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="var(--red-1, #ff5252)" />
+          </svg>
+        
+      </div>
+      <div class="loading-word">少女祈祷中...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    var startLoading = () => {
+      time = Date.now();
+      document.getElementById('loader').classList.remove("loading");
+    }
+    var endLoading = () => {
+      if (!time) {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loader').classList.add("loading");
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          document.body.style.overflow = 'auto';
+          document.getElementById('loader').classList.add("loading");
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    document.getElementById('loader').addEventListener('click', endLoading);
+  </script>
+
+
+<div id="copy-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+</div>
+
+
+    <div id="container">
+      <div id="wrap">
+        
+<div id="header-nav">
+  <nav id="main-nav">
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/">首页</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/archives">归档</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/about">关于</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/friend">友链</a>
+      </span>
+    
+    <a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav">
+    
+    
+  </nav>
+</div>
+<header id="header">
+  
+    <picture></picture>
+    <img  fetchpriority="high" src="/images/featureimages/16.jpg" alt="UNIX环境高级编程阅读笔记">
+  
+
+  <div id="header-outer">
+    <div id="header-title">
+      
+        
+        
+          
+        
+  
+        
+          <a href="/" id="logo">
+            <h1 data-aos="slide-up">UNIX环境高级编程阅读笔记</h1>
+          </a>
+        
+      
+  
+      
+        
+        
+        <h2 id="subtitle-wrap" data-aos="slide-down">
+          
+        </h2>
+      
+    </div>
+  </div>
+</header>
+        <div id="content"
+          
+          class="sidebar-right"  >
+          <aside id="sidebar">
+  
+  
+  
+  <div class="sidebar-wrapper wrap-sticky">
+    <div
+      class="sidebar-wrap"
+      data-aos="fade-up"
+    >
+      
+        
+          <div class="sidebar-toc-sidebar">
+            <div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#一unix基础知识">一、UNIX基础知识</a>
+      <ul>
+        <li><a href="#11-unix-体系结构">1.1 UNIX 体系结构</a></li>
+        <li><a href="#12-文件和目录">1.2 文件和目录</a></li>
+        <li><a href="#13-输入输出">1.3 输入输出</a></li>
+        <li><a href="#14-程序和进程">1.4 程序和进程</a></li>
+        <li><a href="#15-出错处理">1.5 出错处理</a></li>
+      </ul>
+    </li>
+    <li><a href="#二unix标准">二、UNIX标准</a></li>
+    <li><a href="#三文件io">三、文件IO</a>
+      <ul>
+        <li><a href="#31-文件描述符">3.1 文件描述符</a></li>
+        <li><a href="#32-open-opanat">3.2 open opanat</a></li>
+        <li><a href="#33-creat">3.3 creat</a></li>
+        <li><a href="#34-close">3.4 close</a></li>
+        <li><a href="#35-lseek">3.5 lseek</a></li>
+      </ul>
+    </li>
+    <li><a href="#四文件和目录">四、文件和目录</a>
+      <ul>
+        <li><a href="#41-函数-statfstatfstatatlstat">4.1 函数 stat、fstat、fstatat、lstat</a></li>
+        <li><a href="#42-文件类型">4.2 文件类型</a></li>
+        <li><a href="#43-设置用户id和设置组id">4.3 设置用户ID和设置组ID</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+          </div>
+          <div class="sidebar-common-sidebar hidden">
+            
+<div class="sidebar-author">
+  <img
+    data-src="/images/avatar.jpg"
+    data-sizes="auto"
+    alt="Demerzel"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">Demerzel</div>
+  <div class="sidebar-description">浮沉在世 人事变迁</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    
+    <div class="sidebar-state-number">51</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      18
+    </div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">28</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a
+        href="mailto:demerzelsun@gmail.com"
+        itemprop="url"
+        target="_blank"
+        aria-label="email"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a
+        href="https://github.com/demerzelsun12"
+        itemprop="url"
+        target="_blank"
+        aria-label="github"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-linkedin sidebar-social-icon">
+      <a
+        href="https://www.linkedin.com/in/xiao-sun-52a2a21b0/"
+        itemprop="url"
+        target="_blank"
+        aria-label="linkedin"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">首页</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">归档</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">关于</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">友链</div>
+    </div>
+  
+</div>
+
+          </div>
+        
+      
+
+      
+        
+          <div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div>
+        
+      
+    </div>
+  </div>
+
+  <div class="sidebar-widget">
+    
+  </div>
+  
+</aside>
+
+          <section id="main">
+  <article
+  class="h-entry article"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div
+    class="article-inner"
+    data-aos="fade-up"
+  >
+    <div class="article-meta">
+      <div class="article-date">
+  <span
+    class="article-date-link"
+    data-aos="zoom-in"
+  >
+    <time datetime="2021-05-13 14:53:28 &#43;0000 UTC" itemprop="datePublished"
+      >2021-05-13</time
+    >
+    <time style="display: none;" id="post-update-time"
+      >2021-05-13</time
+    >
+  </span>
+</div>
+
+      <div class="article-category">
+  
+    <a
+      class="article-category-link"
+      href="/categories/unix"
+      data-aos="zoom-in"
+      >UNIX</a
+    >
+  
+</div>
+
+    </div>
+    <div class="hr-line"></div>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+      
+        <h2 id="前言">
+<a class="header-anchor" href="#%e5%89%8d%e8%a8%80"></a>
+前言
+</h2><p>张老师推荐阅读的两本书之一，打算用一个月到两个月之间的时间，初步过完《UNIX环境高级编程》与《UNIX网络编程第三版第一卷》，之后继续阅读其他关于UNIX底层的书籍。</p>
+<h2 id="一unix基础知识">
+<a class="header-anchor" href="#%e4%b8%80unix%e5%9f%ba%e7%a1%80%e7%9f%a5%e8%af%86"></a>
+一、UNIX基础知识
+</h2><p>所有操作系统都提供基础的服务：执行新程序、打开文件、读文件、分配存储区、获取当前时间等。</p>
+<h3 id="11-unix-体系结构">
+<a class="header-anchor" href="#11-unix-%e4%bd%93%e7%b3%bb%e7%bb%93%e6%9e%84"></a>
+1.1 UNIX 体系结构
+</h3><ol>
+<li>操作系统控制计算机硬件资源，提供程序运行环境的“软件”称为操作系统的内核。内核的接口称为<strong>系统调用</strong>。</li>
+<li>公共函数库建立在系统调用的接口之上；应用程序可以使用公共函数库，也可以使用系统调用。</li>
+<li>shell 是一个特殊的应用程序，为运行其他应用程序提供接口。</li>
+</ol>
+<h3 id="12-文件和目录">
+<a class="header-anchor" href="#12-%e6%96%87%e4%bb%b6%e5%92%8c%e7%9b%ae%e5%bd%95"></a>
+1.2 文件和目录
+</h3><ol>
+<li>文件系统</li>
+</ol>
+<p>UNIX文件系统是目录和文件的一种层次结构，所有的起点为<strong>根目录</strong>，名称为字符“/”。</p>
+<p>目录：包含目录项的文件，逻辑上认为目录项包含文件名和文件属性信息。文件属性：文件类型（普通文件 or 目录）、文件大小、文件所有者、文件权限、文件最后修改时间等。</p>
+<p>stat和fstat函数返回包含所有文件属性的一个信息结构。</p>
+<ol start="2">
+<li>文件名</li>
+</ol>
+<p><strong>斜线（/）和空字符不允许出现在文件名中</strong>，创建目录会自动创建两个文件名：（.）指向当前目录和（..），在最高层次的根目录中，二者相同。</p>
+<ol start="3">
+<li>路径名</li>
+</ol>
+<p>斜线开头路径为绝对路径，否则为相对路径。根名字是特殊的绝对路径名，不包含文件。</p>
+<ol start="4">
+<li>工作目录</li>
+</ol>
+<p>所有相对路径从当前目录开始解释。进程可以使用chdir函数更改其工作目录。</p>
+<h3 id="13-输入输出">
+<a class="header-anchor" href="#13-%e8%be%93%e5%85%a5%e8%be%93%e5%87%ba"></a>
+1.3 输入输出
+</h3><ol>
+<li>文件描述符</li>
+</ol>
+<p>文件描述符为一个小的非负整数，内核用于标识一个特定进程正在访问的文件。当内核打开现有文件时或创建新文件时，会返回文件描述符。</p>
+<ol start="2">
+<li>标准输入、标准输出、标准错误</li>
+</ol>
+<p>每当运行新的程序时，所有的shell都会为其打开3个文件描述符，即标准输入、标准输出、标准错误。<strong>一般情况下，三个描述符的链接都指向终端</strong>，可以使其中一个或三个重定向到某个文件。例如</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 执行 ls 命令，将输出重定向到名为 file.txt 的文件</span>
+</span></span><span class="line"><span class="cl">ls &gt; file.txt
+</span></span></code></pre></div><ol start="3">
+<li>缓冲的IO</li>
+</ol>
+<p>函数 open、read、write、lseek 以及 close提供了不带缓冲区的IO，这些函数都使用文件描述符。</p>
+<ol start="4">
+<li>标准IO</li>
+</ol>
+<p>标准IO为不带有缓冲的IO函数提供了一个带缓冲的接口。使用标准IO函数无需担心选择最佳缓冲区的大小。</p>
+<h3 id="14-程序和进程">
+<a class="header-anchor" href="#14-%e7%a8%8b%e5%ba%8f%e5%92%8c%e8%bf%9b%e7%a8%8b"></a>
+1.4 程序和进程
+</h3><ol>
+<li>
+<p>程序：程序是存储在磁盘的某个目录中的可执行文件。内核使用exec函数，将程序读入内存，并执行程序。</p>
+</li>
+<li>
+<p>进程和进程ID</p>
+</li>
+</ol>
+<p>程序的执行实例为进程（process），UNIX系统确保每个进程有唯一的数字标识符，称为进程ID，为非负整数。</p>
+<ol start="3">
+<li>进程控制</li>
+</ol>
+<p>3个主要函数：fork，exec，waitpid。</p>
+<p>fork：父进程通过调用 fork 函数创建一个新的运行的子进程。</p>
+<ul>
+<li>子进程得到与父进程用户级虚拟地址空间相同但独立的副本，包括代码和数据段、堆、共享库和用户栈，但是私有地址空间不同。</li>
+<li>子进程获得与父进程任何打开文件描述符相同的副本，即子进程可以读写父进程中打开的任何文件。</li>
+<li>父子进程最大的区别在于有着不同的PID。</li>
+<li><strong>fork函数调用一次，返回两次</strong>，父进程中，fork函数返回子进程的PID；在子进程中，返回0。因为子进程的PID永远非0，可以用于区分是父进程还是子进程。</li>
+</ul>
+<ol start="4">
+<li>线程和线程ID</li>
+</ol>
+<p>通常，一个进程只有一个控制线程，某一时刻执行的一组机器指令。一个进程内的所有线程共享同一地址空间、文件描述符、栈以及与进程相关的属性。<strong>各线程在访问共享数据时需要采取同步措施避免不一致性。</strong></p>
+<p>进程ID只在其所属的进程内起作用，一个进程中的线程ID在另一个进程中没有意义。可以使用线程ID对进程内的特定线程进行操作。</p>
+<h3 id="15-出错处理">
+<a class="header-anchor" href="#15-%e5%87%ba%e9%94%99%e5%a4%84%e7%90%86"></a>
+1.5 出错处理
+</h3><p>UNIX系统出错后一般会返回一个负值，整形变量 errno 具有特定信息的值。在支持线程的环境中，多个线程共享地址空间，每个线程有属于其自己的局部errno，避免一个线程干扰另一个线程。</p>
+<p>Linux支持多线程存取 errno，定义为：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">extern</span> <span class="kt">int</span> <span class="o">*</span><span class="nf">__errno_location</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#define errno (*__errno_location())
+</span></span></span></code></pre></div><p>注意规则有二：</p>
+<ol>
+<li>若没有出错，则 errno 的值不会被例程清除。所以，只有当函数的返回值明确出错时，才会校验其值。</li>
+<li>任何函数都不会将 errno 的值设置为0，而且在 <code>&lt;errno.h&gt;</code>中定义的所有常量都不为0。</li>
+</ol>
+<p>C 标准定义了两个函数，用于打印出错信息。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">char</span> <span class="o">*</span><span class="nf">strerror</span><span class="p">(</span><span class="kt">int</span> <span class="n">errnum</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">void</span> <span class="nf">perror</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">msg</span><span class="p">);</span>
+</span></span></code></pre></div><p>strerror 将 errnum 映射为出错消息字符串，并返回字符串指针。
+perror 函数基于 errno 当前值，在标准错误上产生一条出错信息，然后返回。</p>
+<h2 id="二unix标准">
+<a class="header-anchor" href="#%e4%ba%8cunix%e6%a0%87%e5%87%86"></a>
+二、UNIX标准
+</h2><h2 id="三文件io">
+<a class="header-anchor" href="#%e4%b8%89%e6%96%87%e4%bb%b6io"></a>
+三、文件IO
+</h2><h3 id="31-文件描述符">
+<a class="header-anchor" href="#31-%e6%96%87%e4%bb%b6%e6%8f%8f%e8%bf%b0%e7%ac%a6"></a>
+3.1 文件描述符
+</h3><p>对内核而言，所有打开的文件都通过文件描述符引用。文件描述符为非负整数。</p>
+<p>打开一个现有文件或创建一个新文件时，内核向进程返回一个文件描述符。读、写一个文件时，使用 open 或 creat 返回的文件描述符标识该文件，将其作为参数传递给 read 或 write。</p>
+<p>文件描述符的变化范围为$0 \sim OPEN\_MAX-1$，早期UNIX的上限为19，即打开19个文件。对于FreeBSD 8.0、Linux 3.2.0，MacOS X和Solaris 10，文件描述符范围只受制于存储器总量、整型的字长以及系统管理员所配置的软权限和硬权限。</p>
+<h3 id="32-open-opanat">
+<a class="header-anchor" href="#32-open-opanat"></a>
+3.2 open opanat
+</h3><p>调用函数open或 openat可以打开或创建文件，两函数成功调用，则返回文件描述符，出错则返回-1。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">open</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="kt">int</span> <span class="n">oflag</span><span class="p">,</span> <span class="p">...</span> <span class="cm">/* mode_t mode*/</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">openat</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="p">...</span> <span class="cm">/* mode_t mode*/</span><span class="p">);</span>
+</span></span></code></pre></div><p>最后一个参数可变，open函数仅当创建新文件时才使用最后一个参数。path为打开或创建的文件名字，oflag用于指定函数的多个选项。</p>
+<h3 id="33-creat">
+<a class="header-anchor" href="#33-creat"></a>
+3.3 creat
+</h3><p>调用 creat 函数创建新文件。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">creat</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="kt">mode_t</span> <span class="n">mode</span><span class="p">);</span>
+</span></span></code></pre></div><p>等效于</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="nf">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">O_WRONLT</span> <span class="o">|</span> <span class="n">O_CREAT</span> <span class="o">|</span> <span class="n">O_TRUNC</span><span class="p">,</span> <span class="n">mode</span><span class="p">);</span>
+</span></span></code></pre></div><p>creat的不足是以只写道德形式打开文件。在提供open的新版本之前，如果需要临时创建文件，并且要先写再读，则必须先调用 creat、close，再调用 open。现在可以使用新版的 open实现：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="nf">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">O_RDWR</span> <span class="o">|</span> <span class="n">O_CREAT</span> <span class="o">|</span> <span class="n">O_TRUNC</span><span class="p">,</span> <span class="n">mode</span><span class="p">);</span>
+</span></span></code></pre></div><h3 id="34-close">
+<a class="header-anchor" href="#34-close"></a>
+3.4 close
+</h3><p>调用close函数关闭一个文件：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">close</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd</span><span class="p">);</span>
+</span></span></code></pre></div><p><strong>关闭一个文件也将释放该进程加在该文件上的所有记录锁</strong>。当进程终止时，内核会自动关闭其打开的所有文件。可以使用这种方法，不需要显式地调用 close 关闭文件。</p>
+<h3 id="35-lseek">
+<a class="header-anchor" href="#35-lseek"></a>
+3.5 lseek
+</h3><p>每个打开文件都有与之关联的“当前文件偏移量”，通常为非负整数，度量从文件开始处计算的字节数。通常，读写操作都是从当前文件偏移量开始，并使得偏移量增加读写字节数。当打开文件时，除非指定 <code>O_APPEND</code>选项，否则该偏移量设置为0。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">off_t</span> <span class="nf">lseek</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd</span><span class="p">,</span> <span class="kt">off_t</span> <span class="n">offset</span><span class="p">,</span> <span class="kt">int</span> <span class="n">whence</span><span class="p">);</span>
+</span></span></code></pre></div><p>对参数 offset 的解释和参数 whence 有关，</p>
+<ul>
+<li>whence 为 <code>SEEK_SET</code>，则将该文件的偏移量设置为距文件开始处 offset 字节</li>
+<li>whence 为 <code>SEEK_CUR</code>，则将该文件的偏移量设置为其当前值加 offset 字节，offset 可正可负</li>
+<li>whence 为 <code>SEEK_END</code>，则将该文件的偏移量设置为文件长度加 offset 字节，offset 可正可负</li>
+</ul>
+<p>若 lseek 执行成功，返回新的文件偏移量，可用下列方式确定打开文件的当前偏移量：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">off_t</span> <span class="n">currpos</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">currops</span> <span class="o">=</span> <span class="nf">lseek</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">SEEK_CUR</span><span class="p">);</span>
+</span></span></code></pre></div><p><strong>也可以用来检验所涉及的文件是否设置偏移量</strong>。如果该文件描述符指向的是管道、FIFO或socket，则lseek返回-1，并将 errno 设置为 ESPIPE。</p>
+<ol>
+<li>通常，文件的当前偏移量为非负整数，但是某些设备也允许负的偏移量。<strong>对于普通文件，偏移量必须为非负值</strong>。</li>
+<li>文件偏移量可以大于当前文件长度，此时，对该文件的下一次写将加长该文件，并在文件中构成一个空洞，位于文件中但是没有写过的字节都被读为0.</li>
+<li>文件的空洞并不要求在磁盘上占用存储区，具体处理方式与文件系统有关，当定位到</li>
+</ol>
+<h2 id="四文件和目录">
+<a class="header-anchor" href="#%e5%9b%9b%e6%96%87%e4%bb%b6%e5%92%8c%e7%9b%ae%e5%bd%95"></a>
+四、文件和目录
+</h2><h3 id="41-函数-statfstatfstatatlstat">
+<a class="header-anchor" href="#41-%e5%87%bd%e6%95%b0-statfstatfstatatlstat"></a>
+4.1 函数 stat、fstat、fstatat、lstat
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/stat.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">stat</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="kr">restrict</span> <span class="n">pathname</span><span class="p">,</span> <span class="k">struct</span> <span class="n">stat</span> <span class="o">*</span><span class="kr">restrict</span> <span class="n">buf</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">fstat</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd</span><span class="p">,</span> <span class="k">struct</span> <span class="n">stat</span> <span class="o">*</span><span class="n">buf</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">lstat</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="kr">restrict</span> <span class="n">pathname</span><span class="p">,</span> <span class="k">struct</span> <span class="n">stat</span> <span class="o">*</span><span class="kr">restrict</span> <span class="n">buf</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">fstatat</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="kr">restrict</span> <span class="n">pathname</span><span class="p">,</span> <span class="k">struct</span> <span class="n">stat</span> <span class="o">*</span><span class="kr">restrict</span> <span class="n">buf</span><span class="p">,</span> <span class="kt">int</span> <span class="n">flag</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 所有四个函数的返回值，成功返回0，出错返回-1
+</span></span></span></code></pre></div><p>给出pathname后，stat函数会返回与此命名文件有关的信息结构。fstat函数获得已在描述符fd上打开文件的有关信息。lstat函数类似于stat，但是当命名的文件是一个符号链接时，lstat返回该符号链接的有关信息，而不是该符号链接引用的文件信息。</p>
+<p>fstatat 函数为一个相对于当前打开目录的路径名返回文件统计信息。flag参数控制着是否紧跟一个符号链接，</p>
+<h3 id="42-文件类型">
+<a class="header-anchor" href="#42-%e6%96%87%e4%bb%b6%e7%b1%bb%e5%9e%8b"></a>
+4.2 文件类型
+</h3><ol>
+<li>普通文件</li>
+</ol>
+<p>除了二进制可执行文件外，其他文件的形式对于UNIX系统来说并无区别。二进制可执行文件为了执行，内核必须理解其格式，所有二进制可执行文件都遵循一种标准格式，使得内核能确定程序文本和数据的加载位置。</p>
+<ol start="2">
+<li>目录文件</li>
+</ol>
+<p>包含其他文件的名字以及指向与这些文件有关信息的指针。<strong>对一个目录文件有读权限的任一进程都可以读该目录的内容，但是只有内核可以直接写目录文件</strong>。</p>
+<ol start="3">
+<li>块特殊文件</li>
+</ol>
+<p>提供对设备带缓冲的访问，每次访问以固定长度为单位进行。</p>
+<ol start="4">
+<li>字符特殊文件</li>
+</ol>
+<p>提供对设备不带缓冲的访问，每次访问长度可变。</p>
+<ol start="5">
+<li>FIFO</li>
+</ol>
+<p>用于进程间通信，有时也称为命名管道（named piped）</p>
+<ol start="6">
+<li>socket 套接字</li>
+</ol>
+<p>进程间网络通信，也可用于一台主机上的非网络通信。</p>
+<ol start="7">
+<li>符号链接</li>
+</ol>
+<p>这种类型的文件指向另一个文件。</p>
+<h3 id="43-设置用户id和设置组id">
+<a class="header-anchor" href="#43-%e8%ae%be%e7%bd%ae%e7%94%a8%e6%88%b7id%e5%92%8c%e8%ae%be%e7%bd%ae%e7%bb%84id"></a>
+4.3 设置用户ID和设置组ID
+</h3><p>与一个进程相关联的ID一般有6个</p>
+<ol>
+<li>实际用户ID</li>
+<li>实际组ID</li>
+<li>有效用户ID</li>
+<li>有效组ID</li>
+<li>附属组ID</li>
+<li>保存的设置用户ID</li>
+<li>保存的设置组ID</li>
+</ol>
+<p>1和2在登录时取自口令文件中的登录项。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+      <ul class="article-tag-list" itemprop="keywords">
+  
+    <li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/unix"
+        rel="tag"
+        >UNIX</a
+      >
+    </li>
+  
+    <li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e5%9f%ba%e7%a1%80%e5%87%86%e5%a4%87"
+        rel="tag"
+        >基础准备</a
+      >
+    </li>
+  
+</ul>
+
+    </footer>
+  </div>
+  
+    
+  <nav
+    id="article-nav"
+    data-aos="fade-up"
+  >
+    
+      <div class="article-nav-link-wrap article-nav-link-left">
+        
+          <img
+            data-src="images/featureimages/0.jpg"
+            data-sizes="auto"
+            alt="分布式系统复习笔记"
+            class="lazyload"
+          />
+        
+        <a href="/post/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/"></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">
+          
+            分布式系统复习笔记
+          
+        </h3>
+      </div>
+    
+
+    
+      <div class="article-nav-link-wrap article-nav-link-right">
+        
+          <img
+            data-src="images/featureimages/3.jpg"
+            data-sizes="auto"
+            alt="数据库笔记"
+            class="lazyload"
+          />
+        
+        <a href="/post/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%94%E8%AE%B0/"></a>
+        <div class="article-nav-caption">后一篇</div>
+        <h3 class="article-nav-title">
+          
+            数据库笔记
+          
+        </h3>
+      </div>
+    
+  </nav>
+
+
+  
+</article>
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+</section>
+        </div>
+        
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+
+
+<footer id="footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info">
+    
+    <div>
+      <span class="icon-copyright"></span>
+      
+        2020 -
+        2025
+      
+      <span class="footer-info-sep "></span>
+      Demerzel
+    </div>
+    
+      <div>
+        基于&nbsp;<a
+          href="https://gohugo.io/"
+          target="_blank"
+          >Hugo</a
+        >&nbsp; Theme.<a
+          href="https://github.com/D-Sketon/hugo-theme-reimu"
+          target="_blank"
+          >Reimu</a
+        >
+      </div>
+    
+    
+      <div>
+        <span class="icon-brush"
+          >&nbsp;
+            155.1k
+          </span
+        >
+        &nbsp;|&nbsp;
+        <span class="icon-coffee">&nbsp;
+          
+          
+
+          05:36
+        </span>
+      </div>
+    
+    
+    
+    
+  </div>
+</footer>
+
+        
+          <div class="sidebar-top">
+            <div class="sidebar-top-taichi "></div>
+            <div class="arrow-up"></div>
+          </div>
+        
+        <div id="mask" class="hide"></div>
+      </div>
+      <nav id="mobile-nav">
+  <div class="sidebar-wrap">
+    
+      
+        <div class="sidebar-toc-sidebar">
+          <div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#一unix基础知识">一、UNIX基础知识</a>
+      <ul>
+        <li><a href="#11-unix-体系结构">1.1 UNIX 体系结构</a></li>
+        <li><a href="#12-文件和目录">1.2 文件和目录</a></li>
+        <li><a href="#13-输入输出">1.3 输入输出</a></li>
+        <li><a href="#14-程序和进程">1.4 程序和进程</a></li>
+        <li><a href="#15-出错处理">1.5 出错处理</a></li>
+      </ul>
+    </li>
+    <li><a href="#二unix标准">二、UNIX标准</a></li>
+    <li><a href="#三文件io">三、文件IO</a>
+      <ul>
+        <li><a href="#31-文件描述符">3.1 文件描述符</a></li>
+        <li><a href="#32-open-opanat">3.2 open opanat</a></li>
+        <li><a href="#33-creat">3.3 creat</a></li>
+        <li><a href="#34-close">3.4 close</a></li>
+        <li><a href="#35-lseek">3.5 lseek</a></li>
+      </ul>
+    </li>
+    <li><a href="#四文件和目录">四、文件和目录</a>
+      <ul>
+        <li><a href="#41-函数-statfstatfstatatlstat">4.1 函数 stat、fstat、fstatat、lstat</a></li>
+        <li><a href="#42-文件类型">4.2 文件类型</a></li>
+        <li><a href="#43-设置用户id和设置组id">4.3 设置用户ID和设置组ID</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+        </div>
+        <div class="sidebar-common-sidebar hidden">
+          
+<div class="sidebar-author">
+  <img
+    data-src="/images/avatar.jpg"
+    data-sizes="auto"
+    alt="Demerzel"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">Demerzel</div>
+  <div class="sidebar-description">浮沉在世 人事变迁</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    
+    <div class="sidebar-state-number">51</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      18
+    </div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">28</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a
+        href="mailto:demerzelsun@gmail.com"
+        itemprop="url"
+        target="_blank"
+        aria-label="email"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a
+        href="https://github.com/demerzelsun12"
+        itemprop="url"
+        target="_blank"
+        aria-label="github"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-linkedin sidebar-social-icon">
+      <a
+        href="https://www.linkedin.com/in/xiao-sun-52a2a21b0/"
+        itemprop="url"
+        target="_blank"
+        aria-label="linkedin"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">首页</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">归档</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">关于</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">友链</div>
+    </div>
+  
+</div>
+
+        </div>
+      
+    
+  </div>
+  
+    
+      <div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div>
+    
+  
+</nav>
+
+    </div>
+    
+    
+    
+    
+
+
+
+
+
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"
+    
+    
+    
+    
+    integrity="sha384-3gT/vsepWkfz/ff7PpWNUeMzeWoH3cDhm/A8jM7ouoAK0/fP/9bcHHR5kHq2nf&#43;e" crossorigin="anonymous"
+  ></script>
+
+
+
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"
+    
+    
+    
+    
+    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"
+  ></script>
+
+
+
+
+
+
+
+
+
+
+
+  
+      
+      <script src="/js/main.js" ></script>
+      
+
+
+
+  
+
+
+
+
+
+  
+      
+      <script src="/js/aos.js" ></script>
+      
+
+  <script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", aosInit);
+    } else {
+      aosInit();
+    }
+  </script>
+
+
+
+
+
+
+
+
+  
+      
+      <script src="/js/pjax_main.js" data-pjax></script>
+      
+
+
+
+
+
+  
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/mouse-firework@0.1.1/dist/index.umd.js"
+    
+    
+    
+    
+    integrity="sha384-8LyaidD9GPxQQgLJO/WRw/O2h3BoNq/ApI/ecpvM6RsrCz2qP2ppBXUKihP4V/2d" crossorigin="anonymous"
+  ></script>
+
+
+<script>
+  if (window.firework) {
+    const options = JSON.parse("{\"excludeelements\":[\"a\",\"button\"],\"particles\":[{\"colors\":[\"var(--red-1)\",\"var(--red-2)\",\"var(--red-3)\",\"var(--red-4)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"emit\"],\"number\":20,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.3,0.5],\"radius\":[16,32]}},{\"colors\":[\"var(--red-0)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"diffuse\"],\"number\":1,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.2,0.5],\"lineWidth\":6,\"radius\":20}}]}");
+    options.excludeElements = options.excludeelements;
+    delete options.excludeelements;
+    window.firework(options);
+  }
+</script>
+
+
+
+
+
+
+
+
+<div id="lazy-script">
+  <div>
+    
+      
+      
+        
+      
+      <script data-pjax>
+        window.REIMU_POST = {
+          author: "Demerzel",
+          title: "UNIX环境高级编程阅读笔记",
+          url: "http:\/\/localhost:13926\/post\/unix%E7%8E%AF%E5%A2%83%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0\/",
+          description: "UNIX环境高级编程阅读笔记",
+          cover: "http:\/\/localhost:13926\/images\/featureimages\/16.jpg",
+        };
+      </script>
+    
+    
+    
+      
+
+
+
+
+
+  
+      
+      <script src="/js/insert_highlight.js" data-pjax></script>
+      
+
+      
+      
+      
+      
+      <script type="module" data-pjax>
+        
+        const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;
+        
+        const pswp = () => {
+          if (_$$('.article-entry a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-entry',
+              children: 'a.article-gallery-item',
+              
+              pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")
+              
+            }).init();
+          }
+          if(_$$('.article-gallery a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-gallery',
+              children: 'a.article-gallery-item',
+              
+              pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")
+              
+            }).init();
+          }
+          window.lightboxStatus = 'done';
+          window.removeEventListener('lightbox:ready', pswp);
+        }
+        if(window.lightboxStatus === 'ready') {
+          pswp()
+        } else {
+          window.addEventListener('lightbox:ready', pswp);
+        }
+      </script>
+      
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+      
+    
+    
+      
+      
+        <script data-pjax>
+          window.MathJax = JSON.parse("[{\"loader\":{\"load\":[\"input/asciimath\",\"[tex]/noerrors\"]},\"options\":{\"ignoreHtmlClass\":\"tex2jax_ignore\",\"processHtmlClass\":\"tex2jax_process\",\"skipHtmlTags\":[\"script\",\"noscript\",\"style\",\"textarea\",\"pre\",\"code\"]},\"tex\":{\"autoload\":{\"color\":[],\"colorv2\":[\"color\"]},\"displayMath\":[[\"$$\",\"$$\"],[\"\\\\\\\\[\",\"\\\\\\\\]\"]],\"inlineMath\":[[\"$\",\"$\"],[\"\\\\\\\\(\",\"\\\\\\\\)\"]],\"packages\":{\"[+]\":[\"noerrors\"]},\"processEnvironments\":true,\"processEscapes\":true,\"tags\":\"ams\",\"useLabelIds\":true}}]")[0];
+        </script>
+        
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/mathjax@3.2.2/es5/tex-mml-chtml.js"
+    defer
+    
+    data-pjax
+    
+    integrity="sha384-Wuix6BuhrWbjDBs24bXrjf4ZQ5aFeFWBuKkFekO2t8xFU0iNaLQfp2K6/1Nxveei" crossorigin="anonymous"
+  ></script>
+
+
+      
+    
+  </div>
+</div>
+
+
+
+
+
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+  </script>
+
+
+<script>
+  const reimuCopyright = String.raw`
+   ______     ______     __     __    __     __  __    
+  /\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+  \ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+   \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+    \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                    
+  `;
+  console.log(String.raw`%c ${reimuCopyright}`, "color: #ff5252;");
+  console.log(
+    "%c Theme.Reimu" + " %c https://github.com/D-Sketon/hugo-theme-reimu ",
+    "color: white; background: #ff5252; padding:5px 0;",
+    "padding:4px;border:1px solid #ff5252;",
+  );
+</script>
+
+
+
+
+
+
+    
+  </body>
+</html>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>深圳之行 on Demerzel&#39;s Blog</title>
+    <link>http://localhost:13926/categories/%E6%B7%B1%E5%9C%B3%E4%B9%8B%E8%A1%8C/</link>
+    <description>Recent content in 深圳之行 on Demerzel&#39;s Blog</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 12 Jun 2021 16:13:48 +0000</lastBuildDate>
+    <atom:link href="http://localhost:13926/categories/%E6%B7%B1%E5%9C%B3%E4%B9%8B%E8%A1%8C/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>南国纪行（三）</title>
+      <link>http://localhost:13926/post/%E5%8D%97%E5%9B%BD%E7%BA%AA%E8%A1%8C%E4%B8%89/</link>
+      <pubDate>Sat, 12 Jun 2021 16:13:48 +0000</pubDate>
+      <guid>http://localhost:13926/post/%E5%8D%97%E5%9B%BD%E7%BA%AA%E8%A1%8C%E4%B8%89/</guid>
+      <description>深圳之行的第三篇纪</description>
+    </item>
+    <item>
+      <title>南国纪行（二）</title>
+      <link>http://localhost:13926/post/%E5%8D%97%E5%9B%BD%E7%BA%AA%E8%A1%8C%E4%BA%8C/</link>
+      <pubDate>Thu, 03 Jun 2021 20:09:42 +0000</pubDate>
+      <guid>http://localhost:13926/post/%E5%8D%97%E5%9B%BD%E7%BA%AA%E8%A1%8C%E4%BA%8C/</guid>
+      <description>深圳之行的第三篇纪</description>
+    </item>
+    <item>
+      <title>南国纪行（一）</title>
+      <link>http://localhost:13926/post/%E5%8D%97%E5%9B%BD%E7%BA%AA%E8%A1%8C%E4%B8%80/</link>
+      <pubDate>Sun, 21 Feb 2021 20:59:28 +0000</pubDate>
+      <guid>http://localhost:13926/post/%E5%8D%97%E5%9B%BD%E7%BA%AA%E8%A1%8C%E4%B8%80/</guid>
+      <description>深圳之行的第一篇纪</description>
+    </item>
+  </channel>
+</rss>

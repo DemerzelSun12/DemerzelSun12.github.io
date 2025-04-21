@@ -1,0 +1,1744 @@
+<!doctype html>
+<html
+  lang="zh-cn" 
+  
+    data-theme-mode="auto"
+  
+>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=13926&amp;path=livereload" data-no-instant defer></script>
+    
+    <meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+
+
+
+
+
+  
+
+<title>
+  软件构造-第四章-第三节-面向复用的设计模式 | Demerzel
+</title>
+<meta
+  name="description"
+  content="浮沉在世 人事变迁"
+/>
+
+
+
+
+
+
+
+
+
+
+<script>
+  window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"clipboard\":{\"copyright\":{\"content\":\"本文版权：本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！\",\"count\":50,\"enable\":false},\"fail\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"success\":\"复制成功(*^▽^*)\"},\"code_block\":{\"expand\":true},\"icon_font\":\"4552607_0khxww3tj3q9\",\"outdate\":{\"daysago\":180,\"enable\":false,\"message\":\"本文最后更新于 {time}，请注意文中内容可能已经发生变化。\"}}");
+</script>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+    
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+  media="print"
+  onload="this.media='all'"
+/>
+
+
+
+
+
+
+
+  <link
+    rel="preload"
+    href="//at.alicdn.com/t/c/font_4552607_0khxww3tj3q9.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  />
+
+
+
+  
+
+
+
+
+
+
+ <link rel="stylesheet" href="/css/loader.css" />
+
+
+
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="软件构造-第四章-第三节-面向复用的设计模式 | Demerzel" />
+  <meta
+    property="og:description"
+    content="浮沉在世 人事变迁"
+  />
+  <meta property="og:url" content="http://localhost:13926/post/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0-%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E7%AC%AC%E4%B8%89%E8%8A%82-%E9%9D%A2%E5%90%91%E5%A4%8D%E7%94%A8%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" />
+  <meta
+    property="og:site_name"
+    content="Demerzel&#39;s Blog"
+  />
+  <meta
+    property="og:image"
+    content="/images/featureimages/10.jpg"
+  />
+  <meta property="article:author" content="Demerzel" />
+  <meta property="article:published_time" content="2020-04-20T13:34:12&#43;00:00" />
+  <meta property="article:modified_time" content="2020-04-20T13:34:12&#43;00:00" />
+  
+    <meta property="article:tag" content="软件构造Java" />
+  
+  
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:image" content="/images/featureimages/10.jpg" />
+  
+  
+  
+  
+  
+
+
+
+
+<link rel="shortcut icon" href="/favicon.ico">
+
+
+
+
+
+
+
+ <link rel="stylesheet" href="/css/main.css" />
+
+
+
+
+
+  <link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css"
+    onload="this.onload=null;this.rel='stylesheet'"
+  />
+
+
+
+
+
+
+  <link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css"
+    onload="this.onload=null;this.rel='stylesheet'"
+  />
+
+
+
+
+
+
+
+
+  
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"
+    
+    
+    
+    
+    integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"
+  ></script>
+
+
+
+
+
+  
+
+
+  <link rel="stylesheet" href="https://npm.webcache.cn/@reimujs/aos@0.1.0/dist/aos.css" />
+
+
+
+
+
+    
+  </head>
+  <body>
+    
+    
+  <div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi rotate">
+        
+          <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+            <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="var(--red-1, #ff5252)" />
+            <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+          M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="var(--red-1, #ff5252)" />
+          </svg>
+        
+      </div>
+      <div class="loading-word">少女祈祷中...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    var startLoading = () => {
+      time = Date.now();
+      document.getElementById('loader').classList.remove("loading");
+    }
+    var endLoading = () => {
+      if (!time) {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loader').classList.add("loading");
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          document.body.style.overflow = 'auto';
+          document.getElementById('loader').classList.add("loading");
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    document.getElementById('loader').addEventListener('click', endLoading);
+  </script>
+
+
+<div id="copy-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+</div>
+
+
+    <div id="container">
+      <div id="wrap">
+        
+<div id="header-nav">
+  <nav id="main-nav">
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/">首页</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/archives">归档</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/about">关于</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/friend">友链</a>
+      </span>
+    
+    <a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav">
+    
+    
+  </nav>
+</div>
+<header id="header">
+  
+    <picture></picture>
+    <img  fetchpriority="high" src="/images/featureimages/10.jpg" alt="软件构造-第四章-第三节-面向复用的设计模式">
+  
+
+  <div id="header-outer">
+    <div id="header-title">
+      
+        
+        
+          
+        
+  
+        
+          <a href="/" id="logo">
+            <h1 data-aos="slide-up">软件构造-第四章-第三节-面向复用的设计模式</h1>
+          </a>
+        
+      
+  
+      
+        
+        
+        <h2 id="subtitle-wrap" data-aos="slide-down">
+          
+        </h2>
+      
+    </div>
+  </div>
+</header>
+        <div id="content"
+          
+          class="sidebar-right"  >
+          <aside id="sidebar">
+  
+  
+  
+  <div class="sidebar-wrapper wrap-sticky">
+    <div
+      class="sidebar-wrap"
+      data-aos="fade-up"
+    >
+      
+        
+          <div class="sidebar-toc-sidebar">
+            <div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#11-适配器模式adapter">1.1 适配器模式(Adapter)</a></li>
+    <li><a href="#12-装饰器模式decorator">1.2 装饰器模式(Decorator)</a></li>
+    <li><a href="#13-外观模式facade">1.3 外观模式(facade)</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#21-策略模式strategy">2.1 策略模式(Strategy)</a></li>
+    <li><a href="#22-模板模式template-method">2.2 模板模式(Template method)</a></li>
+    <li><a href="#23-迭代器模式iterator">2.3 迭代器模式(Iterator)</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+          </div>
+          <div class="sidebar-common-sidebar hidden">
+            
+<div class="sidebar-author">
+  <img
+    data-src="/images/avatar.jpg"
+    data-sizes="auto"
+    alt="Demerzel"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">Demerzel</div>
+  <div class="sidebar-description">浮沉在世 人事变迁</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    
+    <div class="sidebar-state-number">51</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      18
+    </div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">28</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a
+        href="mailto:demerzelsun@gmail.com"
+        itemprop="url"
+        target="_blank"
+        aria-label="email"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a
+        href="https://github.com/demerzelsun12"
+        itemprop="url"
+        target="_blank"
+        aria-label="github"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-linkedin sidebar-social-icon">
+      <a
+        href="https://www.linkedin.com/in/xiao-sun-52a2a21b0/"
+        itemprop="url"
+        target="_blank"
+        aria-label="linkedin"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">首页</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">归档</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">关于</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">友链</div>
+    </div>
+  
+</div>
+
+          </div>
+        
+      
+
+      
+        
+          <div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div>
+        
+      
+    </div>
+  </div>
+
+  <div class="sidebar-widget">
+    
+  </div>
+  
+</aside>
+
+          <section id="main">
+  <article
+  class="h-entry article"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div
+    class="article-inner"
+    data-aos="fade-up"
+  >
+    <div class="article-meta">
+      <div class="article-date">
+  <span
+    class="article-date-link"
+    data-aos="zoom-in"
+  >
+    <time datetime="2020-04-20 13:34:12 &#43;0000 UTC" itemprop="datePublished"
+      >2020-04-20</time
+    >
+    <time style="display: none;" id="post-update-time"
+      >2020-04-20</time
+    >
+  </span>
+</div>
+
+      <div class="article-category">
+  
+    <a
+      class="article-category-link"
+      href="/categories/%e8%bd%af%e4%bb%b6%e6%9e%84%e9%80%a0"
+      data-aos="zoom-in"
+      >软件构造</a
+    >
+  
+</div>
+
+    </div>
+    <div class="hr-line"></div>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+      
+        <h1 id="软件构造第四章-第三节-面向复用的设计模式">
+<a class="header-anchor" href="#%e8%bd%af%e4%bb%b6%e6%9e%84%e9%80%a0%e7%ac%ac%e5%9b%9b%e7%ab%a0-%e7%ac%ac%e4%b8%89%e8%8a%82-%e9%9d%a2%e5%90%91%e5%a4%8d%e7%94%a8%e7%9a%84%e8%ae%be%e8%ae%a1%e6%a8%a1%e5%bc%8f"></a>
+软件构造第四章 第三节 面向复用的设计模式
+</h1><!-- toc -->
+<h1 id="一结构型模式structural-patterns">
+<a class="header-anchor" href="#%e4%b8%80%e7%bb%93%e6%9e%84%e5%9e%8b%e6%a8%a1%e5%bc%8fstructural-patterns"></a>
+一、结构型模式：Structural patterns
+</h1><h2 id="11-适配器模式adapter">
+<a class="header-anchor" href="#11-%e9%80%82%e9%85%8d%e5%99%a8%e6%a8%a1%e5%bc%8fadapter"></a>
+1.1 适配器模式(Adapter)
+</h2><ol>
+<li>目的：将某个类/接口转换为用户期望的其他形式。</li>
+<li>含义：适配器模式是作为两个互不相容的接口的桥梁，将某个类/接口转换为client期望的其他形式。适配器模式使得原本由于接口不兼容而不能一起工作的的那些类/接口可以一起工作。</li>
+<li>用途：主要解决在软件系统中，需要将现存的类放到新的环境中，而环境要求的接口是现对象不能满足的。</li>
+<li>实现方法：通过增加一个新的接口，将已存在的子类封装起来，client直接面向接口编程，从来隐藏了具体子类。适配器继承或依赖已有的对象，实现想要的目标接口。</li>
+<li>对象：将旧组件重用到新系统（也称为“包装器”）。</li>
+<li>模型：</li>
+</ol>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200428232000619.png" width="80%" height="35%">
+</center>
+<center>
+图1-1 适配器模式模型
+</center>
+<ol start="7">
+<li>例：问题描述：
+LegacyRectangle是已有的类（需要传入矩形的一个顶点、长和宽），但是与client要求的接口不一致（需要给出对角线两个顶点坐标），我们此时建立一个新的接口Shape以供客户端调用，用户通过Shape接口传入两个点的坐标。Rectangle作为Adapter，实现该抽象接口，通过具体的方法实现适配。
+在不适用适配器时：会发生委派不相容。</li>
+</ol>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200506150844752.png" width="80%" height="35%">
+</center>
+<center>
+图1-2 LegacyRectangle类与Client类
+</center>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200506151156221.png" width="80%" height="35%">
+</center>
+<center>
+图1-3 Shape接口
+</center>
+<h2 id="12-装饰器模式decorator">
+<a class="header-anchor" href="#12-%e8%a3%85%e9%a5%b0%e5%99%a8%e6%a8%a1%e5%bc%8fdecorator"></a>
+1.2 装饰器模式(Decorator)
+</h2><ol>
+<li>含义：
+<ul>
+<li>装饰器模式允许向一个现有的对象添加新的功能，同时又不改变其结构，它是作为一个现有的类的一个包装。</li>
+<li>这种模式创建了一个装饰类，用来包装原有的类，并在保证类方法签名完整性的前提下，提供额外的功能。</li>
+<li>装饰模式是继承的一个代替模式，装饰模式可以动态地给一个对象添加一些额外的职能。就增加功能来说，装饰器模式比生成子类更为灵活。</li>
+</ul>
+</li>
+<li>主要解决：
+<ul>
+<li>一般的，我们为了扩展一个类经常使用继承方式实现，由于继承为类引入静态特征，并且随着扩展功能的增多，子类会很膨胀。</li>
+</ul>
+</li>
+<li>实现方法：
+<ul>
+<li>将具体功能职责划分，对每一个特性构造子类，通过委派机制增加到对象上。</li>
+</ul>
+</li>
+<li>用途：
+<ul>
+<li>为对象增加不同侧面的特性。</li>
+</ul>
+</li>
+<li>优点：
+<ul>
+<li>装饰类和被装饰类可以独立发展，不会相互耦合，装饰模式是继承的一个替代模式，装饰模式可以动态扩展一个实现类的功能。</li>
+</ul>
+</li>
+<li>缺点：
+<ul>
+<li>多层装饰比较复杂，客户端需要一个具有多特性的object，需要一层一层的装饰来实现</li>
+</ul>
+</li>
+<li>模型：</li>
+</ol>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200506153427110.jpg" width="80%" height="35%">
+</center>
+<center>
+图1-4 装饰器模式模型
+</center>
+<ol start="8">
+<li>例：
+<ul>
+<li>需要对Stack数据结构的各种扩展：
+<ul>
+<li>UndoStack：一个允许你撤销先前的push或pop操作的栈</li>
+<li>SecureStack：一个需要密码的栈</li>
+<li>SynchronizedStack：一个串行化并发访问的栈</li>
+</ul>
+</li>
+<li>可以采用继承的方式来解决。之后我们又需要任意可组合的扩展：
+<ul>
+<li>SecureUndoStack：需要密码的堆栈，并且还可以撤消以前的操作</li>
+<li>SynchronizedUndoStack：一个堆栈，用于序列化并发访问，还可以让您撤销先前的操作</li>
+<li>SecureSynchronizedStack：需要密码的堆栈，并用于序列化并发访问的操作</li>
+</ul>
+</li>
+<li>装饰器模式就可以很好地解决这一问题。</li>
+</ul>
+</li>
+</ol>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200506163409391.png" width="80%" height="35%">
+</center>
+<center>
+图1-5 Stack的基础类
+</center>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200506163559852.png" width="80%" height="35%">
+</center>
+<center>
+图1-6 UndoStack拓展
+</center>
+<ol start="9">
+<li>实现方式：
+<ul>
+<li>通过包装器的层层装饰实现</li>
+</ul>
+</li>
+</ol>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200506163805538.png" width="90%" height="35%">
+</center>
+<center>
+图1-7 Stack具体声明
+</center>
+<h2 id="13-外观模式facade">
+<a class="header-anchor" href="#13-%e5%a4%96%e8%a7%82%e6%a8%a1%e5%bc%8ffacade"></a>
+1.3 外观模式(facade)
+</h2><ol>
+<li>含义：
+<ul>
+<li>外观模式隐藏系统的复杂性，并向客户端提供了一个客户端可以访问系统的接口。这种类型的设计模式属于结构型模式，它向现有的系统添加一个接口，来隐藏系统的复杂性。这种模式涉及到一个单一的类，该类提供了客户端请求的简化方法和对现有系统类方法的委托调用。</li>
+</ul>
+</li>
+<li>意图：
+<ul>
+<li>为子系统中的一组接口提供一个一致的界面，外观模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。</li>
+</ul>
+</li>
+<li>主要解决：
+<ul>
+<li>降低访问复杂系统的内部子系统时的复杂度，简化客户端与之的接口。</li>
+</ul>
+</li>
+<li>实现方法：
+<ul>
+<li>提供一个统一的接口来取代一系列小接口调用，相当于对复杂系统做了一个封装，简化客户端使用。便于客户端学习，解耦 。</li>
+</ul>
+</li>
+<li>用途：
+<ul>
+<li>为了解决客户端需要通过一个简化的接口来访问复杂系统内的功能这一问题提出的。</li>
+</ul>
+</li>
+<li>优点：
+<ul>
+<li>减少系统相互依赖</li>
+<li>提高灵活性</li>
+<li>提高了安全性</li>
+</ul>
+</li>
+<li>缺点：
+<ul>
+<li>不符合开闭原则，如果要改东西很麻烦，继承重写都不合适。</li>
+</ul>
+</li>
+<li>模式：</li>
+</ol>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200506164429965.png" width="90%" height="35%">
+</center>
+<center>
+图1-8 外观模式模型
+</center>
+<ol start="9">
+<li>例：
+<ul>
+<li>假设我们有一个具有一组接口的应用程序来使用MySql / Oracle数据库，并生成不同类型的报告，如HTML报告，PDF报告等。</li>
+<li>因此，我们将有不同的接口集合来处理不同类型的数据库。现在客户端应用程序可以使用这些接口来获取所需的数据库连接并生成报告。但是，当复杂性增加或界面行为名称混淆时，客户端应用程序将难以管理它。</li>
+<li>因此，我们可以在这里应用Facade模式，并在现有界面的顶部提供包装界面以帮助客户端应用程序。</li>
+</ul>
+</li>
+</ol>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200506165520949.png" width="90%" height="35%">
+</center>
+<center>
+图1-9 Two Helper Classes for MySQL and Oracle： 分别封装了客户端所需的功能
+</center>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200506165610574.png" width="90%" height="35%">
+</center>
+<center>
+图1-10 外观模式的类
+</center>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200506165617187.png" width="90%" height="35%">
+</center>
+<center>
+图1-11 客户端代码
+</center>
+<h1 id="二行为类模式behavioral-patterns">
+<a class="header-anchor" href="#%e4%ba%8c%e8%a1%8c%e4%b8%ba%e7%b1%bb%e6%a8%a1%e5%bc%8fbehavioral-patterns"></a>
+二、行为类模式：Behavioral patterns
+</h1><h2 id="21-策略模式strategy">
+<a class="header-anchor" href="#21-%e7%ad%96%e7%95%a5%e6%a8%a1%e5%bc%8fstrategy"></a>
+2.1 策略模式(Strategy)
+</h2><ol>
+<li>含义：
+<ul>
+<li>在策略模式中，一个类的行为或算法可以在运行时更改。在策略模式中，我们创建表示各种模式的对象和一个行为随着策略对象改变而改变的 context对象，策略对象改变 context对象的执行算法。</li>
+</ul>
+</li>
+<li>用途：
+<ul>
+<li>针对特定任务存在不同的算法，但客户端可以根据动态上下文在运行时切换算法。</li>
+</ul>
+</li>
+<li>实现方法：
+<ul>
+<li>为算法创建一个接口，并为算法的每个变体创建一个实现类。</li>
+</ul>
+</li>
+<li>解决方法：
+<ul>
+<li>将这些算法封装成一个一个的类，任意地替换</li>
+</ul>
+</li>
+<li>优点：
+<ul>
+<li>算法可以自由切换</li>
+<li>避免使用多重条件判断</li>
+<li>扩展性良好</li>
+</ul>
+</li>
+<li>缺点：
+<ul>
+<li>策略类会增多</li>
+<li>所有策略类都需要对外暴露。</li>
+</ul>
+</li>
+<li>模型：</li>
+</ol>
+<center>
+<img src="https://img-blog.csdnimg.cn/2020050617163393.png" width="90%" height="35%">
+</center>
+<center>
+图2-1 策略模式模型
+</center>
+<ol start="8">
+<li>例：
+<a href="https://www.runoob.com/design-pattern/strategy-pattern.html">策略模式示例</a></li>
+</ol>
+<h2 id="22-模板模式template-method">
+<a class="header-anchor" href="#22-%e6%a8%a1%e6%9d%bf%e6%a8%a1%e5%bc%8ftemplate-method"></a>
+2.2 模板模式(Template method)
+</h2><ol>
+<li>含义：
+<ul>
+<li>在模板模式中，一个抽象类公开定义了执行它的方法的方式/模式，它的子类可以按照需要重写实现方法，但调用将以抽象类中定义的方法进行。</li>
+</ul>
+</li>
+<li>意图：
+<ul>
+<li>定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤。</li>
+</ul>
+</li>
+<li>实现方法：
+<ul>
+<li>共性的步骤在抽象类内公共实现，差异化的步骤在各个子类中实现。一般使用继承和重写实现模板模式。</li>
+</ul>
+</li>
+<li>优点：
+<ul>
+<li>封装不变部分，扩展可变部分</li>
+<li>提取公共代码，便于维护</li>
+<li>行为由父类控制吗，子类实现</li>
+</ul>
+</li>
+<li>缺点：
+<ul>
+<li>每一个不同的实现都需要一个子类来实现</li>
+<li>导致类的个数增加，使得系统更加庞大</li>
+</ul>
+</li>
+<li>模式：</li>
+</ol>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200506172804965.png" width="90%" height="35%">
+</center>
+<center>
+图2-2 模板模式模型
+</center>
+<ol start="7">
+<li>例：
+<a href="https://www.runoob.com/design-pattern/template-pattern.html">模板模式示例</a></li>
+</ol>
+<h2 id="23-迭代器模式iterator">
+<a class="header-anchor" href="#23-%e8%bf%ad%e4%bb%a3%e5%99%a8%e6%a8%a1%e5%bc%8fiterator"></a>
+2.3 迭代器模式(Iterator)
+</h2><ol>
+<li>含义：
+<ul>
+<li>这种模式用于顺序访问集合对象的元素，而又无需暴露该对象的内部表示。</li>
+</ul>
+</li>
+<li>用途：
+<ul>
+<li>解决 客户需要统一的策略来访问容器中的所有元素，与容器类型无关</li>
+</ul>
+</li>
+<li>实现方法：
+<ul>
+<li>这种模式让自己的集合类实现Iterable接口，并实现自己的独特Iterator迭代器(hasNext, next, remove），允许客户端利用这 个迭代器进行显式或隐式的迭代遍历。</li>
+</ul>
+</li>
+<li>优点：
+<ul>
+<li>它支持以不同的方式遍历一个聚合对象</li>
+<li>迭代器简化了聚合类</li>
+<li>在同一个聚合上可以有多个遍历</li>
+<li>在迭代器模式中，增加新的聚合类和迭代器类都很方便，无须修改原有代码</li>
+</ul>
+</li>
+<li>缺点：
+<ul>
+<li>由于迭代器模式将存储数据和遍历数据的职责分离，增加新的聚合类需要对应增加新的迭代器类，类的个数成对增加，这在一定程度上增加了系统的复杂性。</li>
+</ul>
+</li>
+<li>模式：</li>
+</ol>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200506173438304.png" width="90%" height="35%">
+</center>
+<center>
+图2-3 迭代器模式模型
+</center>
+<ol start="7">
+<li>例：
+<a href="https://www.runoob.com/design-pattern/iterator-pattern.html">迭代器模式示例</a></li>
+</ol>
+      
+    </div>
+    <footer class="article-footer">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+      <ul class="article-tag-list" itemprop="keywords">
+  
+    <li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e8%bd%af%e4%bb%b6%e6%9e%84%e9%80%a0"
+        rel="tag"
+        >软件构造</a
+      >
+    </li>
+  
+    <li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/java"
+        rel="tag"
+        >JAVA</a
+      >
+    </li>
+  
+</ul>
+
+    </footer>
+  </div>
+  
+    
+  <nav
+    id="article-nav"
+    data-aos="fade-up"
+  >
+    
+      <div class="article-nav-link-wrap article-nav-link-left">
+        
+          <img
+            data-src="images/featureimages/9.jpg"
+            data-sizes="auto"
+            alt="软件构造-第四章-第二节-面向复用的软件构造技术"
+            class="lazyload"
+          />
+        
+        <a href="/post/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0-%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E7%AC%AC%E4%BA%8C%E8%8A%82-%E9%9D%A2%E5%90%91%E5%A4%8D%E7%94%A8%E7%9A%84%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0%E6%8A%80%E6%9C%AF/"></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">
+          
+            软件构造-第四章-第二节-面向复用的软件构造技术
+          
+        </h3>
+      </div>
+    
+
+    
+      <div class="article-nav-link-wrap article-nav-link-right">
+        
+          <img
+            data-src="images/featureimages/11.jpg"
+            data-sizes="auto"
+            alt="软件构造-第五章-第一节-可维护性的度量与构造原则"
+            class="lazyload"
+          />
+        
+        <a href="/post/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0-%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%AC%AC%E4%B8%80%E8%8A%82-%E5%8F%AF%E7%BB%B4%E6%8A%A4%E6%80%A7%E7%9A%84%E5%BA%A6%E9%87%8F%E4%B8%8E%E6%9E%84%E9%80%A0%E5%8E%9F%E5%88%99/"></a>
+        <div class="article-nav-caption">后一篇</div>
+        <h3 class="article-nav-title">
+          
+            软件构造-第五章-第一节-可维护性的度量与构造原则
+          
+        </h3>
+      </div>
+    
+  </nav>
+
+
+  
+</article>
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+</section>
+        </div>
+        
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+
+
+<footer id="footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info">
+    
+    <div>
+      <span class="icon-copyright"></span>
+      
+        2020 -
+        2025
+      
+      <span class="footer-info-sep "></span>
+      Demerzel
+    </div>
+    
+      <div>
+        基于&nbsp;<a
+          href="https://gohugo.io/"
+          target="_blank"
+          >Hugo</a
+        >&nbsp; Theme.<a
+          href="https://github.com/D-Sketon/hugo-theme-reimu"
+          target="_blank"
+          >Reimu</a
+        >
+      </div>
+    
+    
+      <div>
+        <span class="icon-brush"
+          >&nbsp;
+            155.1k
+          </span
+        >
+        &nbsp;|&nbsp;
+        <span class="icon-coffee">&nbsp;
+          
+          
+
+          05:36
+        </span>
+      </div>
+    
+    
+    
+    
+  </div>
+</footer>
+
+        
+          <div class="sidebar-top">
+            <div class="sidebar-top-taichi "></div>
+            <div class="arrow-up"></div>
+          </div>
+        
+        <div id="mask" class="hide"></div>
+      </div>
+      <nav id="mobile-nav">
+  <div class="sidebar-wrap">
+    
+      
+        <div class="sidebar-toc-sidebar">
+          <div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#11-适配器模式adapter">1.1 适配器模式(Adapter)</a></li>
+    <li><a href="#12-装饰器模式decorator">1.2 装饰器模式(Decorator)</a></li>
+    <li><a href="#13-外观模式facade">1.3 外观模式(facade)</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#21-策略模式strategy">2.1 策略模式(Strategy)</a></li>
+    <li><a href="#22-模板模式template-method">2.2 模板模式(Template method)</a></li>
+    <li><a href="#23-迭代器模式iterator">2.3 迭代器模式(Iterator)</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+        </div>
+        <div class="sidebar-common-sidebar hidden">
+          
+<div class="sidebar-author">
+  <img
+    data-src="/images/avatar.jpg"
+    data-sizes="auto"
+    alt="Demerzel"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">Demerzel</div>
+  <div class="sidebar-description">浮沉在世 人事变迁</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    
+    <div class="sidebar-state-number">51</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      18
+    </div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">28</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a
+        href="mailto:demerzelsun@gmail.com"
+        itemprop="url"
+        target="_blank"
+        aria-label="email"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a
+        href="https://github.com/demerzelsun12"
+        itemprop="url"
+        target="_blank"
+        aria-label="github"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-linkedin sidebar-social-icon">
+      <a
+        href="https://www.linkedin.com/in/xiao-sun-52a2a21b0/"
+        itemprop="url"
+        target="_blank"
+        aria-label="linkedin"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">首页</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">归档</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">关于</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">友链</div>
+    </div>
+  
+</div>
+
+        </div>
+      
+    
+  </div>
+  
+    
+      <div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div>
+    
+  
+</nav>
+
+    </div>
+    
+    
+    
+    
+
+
+
+
+
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"
+    
+    
+    
+    
+    integrity="sha384-3gT/vsepWkfz/ff7PpWNUeMzeWoH3cDhm/A8jM7ouoAK0/fP/9bcHHR5kHq2nf&#43;e" crossorigin="anonymous"
+  ></script>
+
+
+
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"
+    
+    
+    
+    
+    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"
+  ></script>
+
+
+
+
+
+
+
+
+
+
+
+  
+      
+      <script src="/js/main.js" ></script>
+      
+
+
+
+  
+
+
+
+
+
+  
+      
+      <script src="/js/aos.js" ></script>
+      
+
+  <script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", aosInit);
+    } else {
+      aosInit();
+    }
+  </script>
+
+
+
+
+
+
+
+
+  
+      
+      <script src="/js/pjax_main.js" data-pjax></script>
+      
+
+
+
+
+
+  
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/mouse-firework@0.1.1/dist/index.umd.js"
+    
+    
+    
+    
+    integrity="sha384-8LyaidD9GPxQQgLJO/WRw/O2h3BoNq/ApI/ecpvM6RsrCz2qP2ppBXUKihP4V/2d" crossorigin="anonymous"
+  ></script>
+
+
+<script>
+  if (window.firework) {
+    const options = JSON.parse("{\"excludeelements\":[\"a\",\"button\"],\"particles\":[{\"colors\":[\"var(--red-1)\",\"var(--red-2)\",\"var(--red-3)\",\"var(--red-4)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"emit\"],\"number\":20,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.3,0.5],\"radius\":[16,32]}},{\"colors\":[\"var(--red-0)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"diffuse\"],\"number\":1,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.2,0.5],\"lineWidth\":6,\"radius\":20}}]}");
+    options.excludeElements = options.excludeelements;
+    delete options.excludeelements;
+    window.firework(options);
+  }
+</script>
+
+
+
+
+
+
+
+
+<div id="lazy-script">
+  <div>
+    
+      
+      
+        
+      
+      <script data-pjax>
+        window.REIMU_POST = {
+          author: "Demerzel",
+          title: "软件构造-第四章-第三节-面向复用的设计模式",
+          url: "http:\/\/localhost:13926\/post\/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0-%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E7%AC%AC%E4%B8%89%E8%8A%82-%E9%9D%A2%E5%90%91%E5%A4%8D%E7%94%A8%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F\/",
+          description: "\r软件构造第四章 第三节 面向复用的设计模式\r",
+          cover: "http:\/\/localhost:13926\/images\/featureimages\/10.jpg",
+        };
+      </script>
+    
+    
+    
+      
+
+
+
+
+
+  
+      
+      <script src="/js/insert_highlight.js" data-pjax></script>
+      
+
+      
+      
+      
+      
+      <script type="module" data-pjax>
+        
+        const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;
+        
+        const pswp = () => {
+          if (_$$('.article-entry a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-entry',
+              children: 'a.article-gallery-item',
+              
+              pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")
+              
+            }).init();
+          }
+          if(_$$('.article-gallery a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-gallery',
+              children: 'a.article-gallery-item',
+              
+              pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")
+              
+            }).init();
+          }
+          window.lightboxStatus = 'done';
+          window.removeEventListener('lightbox:ready', pswp);
+        }
+        if(window.lightboxStatus === 'ready') {
+          pswp()
+        } else {
+          window.addEventListener('lightbox:ready', pswp);
+        }
+      </script>
+      
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+      
+    
+    
+      
+      
+        <script data-pjax>
+          window.MathJax = JSON.parse("[{\"loader\":{\"load\":[\"input/asciimath\",\"[tex]/noerrors\"]},\"options\":{\"ignoreHtmlClass\":\"tex2jax_ignore\",\"processHtmlClass\":\"tex2jax_process\",\"skipHtmlTags\":[\"script\",\"noscript\",\"style\",\"textarea\",\"pre\",\"code\"]},\"tex\":{\"autoload\":{\"color\":[],\"colorv2\":[\"color\"]},\"displayMath\":[[\"$$\",\"$$\"],[\"\\\\\\\\[\",\"\\\\\\\\]\"]],\"inlineMath\":[[\"$\",\"$\"],[\"\\\\\\\\(\",\"\\\\\\\\)\"]],\"packages\":{\"[+]\":[\"noerrors\"]},\"processEnvironments\":true,\"processEscapes\":true,\"tags\":\"ams\",\"useLabelIds\":true}}]")[0];
+        </script>
+        
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/mathjax@3.2.2/es5/tex-mml-chtml.js"
+    defer
+    
+    data-pjax
+    
+    integrity="sha384-Wuix6BuhrWbjDBs24bXrjf4ZQ5aFeFWBuKkFekO2t8xFU0iNaLQfp2K6/1Nxveei" crossorigin="anonymous"
+  ></script>
+
+
+      
+    
+  </div>
+</div>
+
+
+
+
+
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+  </script>
+
+
+<script>
+  const reimuCopyright = String.raw`
+   ______     ______     __     __    __     __  __    
+  /\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+  \ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+   \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+    \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                    
+  `;
+  console.log(String.raw`%c ${reimuCopyright}`, "color: #ff5252;");
+  console.log(
+    "%c Theme.Reimu" + " %c https://github.com/D-Sketon/hugo-theme-reimu ",
+    "color: white; background: #ff5252; padding:5px 0;",
+    "padding:4px;border:1px solid #ff5252;",
+  );
+</script>
+
+
+
+
+
+
+    
+  </body>
+</html>

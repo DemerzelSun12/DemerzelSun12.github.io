@@ -1,0 +1,1698 @@
+<!doctype html>
+<html
+  lang="zh-cn" 
+  
+    data-theme-mode="auto"
+  
+>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=13926&amp;path=livereload" data-no-instant defer></script>
+    
+    <meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+
+
+
+
+
+  
+
+<title>
+  mqtt协议学习记录 | Demerzel
+</title>
+<meta
+  name="description"
+  content="浮沉在世 人事变迁"
+/>
+
+
+
+
+
+
+
+
+
+
+<script>
+  window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"clipboard\":{\"copyright\":{\"content\":\"本文版权：本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！\",\"count\":50,\"enable\":false},\"fail\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"success\":\"复制成功(*^▽^*)\"},\"code_block\":{\"expand\":true},\"icon_font\":\"4552607_0khxww3tj3q9\",\"outdate\":{\"daysago\":180,\"enable\":false,\"message\":\"本文最后更新于 {time}，请注意文中内容可能已经发生变化。\"}}");
+</script>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+    
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+  media="print"
+  onload="this.media='all'"
+/>
+
+
+
+
+
+
+
+  <link
+    rel="preload"
+    href="//at.alicdn.com/t/c/font_4552607_0khxww3tj3q9.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  />
+
+
+
+  
+
+
+
+
+
+
+ <link rel="stylesheet" href="/css/loader.css" />
+
+
+
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="mqtt协议学习记录 | Demerzel" />
+  <meta
+    property="og:description"
+    content="浮沉在世 人事变迁"
+  />
+  <meta property="og:url" content="http://localhost:13926/post/mqtt%E5%8D%8F%E8%AE%AE%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" />
+  <meta
+    property="og:site_name"
+    content="Demerzel&#39;s Blog"
+  />
+  <meta
+    property="og:image"
+    content="/images/featureimages/13.jpg"
+  />
+  <meta property="article:author" content="Demerzel" />
+  <meta property="article:published_time" content="2022-01-08T14:53:28&#43;00:00" />
+  <meta property="article:modified_time" content="2022-01-08T14:53:28&#43;00:00" />
+  
+    <meta property="article:tag" content="graduate learningGomqtt" />
+  
+  
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:image" content="/images/featureimages/13.jpg" />
+  
+  
+  
+  
+  
+
+
+
+
+<link rel="shortcut icon" href="/favicon.ico">
+
+
+
+
+
+
+
+ <link rel="stylesheet" href="/css/main.css" />
+
+
+
+
+
+  <link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css"
+    onload="this.onload=null;this.rel='stylesheet'"
+  />
+
+
+
+
+
+
+  <link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css"
+    onload="this.onload=null;this.rel='stylesheet'"
+  />
+
+
+
+
+
+
+
+
+  
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"
+    
+    
+    
+    
+    integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"
+  ></script>
+
+
+
+
+
+  
+
+
+  <link rel="stylesheet" href="https://npm.webcache.cn/@reimujs/aos@0.1.0/dist/aos.css" />
+
+
+
+
+
+    
+  </head>
+  <body>
+    
+    
+  <div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi rotate">
+        
+          <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+            <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="var(--red-1, #ff5252)" />
+            <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+          M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="var(--red-1, #ff5252)" />
+          </svg>
+        
+      </div>
+      <div class="loading-word">少女祈祷中...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    var startLoading = () => {
+      time = Date.now();
+      document.getElementById('loader').classList.remove("loading");
+    }
+    var endLoading = () => {
+      if (!time) {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loader').classList.add("loading");
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          document.body.style.overflow = 'auto';
+          document.getElementById('loader').classList.add("loading");
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    document.getElementById('loader').addEventListener('click', endLoading);
+  </script>
+
+
+<div id="copy-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+</div>
+
+
+    <div id="container">
+      <div id="wrap">
+        
+<div id="header-nav">
+  <nav id="main-nav">
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/">首页</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/archives">归档</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/about">关于</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/friend">友链</a>
+      </span>
+    
+    <a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav">
+    
+    
+  </nav>
+</div>
+<header id="header">
+  
+    <picture></picture>
+    <img  fetchpriority="high" src="/images/featureimages/13.jpg" alt="mqtt协议学习记录">
+  
+
+  <div id="header-outer">
+    <div id="header-title">
+      
+        
+        
+          
+        
+  
+        
+          <a href="/" id="logo">
+            <h1 data-aos="slide-up">mqtt协议学习记录</h1>
+          </a>
+        
+      
+  
+      
+        
+        
+        <h2 id="subtitle-wrap" data-aos="slide-down">
+          
+        </h2>
+      
+    </div>
+  </div>
+</header>
+        <div id="content"
+          
+          class="sidebar-right"  >
+          <aside id="sidebar">
+  
+  
+  
+  <div class="sidebar-wrapper wrap-sticky">
+    <div
+      class="sidebar-wrap"
+      data-aos="fade-up"
+    >
+      
+        
+          <div class="sidebar-toc-sidebar">
+            <div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#mqtt">MQTT</a></li>
+    <li><a href="#mqtt是哪一层的协议">MQTT是哪一层的协议？</a></li>
+    <li><a href="#mqtt消息格式">MQTT消息格式</a>
+      <ul>
+        <li><a href="#固定报文头fixed-header">固定报文头（Fixed Header）</a></li>
+        <li><a href="#可变报文头variable-header">可变报文头（Variable Header）</a></li>
+      </ul>
+    </li>
+    <li><a href="#mqtt的主要特性">MQTT的主要特性</a>
+      <ul>
+        <li><a href="#mqtt的消息类型message-type">MQTT的消息类型（Message Type）</a></li>
+      </ul>
+    </li>
+    <li><a href="#消息质量qos">消息质量（QoS）</a>
+      <ul>
+        <li><a href="#遗愿标志will-flag">遗愿标志（Will Flag）</a></li>
+        <li><a href="#连接保活心跳机制keep-alive-timer">连接保活心跳机制（Keep Alive Timer）</a></li>
+      </ul>
+    </li>
+    <li><a href="#mqtt其他特点">MQTT其他特点</a>
+      <ul>
+        <li><a href="#异步发布订阅实现">异步发布/订阅实现</a></li>
+        <li><a href="#二进制格式实现">二进制格式实现</a></li>
+        <li><a href="#mqtt的安全">MQTT的安全</a></li>
+        <li><a href="#认证">认证</a></li>
+        <li><a href="#客户标识">客户标识</a></li>
+        <li><a href="#用户名和密码">用户名和密码</a></li>
+      </ul>
+    </li>
+    <li><a href="#在传输层认证">在传输层认证</a>
+      <ul>
+        <li><a href="#选择用户数据格式">选择用户数据格式</a></li>
+        <li><a href="#十六进制二进制">十六进制/二进制</a></li>
+        <li><a href="#字符串">字符串</a></li>
+        <li><a href="#json">JSON</a></li>
+        <li><a href="#xml">XML</a></li>
+      </ul>
+    </li>
+    <li><a href="#小结">小结</a>
+      <ul>
+        <li><a href="#有关mqtt的云平台和工具">有关MQTT的云平台和工具</a></li>
+        <li><a href="#mqtt服务器">MQTT服务器</a></li>
+        <li><a href="#mqtt调试工具">MQTT调试工具</a></li>
+        <li><a href="#mqtt与其他协议">MQTT与其他协议</a></li>
+      </ul>
+    </li>
+    <li><a href="#小结-1">小结</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+          </div>
+          <div class="sidebar-common-sidebar hidden">
+            
+<div class="sidebar-author">
+  <img
+    data-src="/images/avatar.jpg"
+    data-sizes="auto"
+    alt="Demerzel"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">Demerzel</div>
+  <div class="sidebar-description">浮沉在世 人事变迁</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    
+    <div class="sidebar-state-number">51</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      18
+    </div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">28</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a
+        href="mailto:demerzelsun@gmail.com"
+        itemprop="url"
+        target="_blank"
+        aria-label="email"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a
+        href="https://github.com/demerzelsun12"
+        itemprop="url"
+        target="_blank"
+        aria-label="github"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-linkedin sidebar-social-icon">
+      <a
+        href="https://www.linkedin.com/in/xiao-sun-52a2a21b0/"
+        itemprop="url"
+        target="_blank"
+        aria-label="linkedin"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">首页</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">归档</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">关于</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">友链</div>
+    </div>
+  
+</div>
+
+          </div>
+        
+      
+
+      
+        
+          <div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div>
+        
+      
+    </div>
+  </div>
+
+  <div class="sidebar-widget">
+    
+  </div>
+  
+</aside>
+
+          <section id="main">
+  <article
+  class="h-entry article"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div
+    class="article-inner"
+    data-aos="fade-up"
+  >
+    <div class="article-meta">
+      <div class="article-date">
+  <span
+    class="article-date-link"
+    data-aos="zoom-in"
+  >
+    <time datetime="2022-01-08 14:53:28 &#43;0000 UTC" itemprop="datePublished"
+      >2022-01-08</time
+    >
+    <time style="display: none;" id="post-update-time"
+      >2022-01-08</time
+    >
+  </span>
+</div>
+
+      <div class="article-category">
+  
+    <a
+      class="article-category-link"
+      href="/categories/go"
+      data-aos="zoom-in"
+      >GO</a
+    >
+  
+</div>
+
+    </div>
+    <div class="hr-line"></div>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+      
+        <h2 id="mqtt">
+<a class="header-anchor" href="#mqtt"></a>
+MQTT
+</h2><p>MQTT（Message Queuing Telemetry Transport，消息队列遥测传输协议），是一种基于发布/订阅（Publish/Subscribe）模式的轻量级通讯协议，该协议构建于TCP/IP协议上，由IBM在1999年发布，目前最新版本为v3.1.1。MQTT最大的优点在于可以以极少的代码和有限的带宽，为远程设备提供实时可靠的消息服务。做为一种低开销、低带宽占用的即时通讯协议，MQTT在物联网、小型设备、移动应用等方面有广泛的应用。</p>
+<p>当然，在物联网开发中，MQTT不是唯一的选择，与MQTT互相竞争的协议有XMPP和CoAP协议等，文章末尾会有一个比较和说明。</p>
+<h2 id="mqtt是哪一层的协议">
+<a class="header-anchor" href="#mqtt%e6%98%af%e5%93%aa%e4%b8%80%e5%b1%82%e7%9a%84%e5%8d%8f%e8%ae%ae"></a>
+MQTT是哪一层的协议？
+</h2><p>众所周知，TCP/IP参考模型可以分为四层：应用层、传输层、网络层、链路层。TCP和UDP位于传输层，应用层常见的协议有HTTP、FTP、SSH等。MQTT协议运行于TCP之上，属于应用层协议，因此只要是支持TCP/IP协议栈的地方，都可以使用MQTT。</p>
+<h2 id="mqtt消息格式">
+<a class="header-anchor" href="#mqtt%e6%b6%88%e6%81%af%e6%a0%bc%e5%bc%8f"></a>
+MQTT消息格式
+</h2><p>每条MQTT命令消息的消息头都包含一个固定的报头，有些消息会携带一个可变报文头和一个负荷。消息格式如下：</p>
+<pre class="mermaid">固定报文头 | 可变报文头 | 负荷
+</pre>
+<h3 id="固定报文头fixed-header">
+<a class="header-anchor" href="#%e5%9b%ba%e5%ae%9a%e6%8a%a5%e6%96%87%e5%a4%b4fixed-header"></a>
+固定报文头（Fixed Header）
+</h3><p>MQTT固定报文头最少有两个字节，第一字节包含消息类型（Message Type）和QoS级别等标志位。第二字节开始是剩余长度字段，该长度是后面的可变报文头加消息负载的总长度，该字段最多允许四个字节。</p>
+<p>剩余长度字段单个字节最大值为二进制0b0111 1111，16进制0x7F。也就是说，单个字节可以描述的最大长度是127字节。为什么不是256字节呢？因为MQTT协议规定，单个字节第八位（最高位）若为1，则表示后续还有字节存在，第八位起“延续位”的作用。</p>
+<p>例如，数字64，编码为一个字节，十进制表示为64，十六进制表示为0×40。数字321（65+2*128）编码为两个字节，重要性最低的放在前面，第一个字节为65+128=193（0xC1），第二个字节是2（0x02），表示2×128。</p>
+<p>由于MQTT协议最多只允许使用四个字节表示剩余长度（如表1），并且最后一字节最大值只能是0x7F不能是0xFF，所以能发送的最大消息长度是256MB，而不是512MB。</p>
+<p><img src="/post/mqtt%E5%8D%8F%E8%AE%AE%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/mqtthead.png" alt="MQTT固定报文头"></p>
+<h3 id="可变报文头variable-header">
+<a class="header-anchor" href="#%e5%8f%af%e5%8f%98%e6%8a%a5%e6%96%87%e5%a4%b4variable-header"></a>
+可变报文头（Variable Header）
+</h3><p>可变报文头主要包含协议名、协议版本、连接标志（Connect Flags）、心跳间隔时间（Keep Alive timer）、连接返回码（Connect Return Code）、主题名（Topic Name）等，后面会针对主要部分进行讲解。</p>
+<h4 id="有效负荷payload">
+<a class="header-anchor" href="#%e6%9c%89%e6%95%88%e8%b4%9f%e8%8d%b7payload"></a>
+有效负荷（Payload）
+</h4><p>Payload直译为负荷，可能让人摸不着头脑，实际上可以理解为消息主体（body）。</p>
+<p>当MQTT发送的消息类型是CONNECT（连接）、PUBLISH（发布）、SUBSCRIBE（订阅）、SUBACK（订阅确认）、UNSUBSCRIBE（取消订阅）时，则会带有负荷。</p>
+<h2 id="mqtt的主要特性">
+<a class="header-anchor" href="#mqtt%e7%9a%84%e4%b8%bb%e8%a6%81%e7%89%b9%e6%80%a7"></a>
+MQTT的主要特性
+</h2><h3 id="mqtt的消息类型message-type">
+<a class="header-anchor" href="#mqtt%e7%9a%84%e6%b6%88%e6%81%af%e7%b1%bb%e5%9e%8bmessage-type"></a>
+MQTT的消息类型（Message Type）
+</h3><p>固定报文头中的第一个字节包含连接标志（Connect Flags），连接标志用来区分MQTT的消息类型。MQTT协议拥有14种不同的消息类型（如表2），可简单分为连接及终止、发布和订阅、QoS 2消息的机制以及各种确认ACK。至于每一个消息类型会携带什么内容，这里不多阐述。</p>
+<p><img src="/post/mqtt%E5%8D%8F%E8%AE%AE%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/changeheader.png" alt="changeheader"></p>
+<h2 id="消息质量qos">
+<a class="header-anchor" href="#%e6%b6%88%e6%81%af%e8%b4%a8%e9%87%8fqos"></a>
+消息质量（QoS）
+</h2><p>MQTT消息质量有三个等级，QoS 0，QoS 1和 QoS 2。</p>
+<ul>
+<li>QoS 0：最多分发一次。消息的传递完全依赖底层的TCP/IP网络，协议里没有定义应答和重试，消息要么只会到达服务端一次，要么根本没有到达。</li>
+<li>QoS 1：至少分发一次。服务器的消息接收由PUBACK消息进行确认，如果通信链路或发送设备异常，或者指定时间内没有收到确认消息，发送端会重发这条在消息头中设置了DUP位的消息。</li>
+<li>QoS 2：只分发一次。这是最高级别的消息传递，消息丢失和重复都是不可接受的，使用这个服务质量等级会有额外的开销。
+通过下面的例子可以更深刻的理解上面三个传输质量等级。
+比如目前流行的共享单车智能锁，智能锁可以定时使用QoS level 0质量消息请求服务器，发送单车的当前位置，如果服务器没收到也没关系，反正过一段时间又会再发送一次。之后用户可以通过App查询周围单车位置，找到单车后需要进行解锁，这时候可以使用QoS level 1质量消息，手机App不断的发送解锁消息给单车锁，确保有一次消息能达到以解锁单车。最后用户用完单车后，需要提交付款表单，可以使用QoS level 2质量消息，这样确保只传递一次数据，否则用户就会多付钱了。</li>
+</ul>
+<h3 id="遗愿标志will-flag">
+<a class="header-anchor" href="#%e9%81%97%e6%84%bf%e6%a0%87%e5%bf%97will-flag"></a>
+遗愿标志（Will Flag）
+</h3><p>在可变报文头的连接标志位字段（Connect Flags）里有三个Will标志位：Will Flag、Will QoS和Will Retain Flag，这些Will字段用于监控客户端与服务器之间的连接状况。如果设置了Will Flag，就必须设置Will QoS和Will Retain标志位，消息主体中也必须有Will Topic和Will Message字段。</p>
+<p>那遗愿消息是怎么回事呢？服务器与客户端通信时，当遇到异常或客户端心跳超时的情况，MQTT服务器会替客户端发布一个Will消息。当然如果服务器收到来自客户端的DISCONNECT消息，则不会触发Will消息的发送。
+因此，Will字段可以应用于设备掉线后需要通知用户的场景。</p>
+<h3 id="连接保活心跳机制keep-alive-timer">
+<a class="header-anchor" href="#%e8%bf%9e%e6%8e%a5%e4%bf%9d%e6%b4%bb%e5%bf%83%e8%b7%b3%e6%9c%ba%e5%88%b6keep-alive-timer"></a>
+连接保活心跳机制（Keep Alive Timer）
+</h3><p>MQTT客户端可以设置一个心跳间隔时间（Keep Alive Timer），表示在每个心跳间隔时间内发送一条消息。如果在这个时间周期内，没有业务数据相关的消息，客户端会发一个PINGREQ消息，相应的，服务器会返回一个PINGRESP消息进行确认。如果服务器在一个半（1.5）心跳间隔时间周期内没有收到来自客户端的消息，就会断开与客户端的连接。心跳间隔时间最大值大约可以设置为18个小时，0值意味着客户端不断开。</p>
+<h2 id="mqtt其他特点">
+<a class="header-anchor" href="#mqtt%e5%85%b6%e4%bb%96%e7%89%b9%e7%82%b9"></a>
+MQTT其他特点
+</h2><h3 id="异步发布订阅实现">
+<a class="header-anchor" href="#%e5%bc%82%e6%ad%a5%e5%8f%91%e5%b8%83%e8%ae%a2%e9%98%85%e5%ae%9e%e7%8e%b0"></a>
+异步发布/订阅实现
+</h3><p>发布/订阅模式解耦了发布消息的客户（发布者）与订阅消息的客户（订阅者）之间的关系，这意味着发布者和订阅者之间并不需要直接建立联系。
+这个模式有以下好处：</p>
+<ul>
+<li>发布者与订阅者只需要知道同一个消息代理即可；</li>
+<li>发布者和订阅者不需要直接交互；</li>
+<li>发布者和订阅者不需要同时在线。</li>
+<li>由于采用了发布/订阅实现，MQTT可以双向通信。也就是说MQTT支持服务端反向控制设备，设备可以订阅某个主题，然后发布者对该主题发布消息，设备收到消息后即可进行一系列操作。</li>
+</ul>
+<h3 id="二进制格式实现">
+<a class="header-anchor" href="#%e4%ba%8c%e8%bf%9b%e5%88%b6%e6%a0%bc%e5%bc%8f%e5%ae%9e%e7%8e%b0"></a>
+二进制格式实现
+</h3><p>MQTT基于二进制实现而不是字符串，比如HTTP和XMPP都是基于字符串实现。由于HTTP和XMPP拥有冗长的协议头部，而MQTT固定报文头仅有两字节，所以相比其他协议，发送一条消息最省流量。</p>
+<h3 id="mqtt的安全">
+<a class="header-anchor" href="#mqtt%e7%9a%84%e5%ae%89%e5%85%a8"></a>
+MQTT的安全
+</h3><p>由于MQTT运行于TCP层之上并以明文方式传输，这就相当于HTTP的明文传输，使用Wireshark可以完全看到MQTT发送的所有消息，消息指令一览无遗。</p>
+<p>这样可能会产生以下风险：</p>
+<ul>
+<li>设备可能会被盗用；</li>
+<li>客户端和服务端的静态数据可能是可访问的（可能会被修改）；</li>
+<li>协议行为可能有副作用（如计时器攻击）；</li>
+<li>拒绝服务攻击；</li>
+<li>通信可能会被拦截、修改、重定向或者泄露；</li>
+<li>虚假控制报文注入。</li>
+</ul>
+<p>作为传输协议，MQTT仅关注消息传输，提供合适的安全功能是开发者的责任。安全功能可以从三个层次来考虑——应用层、传输层、网络层。</p>
+<ol>
+<li>应用层：在应用层上，MQTT提供了客户标识（Client Identifier）以及用户名和密码，可以在应用层验证设备。
+传输层：类似于HTTPS，MQTT基于TCP连接，也可以加上一层TLS，传输层使用TLS加密是确保安全的一个好手段，可以防止中间人攻击。客户端证书不但可以作为设备的身份凭证，还可以用来验证设备。</li>
+<li>网络层：如果有条件的话，可以通过拉专线或者使用VPN来连接设备与MQTT代理，以提高网络传输的安全性。</li>
+</ol>
+<h3 id="认证">
+<a class="header-anchor" href="#%e8%ae%a4%e8%af%81"></a>
+认证
+</h3><p>MQTT支持两种层次的认证：</p>
+<ol>
+<li>应用层：MQTT支持客户标识、用户名和密码认证；</li>
+<li>传输层：传输层可以使用TLS，除了加密通讯，还可以使用X509证书来认证设备。</li>
+</ol>
+<h3 id="客户标识">
+<a class="header-anchor" href="#%e5%ae%a2%e6%88%b7%e6%a0%87%e8%af%86"></a>
+客户标识
+</h3><p>MQTT客户端可以发送最多65535个字符作为客户标识（Client Identifier），一般来说可以使用嵌入式芯片的MAC地址或者芯片序列号。虽然使用客户标识来认证可能不可靠，但是在某些封闭环境或许已经足够了。</p>
+<h3 id="用户名和密码">
+<a class="header-anchor" href="#%e7%94%a8%e6%88%b7%e5%90%8d%e5%92%8c%e5%af%86%e7%a0%81"></a>
+用户名和密码
+</h3><p>MQTT协议支持通过CONNECT消息的username和password字段发送用户名和密码。</p>
+<p>用户名及密码的认证使用起来非常方便，不过由于它们是以明文形式传输，所以使用抓包工具就可以轻易的获取。</p>
+<p>一般来说，使用客户标识、用户名和密码已经足够了，比如支持MQTT协议连接的OneNET云平台，就是使用了这三个字段作为认证。如果感觉还不够安全，还可以在传输层进行认证。</p>
+<h2 id="在传输层认证">
+<a class="header-anchor" href="#%e5%9c%a8%e4%bc%a0%e8%be%93%e5%b1%82%e8%ae%a4%e8%af%81"></a>
+在传输层认证
+</h2><p>在传输层认证是这样的：MQTT代理在TLS握手成功之后可以继续发送客户端的X509证书来认证设备，如果设备不合法便可以中断连接。使用X509认证的好处是，在传输层就可以验证设备的合法性，在发送CONNECT消息之前便可以阻隔非法设备的连接，以节省后续不必要的资源浪费。而且，MQTT协议运行在使用TLS时，除了提供身份认证，还可以确保消息的完整性和保密性。</p>
+<h3 id="选择用户数据格式">
+<a class="header-anchor" href="#%e9%80%89%e6%8b%a9%e7%94%a8%e6%88%b7%e6%95%b0%e6%8d%ae%e6%a0%bc%e5%bc%8f"></a>
+选择用户数据格式
+</h3><p>MQTT协议只实现了传送消息的格式，并没有限制用户协议需要按照一定的风格，因此在MQTT协议之上，我们需要定义一套自己的通信协议。比如说，发布者向设备发布一条打开消息，设备可以回复一个消息并携带返回码，这样的消息格式是使用二进制、字符串还是JSON格式呢？下面就简单做个选型参考。</p>
+<h3 id="十六进制二进制">
+<a class="header-anchor" href="#%e5%8d%81%e5%85%ad%e8%bf%9b%e5%88%b6%e4%ba%8c%e8%bf%9b%e5%88%b6"></a>
+十六进制/二进制
+</h3><p>MQTT原本就是基于二进制实现的，所以用户协议使用二进制实现是一个不错的选择。虽然失去了直观的可读性，但可以将流量控制在非常小。其实对于单片机开发者来说十六进制并不陌生，因为单片机寄存器都是以位来操作的，芯片间通信也会使用十六进制/二进制。而对于没有单片机开发经验的工程师来说，十六进制/二进制可能就太原始了。下面我们继续看看还有没有其他方案。</p>
+<h3 id="字符串">
+<a class="header-anchor" href="#%e5%ad%97%e7%ac%a6%e4%b8%b2"></a>
+字符串
+</h3><p>对单片机开发者来说，字符串也是一个选择。比如通过串口传输的AT指令就是基于字符串通信的。使用字符串方便了人阅读，但是对高级语言开发者来说，字符串依旧不是最佳选择，恐怕键值对（Key-Value）才是最优形式。</p>
+<h3 id="json">
+<a class="header-anchor" href="#json"></a>
+JSON
+</h3><p>JSON中文全称是JavaScript对象标记语言，在这门语言中，一切都是对象。因此，任何支持的类型都可以通过JSON来表示，例如字符串、数字、对象、数组等。其语法规则是：</p>
+<p>对象表示为键值对；
+数据由逗号分隔；
+花括号保存对象；
+方括号保存数组。</p>
+<p>JSON层次结构简洁清晰，易于阅读和编写，同时也易于机器解析和生成，有效提升网络传输效率。</p>
+<p>对于单片机开发者，主流的微控制器软件开发工具Keil有提供JSON库，可以用于STC、STM32等微控制器开发，所以在微控制器上解析JSON不需要自己写一个JSON解析器或者移植了。</p>
+<p>如果实在懒得使用JSON库生成或解析，也可以直接使用C语言中的sprintf生成JSON字符串，比如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="nf">sprintf</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="s">&#34;{</span><span class="se">\&#34;</span><span class="s">String</span><span class="se">\&#34;</span><span class="s">:</span><span class="se">\&#34;</span><span class="s">%s</span><span class="se">\&#34;</span><span class="s">, </span><span class="se">\&#34;</span><span class="s">Value</span><span class="se">\&#34;</span><span class="s">:%d}&#34;</span><span class="p">,</span> <span class="s">&#34;Hello World!&#34;</span><span class="p">,</span> <span class="mi">12345</span><span class="p">);</span>
+</span></span></code></pre></div><p>这样就可以生成一个{“String”:”Hello World!”, “Value”:12345}JSON字符串了。</p>
+<h3 id="xml">
+<a class="header-anchor" href="#xml"></a>
+XML
+</h3><p>MQTT协议只负责通信部分，用户协议可以自己选择，当然也可以选择复杂又冗长的XML格式。可是既然要选择MQTT+XML，为什么不考虑换为XMPP呢？</p>
+<h2 id="小结">
+<a class="header-anchor" href="#%e5%b0%8f%e7%bb%93"></a>
+小结
+</h2><p>综上所述，MQTT+JSON是目前最优方案。协议简洁清晰、易于阅读、解析和生成等，也考虑了服务器端开发者和设备端开发者的开发成本。</p>
+<h3 id="有关mqtt的云平台和工具">
+<a class="header-anchor" href="#%e6%9c%89%e5%85%b3mqtt%e7%9a%84%e4%ba%91%e5%b9%b3%e5%8f%b0%e5%92%8c%e5%b7%a5%e5%85%b7"></a>
+有关MQTT的云平台和工具
+</h3><h4 id="支持mqtt的云平台">
+<a class="header-anchor" href="#%e6%94%af%e6%8c%81mqtt%e7%9a%84%e4%ba%91%e5%b9%b3%e5%8f%b0"></a>
+支持MQTT的云平台
+</h4><p>目前，百度、阿里、腾讯的云平台都逐渐有了物联网开发套件：腾讯QQ物联平台内测中，阿里云物联网套件公测中，两者都需要进行申请试用，而百度云物联网套件已经支持MQTT并且可以免费试用一段时间。除了BAT三大家，下面再介绍一些其他支持MQTT的物联网云平台。</p>
+<p>OneNET云平台：OneNET是由中国移动打造的PaaS物联网开放平台。平台能够帮助开发者轻松实现设备接入与设备连接，快速完成产品开发部署，为智能硬件、智能家居产品提供完善的物联网解决方案。OneNET云平台已经于2014年10月正式上线。
+云巴：云巴（Cloud Bus）是一个跨平台的双向实时通信系统，为物联网、App和Web提供实时通信服务。云巴基于MQTT，支持Socket.IO协议，支持RESTful API。</p>
+<h3 id="mqtt服务器">
+<a class="header-anchor" href="#mqtt%e6%9c%8d%e5%8a%a1%e5%99%a8"></a>
+MQTT服务器
+</h3><p>如果不想使用云平台，那么可以自己本地部署一个MQTT服务器。</p>
+<ol>
+<li>Apache-Apollo：一个代理服务器，在ActiveMQ基础上发展而来，可以支持STOMP、AMQP、MQTT、Openwire、SSL和WebSockets等多种协议，并且Apollo提供后台管理页面，方便开发者管理和调试。</li>
+<li>EMQ：EMQ 2.0，号称百万级开源MQTT消息服务器，基于Erlang/OTP语言平台开发，支持大规模连接和分布式集群，发布订阅模式的开源MQTT消息服务器。</li>
+<li>HiveMQ：一个企业级的MQTT代理，主要用于企业和新兴的机器到机器M2M通讯和内部传输，最大程度的满足可伸缩性、易管理和安全特性，提供免费的个人版。HiveMQ提供了开源的插件开发包。</li>
+<li>Mosquitto：一款实现了消息推送协议MQTT v3.1的开源消息代理软件，提供轻量级的、支持可发布/可订阅的消息推送模式。</li>
+</ol>
+<h3 id="mqtt调试工具">
+<a class="header-anchor" href="#mqtt%e8%b0%83%e8%af%95%e5%b7%a5%e5%85%b7"></a>
+MQTT调试工具
+</h3><p>MQTT调试工具可以考虑使用HiveMQ的MQTT客户端——HiveMQ Websockets Client，这是一款基于WebSocket的浏览器MQTT客户端，支持主题订阅和发布。</p>
+<h3 id="mqtt与其他协议">
+<a class="header-anchor" href="#mqtt%e4%b8%8e%e5%85%b6%e4%bb%96%e5%8d%8f%e8%ae%ae"></a>
+MQTT与其他协议
+</h3><p>下面是MQTT与其他部分协议的比较。</p>
+<ol>
+<li>MQTT与TCP Socket</li>
+</ol>
+<p>虽然MQTT运行于TCP层之上，看起来这两者之间根本没有比较性，因为大多数从事硬件或嵌入式开发的工程师，都是直接在TCP层上通信的。从事嵌入式开发工作的人都应该知道LwIP，LwIP是一套用于嵌入式系统的开放源代码TCP/IP协议栈，LwIP在保证嵌入式产品拥有完整的TCP/IP功能的同时，又能保证协议栈对处理器资源的有限消耗，其运行一般仅需要几十KB的RAM和40KB左右的ROM。</p>
+<p>也就是说，只要是嵌入式产品使用了LwIP，就支持TCP/IP协议栈，进而可以使用MQTT协议。</p>
+<p>由于TCP协议有粘包和分包问题，所以传输数据时需要自定义协议，如果传输的数据报超过MSS（最大报文段长度），一定要给协议定义一个消息长度字段，确保接收端能通过缓冲完整收取消息。一个简单的协议定义：消息头部+消息长度+消息正文。</p>
+<p>当然，使用MQTT协议则不需要考虑这个问题，这些MQTT都已经处理好了，MQTT最长可以一次性发送256MB数据，不用考虑粘包分包的问题。</p>
+<p>总之，TCP和MQTT本身并不矛盾，只不过基于Socket开发需要处理更多的事情，而且大多数嵌入式开发模块本身也只会提供Socket接口供厂家自定义协议。</p>
+<ol start="2">
+<li>MQTT与HTTP</li>
+</ol>
+<p>HTTP最初的目的是提供一种发布和接收HTML页面的方法，主要用于Web。HTTP是典型的C/S通讯模式：请求从客户端发出，服务端只能被动接收，一条连接只能发送一次请求，获取响应后就断开连接。该协议最早是为了适用Web浏览器的上网浏览场景而设计的，目前在PC、手机、Pad等终端上都应用广泛。由于这样的通信特点，HTTP技术在物联网设备中很难实现设备的反向控制，不过非要实现也不是不行，下面看一下Web端的例子。</p>
+<p>目前，在微博等SNS网站上有海量用户公开发布的内容，当发布者发布消息，数据传到服务器更新时，就需要给关注者尽可能的实时更新内容。Web网站基于HTTP协议，使用HTTP协议探测服务器上是否有内容更新，就必须频繁地让客户端请求服务器进行确认。在浏览器中要实现这种效果，可以使用Comet技术，Comet是基于HTTP长连接的“服务器推”技术，主要有两种实现模型：基于AJAX的长轮询（long-polling）方式和基于Iframe及htmlfile的流（streaming）方式。这两种技术模型在这里不详细展开，有兴趣的读者可以查阅相关资料。</p>
+<p>如果要实现设备的反向控制，可能就要用到前面提到的Comet技术。由于需要不断的请求服务器，会导致通信开销非常大，加上HTTP冗长的报文头，在节省流量上实在没有优势。</p>
+<p>当然，如果只是单纯地让设备定时上报数据而不做控制，也是可以使用HTTP协议的。</p>
+<ol start="3">
+<li>MQTT与XMPP</li>
+</ol>
+<p>最有可能与MQTT竞争的是XMPP协议。XMPP（可扩展通讯与表示协议）是一项用于实时通讯的开放技术，它使用可扩展标记语言（XML）作为交换信息的基本格式。其优点是协议成熟、强大、可扩展性强。目前主要应用于许多聊天系统中，在消息推送领域，MQTT和XMPP互相竞争。下面列举MQTT与XMPP各自的特性：</p>
+<p>XMPP协议基于繁重的XML，报文体积大且交互繁琐；而MQTT协议固定报头只有两个字节，报文体积小、编解码容易；
+XMPP基于JID的点对点消息传输；MQTT协议基于主题(Topic)发布\订阅模式，消息路由更为灵活；
+XMPP协议采用XML承载报文，二进制必须进行Base64编码或其他方式处理；MQTT协议未定义报文内容格式，可以承载JSON、二进制等不同类型报文，开发者可以针对性的定义报文格式；
+MQTT协议支持消息收发确认和QoS保证，有更好的消息可靠性保证；而XMPP主协议并未定义类似机制；
+在嵌入式设备开发中大多使用的是C语言开发，C语言解析XML是非常困难的。MQTT基于二进制实现且未定义报文内容格式，可以很好的兼顾嵌入式C语言开发者；而XMPP基于XML，开发者需要配合协议格式，不能灵活开发。
+综上所述，在嵌入式设备中，由于需要一个灵巧简洁，对设备开发者和服务端开发者都友好的协议，MQTT比XMPP更具有优势。
+MQTT与CoAP
+CoAP也是一个能与MQTT竞争的协议。其模仿HTTP的REST模型，服务端以URI方式创建资源，客户端可以通过GET、PUT、POST、DELETE方式访问这些资源，并且协议风格也和HTTP极为相似，例如一个设备有温度数据，那么这个温度可以被描述为：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="nl">CoAP</span><span class="p">:</span><span class="c1">//:/sensors/temperature
+</span></span></span></code></pre></div><p>其中为设备的IP，为端口。</p>
+<p>不过，如果使用CoAP可能会让物联网后台的情况变得复杂，比如MQTT可以实现一个最简单的IoT架构：Device + MQTT服务器 + APP，手机端或Web端可以直接从MQTT服务器订阅想要的主题。而CoAP可能需要这样的架构：CoAP + Web + DataBase + App，使用CoAP必须经过DataBase才能转给第三方。</p>
+<p>至于CoAP和MQTT孰优孰劣，这里不作定论。不过目前来说，CoAP资料还是略少。而且，MQTT除了可以应用于物联网领域，在手机消息推送、在线聊天等领域都可以有所作为。</p>
+<h2 id="小结-1">
+<a class="header-anchor" href="#%e5%b0%8f%e7%bb%93-1"></a>
+小结
+</h2><p>经过以上的比较，可以得出如下结论：MQTT基于异步发布/订阅的实现解耦了消息发布者和订阅者，基于二进制的实现节省了存储空间及流量，同时MQTT拥有更好的消息处理机制，可以替代TCP Socket一部分应用场景。相对于HTTP和XMPP，MQTT可以选择用户数据格式，解析复杂度低，同时MQTT也可用于手机推送等领域。手机作为与人连接的入口，正好建立了人与物的连接，可谓一箭双雕。当然，其他协议也可以作为一个辅助的存在，HTTP可以为只需定时上传数据的设备服务，CoAP则更适用于非常受限的移动通信网络。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+      <ul class="article-tag-list" itemprop="keywords">
+  
+    <li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/graduate-learning"
+        rel="tag"
+        >GRADUATE LEARNING</a
+      >
+    </li>
+  
+    <li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/go"
+        rel="tag"
+        >GO</a
+      >
+    </li>
+  
+    <li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/mqtt"
+        rel="tag"
+        >MQTT</a
+      >
+    </li>
+  
+</ul>
+
+    </footer>
+  </div>
+  
+    
+  <nav
+    id="article-nav"
+    data-aos="fade-up"
+  >
+    
+      <div class="article-nav-link-wrap article-nav-link-left">
+        
+          <img
+            data-src="images/featureimages/4.jpg"
+            data-sizes="auto"
+            alt="KubeEdge原理分析"
+            class="lazyload"
+          />
+        
+        <a href="/post/kubeedge%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/"></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">
+          
+            KubeEdge原理分析
+          
+        </h3>
+      </div>
+    
+
+    
+      <div class="article-nav-link-wrap article-nav-link-right">
+        
+          <img
+            data-src="images/featureimages/5.jpg"
+            data-sizes="auto"
+            alt="模式识别与深度学习复习笔记"
+            class="lazyload"
+          />
+        
+        <a href="/post/%E6%A8%A1%E5%BC%8F%E8%AF%86%E5%88%AB%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/"></a>
+        <div class="article-nav-caption">后一篇</div>
+        <h3 class="article-nav-title">
+          
+            模式识别与深度学习复习笔记
+          
+        </h3>
+      </div>
+    
+  </nav>
+
+
+  
+</article>
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+</section>
+        </div>
+        
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+
+
+<footer id="footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info">
+    
+    <div>
+      <span class="icon-copyright"></span>
+      
+        2020 -
+        2025
+      
+      <span class="footer-info-sep "></span>
+      Demerzel
+    </div>
+    
+      <div>
+        基于&nbsp;<a
+          href="https://gohugo.io/"
+          target="_blank"
+          >Hugo</a
+        >&nbsp; Theme.<a
+          href="https://github.com/D-Sketon/hugo-theme-reimu"
+          target="_blank"
+          >Reimu</a
+        >
+      </div>
+    
+    
+      <div>
+        <span class="icon-brush"
+          >&nbsp;
+            155.1k
+          </span
+        >
+        &nbsp;|&nbsp;
+        <span class="icon-coffee">&nbsp;
+          
+          
+
+          05:36
+        </span>
+      </div>
+    
+    
+    
+    
+  </div>
+</footer>
+
+        
+          <div class="sidebar-top">
+            <div class="sidebar-top-taichi "></div>
+            <div class="arrow-up"></div>
+          </div>
+        
+        <div id="mask" class="hide"></div>
+      </div>
+      <nav id="mobile-nav">
+  <div class="sidebar-wrap">
+    
+      
+        <div class="sidebar-toc-sidebar">
+          <div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#mqtt">MQTT</a></li>
+    <li><a href="#mqtt是哪一层的协议">MQTT是哪一层的协议？</a></li>
+    <li><a href="#mqtt消息格式">MQTT消息格式</a>
+      <ul>
+        <li><a href="#固定报文头fixed-header">固定报文头（Fixed Header）</a></li>
+        <li><a href="#可变报文头variable-header">可变报文头（Variable Header）</a></li>
+      </ul>
+    </li>
+    <li><a href="#mqtt的主要特性">MQTT的主要特性</a>
+      <ul>
+        <li><a href="#mqtt的消息类型message-type">MQTT的消息类型（Message Type）</a></li>
+      </ul>
+    </li>
+    <li><a href="#消息质量qos">消息质量（QoS）</a>
+      <ul>
+        <li><a href="#遗愿标志will-flag">遗愿标志（Will Flag）</a></li>
+        <li><a href="#连接保活心跳机制keep-alive-timer">连接保活心跳机制（Keep Alive Timer）</a></li>
+      </ul>
+    </li>
+    <li><a href="#mqtt其他特点">MQTT其他特点</a>
+      <ul>
+        <li><a href="#异步发布订阅实现">异步发布/订阅实现</a></li>
+        <li><a href="#二进制格式实现">二进制格式实现</a></li>
+        <li><a href="#mqtt的安全">MQTT的安全</a></li>
+        <li><a href="#认证">认证</a></li>
+        <li><a href="#客户标识">客户标识</a></li>
+        <li><a href="#用户名和密码">用户名和密码</a></li>
+      </ul>
+    </li>
+    <li><a href="#在传输层认证">在传输层认证</a>
+      <ul>
+        <li><a href="#选择用户数据格式">选择用户数据格式</a></li>
+        <li><a href="#十六进制二进制">十六进制/二进制</a></li>
+        <li><a href="#字符串">字符串</a></li>
+        <li><a href="#json">JSON</a></li>
+        <li><a href="#xml">XML</a></li>
+      </ul>
+    </li>
+    <li><a href="#小结">小结</a>
+      <ul>
+        <li><a href="#有关mqtt的云平台和工具">有关MQTT的云平台和工具</a></li>
+        <li><a href="#mqtt服务器">MQTT服务器</a></li>
+        <li><a href="#mqtt调试工具">MQTT调试工具</a></li>
+        <li><a href="#mqtt与其他协议">MQTT与其他协议</a></li>
+      </ul>
+    </li>
+    <li><a href="#小结-1">小结</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+        </div>
+        <div class="sidebar-common-sidebar hidden">
+          
+<div class="sidebar-author">
+  <img
+    data-src="/images/avatar.jpg"
+    data-sizes="auto"
+    alt="Demerzel"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">Demerzel</div>
+  <div class="sidebar-description">浮沉在世 人事变迁</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    
+    <div class="sidebar-state-number">51</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      18
+    </div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">28</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a
+        href="mailto:demerzelsun@gmail.com"
+        itemprop="url"
+        target="_blank"
+        aria-label="email"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a
+        href="https://github.com/demerzelsun12"
+        itemprop="url"
+        target="_blank"
+        aria-label="github"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-linkedin sidebar-social-icon">
+      <a
+        href="https://www.linkedin.com/in/xiao-sun-52a2a21b0/"
+        itemprop="url"
+        target="_blank"
+        aria-label="linkedin"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">首页</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">归档</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">关于</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">友链</div>
+    </div>
+  
+</div>
+
+        </div>
+      
+    
+  </div>
+  
+    
+      <div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div>
+    
+  
+</nav>
+
+    </div>
+    
+    
+    
+    
+
+
+
+
+
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"
+    
+    
+    
+    
+    integrity="sha384-3gT/vsepWkfz/ff7PpWNUeMzeWoH3cDhm/A8jM7ouoAK0/fP/9bcHHR5kHq2nf&#43;e" crossorigin="anonymous"
+  ></script>
+
+
+
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"
+    
+    
+    
+    
+    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"
+  ></script>
+
+
+
+
+
+
+
+
+
+
+
+  
+      
+      <script src="/js/main.js" ></script>
+      
+
+
+
+  
+
+
+
+
+
+  
+      
+      <script src="/js/aos.js" ></script>
+      
+
+  <script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", aosInit);
+    } else {
+      aosInit();
+    }
+  </script>
+
+
+
+
+
+
+
+
+  
+      
+      <script src="/js/pjax_main.js" data-pjax></script>
+      
+
+
+
+
+
+  
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/mouse-firework@0.1.1/dist/index.umd.js"
+    
+    
+    
+    
+    integrity="sha384-8LyaidD9GPxQQgLJO/WRw/O2h3BoNq/ApI/ecpvM6RsrCz2qP2ppBXUKihP4V/2d" crossorigin="anonymous"
+  ></script>
+
+
+<script>
+  if (window.firework) {
+    const options = JSON.parse("{\"excludeelements\":[\"a\",\"button\"],\"particles\":[{\"colors\":[\"var(--red-1)\",\"var(--red-2)\",\"var(--red-3)\",\"var(--red-4)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"emit\"],\"number\":20,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.3,0.5],\"radius\":[16,32]}},{\"colors\":[\"var(--red-0)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"diffuse\"],\"number\":1,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.2,0.5],\"lineWidth\":6,\"radius\":20}}]}");
+    options.excludeElements = options.excludeelements;
+    delete options.excludeelements;
+    window.firework(options);
+  }
+</script>
+
+
+
+
+
+
+
+
+<div id="lazy-script">
+  <div>
+    
+      
+      
+        
+      
+      <script data-pjax>
+        window.REIMU_POST = {
+          author: "Demerzel",
+          title: "mqtt协议学习记录",
+          url: "http:\/\/localhost:13926\/post\/mqtt%E5%8D%8F%E8%AE%AE%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95\/",
+          description: "MQTT 协议学习记录",
+          cover: "http:\/\/localhost:13926\/images\/featureimages\/13.jpg",
+        };
+      </script>
+    
+    
+    
+      
+
+
+
+
+
+  
+      
+      <script src="/js/insert_highlight.js" data-pjax></script>
+      
+
+      
+      
+      
+      
+      <script type="module" data-pjax>
+        
+        const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;
+        
+        const pswp = () => {
+          if (_$$('.article-entry a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-entry',
+              children: 'a.article-gallery-item',
+              
+              pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")
+              
+            }).init();
+          }
+          if(_$$('.article-gallery a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-gallery',
+              children: 'a.article-gallery-item',
+              
+              pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")
+              
+            }).init();
+          }
+          window.lightboxStatus = 'done';
+          window.removeEventListener('lightbox:ready', pswp);
+        }
+        if(window.lightboxStatus === 'ready') {
+          pswp()
+        } else {
+          window.addEventListener('lightbox:ready', pswp);
+        }
+      </script>
+      
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+      
+    
+    
+      
+      
+        <script data-pjax>
+          window.MathJax = JSON.parse("[{\"loader\":{\"load\":[\"input/asciimath\",\"[tex]/noerrors\"]},\"options\":{\"ignoreHtmlClass\":\"tex2jax_ignore\",\"processHtmlClass\":\"tex2jax_process\",\"skipHtmlTags\":[\"script\",\"noscript\",\"style\",\"textarea\",\"pre\",\"code\"]},\"tex\":{\"autoload\":{\"color\":[],\"colorv2\":[\"color\"]},\"displayMath\":[[\"$$\",\"$$\"],[\"\\\\\\\\[\",\"\\\\\\\\]\"]],\"inlineMath\":[[\"$\",\"$\"],[\"\\\\\\\\(\",\"\\\\\\\\)\"]],\"packages\":{\"[+]\":[\"noerrors\"]},\"processEnvironments\":true,\"processEscapes\":true,\"tags\":\"ams\",\"useLabelIds\":true}}]")[0];
+        </script>
+        
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/mathjax@3.2.2/es5/tex-mml-chtml.js"
+    defer
+    
+    data-pjax
+    
+    integrity="sha384-Wuix6BuhrWbjDBs24bXrjf4ZQ5aFeFWBuKkFekO2t8xFU0iNaLQfp2K6/1Nxveei" crossorigin="anonymous"
+  ></script>
+
+
+      
+    
+  </div>
+</div>
+
+
+
+
+
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+  </script>
+
+
+<script>
+  const reimuCopyright = String.raw`
+   ______     ______     __     __    __     __  __    
+  /\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+  \ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+   \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+    \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                    
+  `;
+  console.log(String.raw`%c ${reimuCopyright}`, "color: #ff5252;");
+  console.log(
+    "%c Theme.Reimu" + " %c https://github.com/D-Sketon/hugo-theme-reimu ",
+    "color: white; background: #ff5252; padding:5px 0;",
+    "padding:4px;border:1px solid #ff5252;",
+  );
+</script>
+
+
+
+
+
+
+    
+  </body>
+</html>

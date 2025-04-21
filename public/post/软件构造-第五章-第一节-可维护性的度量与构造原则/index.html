@@ -1,0 +1,1696 @@
+<!doctype html>
+<html
+  lang="zh-cn" 
+  
+    data-theme-mode="auto"
+  
+>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=13926&amp;path=livereload" data-no-instant defer></script>
+    
+    <meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+
+
+
+
+
+  
+
+<title>
+  软件构造-第五章-第一节-可维护性的度量与构造原则 | Demerzel
+</title>
+<meta
+  name="description"
+  content="浮沉在世 人事变迁"
+/>
+
+
+
+
+
+
+
+
+
+
+<script>
+  window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"clipboard\":{\"copyright\":{\"content\":\"本文版权：本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！\",\"count\":50,\"enable\":false},\"fail\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"success\":\"复制成功(*^▽^*)\"},\"code_block\":{\"expand\":true},\"icon_font\":\"4552607_0khxww3tj3q9\",\"outdate\":{\"daysago\":180,\"enable\":false,\"message\":\"本文最后更新于 {time}，请注意文中内容可能已经发生变化。\"}}");
+</script>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+    
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+  media="print"
+  onload="this.media='all'"
+/>
+
+
+
+
+
+
+
+  <link
+    rel="preload"
+    href="//at.alicdn.com/t/c/font_4552607_0khxww3tj3q9.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  />
+
+
+
+  
+
+
+
+
+
+
+ <link rel="stylesheet" href="/css/loader.css" />
+
+
+
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="软件构造-第五章-第一节-可维护性的度量与构造原则 | Demerzel" />
+  <meta
+    property="og:description"
+    content="浮沉在世 人事变迁"
+  />
+  <meta property="og:url" content="http://localhost:13926/post/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0-%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%AC%AC%E4%B8%80%E8%8A%82-%E5%8F%AF%E7%BB%B4%E6%8A%A4%E6%80%A7%E7%9A%84%E5%BA%A6%E9%87%8F%E4%B8%8E%E6%9E%84%E9%80%A0%E5%8E%9F%E5%88%99/" />
+  <meta
+    property="og:site_name"
+    content="Demerzel&#39;s Blog"
+  />
+  <meta
+    property="og:image"
+    content="/images/featureimages/11.jpg"
+  />
+  <meta property="article:author" content="Demerzel" />
+  <meta property="article:published_time" content="2020-04-24T16:53:21&#43;00:00" />
+  <meta property="article:modified_time" content="2020-04-24T16:53:21&#43;00:00" />
+  
+    <meta property="article:tag" content="软件构造Java" />
+  
+  
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:image" content="/images/featureimages/11.jpg" />
+  
+  
+  
+  
+  
+
+
+
+
+<link rel="shortcut icon" href="/favicon.ico">
+
+
+
+
+
+
+
+ <link rel="stylesheet" href="/css/main.css" />
+
+
+
+
+
+  <link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css"
+    onload="this.onload=null;this.rel='stylesheet'"
+  />
+
+
+
+
+
+
+  <link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css"
+    onload="this.onload=null;this.rel='stylesheet'"
+  />
+
+
+
+
+
+
+
+
+  
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"
+    
+    
+    
+    
+    integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"
+  ></script>
+
+
+
+
+
+  
+
+
+  <link rel="stylesheet" href="https://npm.webcache.cn/@reimujs/aos@0.1.0/dist/aos.css" />
+
+
+
+
+
+    
+  </head>
+  <body>
+    
+    
+  <div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi rotate">
+        
+          <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+            <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="var(--red-1, #ff5252)" />
+            <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+          M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="var(--red-1, #ff5252)" />
+          </svg>
+        
+      </div>
+      <div class="loading-word">少女祈祷中...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    var startLoading = () => {
+      time = Date.now();
+      document.getElementById('loader').classList.remove("loading");
+    }
+    var endLoading = () => {
+      if (!time) {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loader').classList.add("loading");
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          document.body.style.overflow = 'auto';
+          document.getElementById('loader').classList.add("loading");
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    document.getElementById('loader').addEventListener('click', endLoading);
+  </script>
+
+
+<div id="copy-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+</div>
+
+
+    <div id="container">
+      <div id="wrap">
+        
+<div id="header-nav">
+  <nav id="main-nav">
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/">首页</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/archives">归档</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/about">关于</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/friend">友链</a>
+      </span>
+    
+    <a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav">
+    
+    
+  </nav>
+</div>
+<header id="header">
+  
+    <picture></picture>
+    <img  fetchpriority="high" src="/images/featureimages/11.jpg" alt="软件构造-第五章-第一节-可维护性的度量与构造原则">
+  
+
+  <div id="header-outer">
+    <div id="header-title">
+      
+        
+        
+          
+        
+  
+        
+          <a href="/" id="logo">
+            <h1 data-aos="slide-up">软件构造-第五章-第一节-可维护性的度量与构造原则</h1>
+          </a>
+        
+      
+  
+      
+        
+        
+        <h2 id="subtitle-wrap" data-aos="slide-down">
+          
+        </h2>
+      
+    </div>
+  </div>
+</header>
+        <div id="content"
+          
+          class="sidebar-right"  >
+          <aside id="sidebar">
+  
+  
+  
+  <div class="sidebar-wrapper wrap-sticky">
+    <div
+      class="sidebar-wrap"
+      data-aos="fade-up"
+    >
+      
+        
+          <div class="sidebar-toc-sidebar">
+            <div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#31-模块化编程">3.1 模块化编程</a></li>
+    <li><a href="#32-内聚与耦合">3.2 内聚与耦合</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#41-srp-单一责任原则the-single-responsibility-principle">4.1 SRP 单一责任原则(The Single Responsibility Principle)</a></li>
+    <li><a href="#42-ocp-开放封闭原则the-open-closed-principle">4.2 OCP 开放封闭原则(The Open Closed Principle)</a></li>
+    <li><a href="#43-lsp-里氏替换原则the-liskov-substitution-principle">4.3 LSP 里氏替换原则(The Liskov Substitution Principle)</a></li>
+    <li><a href="#44-isp-接口分离原则the-interface-segregation-principle">4.4 ISP 接口分离原则(The Interface Segregation Principle)</a></li>
+    <li><a href="#45-dip-依赖转置原则the-dependency-inversion-principle">4.5 DIP 依赖转置原则(The Dependency Inversion Principle)</a></li>
+    <li><a href="#45-solid原则总结">4.5 SOLID原则总结</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+          </div>
+          <div class="sidebar-common-sidebar hidden">
+            
+<div class="sidebar-author">
+  <img
+    data-src="/images/avatar.jpg"
+    data-sizes="auto"
+    alt="Demerzel"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">Demerzel</div>
+  <div class="sidebar-description">浮沉在世 人事变迁</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    
+    <div class="sidebar-state-number">51</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      18
+    </div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">28</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a
+        href="mailto:demerzelsun@gmail.com"
+        itemprop="url"
+        target="_blank"
+        aria-label="email"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a
+        href="https://github.com/demerzelsun12"
+        itemprop="url"
+        target="_blank"
+        aria-label="github"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-linkedin sidebar-social-icon">
+      <a
+        href="https://www.linkedin.com/in/xiao-sun-52a2a21b0/"
+        itemprop="url"
+        target="_blank"
+        aria-label="linkedin"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">首页</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">归档</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">关于</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">友链</div>
+    </div>
+  
+</div>
+
+          </div>
+        
+      
+
+      
+        
+          <div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div>
+        
+      
+    </div>
+  </div>
+
+  <div class="sidebar-widget">
+    
+  </div>
+  
+</aside>
+
+          <section id="main">
+  <article
+  class="h-entry article"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div
+    class="article-inner"
+    data-aos="fade-up"
+  >
+    <div class="article-meta">
+      <div class="article-date">
+  <span
+    class="article-date-link"
+    data-aos="zoom-in"
+  >
+    <time datetime="2020-04-24 16:53:21 &#43;0000 UTC" itemprop="datePublished"
+      >2020-04-24</time
+    >
+    <time style="display: none;" id="post-update-time"
+      >2020-04-24</time
+    >
+  </span>
+</div>
+
+      <div class="article-category">
+  
+    <a
+      class="article-category-link"
+      href="/categories/%e8%bd%af%e4%bb%b6%e6%9e%84%e9%80%a0"
+      data-aos="zoom-in"
+      >软件构造</a
+    >
+  
+</div>
+
+    </div>
+    <div class="hr-line"></div>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+      
+        <h1 id="软件构造第五章-第一节-可维护性的度量与构造原则">
+<a class="header-anchor" href="#%e8%bd%af%e4%bb%b6%e6%9e%84%e9%80%a0%e7%ac%ac%e4%ba%94%e7%ab%a0-%e7%ac%ac%e4%b8%80%e8%8a%82-%e5%8f%af%e7%bb%b4%e6%8a%a4%e6%80%a7%e7%9a%84%e5%ba%a6%e9%87%8f%e4%b8%8e%e6%9e%84%e9%80%a0%e5%8e%9f%e5%88%99"></a>
+软件构造第五章 第一节 可维护性的度量与构造原则
+</h1><!-- toc -->
+<h1 id="一软件的维护和演化">
+<a class="header-anchor" href="#%e4%b8%80%e8%bd%af%e4%bb%b6%e7%9a%84%e7%bb%b4%e6%8a%a4%e5%92%8c%e6%bc%94%e5%8c%96"></a>
+一、软件的维护和演化
+</h1><ol>
+<li>定义：
+<ul>
+<li>软件可维护性是指软件产品被修改的能力，修改包括纠正、改进或软件对环境、需求和功能规格说明变化的适应。简而言之，软件维护：修复错误、改善性能。</li>
+</ul>
+</li>
+<li>类型：
+<ul>
+<li>纠错性（25%）</li>
+<li>适应性（25%）</li>
+<li>完善性（50%）</li>
+<li>预防性（4%）</li>
+</ul>
+</li>
+<li>演化：
+<ul>
+<li>软件演化是一个程序不断调节以满足新的软件需求过程。</li>
+</ul>
+</li>
+<li>演化的规律：
+<ul>
+<li>软件质量下降，延续软件生命</li>
+</ul>
+</li>
+<li>软件维护和演化的目标：
+<ul>
+<li>提高软件的适应性</li>
+<li>延续软件生命</li>
+</ul>
+</li>
+<li>意义：
+<ul>
+<li>软件维护不仅仅是运维工程师的工作，而是从设计和开发阶段就开始了</li>
+<li>在设计与开发阶段就要考虑将来的可维护性 ，设计方案需要“easy to change”</li>
+</ul>
+</li>
+<li>基于可维护性建设的例子：
+<ul>
+<li>模块化</li>
+<li>OO设计原则</li>
+<li>OO设计模式</li>
+<li>基于状态的构造技术</li>
+<li>表驱动的构造技术</li>
+<li>基于语法的构造技术</li>
+</ul>
+</li>
+</ol>
+<h1 id="二可维护性的常见度量指标">
+<a class="header-anchor" href="#%e4%ba%8c%e5%8f%af%e7%bb%b4%e6%8a%a4%e6%80%a7%e7%9a%84%e5%b8%b8%e8%a7%81%e5%ba%a6%e9%87%8f%e6%8c%87%e6%a0%87"></a>
+二、可维护性的常见度量指标
+</h1><ol>
+<li>可维护性：
+<ul>
+<li>可轻松修改软件系统或组件，以纠正故障，提高性能或其他属性，或适应变化的环境。</li>
+<li>除此之外，可维护性还有其他许多别名：可扩展性（Extensibility）、灵活性（Flexibility）、可适应性（Adaptability）、可管理性（Manageability）、支持性（Supportability）。总之，有好的可维护性就意味着容易改变，容易扩展。</li>
+</ul>
+</li>
+<li>软件可维护性的五个子特性：
+<ul>
+<li>易分析性。软件产品诊断软件中的缺陷或失效原因或识别待修改部分的能力。</li>
+<li>易改变性。软件产品使指定的修改可以被实现的能力，实现包括编码、设计和文档的更改。如果软件由最终用户修改，那么易改变性可能会影响易操作性。</li>
+<li>稳定性。软件产品避免由于软件修改而造成意外结果的能力。</li>
+<li>易测试性。软件产品使已修改软件能被确认的能力。</li>
+<li>维护性的依从性。软件产品遵循与维护性相关的标准或约定的能力。</li>
+</ul>
+</li>
+<li>一些常用的可维护性度量标准：
+<ul>
+<li>圈复杂度（CyclomaticComplexity）：度量代码的结构复杂度。</li>
+<li>代码行数（Lines of Code）：指示代码中的大致行数。</li>
+<li>Halstead Volume：基于源代码中（不同）运算符和操作数的数量的合成度量。</li>
+<li>可维护性指数（MI）：计算介于0和100之间的索引值，表示维护代码的相对容易性。 高价值意味着更好的可维护性。</li>
+<li>继承的层次数：表示扩展到类层次结构的根的类定义的数量。 等级越深，就越难理解特定方法和字段在何处被定义或重新定义。</li>
+<li>类之间的耦合度：通过参数，局部变量，返回类型，方法调用，泛型或模板实例化，基类，接口实现，在外部类型上定义的字段和属性修饰来测量耦合到唯一类。</li>
+<li>单元测试覆盖率：指示代码库的哪些部分被自动化单元测试覆盖。</li>
+</ul>
+</li>
+</ol>
+<h1 id="三模块化设计规范聚合度与耦合度">
+<a class="header-anchor" href="#%e4%b8%89%e6%a8%a1%e5%9d%97%e5%8c%96%e8%ae%be%e8%ae%a1%e8%a7%84%e8%8c%83%e8%81%9a%e5%90%88%e5%ba%a6%e4%b8%8e%e8%80%a6%e5%90%88%e5%ba%a6"></a>
+三、模块化设计规范：聚合度与耦合度
+</h1><h2 id="31-模块化编程">
+<a class="header-anchor" href="#31-%e6%a8%a1%e5%9d%97%e5%8c%96%e7%bc%96%e7%a8%8b"></a>
+3.1 模块化编程
+</h2><ol>
+<li>模块化编程的含义：
+<ul>
+<li>模块化编程是一种设计技术，它强调将程序的功能分解为独立的可互换模块，以便每个模块都包含执行所需功能的一个方面。</li>
+</ul>
+</li>
+<li>设计规范：
+<ul>
+<li>高内聚低耦合</li>
+</ul>
+</li>
+<li>评估模块化的五个标准：
+<ul>
+<li>可分解性：将问题分解为各个可独立解决的子问题</li>
+<li>可组合性：可容易的将模块组合起来形成新的系统</li>
+<li>可理解性：每个子模块都可被系统设计者容易的理解</li>
+<li>可持续性：小的变化将只影响一小部分模块，而不会影响整个体系结构</li>
+</ul>
+</li>
+<li>出现异常之后的保护：运行时的不正常将局限于小范围模块内</li>
+<li>模块化设计的五条原则：
+<ul>
+<li>直接映射：模块的结构与现实世界中问题领域的结构保持一致</li>
+<li>尽可能少的接口：模块应尽可能少的与其他模块通讯</li>
+<li>尽可能小的接口：如果两个模块通讯，那么它们应交换尽可能少的信息</li>
+<li>显式接口：当A与B通讯时，应明显的发生在A与B的接口之间</li>
+<li>信息隐藏：经常可能发生变化的设计决策应尽可能隐藏在抽象接口后面</li>
+</ul>
+</li>
+</ol>
+<h2 id="32-内聚与耦合">
+<a class="header-anchor" href="#32-%e5%86%85%e8%81%9a%e4%b8%8e%e8%80%a6%e5%90%88"></a>
+3.2 内聚与耦合
+</h2><ol>
+<li>内聚性：
+<ul>
+<li>又称块内联系。指模块的功能强度的度量，即一个模块内部各个元素彼此结合的紧密程度的度量。若一个模块内各元素（语名之间、程序段之间）联系的越紧密，则它的内聚性就越高。</li>
+<li>所谓高内聚是指一个软件模块是由相关性很强的代码组成，只负责一项任务，也就是常说的单一责任原则。</li>
+</ul>
+</li>
+<li>耦合性：
+<ul>
+<li>也称块间联系。指软件系统结构中各模块间相互联系紧密程度的一种度量。模块之间联系越紧密，其耦合性就越强，模块的独立性则越差。模块间耦合高低取决于模块间接口的复杂性、调用的方式及传递的信息。</li>
+<li>对于低耦合，粗浅的理解是：一个完整的系统，模块与模块之间，尽可能的使其独立存在。也就是说，让每个模块，尽可能的独立完成某个特定的子功能。模块与模块之间的接口，尽量的少而简单。如果某两个模块间的关系比较复杂的话，最好首先考虑进一步的模块划分。这样有利于修改和组合。</li>
+</ul>
+</li>
+</ol>
+<h1 id="四solid原则">
+<a class="header-anchor" href="#%e5%9b%9bsolid%e5%8e%9f%e5%88%99"></a>
+四、SOLID原则
+</h1><p>  单一职责原则告诉我们实现类要职责单一；
+  里氏替换原则告诉我们不要破坏继承体系；
+  依赖倒置原则告诉我们要面向接口编程；
+  接口隔离原则告诉我们在设计接口的时候要精简单一；
+  迪米特法则告诉我们要降低耦合;
+  开闭原则是总纲（实现效果），它告诉我们要对扩展开放，对修改关闭。</p>
+<h2 id="41-srp-单一责任原则the-single-responsibility-principle">
+<a class="header-anchor" href="#41-srp-%e5%8d%95%e4%b8%80%e8%b4%a3%e4%bb%bb%e5%8e%9f%e5%88%99the-single-responsibility-principle"></a>
+4.1 SRP 单一责任原则(The Single Responsibility Principle)
+</h2><ol>
+<li>含义：
+<ul>
+<li>需要修改某个类的时候原因有且只有一个。换句话说就是让一个类只做一种类型责任，当这个类需要承当其他类型的责任的时候，就需要分解这个类。</li>
+<li>如果一个类包含了多个责任，那么将引起不良后果：引入额外的包，占据资源；导致频繁的重新配置、部署等。</li>
+</ul>
+</li>
+<li>SRP是最简单的原则，却是最难做好的原则。</li>
+<li>SRP的一个反例：</li>
+</ol>
+<center>
+<img src="https://img-blog.csdnimg.cn/2020050619015157.png" width="80%" height="35%">
+</center>
+<center>
+图4-1 SRP原则反例
+</center>
+<h2 id="42-ocp-开放封闭原则the-open-closed-principle">
+<a class="header-anchor" href="#42-ocp-%e5%bc%80%e6%94%be%e5%b0%81%e9%97%ad%e5%8e%9f%e5%88%99the-open-closed-principle"></a>
+4.2 OCP 开放封闭原则(The Open Closed Principle)
+</h2><ol>
+<li>软件实体应该是可扩展，而不可修改的。也就是说，对扩展是开放的，而对修改是封闭的。这个原则是诸多面向对象编程原则中最抽象、最难理解的一个。
+<ul>
+<li>模块的行为应是可扩展的，从而该模块可表现出新的行为以满足需求的变化。</li>
+<li>模块自身的代码是不应被修改的</li>
+<li>扩展模块行为的一般途径是修改模块的内部实现</li>
+<li>如果一个模块不能被修改，那么它通常被认为是具有固定的行为。</li>
+</ul>
+</li>
+<li>关键解决方案：抽象技术。 使用继承和组合来改变类的行为。</li>
+<li>OCP的一个反例：</li>
+</ol>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200506190707124.png" width="80%" height="35%">
+</center>
+<center>
+图4-2 OCP原则反例一
+</center>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200506190836666.png" width="80%" height="35%">
+</center>
+<center>
+图4-3 OCP原则反例二
+</center>
+<p>上面代码存在的问题：</p>
+<ul>
+<li>不可能在不修改GraphEditor的情况下添加新的Shape</li>
+<li>GraphEditor和Shape之间的紧密耦合</li>
+<li>不调用GraphEditor就很难测试特定的Shape</li>
+</ul>
+<p>改正后代码如下：</p>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200506191323111.png" width="80%" height="35%">
+</center>
+<center>
+图4-4 OCP原则反例二改正
+</center>
+<h2 id="43-lsp-里氏替换原则the-liskov-substitution-principle">
+<a class="header-anchor" href="#43-lsp-%e9%87%8c%e6%b0%8f%e6%9b%bf%e6%8d%a2%e5%8e%9f%e5%88%99the-liskov-substitution-principle"></a>
+4.3 LSP 里氏替换原则(The Liskov Substitution Principle)
+</h2><p>  Liskov&rsquo;s 替换原则意思是：&ldquo;子类型必须能够替换它们的基类型。&ldquo;或者换个说法：&ldquo;使用基类引用的地方必须能使用继承类的对象而不必知道它。&rdquo; 这个原则正是保证继承能够被正确使用的前提。通常我们都说，“优先使用组合（委托）而不是继承”或者说“只有在确定是 is-a 的关系时才能使用继承”，因为继承经常导致”紧耦合“的设计。
+  详细见<a href="https://demerzelsun12.github.io/DemerzelSun/2020/04/16/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0-%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E7%AC%AC%E4%BA%8C%E8%8A%82-%E9%9D%A2%E5%90%91%E5%A4%8D%E7%94%A8%E7%9A%84%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0%E6%8A%80%E6%9C%AF/">第四章第二节</a>。</p>
+<h2 id="44-isp-接口分离原则the-interface-segregation-principle">
+<a class="header-anchor" href="#44-isp-%e6%8e%a5%e5%8f%a3%e5%88%86%e7%a6%bb%e5%8e%9f%e5%88%99the-interface-segregation-principle"></a>
+4.4 ISP 接口分离原则(The Interface Segregation Principle)
+</h2><ol>
+<li>含义:
+<ul>
+<li>客户端不应依赖于它们不需要的方法。换句话说，使用多个专门的接口比使用单一的总接口总要好。</li>
+</ul>
+</li>
+<li>客户模块不应该依赖大的接口，应该裁减为小的接口给客户模块使用，以减少依赖性。如Java中一个类实现多个接口，不同的接口给不用的客户模块使用，而不是提供给客户模块一个大的接口。</li>
+<li>缺点：
+<ul>
+<li>胖接口可分解为多个小的接口；</li>
+<li>不同的接口向不同的客户端提供服务；</li>
+<li>客户端只访问自己所需要的端口。</li>
+</ul>
+</li>
+<li>模型展示：</li>
+</ol>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200506192445551.png" width="80%" height="35%">
+</center>
+<center>
+图4-5 ISP原则模型
+</center>
+<ol>
+<li>ISP原则反例：</li>
+</ol>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200506192602676.png" width="80%" height="35%">
+</center>
+<center>
+图4-6 ISP原则反例，右侧为更改方法
+</center>
+<h2 id="45-dip-依赖转置原则the-dependency-inversion-principle">
+<a class="header-anchor" href="#45-dip-%e4%be%9d%e8%b5%96%e8%bd%ac%e7%bd%ae%e5%8e%9f%e5%88%99the-dependency-inversion-principle"></a>
+4.5 DIP 依赖转置原则(The Dependency Inversion Principle)
+</h2><ol>
+<li>
+<p>DIP原则定义：</p>
+<ul>
+<li>高层模块不应该依赖于低层模块，二者都应该依赖于抽象</li>
+<li>抽象不应该依赖于细节，细节应该依赖于抽象</li>
+</ul>
+</li>
+<li>
+<p>这个设计原则的亮点在于任何被DIP框架注入的类很容易用mock对象进行测试和维护，因为对象创建代码集中在框架中，客户端代码也不混乱。有很多方式可以实现依赖倒置，比如像AspectJ等的AOP（Aspect Oriented programming）框架使用的字节码技术，或Spring框架使用的代理等。</p>
+</li>
+<li>
+<p>特点：</p>
+<ul>
+<li>高层模块不要依赖低层模块</li>
+<li>高层和低层模块都要依赖于抽象</li>
+<li>抽象不要依赖于具体实现</li>
+<li>具体实现要依赖于抽象</li>
+<li>抽象和接口使模块之间的依赖分离</li>
+</ul>
+</li>
+<li>
+<p>DIP原则反例及改正方法</p>
+</li>
+</ol>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200506193109539.jpg" width="80%" height="35%">
+</center>
+<center>
+图4-7 DIP原则反例
+</center>
+<center>
+<img src="https://img-blog.csdnimg.cn/20200506193113361.jpg" width="80%" height="35%">
+</center>
+<center>
+图4-8 更改方法
+</center>
+<h2 id="45-solid原则总结">
+<a class="header-anchor" href="#45-solid%e5%8e%9f%e5%88%99%e6%80%bb%e7%bb%93"></a>
+4.5 SOLID原则总结
+</h2><ol>
+<li>一个对象只承担一种责任，所有服务接口只通过它来执行这种任务。</li>
+<li>程序实体，比如类和对象，向扩展行为开放，向修改行为关闭。</li>
+<li>子类应该可以用来替代它所继承的类。</li>
+<li>一个类对另一个类的依赖应该限制在最小化的接口上。</li>
+<li>依赖抽象层(接口)，而不是具体类。</li>
+</ol>
+      
+    </div>
+    <footer class="article-footer">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+      <ul class="article-tag-list" itemprop="keywords">
+  
+    <li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e8%bd%af%e4%bb%b6%e6%9e%84%e9%80%a0"
+        rel="tag"
+        >软件构造</a
+      >
+    </li>
+  
+    <li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/java"
+        rel="tag"
+        >JAVA</a
+      >
+    </li>
+  
+</ul>
+
+    </footer>
+  </div>
+  
+    
+  <nav
+    id="article-nav"
+    data-aos="fade-up"
+  >
+    
+      <div class="article-nav-link-wrap article-nav-link-left">
+        
+          <img
+            data-src="images/featureimages/10.jpg"
+            data-sizes="auto"
+            alt="软件构造-第四章-第三节-面向复用的设计模式"
+            class="lazyload"
+          />
+        
+        <a href="/post/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0-%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E7%AC%AC%E4%B8%89%E8%8A%82-%E9%9D%A2%E5%90%91%E5%A4%8D%E7%94%A8%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">
+          
+            软件构造-第四章-第三节-面向复用的设计模式
+          
+        </h3>
+      </div>
+    
+
+    
+      <div class="article-nav-link-wrap article-nav-link-right">
+        
+          <img
+            data-src="images/featureimages/1.jpg"
+            data-sizes="auto"
+            alt="不能使用泛型的几种情况"
+            class="lazyload"
+          />
+        
+        <a href="/post/%E4%B8%8D%E8%83%BD%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%9A%84%E5%87%A0%E7%A7%8D%E6%83%85%E5%86%B5/"></a>
+        <div class="article-nav-caption">后一篇</div>
+        <h3 class="article-nav-title">
+          
+            不能使用泛型的几种情况
+          
+        </h3>
+      </div>
+    
+  </nav>
+
+
+  
+</article>
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+</section>
+        </div>
+        
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+
+
+<footer id="footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info">
+    
+    <div>
+      <span class="icon-copyright"></span>
+      
+        2020 -
+        2025
+      
+      <span class="footer-info-sep "></span>
+      Demerzel
+    </div>
+    
+      <div>
+        基于&nbsp;<a
+          href="https://gohugo.io/"
+          target="_blank"
+          >Hugo</a
+        >&nbsp; Theme.<a
+          href="https://github.com/D-Sketon/hugo-theme-reimu"
+          target="_blank"
+          >Reimu</a
+        >
+      </div>
+    
+    
+      <div>
+        <span class="icon-brush"
+          >&nbsp;
+            155.1k
+          </span
+        >
+        &nbsp;|&nbsp;
+        <span class="icon-coffee">&nbsp;
+          
+          
+
+          05:36
+        </span>
+      </div>
+    
+    
+    
+    
+  </div>
+</footer>
+
+        
+          <div class="sidebar-top">
+            <div class="sidebar-top-taichi "></div>
+            <div class="arrow-up"></div>
+          </div>
+        
+        <div id="mask" class="hide"></div>
+      </div>
+      <nav id="mobile-nav">
+  <div class="sidebar-wrap">
+    
+      
+        <div class="sidebar-toc-sidebar">
+          <div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#31-模块化编程">3.1 模块化编程</a></li>
+    <li><a href="#32-内聚与耦合">3.2 内聚与耦合</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#41-srp-单一责任原则the-single-responsibility-principle">4.1 SRP 单一责任原则(The Single Responsibility Principle)</a></li>
+    <li><a href="#42-ocp-开放封闭原则the-open-closed-principle">4.2 OCP 开放封闭原则(The Open Closed Principle)</a></li>
+    <li><a href="#43-lsp-里氏替换原则the-liskov-substitution-principle">4.3 LSP 里氏替换原则(The Liskov Substitution Principle)</a></li>
+    <li><a href="#44-isp-接口分离原则the-interface-segregation-principle">4.4 ISP 接口分离原则(The Interface Segregation Principle)</a></li>
+    <li><a href="#45-dip-依赖转置原则the-dependency-inversion-principle">4.5 DIP 依赖转置原则(The Dependency Inversion Principle)</a></li>
+    <li><a href="#45-solid原则总结">4.5 SOLID原则总结</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+        </div>
+        <div class="sidebar-common-sidebar hidden">
+          
+<div class="sidebar-author">
+  <img
+    data-src="/images/avatar.jpg"
+    data-sizes="auto"
+    alt="Demerzel"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">Demerzel</div>
+  <div class="sidebar-description">浮沉在世 人事变迁</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    
+    <div class="sidebar-state-number">51</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      18
+    </div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">28</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a
+        href="mailto:demerzelsun@gmail.com"
+        itemprop="url"
+        target="_blank"
+        aria-label="email"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a
+        href="https://github.com/demerzelsun12"
+        itemprop="url"
+        target="_blank"
+        aria-label="github"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-linkedin sidebar-social-icon">
+      <a
+        href="https://www.linkedin.com/in/xiao-sun-52a2a21b0/"
+        itemprop="url"
+        target="_blank"
+        aria-label="linkedin"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">首页</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">归档</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">关于</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">友链</div>
+    </div>
+  
+</div>
+
+        </div>
+      
+    
+  </div>
+  
+    
+      <div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div>
+    
+  
+</nav>
+
+    </div>
+    
+    
+    
+    
+
+
+
+
+
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"
+    
+    
+    
+    
+    integrity="sha384-3gT/vsepWkfz/ff7PpWNUeMzeWoH3cDhm/A8jM7ouoAK0/fP/9bcHHR5kHq2nf&#43;e" crossorigin="anonymous"
+  ></script>
+
+
+
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"
+    
+    
+    
+    
+    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"
+  ></script>
+
+
+
+
+
+
+
+
+
+
+
+  
+      
+      <script src="/js/main.js" ></script>
+      
+
+
+
+  
+
+
+
+
+
+  
+      
+      <script src="/js/aos.js" ></script>
+      
+
+  <script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", aosInit);
+    } else {
+      aosInit();
+    }
+  </script>
+
+
+
+
+
+
+
+
+  
+      
+      <script src="/js/pjax_main.js" data-pjax></script>
+      
+
+
+
+
+
+  
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/mouse-firework@0.1.1/dist/index.umd.js"
+    
+    
+    
+    
+    integrity="sha384-8LyaidD9GPxQQgLJO/WRw/O2h3BoNq/ApI/ecpvM6RsrCz2qP2ppBXUKihP4V/2d" crossorigin="anonymous"
+  ></script>
+
+
+<script>
+  if (window.firework) {
+    const options = JSON.parse("{\"excludeelements\":[\"a\",\"button\"],\"particles\":[{\"colors\":[\"var(--red-1)\",\"var(--red-2)\",\"var(--red-3)\",\"var(--red-4)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"emit\"],\"number\":20,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.3,0.5],\"radius\":[16,32]}},{\"colors\":[\"var(--red-0)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"diffuse\"],\"number\":1,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.2,0.5],\"lineWidth\":6,\"radius\":20}}]}");
+    options.excludeElements = options.excludeelements;
+    delete options.excludeelements;
+    window.firework(options);
+  }
+</script>
+
+
+
+
+
+
+
+
+<div id="lazy-script">
+  <div>
+    
+      
+      
+        
+      
+      <script data-pjax>
+        window.REIMU_POST = {
+          author: "Demerzel",
+          title: "软件构造-第五章-第一节-可维护性的度量与构造原则",
+          url: "http:\/\/localhost:13926\/post\/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0-%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%AC%AC%E4%B8%80%E8%8A%82-%E5%8F%AF%E7%BB%B4%E6%8A%A4%E6%80%A7%E7%9A%84%E5%BA%A6%E9%87%8F%E4%B8%8E%E6%9E%84%E9%80%A0%E5%8E%9F%E5%88%99\/",
+          description: "\r软件构造第五章 第一节 可维护性的度量与构造原则\r",
+          cover: "http:\/\/localhost:13926\/images\/featureimages\/11.jpg",
+        };
+      </script>
+    
+    
+    
+      
+
+
+
+
+
+  
+      
+      <script src="/js/insert_highlight.js" data-pjax></script>
+      
+
+      
+      
+      
+      
+      <script type="module" data-pjax>
+        
+        const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;
+        
+        const pswp = () => {
+          if (_$$('.article-entry a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-entry',
+              children: 'a.article-gallery-item',
+              
+              pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")
+              
+            }).init();
+          }
+          if(_$$('.article-gallery a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-gallery',
+              children: 'a.article-gallery-item',
+              
+              pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")
+              
+            }).init();
+          }
+          window.lightboxStatus = 'done';
+          window.removeEventListener('lightbox:ready', pswp);
+        }
+        if(window.lightboxStatus === 'ready') {
+          pswp()
+        } else {
+          window.addEventListener('lightbox:ready', pswp);
+        }
+      </script>
+      
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+      
+    
+    
+      
+      
+        <script data-pjax>
+          window.MathJax = JSON.parse("[{\"loader\":{\"load\":[\"input/asciimath\",\"[tex]/noerrors\"]},\"options\":{\"ignoreHtmlClass\":\"tex2jax_ignore\",\"processHtmlClass\":\"tex2jax_process\",\"skipHtmlTags\":[\"script\",\"noscript\",\"style\",\"textarea\",\"pre\",\"code\"]},\"tex\":{\"autoload\":{\"color\":[],\"colorv2\":[\"color\"]},\"displayMath\":[[\"$$\",\"$$\"],[\"\\\\\\\\[\",\"\\\\\\\\]\"]],\"inlineMath\":[[\"$\",\"$\"],[\"\\\\\\\\(\",\"\\\\\\\\)\"]],\"packages\":{\"[+]\":[\"noerrors\"]},\"processEnvironments\":true,\"processEscapes\":true,\"tags\":\"ams\",\"useLabelIds\":true}}]")[0];
+        </script>
+        
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/mathjax@3.2.2/es5/tex-mml-chtml.js"
+    defer
+    
+    data-pjax
+    
+    integrity="sha384-Wuix6BuhrWbjDBs24bXrjf4ZQ5aFeFWBuKkFekO2t8xFU0iNaLQfp2K6/1Nxveei" crossorigin="anonymous"
+  ></script>
+
+
+      
+    
+  </div>
+</div>
+
+
+
+
+
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+  </script>
+
+
+<script>
+  const reimuCopyright = String.raw`
+   ______     ______     __     __    __     __  __    
+  /\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+  \ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+   \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+    \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                    
+  `;
+  console.log(String.raw`%c ${reimuCopyright}`, "color: #ff5252;");
+  console.log(
+    "%c Theme.Reimu" + " %c https://github.com/D-Sketon/hugo-theme-reimu ",
+    "color: white; background: #ff5252; padding:5px 0;",
+    "padding:4px;border:1px solid #ff5252;",
+  );
+</script>
+
+
+
+
+
+
+    
+  </body>
+</html>

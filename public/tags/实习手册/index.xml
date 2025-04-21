@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>实习手册 on Demerzel&#39;s Blog</title>
+    <link>http://localhost:13926/tags/%E5%AE%9E%E4%B9%A0%E6%89%8B%E5%86%8C/</link>
+    <description>Recent content in 实习手册 on Demerzel&#39;s Blog</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 30 May 2022 11:30:58 +0000</lastBuildDate>
+    <atom:link href="http://localhost:13926/tags/%E5%AE%9E%E4%B9%A0%E6%89%8B%E5%86%8C/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>java常用手册</title>
+      <link>http://localhost:13926/post/java%E5%B8%B8%E7%94%A8%E6%89%8B%E5%86%8C/</link>
+      <pubDate>Mon, 30 May 2022 11:30:58 +0000</pubDate>
+      <guid>http://localhost:13926/post/java%E5%B8%B8%E7%94%A8%E6%89%8B%E5%86%8C/</guid>
+      <description>java常用方法</description>
+    </item>
+  </channel>
+</rss>

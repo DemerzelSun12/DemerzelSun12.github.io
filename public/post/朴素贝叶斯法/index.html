@@ -1,0 +1,1662 @@
+<!doctype html>
+<html
+  lang="zh-cn" 
+  
+    data-theme-mode="auto"
+  
+>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=13926&amp;path=livereload" data-no-instant defer></script>
+    
+    <meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+
+
+
+
+
+
+
+  
+
+<title>
+  朴素贝叶斯法 | Demerzel
+</title>
+<meta
+  name="description"
+  content="浮沉在世 人事变迁"
+/>
+
+
+
+
+
+
+
+
+
+
+<script>
+  window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"clipboard\":{\"copyright\":{\"content\":\"本文版权：本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！\",\"count\":50,\"enable\":false},\"fail\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"success\":\"复制成功(*^▽^*)\"},\"code_block\":{\"expand\":true},\"icon_font\":\"4552607_0khxww3tj3q9\",\"outdate\":{\"daysago\":180,\"enable\":false,\"message\":\"本文最后更新于 {time}，请注意文中内容可能已经发生变化。\"}}");
+</script>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  
+    
+  
+
+  
+  
+  
+    
+  
+
+  
+    
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+  media="print"
+  onload="this.media='all'"
+/>
+
+
+
+
+
+
+
+  <link
+    rel="preload"
+    href="//at.alicdn.com/t/c/font_4552607_0khxww3tj3q9.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  />
+
+
+
+  
+
+
+
+
+
+
+ <link rel="stylesheet" href="/css/loader.css" />
+
+
+
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="朴素贝叶斯法 | Demerzel" />
+  <meta
+    property="og:description"
+    content="浮沉在世 人事变迁"
+  />
+  <meta property="og:url" content="http://localhost:13926/post/%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E6%B3%95/" />
+  <meta
+    property="og:site_name"
+    content="Demerzel&#39;s Blog"
+  />
+  <meta
+    property="og:image"
+    content="/images/featureimages/8.jpg"
+  />
+  <meta property="article:author" content="Demerzel" />
+  <meta property="article:published_time" content="2020-09-05T22:01:42&#43;00:00" />
+  <meta property="article:modified_time" content="2020-09-05T22:01:42&#43;00:00" />
+  
+    <meta property="article:tag" content="算法机器学习" />
+  
+  
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:image" content="/images/featureimages/8.jpg" />
+  
+  
+  
+  
+  
+
+
+
+
+<link rel="shortcut icon" href="/favicon.ico">
+
+
+
+
+
+
+
+ <link rel="stylesheet" href="/css/main.css" />
+
+
+
+
+
+  <link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css"
+    onload="this.onload=null;this.rel='stylesheet'"
+  />
+
+
+
+
+
+
+  <link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css"
+    onload="this.onload=null;this.rel='stylesheet'"
+  />
+
+
+
+
+
+
+
+
+  
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"
+    
+    
+    
+    
+    integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"
+  ></script>
+
+
+
+
+
+  
+
+
+  <link rel="stylesheet" href="https://npm.webcache.cn/@reimujs/aos@0.1.0/dist/aos.css" />
+
+
+
+
+
+    
+  </head>
+  <body>
+    
+    
+  <div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi rotate">
+        
+          <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+            <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="var(--red-1, #ff5252)" />
+            <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+          M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="var(--red-1, #ff5252)" />
+          </svg>
+        
+      </div>
+      <div class="loading-word">少女祈祷中...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    var startLoading = () => {
+      time = Date.now();
+      document.getElementById('loader').classList.remove("loading");
+    }
+    var endLoading = () => {
+      if (!time) {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loader').classList.add("loading");
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          document.body.style.overflow = 'auto';
+          document.getElementById('loader').classList.add("loading");
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    document.getElementById('loader').addEventListener('click', endLoading);
+  </script>
+
+
+<div id="copy-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+</div>
+
+
+    <div id="container">
+      <div id="wrap">
+        
+<div id="header-nav">
+  <nav id="main-nav">
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/">首页</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/archives">归档</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/about">关于</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>
+          
+            
+              &#xe62b;
+            
+          
+        </div>
+        <a class="main-nav-link" href="/friend">友链</a>
+      </span>
+    
+    <a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav">
+    
+    
+  </nav>
+</div>
+<header id="header">
+  
+    <picture></picture>
+    <img  fetchpriority="high" src="/images/featureimages/8.jpg" alt="朴素贝叶斯法">
+  
+
+  <div id="header-outer">
+    <div id="header-title">
+      
+        
+        
+          
+        
+  
+        
+          <a href="/" id="logo">
+            <h1 data-aos="slide-up">朴素贝叶斯法</h1>
+          </a>
+        
+      
+  
+      
+        
+        
+        <h2 id="subtitle-wrap" data-aos="slide-down">
+          
+        </h2>
+      
+    </div>
+  </div>
+</header>
+        <div id="content"
+          
+          class="sidebar-right"  >
+          <aside id="sidebar">
+  
+  
+  
+  <div class="sidebar-wrapper wrap-sticky">
+    <div
+      class="sidebar-wrap"
+      data-aos="fade-up"
+    >
+      
+        
+          <div class="sidebar-toc-sidebar">
+            <div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一基本形式">一、基本形式</a>
+      <ul>
+        <li><a href="#11-朴素贝叶斯法的基本方法">1.1 朴素贝叶斯法的基本方法</a></li>
+        <li><a href="#12-后验概率最大化的含义">1.2 后验概率最大化的含义</a></li>
+      </ul>
+    </li>
+    <li><a href="#二朴素贝叶斯法的参数估计">二、朴素贝叶斯法的参数估计</a>
+      <ul>
+        <li><a href="#21-极大似然估计">2.1 极大似然估计</a></li>
+        <li><a href="#22-学习与分类算法">2.2 学习与分类算法</a></li>
+        <li><a href="#23-贝叶斯估计">2.3 贝叶斯估计</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+          </div>
+          <div class="sidebar-common-sidebar hidden">
+            
+<div class="sidebar-author">
+  <img
+    data-src="/images/avatar.jpg"
+    data-sizes="auto"
+    alt="Demerzel"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">Demerzel</div>
+  <div class="sidebar-description">浮沉在世 人事变迁</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    
+    <div class="sidebar-state-number">51</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      18
+    </div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">28</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a
+        href="mailto:demerzelsun@gmail.com"
+        itemprop="url"
+        target="_blank"
+        aria-label="email"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a
+        href="https://github.com/demerzelsun12"
+        itemprop="url"
+        target="_blank"
+        aria-label="github"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-linkedin sidebar-social-icon">
+      <a
+        href="https://www.linkedin.com/in/xiao-sun-52a2a21b0/"
+        itemprop="url"
+        target="_blank"
+        aria-label="linkedin"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">首页</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">归档</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">关于</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">友链</div>
+    </div>
+  
+</div>
+
+          </div>
+        
+      
+
+      
+        
+          <div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div>
+        
+      
+    </div>
+  </div>
+
+  <div class="sidebar-widget">
+    
+  </div>
+  
+</aside>
+
+          <section id="main">
+  <article
+  class="h-entry article"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div
+    class="article-inner"
+    data-aos="fade-up"
+  >
+    <div class="article-meta">
+      <div class="article-date">
+  <span
+    class="article-date-link"
+    data-aos="zoom-in"
+  >
+    <time datetime="2020-09-05 22:01:42 &#43;0000 UTC" itemprop="datePublished"
+      >2020-09-05</time
+    >
+    <time style="display: none;" id="post-update-time"
+      >2020-09-05</time
+    >
+  </span>
+</div>
+
+      <div class="article-category">
+  
+    <a
+      class="article-category-link"
+      href="/categories/%e6%9c%ba%e5%99%a8%e5%ad%a6%e4%b9%a0"
+      data-aos="zoom-in"
+      >机器学习</a
+    >
+  
+</div>
+
+    </div>
+    <div class="hr-line"></div>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+      
+        <h2 id="一基本形式">
+<a class="header-anchor" href="#%e4%b8%80%e5%9f%ba%e6%9c%ac%e5%bd%a2%e5%bc%8f"></a>
+一、基本形式
+</h2><p>  朴素贝叶斯法(<em>naive Bayes</em>)是基于贝叶斯定理与特征条件独立假设的分类方法。
+  对于给定的训练模型，首先基于特征条件独立假设学习输入输出的联合概率分布；然后基于此模型，对于给定的输入 $x$，利用贝叶斯定理求出后验概率最大的输出 $y$。</p>
+<h3 id="11-朴素贝叶斯法的基本方法">
+<a class="header-anchor" href="#11-%e6%9c%b4%e7%b4%a0%e8%b4%9d%e5%8f%b6%e6%96%af%e6%b3%95%e7%9a%84%e5%9f%ba%e6%9c%ac%e6%96%b9%e6%b3%95"></a>
+1.1 朴素贝叶斯法的基本方法
+</h3><p>  设输入空间 $\mathcal{X}\in \textbf{R}^n$ 为 $n$ 维向量的集合，输出空间为类标记集合 $\mathcal{Y}=\left\{c_1,c_2,\cdots,c_K\right\}$。输入为特征向量 $x\in \mathcal{X}$，输出为类标记(class label) $y\in \mathcal{Y}$。$X$ 是定义在输入空间 $\mathcal{X}$ 上的特征向量，$Y$ 是定义在输出空间 $\mathcal{Y}$ 上的随机变量。$P\left(X,Y\right)$ 是 $X$ 和 $Y$ 的联合概率分布。训练数据集 $T=\left\{\left(x_1,y_1\right),\left(x_2,y_2\right),\cdots ,\left(x_N,y_N\right)\right\}$ 由 $P\left(X,Y\right)$ 独立同分布产生。</p>
+<p>  由于我们的目标是计算 $P\left(Y|X\right)$，又贝叶斯定理可知，
+</p>
+$$
+P\left(Y|X\right)=\cfrac{P\left(X,Y\right)}{P\left(X\right)}=\cfrac{P\left(X|Y\right)\cdot P\left(Y\right)}{\sum_{k}{P\left(X=x_i|Y\right)P\left(Y\right)}}
+$$<p>
+由于分母的 $P\left(X\right)$ 是常数，所以只需要计算分子即可，即
+</p>
+$$
+P\left(Y=c_k\right),\  k=1,2,\cdots,K
+$$<p>
+</p>
+$$
+P\left(X=x|Y=c_k\right)=P\left(X^{\left(1\right)}=x^{\left(1\right)},\cdots,X^{\left(n\right)}=x^{\left(n\right)}|Y=c_k\right), \ k=1,2,\cdots,K
+$$<p>
+但是由于条件概率分布 $P\left(X=x|Y=c_k\right)$ 具有指数级数量的参数，其估计实际上是不可行的。因此，朴素贝叶斯对条件概率分布做了<strong>条件独立性</strong>的假设，由于这是一个较强的假设，由是也叫作“朴素”。
+</p>
+$$
+\begin{aligned}
+	P\left( X=x\left| Y=c_k \right. \right) &=P\left( X^{\left( 1 \right)}=x^{\left( 1 \right)},\cdots ,X^{\left( n \right)}=x^{\left( n \right)}\left| Y=c_k \right. \right)\\\\
+	&= \prod_{j=1}^n{P\left( X^{\left( j \right)}=x^{\left( j \right)}\left| Y=c_k \right. \right)}\\
+\end{aligned}
+$$<p>  朴素贝叶斯法学习的是生成数据的机制，因此是一种学习模型。条件独立假设即用于分类的特征在类确定的条件下都是条件独立的，这个假设使得整个算法变得简单，但是有时也会牺牲一些准确率。</p>
+<p>  因此，朴素贝叶斯的基本公式为
+</p>
+$$
+P\left( Y=c_k\left| X=x \right. \right) =\frac{P\left( Y=c_k \right) \prod_j{P\left( X^{\left( j \right)}=x^{\left( j \right)}\left| Y=c_k \right. \right)}}{\sum_k{P\left( Y=c_k \right) \prod_j{P\left( X^{\left( j \right)}=x^{\left( j \right)}\left| Y=c_k \right. \right)}}},\ k=1,2\cdots ,K
+$$<p>
+朴素贝叶斯分类器可以表示为
+</p>
+$$
+y=f\left(x\right)=\arg \underset{c_k}{\max}\frac{P\left( Y=c_k \right) \prod_j{P\left( X^{\left( j \right)}=x^{\left( j \right)}\left| Y=c_k \right. \right)}}{\sum_k{P\left( Y=c_k \right) \prod_j{P\left( X^{\left( j \right)}=x^{\left( j \right)}\left| Y=c_k \right. \right)}}}
+$$<p>
+注意到分母对所有的 $c_k$ 都是相同的，所以
+</p>
+$$
+y=f\left(x\right)=\arg \underset{c_k}{\max}P\left( Y=c_k \right) \prod_j{P\left( X^{\left( j \right)}=x^{\left( j \right)}\left| Y=c_k \right. \right)}
+$$<h3 id="12-后验概率最大化的含义">
+<a class="header-anchor" href="#12-%e5%90%8e%e9%aa%8c%e6%a6%82%e7%8e%87%e6%9c%80%e5%a4%a7%e5%8c%96%e7%9a%84%e5%90%ab%e4%b9%89"></a>
+1.2 后验概率最大化的含义
+</h3><p>朴素贝叶斯法将实例分到后验概率最大的类中，等价于期望风险最小化。我们假设一个 $0-1$ 损失函数：
+</p>
+$$
+L\left(Y,f\left(X\right)\right)=\left\{ 
+    \begin{array}{l}
+	1,\ Y\ne f\left( X \right)\\\\
+	0,\ Y=f\left( X \right)
+\end{array} \right .
+$$<p>
+式中 $f\left(X\right)$是分类决策函数，此时的期望风险函数为
+</p>
+$$
+R_{\exp}\left(f\right)=E\left[L\left(Y,f\left(X\right)\right)\right]
+$$<p>
+此为对联合概率分布 $P\left(X,Y\right)$ 求取的期望，由此，取条件期望
+</p>
+$$
+R_{\exp}\left( f \right) =E_X\sum_{k=1}^K{\left[ L\left( c_k,f\left( X \right) \right) \right] P\left( c_k|X \right)}
+$$<p>
+为了使期望风险最小化，只需对 $X=x$ 逐个最小化，由此得到：
+</p>
+$$
+\begin{aligned}
+f\left(x\right) &=\arg \underset{y\in \mathcal{Y}}{\min}\sum_{k=1}^K{L\left(c_k,y\right)P\left(c_k|X=x\right)}\\\\
+&=\arg \underset{y\in \mathcal{Y}}{\min}\sum_{k=1}^K{P\left(y\ne c_k|X=x\right)}\\\\
+&=\arg \underset{y\in \mathcal{Y}}{\min}\left(1-P\left(y=c_k|X=x\right)\right)\\\\
+&=\arg \underset{y\in \mathcal{Y}}{\max}P\left(y=c_k|X=x\right)\\
+\end{aligned}
+$$<p>
+由此，根据期望风险最小化准则就得到了后验概率最大化准则：
+</p>
+$$
+f\left(x\right)=\arg \underset{c_k}{\max}P\left(c_k|X=x\right)
+$$<p>
+这也是朴素贝叶斯采用的定理。</p>
+<h2 id="二朴素贝叶斯法的参数估计">
+<a class="header-anchor" href="#%e4%ba%8c%e6%9c%b4%e7%b4%a0%e8%b4%9d%e5%8f%b6%e6%96%af%e6%b3%95%e7%9a%84%e5%8f%82%e6%95%b0%e4%bc%b0%e8%ae%a1"></a>
+二、朴素贝叶斯法的参数估计
+</h2><h3 id="21-极大似然估计">
+<a class="header-anchor" href="#21-%e6%9e%81%e5%a4%a7%e4%bc%bc%e7%84%b6%e4%bc%b0%e8%ae%a1"></a>
+2.1 极大似然估计
+</h3><p>  在朴素贝叶斯法中，需要知道先验概率分布 $P\left(Y=c_k\right)$ 与条件概率分布 $P\left(X^{\left(j\right)}=x^{\left(j\right)}|Y=c_k\right)$ 由于我们是用训练数据集去预测，因此需要用训练数据集估计新输入的实例，可以应用极大似然估计去估计相应的概率。
+  先验概率 $P\left(Y=c_k\right)$ 的极大似然估计为
+</p>
+$$
+P\left(Y=c_k\right)=\cfrac{\sum_{i=1}^N{I\left(y_i=c_k\right)}}{N} , k=1,2,\cdots,K
+$$<p>
+设第 $j$ 个特征 $x^{\left(j\right)}$ 的可能取值集合为 $\left\{a_{j1},a_{j2},\cdots,a_{jS_j}\right\}$，条件概率 $P\left(X^{\left(j\right)}=a_{jl}|Y=c_k\right)$ 的极大似然估计为
+</p>
+$$
+\begin{array}{c}
+	P\left( X^{\left( j \right)}=a_{jl}\left| Y=c_k \right. \right) =\frac{\sum_{i=1}^N{I\left( x_{i}^{\left( j \right)}=a_{jl},y_i=c_k \right)}}{\sum_{i=1}^N{I\left( y_i=c_k \right)}}\\\\
+    \\\\
+	j=1,2,\cdots ,n;\ l=1,2,\cdots ,S_j;\ k=1,2,\cdots ,K\\
+\end{array}
+$$<p>
+式中，$x_{i}^{\left( j \right)}$ 是第 $i$ 个样本的第 $j$ 个特征；$a_{jl}$ 是第 $j$ 个特征可能取的第 $l$ 个值；$I$ 为指示函数。</p>
+<h3 id="22-学习与分类算法">
+<a class="header-anchor" href="#22-%e5%ad%a6%e4%b9%a0%e4%b8%8e%e5%88%86%e7%b1%bb%e7%ae%97%e6%b3%95"></a>
+2.2 学习与分类算法
+</h3><p>  <font size = 4><strong>算法 1（朴素贝叶斯算法）</strong></font></p>
+<p>  输入：训练数据集 $T=\left\{\left(x_1,y_1\right),\left(x_2,y_2\right),\cdots,\left(x_N,y_N\right)\right\}$ ，其中，$x_i=\left( x_{i}^{\left( 1 \right)},x_{i}^{\left( 2 \right)},\cdots ,x_{i}^{\left( n \right)} \right) ^{\text{T}}$，$x_i^{\left(j\right)}$ 是第 $i$ 个样本的第 $j$ 个特征，$x_i^{\left(j\right)}\in \left\{a_{j1},a_{j2},\cdots,a_{jS_j}\right\}$，$a_{jl}$ 是第 $j$ 个特征可能取的第 $l$ 值，$j=1,2,\cdots,n$，$l=1,2,\cdots,S_j$，$y_i\in \left\{c_1,c_2,\cdots,c_K\right\}$；实例 $x$；</p>
+<p>  输出：实例 $x$ 的分类。</p>
+<ol>
+<li>
+<p>计算先验概率及条件概率;
+</p>
+$$
+P\left(Y=c_k\right)=\cfrac{\sum_{i=1}^N{I\left(y_i=c_k\right)}}{N} , k=1,2,\cdots,K
+$$<p>
+</p>
+$$
+\begin{array}{c}
+	P\left( X^{\left( j \right)}=a_{jl}\left| Y=c_k \right. \right) =\frac{\sum_{i=1}^N{I\left( x_{i}^{\left( j \right)}=a_{jl},y_i=c_k \right)}}{\sum_{i=1}^N{I\left( y_i=c_k \right)}}\\\\
+    \\\\
+	j=1,2,\cdots ,n;\ l=1,2,\cdots ,S_j;\ k=1,2,\cdots ,K\\
+\end{array}
+$$</li>
+<li>
+<p>对于给定的实例 $x_i=\left( x_{i}^{\left( 1 \right)},x_{i}^{\left( 2 \right)},\cdots ,x_{i}^{\left( n \right)} \right) ^{\text{T}}$，计算</p>
+</li>
+</ol>
+$$
+P\left( Y=c_k \right) \prod_{j=1}^n{P\left( X^{\left( j \right)}=x^{\left( j \right)}\left| Y=c_k \right. \right)}, k=1,2,\cdots,K
+$$<ol start="3">
+<li>确定实例 $x$ 的类</li>
+</ol>
+$$
+y=f\left(x\right)=\arg \underset{c_k}{\max}P\left( Y=c_k \right) \prod_{j=1}^n{P\left( X^{\left( j \right)}=x^{\left( j \right)}\left| Y=c_k \right. \right)}
+$$<h3 id="23-贝叶斯估计">
+<a class="header-anchor" href="#23-%e8%b4%9d%e5%8f%b6%e6%96%af%e4%bc%b0%e8%ae%a1"></a>
+2.3 贝叶斯估计
+</h3><p>  用极大似然法估计可能会出现待估计的概率值为0的情况，于是乎一系列的计算全为0了，会使的分类的结果产生偏差。采取的办法是，在所有情况的频数上加上统一的数，既保证了每项概率不为0，同时所有项的概率和也为1。这就是条件概率的贝叶斯估计。
+</p>
+$$
+P_{\lambda}\left( X^{\left( j \right)}=a_{jl}\left| Y=c_k \right. \right) =\frac{\sum_{i=1}^N{I\left( x_{i}^{\left( j \right)}=a_{jl},y_i=c_k \right)}+\lambda}{\sum_{i=1}^N{I\left( y_i=c_k \right)}+S_j\lambda}
+$$<p>
+式中 $\lambda\ge1$，当 $\lambda=0$ 时就是极大似然估计，当 $\lambda=1$ 时，称为拉普拉斯平滑(<em>Laplacian smoothing</em>)。显然，对 $\forall l=1,2,\cdots ,S_j$，$k=1,2,\cdots,K$，有
+</p>
+$$
+P_{\lambda}\left( X^{\left( j \right)}=a_{jl}\left| Y=c_k \right. \right) >0
+$$<p>
+</p>
+$$
+\sum_{l=1}^{S_j}{P_{\lambda}\left( X^{\left( j \right)}=a_{jl}\left| Y=c_k \right. \right)}=1
+$$<p>
+同理，先验概率的贝叶斯估计为
+</p>
+$$
+P\left(Y=c_k\right)=\cfrac{\sum_{i=1}^N{I\left(y_i=c_k\right)+\lambda}}{{N+K\lambda}}
+$$<p>Python代码实现如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">NaiveBayes</span><span class="p">(</span><span class="n">Py</span><span class="p">,</span> <span class="n">Px_y</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    通过朴素贝叶斯进行概率估计
+</span></span></span><span class="line"><span class="cl"><span class="s2">    :param Py: 先验概率分布
+</span></span></span><span class="line"><span class="cl"><span class="s2">    :param Px_y: 条件概率分布
+</span></span></span><span class="line"><span class="cl"><span class="s2">    :param x: 要估计的样本x
+</span></span></span><span class="line"><span class="cl"><span class="s2">    :return: 返回所有label的估计概率
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 设置特征数目</span>
+</span></span><span class="line"><span class="cl">    <span class="n">featrueNum</span> <span class="o">=</span> <span class="n">AAA</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 设置类别数目</span>
+</span></span><span class="line"><span class="cl">    <span class="n">classNum</span> <span class="o">=</span> <span class="n">BBB</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 建立存放所有标记的估计概率数组</span>
+</span></span><span class="line"><span class="cl">    <span class="n">P</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">classNum</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 对于每一个类别，单独估计其概率</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">classNum</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 初始化sum为0，sum为求和项。</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 在训练过程中对概率进行了log处理，所以这里原先应当是连乘所有概率，最后比较哪个概率最大</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 但是当使用log处理时，连乘变成了累加，所以使用sum</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">sum</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 获取每一个条件概率值，进行累加</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">featrueNum</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">sum</span> <span class="o">+=</span> <span class="n">Px_y</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">][</span><span class="n">x</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 最后再和先验概率相加</span>
+</span></span><span class="line"><span class="cl">        <span class="n">P</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span> <span class="o">+</span> <span class="n">Py</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># max(P)：找到概率最大值</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># P.index(max(P))：找到该概率最大值对应的所有（索引值和标签值相等）</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">P</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">P</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">getAllProbability</span><span class="p">(</span><span class="n">trainDataArr</span><span class="p">,</span> <span class="n">trainLabelArr</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    通过训练集计算先验概率分布和条件概率分布
+</span></span></span><span class="line"><span class="cl"><span class="s2">    :param trainDataArr: 训练数据集
+</span></span></span><span class="line"><span class="cl"><span class="s2">    :param trainLabelArr: 训练标记集
+</span></span></span><span class="line"><span class="cl"><span class="s2">    :return: 先验概率分布和条件概率分布
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># AAA与BBB根据实际需要修改</span>
+</span></span><span class="line"><span class="cl">    <span class="n">featureNum</span> <span class="o">=</span> <span class="n">AAA</span>
+</span></span><span class="line"><span class="cl">    <span class="n">classNum</span> <span class="o">=</span> <span class="n">BBB</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 初始化先验概率分布存放数组，后续计算得到的P(Y = 0)放在Py[0]中，以此类推</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 数据长度为BBB行1列</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Py</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">classNum</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 对每个类别进行一次循环，分别计算它们的先验概率分布</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">classNum</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 下方式子拆开分析</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># np.mat(trainLabelArr) == i：将标签转换为矩阵形式，里面的每一位与i比较，若相等，该位变为Ture，反之False</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># np.sum(np.mat(trainLabelArr) == i):计算上一步得到的矩阵中Ture的个数，进行求和(直观上就是找所有label中有多少个为i的标记，求得4.8式P（Y = Ck）中的分子)</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># np.sum(np.mat(trainLabelArr) == i)) + 1</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># (len(trainLabelArr) + 10)：标签集的总长度+10.</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># ((np.sum(np.mat(trainLabelArr) == i)) + 1) / (len(trainLabelArr) + 10)：最后求得的先验概率</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Py</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mat</span><span class="p">(</span><span class="n">trainLabelArr</span><span class="p">)</span> <span class="o">==</span> <span class="n">i</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">trainLabelArr</span><span class="p">)</span> <span class="o">+</span> <span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 转换为log对数形式</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># log书中没有写到，但是实际中需要考虑到，原因是这样：</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 最后求后验概率估计的时候，形式是各项的相乘</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 1.某一项为0时，结果为0.</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 这个问题通过分子和分母加上一个相应的数可以排除，使用2.3节中提到的拉普拉斯平滑。</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 2.如果特征特别多，加一个先验概率分布一共很多项相乘，所有数都是0-1之间，结果一定是一个很小的接近0的数。理论上可以通过结果的大小值判断， 但在</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 程序运行中很可能会向下溢出无法比较，因为值太小了。所以人为把值进行log处理。此外连乘项通过log以后，可以变成各项累加，简化了计算。</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 在似然函数中通常会使用log的方式进行处理</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Py</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">Py</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 计算条件概率 Px_y=P（X=x|Y = y）</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 计算条件概率分成了两个步骤，下方第一个大for循环用于累加，下方第一个大for循环内部是用于计算的分子，至于分子的+1以及分母的计算在下方第二个大For内</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 初始化为全0矩阵，用于存放所有情况下的条件概率</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Px_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">classNum</span><span class="p">,</span> <span class="n">featureNum</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 对标记集进行遍历</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">trainLabelArr</span><span class="p">)):</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 获取当前循环所使用的标记</span>
+</span></span><span class="line"><span class="cl">        <span class="n">label</span> <span class="o">=</span> <span class="n">trainLabelArr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 获取当前要处理的样本</span>
+</span></span><span class="line"><span class="cl">        <span class="n">x</span> <span class="o">=</span> <span class="n">trainDataArr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 对该样本的每一维特诊进行遍历</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">featureNum</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># 在矩阵中对应位置加1</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># 这里还没有计算条件概率，先把所有数累加，全加完以后，在后续步骤中再求对应的条件概率</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Px_y</span><span class="p">[</span><span class="n">label</span><span class="p">][</span><span class="n">j</span><span class="p">][</span><span class="n">x</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 第二个大for，计算分母，以及分子和分母之间的除法</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 循环每一个标记（共10个）</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">classNum</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 循环每一个标记对应的每一个特征</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">featureNum</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># 获取y=label，第j个特诊为0的个数</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Px_y0</span> <span class="o">=</span> <span class="n">Px_y</span><span class="p">[</span><span class="n">label</span><span class="p">][</span><span class="n">j</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># 获取y=label，第j个特诊为1的个数</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Px_y1</span> <span class="o">=</span> <span class="n">Px_y</span><span class="p">[</span><span class="n">label</span><span class="p">][</span><span class="n">j</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># 对分子和分母进行相除，再除之前依据贝叶斯估计，分母需要加上每个特征可取值个数</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># 分别计算对于y = label，x第j个特征为0和1的条件概率分布</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Px_y</span><span class="p">[</span><span class="n">label</span><span class="p">][</span><span class="n">j</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">((</span><span class="n">Px_y0</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">Px_y0</span> <span class="o">+</span> <span class="n">Px_y1</span> <span class="o">+</span> <span class="mi">2</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Px_y</span><span class="p">[</span><span class="n">label</span><span class="p">][</span><span class="n">j</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">((</span><span class="n">Px_y1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">Px_y0</span> <span class="o">+</span> <span class="n">Px_y1</span> <span class="o">+</span> <span class="mi">2</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 返回先验概率分布和条件概率分布</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">Py</span><span class="p">,</span> <span class="n">Px_y</span>
+</span></span></code></pre></div>
+      
+    </div>
+    <footer class="article-footer">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+      <ul class="article-tag-list" itemprop="keywords">
+  
+    <li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e7%ae%97%e6%b3%95"
+        rel="tag"
+        >算法</a
+      >
+    </li>
+  
+    <li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e6%9c%ba%e5%99%a8%e5%ad%a6%e4%b9%a0"
+        rel="tag"
+        >机器学习</a
+      >
+    </li>
+  
+</ul>
+
+    </footer>
+  </div>
+  
+    
+  <nav
+    id="article-nav"
+    data-aos="fade-up"
+  >
+    
+      <div class="article-nav-link-wrap article-nav-link-left">
+        
+          <img
+            data-src="images/featureimages/11.jpg"
+            data-sizes="auto"
+            alt="PAT刷题记录一"
+            class="lazyload"
+          />
+        
+        <a href="/post/pat%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95%E4%B8%80/"></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">
+          
+            PAT刷题记录一
+          
+        </h3>
+      </div>
+    
+
+    
+      <div class="article-nav-link-wrap article-nav-link-right">
+        
+          <img
+            data-src="images/featureimages/10.jpg"
+            data-sizes="auto"
+            alt="PAT刷题记录二"
+            class="lazyload"
+          />
+        
+        <a href="/post/pat%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95%E4%BA%8C/"></a>
+        <div class="article-nav-caption">后一篇</div>
+        <h3 class="article-nav-title">
+          
+            PAT刷题记录二
+          
+        </h3>
+      </div>
+    
+  </nav>
+
+
+  
+</article>
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+</section>
+        </div>
+        
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+
+
+<footer id="footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info">
+    
+    <div>
+      <span class="icon-copyright"></span>
+      
+        2020 -
+        2025
+      
+      <span class="footer-info-sep "></span>
+      Demerzel
+    </div>
+    
+      <div>
+        基于&nbsp;<a
+          href="https://gohugo.io/"
+          target="_blank"
+          >Hugo</a
+        >&nbsp; Theme.<a
+          href="https://github.com/D-Sketon/hugo-theme-reimu"
+          target="_blank"
+          >Reimu</a
+        >
+      </div>
+    
+    
+      <div>
+        <span class="icon-brush"
+          >&nbsp;
+            155.1k
+          </span
+        >
+        &nbsp;|&nbsp;
+        <span class="icon-coffee">&nbsp;
+          
+          
+
+          05:36
+        </span>
+      </div>
+    
+    
+    
+    
+  </div>
+</footer>
+
+        
+          <div class="sidebar-top">
+            <div class="sidebar-top-taichi "></div>
+            <div class="arrow-up"></div>
+          </div>
+        
+        <div id="mask" class="hide"></div>
+      </div>
+      <nav id="mobile-nav">
+  <div class="sidebar-wrap">
+    
+      
+        <div class="sidebar-toc-sidebar">
+          <div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一基本形式">一、基本形式</a>
+      <ul>
+        <li><a href="#11-朴素贝叶斯法的基本方法">1.1 朴素贝叶斯法的基本方法</a></li>
+        <li><a href="#12-后验概率最大化的含义">1.2 后验概率最大化的含义</a></li>
+      </ul>
+    </li>
+    <li><a href="#二朴素贝叶斯法的参数估计">二、朴素贝叶斯法的参数估计</a>
+      <ul>
+        <li><a href="#21-极大似然估计">2.1 极大似然估计</a></li>
+        <li><a href="#22-学习与分类算法">2.2 学习与分类算法</a></li>
+        <li><a href="#23-贝叶斯估计">2.3 贝叶斯估计</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+        </div>
+        <div class="sidebar-common-sidebar hidden">
+          
+<div class="sidebar-author">
+  <img
+    data-src="/images/avatar.jpg"
+    data-sizes="auto"
+    alt="Demerzel"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">Demerzel</div>
+  <div class="sidebar-description">浮沉在世 人事变迁</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    
+    <div class="sidebar-state-number">51</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      18
+    </div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">28</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a
+        href="mailto:demerzelsun@gmail.com"
+        itemprop="url"
+        target="_blank"
+        aria-label="email"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a
+        href="https://github.com/demerzelsun12"
+        itemprop="url"
+        target="_blank"
+        aria-label="github"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+    <div class="icon-linkedin sidebar-social-icon">
+      <a
+        href="https://www.linkedin.com/in/xiao-sun-52a2a21b0/"
+        itemprop="url"
+        target="_blank"
+        aria-label="linkedin"
+        rel="noopener external nofollow noreferrer"
+      ></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">首页</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">归档</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">关于</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>
+        
+          
+            &#xe62b;
+          
+        
+      </div>
+      <div class="sidebar-menu-link">友链</div>
+    </div>
+  
+</div>
+
+        </div>
+      
+    
+  </div>
+  
+    
+      <div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div>
+    
+  
+</nav>
+
+    </div>
+    
+    
+    
+    
+
+
+
+
+
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"
+    
+    
+    
+    
+    integrity="sha384-3gT/vsepWkfz/ff7PpWNUeMzeWoH3cDhm/A8jM7ouoAK0/fP/9bcHHR5kHq2nf&#43;e" crossorigin="anonymous"
+  ></script>
+
+
+
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"
+    
+    
+    
+    
+    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"
+  ></script>
+
+
+
+
+
+
+
+
+
+
+
+  
+      
+      <script src="/js/main.js" ></script>
+      
+
+
+
+  
+
+
+
+
+
+  
+      
+      <script src="/js/aos.js" ></script>
+      
+
+  <script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", aosInit);
+    } else {
+      aosInit();
+    }
+  </script>
+
+
+
+
+
+
+
+
+  
+      
+      <script src="/js/pjax_main.js" data-pjax></script>
+      
+
+
+
+
+
+  
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/mouse-firework@0.1.1/dist/index.umd.js"
+    
+    
+    
+    
+    integrity="sha384-8LyaidD9GPxQQgLJO/WRw/O2h3BoNq/ApI/ecpvM6RsrCz2qP2ppBXUKihP4V/2d" crossorigin="anonymous"
+  ></script>
+
+
+<script>
+  if (window.firework) {
+    const options = JSON.parse("{\"excludeelements\":[\"a\",\"button\"],\"particles\":[{\"colors\":[\"var(--red-1)\",\"var(--red-2)\",\"var(--red-3)\",\"var(--red-4)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"emit\"],\"number\":20,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.3,0.5],\"radius\":[16,32]}},{\"colors\":[\"var(--red-0)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"diffuse\"],\"number\":1,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.2,0.5],\"lineWidth\":6,\"radius\":20}}]}");
+    options.excludeElements = options.excludeelements;
+    delete options.excludeelements;
+    window.firework(options);
+  }
+</script>
+
+
+
+
+
+
+
+
+<div id="lazy-script">
+  <div>
+    
+      
+      
+        
+      
+      <script data-pjax>
+        window.REIMU_POST = {
+          author: "Demerzel",
+          title: "朴素贝叶斯法",
+          url: "http:\/\/localhost:13926\/post\/%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E6%B3%95\/",
+          description: "感知机学习模型",
+          cover: "http:\/\/localhost:13926\/images\/featureimages\/8.jpg",
+        };
+      </script>
+    
+    
+    
+      
+
+
+
+
+
+  
+      
+      <script src="/js/insert_highlight.js" data-pjax></script>
+      
+
+      
+      
+      
+      
+      <script type="module" data-pjax>
+        
+        const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;
+        
+        const pswp = () => {
+          if (_$$('.article-entry a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-entry',
+              children: 'a.article-gallery-item',
+              
+              pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")
+              
+            }).init();
+          }
+          if(_$$('.article-gallery a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-gallery',
+              children: 'a.article-gallery-item',
+              
+              pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")
+              
+            }).init();
+          }
+          window.lightboxStatus = 'done';
+          window.removeEventListener('lightbox:ready', pswp);
+        }
+        if(window.lightboxStatus === 'ready') {
+          pswp()
+        } else {
+          window.addEventListener('lightbox:ready', pswp);
+        }
+      </script>
+      
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+      
+    
+    
+      
+      
+        <script data-pjax>
+          window.MathJax = JSON.parse("[{\"loader\":{\"load\":[\"input/asciimath\",\"[tex]/noerrors\"]},\"options\":{\"ignoreHtmlClass\":\"tex2jax_ignore\",\"processHtmlClass\":\"tex2jax_process\",\"skipHtmlTags\":[\"script\",\"noscript\",\"style\",\"textarea\",\"pre\",\"code\"]},\"tex\":{\"autoload\":{\"color\":[],\"colorv2\":[\"color\"]},\"displayMath\":[[\"$$\",\"$$\"],[\"\\\\\\\\[\",\"\\\\\\\\]\"]],\"inlineMath\":[[\"$\",\"$\"],[\"\\\\\\\\(\",\"\\\\\\\\)\"]],\"packages\":{\"[+]\":[\"noerrors\"]},\"processEnvironments\":true,\"processEscapes\":true,\"tags\":\"ams\",\"useLabelIds\":true}}]")[0];
+        </script>
+        
+
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  <script
+    src="https://npm.webcache.cn/mathjax@3.2.2/es5/tex-mml-chtml.js"
+    defer
+    
+    data-pjax
+    
+    integrity="sha384-Wuix6BuhrWbjDBs24bXrjf4ZQ5aFeFWBuKkFekO2t8xFU0iNaLQfp2K6/1Nxveei" crossorigin="anonymous"
+  ></script>
+
+
+      
+    
+  </div>
+</div>
+
+
+
+
+
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+  </script>
+
+
+<script>
+  const reimuCopyright = String.raw`
+   ______     ______     __     __    __     __  __    
+  /\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+  \ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+   \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+    \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                    
+  `;
+  console.log(String.raw`%c ${reimuCopyright}`, "color: #ff5252;");
+  console.log(
+    "%c Theme.Reimu" + " %c https://github.com/D-Sketon/hugo-theme-reimu ",
+    "color: white; background: #ff5252; padding:5px 0;",
+    "padding:4px;border:1px solid #ff5252;",
+  );
+</script>
+
+
+
+
+
+
+    
+  </body>
+</html>

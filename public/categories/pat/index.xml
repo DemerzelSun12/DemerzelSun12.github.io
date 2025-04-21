@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>PAT on Demerzel&#39;s Blog</title>
+    <link>http://localhost:13926/categories/pat/</link>
+    <description>Recent content in PAT on Demerzel&#39;s Blog</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 07 Sep 2020 15:04:34 +0000</lastBuildDate>
+    <atom:link href="http://localhost:13926/categories/pat/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>PAT刷题记录二</title>
+      <link>http://localhost:13926/post/pat%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95%E4%BA%8C/</link>
+      <pubDate>Mon, 07 Sep 2020 15:04:34 +0000</pubDate>
+      <guid>http://localhost:13926/post/pat%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95%E4%BA%8C/</guid>
+      <description>PAT甲级1004~1006</description>
+    </item>
+    <item>
+      <title>PAT刷题记录一</title>
+      <link>http://localhost:13926/post/pat%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95%E4%B8%80/</link>
+      <pubDate>Tue, 01 Sep 2020 15:04:34 +0000</pubDate>
+      <guid>http://localhost:13926/post/pat%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95%E4%B8%80/</guid>
+      <description>PAT甲级1001~1003</description>
+    </item>
+  </channel>
+</rss>

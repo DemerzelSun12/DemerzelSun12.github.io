@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>笔记 on Demerzel&#39;s Blog</title>
+    <link>http://localhost:13926/tags/%E7%AC%94%E8%AE%B0/</link>
+    <description>Recent content in 笔记 on Demerzel&#39;s Blog</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 30 May 2022 11:30:58 +0000</lastBuildDate>
+    <atom:link href="http://localhost:13926/tags/%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>模式识别与深度学习复习笔记</title>
+      <link>http://localhost:13926/post/%E6%A8%A1%E5%BC%8F%E8%AF%86%E5%88%AB%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Mon, 30 May 2022 11:30:58 +0000</pubDate>
+      <guid>http://localhost:13926/post/%E6%A8%A1%E5%BC%8F%E8%AF%86%E5%88%AB%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+      <description>模式识别与深度学习</description>
+    </item>
+    <item>
+      <title>不能使用泛型的几种情况</title>
+      <link>http://localhost:13926/post/%E4%B8%8D%E8%83%BD%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%9A%84%E5%87%A0%E7%A7%8D%E6%83%85%E5%86%B5/</link>
+      <pubDate>Tue, 28 Apr 2020 15:46:00 +0000</pubDate>
+      <guid>http://localhost:13926/post/%E4%B8%8D%E8%83%BD%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%9A%84%E5%87%A0%E7%A7%8D%E6%83%85%E5%86%B5/</guid>
+      <description>&lt;h1 id=&#34;软件构造笔记-java-中不能使用泛型的几种情况&#34;&gt;&#xD;&#xA;&lt;a class=&#34;header-anchor&#34; href=&#34;#%e8%bd%af%e4%bb%b6%e6%9e%84%e9%80%a0%e7%ac%94%e8%ae%b0-java-%e4%b8%ad%e4%b8%8d%e8%83%bd%e4%bd%bf%e7%94%a8%e6%b3%9b%e5%9e%8b%e7%9a%84%e5%87%a0%e7%a7%8d%e6%83%85%e5%86%b5&#34;&gt;&lt;/a&gt;&#xD;&#xA;软件构造笔记-Java 中不能使用泛型的几种情况&#xD;&#xA;&lt;/h1&gt;&lt;!-- toc --&gt;</description>
+    </item>
+  </channel>
+</rss>
