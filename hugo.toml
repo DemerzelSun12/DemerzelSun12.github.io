@@ -41,7 +41,4 @@ delimiters.inline = [["\\(", "\\)"], ["$", "$"]]
     [markup.goldmark.renderer]
       unsafe = true
 
-# support md style image modify size
-[markup]
-  defaultMarkdownHandler = 'goldmark'
 
